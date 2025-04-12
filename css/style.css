@@ -1,0 +1,385 @@
+/* General Styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+    line-height: 1.6;
+    color: #333;
+    background-color: #f5f5f5;
+}
+
+.container {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+    padding: 0 20px;
+}
+
+a {
+    color: #4682B4;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+/* Header */
+header {
+    background-color: white;
+    border-bottom: 1px solid #eaeaea;
+    padding: 15px 0;
+    margin-bottom: 30px;
+}
+
+header .container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.name {
+    font-size: 22px;
+    font-weight: 500;
+    color: #333;
+}
+
+nav ul {
+    display: flex;
+    list-style: none;
+}
+
+nav ul li {
+    margin-left: 30px;
+}
+
+nav ul li a {
+    color: #666;
+    font-weight: 500;
+    padding: 5px 0;
+    transition: color 0.3s;
+}
+
+nav ul li a:hover, 
+nav ul li a.active {
+    color: #4682B4;
+    text-decoration: none;
+}
+
+/* Main Content Layout */
+.main-content {
+    display: flex;
+    gap: 30px;
+}
+
+/* Sidebar */
+.sidebar {
+    flex: 0 0 200px; /* Fixed width sidebar */
+}
+
+.profile-image {
+    width: 150px;
+    height: 150px;
+    overflow: hidden;
+    border-radius: 50%;
+    margin-bottom: 30px;
+}
+
+.profile-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+.profile-links {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+.profile-links a {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    color: #666;
+    transition: color 0.3s;
+}
+
+.profile-links a:hover {
+    color: #4682B4;
+}
+
+.icon {
+    font-size: 1.2em;
+    min-width: 20px;
+}
+
+/* Content Section */
+.content {
+    flex: 1; /* Takes remaining space */
+    background-color: white;
+    padding: 30px;
+    border-radius: 5px;
+    box-shadow: 0 1px 3px rgba(0, 0, 0, 0.1);
+}
+
+.content section {
+    margin-bottom: 40px;
+    padding-bottom: 40px;
+    border-bottom: 1px solid #eee;
+}
+
+.content section:last-child {
+    margin-bottom: 0;
+    padding-bottom: 0;
+    border-bottom: none;
+}
+
+h2 {
+    color: #4682B4;
+    margin-bottom: 20px;
+    font-size: 24px;
+    font-weight: 500;
+}
+
+h3 {
+    margin-bottom: 8px;
+    color: #333;
+    font-size: 18px;
+    font-weight: 500;
+}
+
+p {
+    margin-bottom: 15px;
+    color: #444;
+}
+
+/* Education and Experience */
+.education-item, .experience-item {
+    margin-bottom: 25px;
+}
+
+.education-item:last-child, .experience-item:last-child {
+    margin-bottom: 0;
+}
+
+.education-item p, .experience-item p {
+    margin-bottom: 5px;
+}
+
+.experience-item ul {
+    margin-left: 20px;
+    margin-bottom: 10px;
+}
+
+.experience-item li {
+    margin-bottom: 5px;
+    color: #555;
+}
+
+/* News Items with Bullet Points */
+.news-list {
+    list-style-type: none;
+    margin-left: 5px;
+}
+
+.news-list li {
+    margin-bottom: 12px;
+    position: relative;
+    padding-left: 15px;
+}
+
+.news-list li:before {
+    content: "•";
+    position: absolute;
+    left: 0;
+    color: #4682B4;
+}
+
+.news-list li strong {
+    font-weight: 600;
+    color: #333;
+}
+
+/* Publications */
+.publication {
+    margin-bottom: 30px;
+    padding-bottom: 30px;
+    border-bottom: 1px solid #eee;
+}
+
+.publication:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+.publication-wrapper {
+    display: flex;
+    gap: 20px;
+}
+
+.publication-poster {
+    flex: 0 0 200px;
+    height: 250px;
+}
+
+.pdf-object {
+    width: 100%;
+    height: 100%;
+    border: 1px solid #eee;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: transform 0.2s;
+}
+
+.pdf-object:hover {
+    transform: scale(1.02);
+}
+
+.publication-info {
+    flex: 1;
+}
+
+.publication h3 {
+    margin-bottom: 5px;
+    font-size: 18px;
+}
+
+.authors {
+    color: #666;
+    margin-bottom: 8px;
+    font-size: 15px;
+}
+
+.demo-link {
+    margin-bottom: 10px;
+    font-size: 14px;
+}
+
+.demo-link a {
+    color: #4682B4;
+    font-weight: 500;
+}
+
+.conference {
+    color: #666;
+    margin-bottom: 12px;
+    font-size: 14px;
+    font-style: italic;
+}
+
+.abstract-short {
+    color: #555;
+    font-size: 15px;
+    line-height: 1.5;
+}
+
+.abstract-full {
+    color: #555;
+    font-size: 15px;
+    line-height: 1.5;
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px dashed #eee;
+}
+
+.read-more, .read-less {
+    display: inline-block;
+    margin-left: 5px;
+    font-weight: 500;
+    color: #4682B4;
+}
+
+/* Modal for PDF Display */
+.modal {
+    display: none;
+    position: fixed;
+    z-index: 1000;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    background-color: rgba(0, 0, 0, 0.9);
+}
+
+.pdf-container {
+    width: 90%;
+    height: 90%;
+    max-width: 1200px;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    background-color: #fff;
+    border-radius: 5px;
+    overflow: hidden;
+}
+
+.modal-pdf-content {
+    width: 100%;
+    height: 100%;
+    border: none;
+}
+
+.close {
+    position: absolute;
+    top: 15px;
+    right: 35px;
+    color: #f1f1f1;
+    font-size: 40px;
+    font-weight: bold;
+    transition: 0.3s;
+    z-index: 1001;
+}
+
+.close:hover,
+.close:focus {
+    color: #bbb;
+    text-decoration: none;
+    cursor: pointer;
+}
+
+/* Footer */
+footer {
+    text-align: center;
+    padding: 20px 0;
+    margin-top: 50px;
+    color: #666;
+    font-size: 14px;
+}
+
+/* Media Queries for Responsive Design */
+@media screen and (max-width: 768px) {
+    .main-content {
+        flex-direction: column;
+    }
+    
+    .sidebar {
+        flex: none;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        margin-bottom: 30px;
+    }
+    
+    .profile-links {
+        align-items: center;
+    }
+    
+    .publication-wrapper {
+        flex-direction: column;
+    }
+    
+    .publication-poster {
+        flex: none;
+        margin-bottom: 15px;
+        max-width: 100%;
+        height: 200px;
+    }
+}

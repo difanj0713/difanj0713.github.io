@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Difan Jiao - Publications</title>
+    <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+    <header>
+        <div class="container">
+            <h1 class="name">Difan Jiao</h1>
+            <nav>
+                <ul>
+                    <li><a href="index.html">About</a></li>
+                    <li><a href="experience.html">Experience</a></li>
+                    <li><a href="publications.html" class="active">Publications</a></li>
+                </ul>
+            </nav>
+        </div>
+    </header>
+
+    <main>
+        <div class="container main-content">
+            <div class="sidebar">
+                <div class="profile-image">
+                    <img src="images/profile.jpg" alt="Difan Jiao">
+                </div>
+                <div class="profile-links">
+                    <a href="mailto:difanjiao@cs.toronto.edu"><span class="icon">✉️</span> Email</a>
+                    <a href="https://github.com/difanj0713"><span class="icon">💻</span> Github</a>
+                    <a href="https://www.linkedin.com/in/difan-jiao/"><span class="icon">🔗</span> LinkedIn</a>
+                    <a href="https://scholar.google.com/citations?user=HTuHhzQAAAAJ&hl=zh-CN"><span class="icon">📚</span> Google Scholar</a>
+                </div>
+            </div>
+
+            <div class="content">
+                <h2>Publications</h2>
+                
+                <div class="publication">
+                    <div class="publication-wrapper">
+                        <div class="publication-poster">
+                            <img src="images/maia2-poster.pdf" alt="Maia-2 Poster" class="poster-thumbnail" onclick="openPosterModal('images/maia2-poster.pdf')">
+                        </div>
+                        <div class="publication-info">
+                            <h3>[NeurIPS 2024] <a href="https://arxiv.org/pdf/2409.20553">Maia-2: A Unified Model for Human-AI Alignment in Chess</a></h3>
+                            <p class="authors">Zhenwei Tang, <strong>Difan Jiao</strong>, Reid McIlroy-Young, Jon Kleinberg, Siddhartha Sen, Ashton Anderson</p>
+                            <p class="abstract-short">
+                                There are an increasing number of domains in which artificial intelligence (AI) systems both surpass human ability and accurately model human behavior...
+                                <a href="#" class="read-more" data-publication-id="maia2">Read more</a>
+                            </p>
+                            <div class="abstract-full" id="maia2-abstract" style="display: none;">
+                                There are an increasing number of domains in which artificial intelligence (AI) systems both surpass human ability and accurately model human behavior. This introduces the possibility of algorithmically-informed teaching in these domains through more relatable AI partners and deeper insights into human decision-making. Critical to achieving this goal, however, is coherently modeling human behavior at various skill levels. Chess is an ideal model system for conducting research into this kind of human-AI alignment, with its rich history as a pivotal testbed for AI research, mature superhuman AI systems like AlphaZero, and precise measurements of skill via chess rating systems. Previous work in modeling human decision-making in chess uses completely independent models to capture human style at different skill levels, meaning they lack coherence in their ability to adapt to the full spectrum of human improvement and are ultimately limited in their effectiveness as AI partners and teaching tools. In this work, we propose a unified modeling approach for human-AI alignment in chess that coherently captures human style across different skill levels and directly captures how people improve. Recognizing the complex, non-linear nature of human learning, we introduce a skill-aware attention mechanism to dynamically integrate players' strengths with encoded chess positions, enabling our model to be sensitive to evolving player skill. Our experimental results demonstrate that this unified framework significantly enhances the alignment between AI and human players across a diverse range of expertise levels, paving the way for deeper insights into human decision-making and AI-guided teaching tools.
+                                <a href="#" class="read-less" data-publication-id="maia2">Read less</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="publication">
+                    <div class="publication-wrapper">
+                        <div class="publication-poster">
+                            <img src="images/spin-poster.pdf" alt="SPIN Poster" class="poster-thumbnail" onclick="openPosterModal('images/spin-poster.pdf')">
+                        </div>
+                        <div class="publication-info">
+                            <h3>[ACL 2024 Findings] <a href="https://arxiv.org/pdf/2311.15983">SPIN: Sparsifying and Integrating Internal Neurons in Large Language Models for Text Classification</a></h3>
+                            <p class="authors"><strong>Difan Jiao</strong>, Yilun Liu, Zhenwei Tang, Daniel Matter, Jürgen Pfeffer, Ashton Anderson</p>
+                            <p class="abstract-short">
+                                Among the many tasks that Large Language Models (LLMs) have revolutionized is text classification. Current text classification paradigms, however, rely solely on the output of the final layer in the LLM...
+                                <a href="#" class="read-more" data-publication-id="spin">Read more</a>
+                            </p>
+                            <div class="abstract-full" id="spin-abstract" style="display: none;">
+                                Among the many tasks that Large Language Models (LLMs) have revolutionized is text classification. Current text classification paradigms, however, rely solely on the output of the final layer in the LLM, with the rich information contained in internal neurons largely untapped. In this study, we present SPIN: a model-agnostic framework that sparsifies and integrates internal neurons of intermediate layers of LLMs for text classification. Specifically, SPIN sparsifies internal neurons by linear probing-based salient neuron selection layer by layer, avoiding noise from unrelated neurons and ensuring efficiency. The cross-layer salient neurons are then integrated to serve as multi-layered features for the classification head. Extensive experimental results show our proposed SPIN significantly improves text classification accuracy, efficiency, and interpretability.
+                                <a href="#" class="read-less" data-publication-id="spin">Read less</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <div class="publication">
+                    <h3>[Preprint] Understanding Mechanisms of Skill Adaptation in Generative Models: Chess as a Model System</h3>
+                    <p class="authors"><strong>Difan Jiao</strong>, George Eilender, Zhenwei Tang, Ashton Anderson</p>
+                    <p class="conference">IC2S2 2025 Conference Submission (24 Feb 2025, modified: 10 Mar 2025)</p>
+                    <p class="abstract-short">
+                        Generative models exhibit a remarkable ability to adapt their outputs to different skill levels, ranging from beginner to expert in various domains...
+                        <a href="#" class="read-more" data-publication-id="skill">Read more</a>
+                    </p>
+                    <div class="abstract-full" id="skill-abstract" style="display: none;">
+                        Generative models exhibit a remarkable ability to adapt their outputs to different skill levels, ranging from beginner to expert in various domains. However, understanding the mechanisms behind skill adaptation remains an open challenge. We address this gap by introducing chess as a model system, leveraging its well-defined structure and clear strength gradients to investigate how Maia-2, a chess model that generates human-like next moves across varying strengths, internally represents and adapts to different skill levels. We start by proposing two possible but mutually exclusive skill adaptation mechanisms: the model dynamically adjusts its internal concept understanding to match different skill levels, or the model maintains a consistent internal understanding while modulating how it externalizes that understanding. To evaluate the hypotheses, we introduce a rigorous framework based on sparse autoencoders, linear probing, and chess theory that quantifies and manipulates concept understanding and externalization to find or refute each piece of evidence required for validating the hypotheses. Our results strongly support the latter hypothesis. Our analysis demonstrates how mechanistic interpretability methods can be applied to understand and manipulate skill in generative models and illustrates the specific mechanisms by which models can mimic human behavior across skill levels.
+                        <a href="#" class="read-less" data-publication-id="skill">Read less</a>
+                    </div>
+                </div>
+                
+                <div class="publication">
+                    <h3>[Preprint] Learning to Imitate with Less: Efficient Individual Behavior Modeling in Chess</h3>
+                    <p class="authors">Zhenwei Tang, <strong>Difan Jiao</strong>, Eric Xue, Reid McIlroy-Young, Jon Kleinberg, Siddhartha Sen, Ashton Anderson</p>
+                    <p class="conference">KDD 2025 Research Track Submission (04 Feb 2025, modified: 16 Feb 2025)</p>
+                    <p class="abstract-short">
+                        As humans seek to collaborate with, learn from, and better understand artificial intelligence systems, developing AIs that can accurately emulate individual decision-making becomes increasingly important...
+                        <a href="#" class="read-more" data-publication-id="imitate">Read more</a>
+                    </p>
+                    <div class="abstract-full" id="imitate-abstract" style="display: none;">
+                        As humans seek to collaborate with, learn from, and better understand artificial intelligence systems, developing AIs that can accurately emulate individual decision-making becomes increasingly important. Chess, a long-standing AI benchmark with precise skill measurement, offers an ideal testbed for human-AI alignment. However, existing approaches to modeling human behavior require large amounts of data from each individual, making them impractical for new or sparsely represented users. In this work, we introduce Maia4All, a framework designed to learn and adapt to individual decision-making styles efficiently, even with limited data. Maia4All achieves this through a two-stage optimization process: (1) the enrichment step, which bridges population and individual-level human behavior modeling with a prototype-enriched model, and (2) the democratization step, which leverages strengths or prototypes to initialize and refine individual embeddings with minimal data. Our experimental results show that Maia4All can accurately predict individual moves and profile behavioral patterns with high fidelity, establishing a new standard for personalized human-like AI behavior modeling in chess. Our work provides an example of how population AI systems can flexibly adapt to individual users using a prototype-enriched model as a bridge. This approach extends beyond chess, as shown in our case study on idiosyncratic LLMs, highlighting its potential for broader applications in personalized AI adaptation.
+                        <a href="#" class="read-less" data-publication-id="imitate">Read less</a>
+                    </div>
+                </div>
+                
+                <div class="publication">
+                    <h3>[Preprint] SEAM: Semantically Equivalent Across Modalities Benchmark for Vision-Language Models</h3>
+                    <p class="authors">Zhenwei Tang, <strong>Difan Jiao</strong>, Blair Yang, Ashton Anderson</p>
+                    <p class="conference">COLM 2025 Conference Submission (21 Mar 2025, modified: 08 Apr 2025)</p>
+                    <p class="abstract-short">
+                        The rapid advancement of large vision-language models (VLMs) has introduced challenges in evaluating their reasoning across multiple modalities...
+                        <a href="#" class="read-more" data-publication-id="seam">Read more</a>
+                    </p>
+                    <div class="abstract-full" id="seam-abstract" style="display: none;">
+                        The rapid advancement of large vision-language models (VLMs) has introduced challenges in evaluating their reasoning across multiple modalities. Existing benchmarks provide limited insights into how models understand and reason over semantically equivalent information across modalities, which is crucial because a robust model should demonstrate consistent comprehension regardless of how information is represented. To address this gap, we introduce SEAM, a benchmark dataset for cross-modal reasoning that ensures semantically equivalent inputs are presented in distinct and standardized notations. By employing fundamentally distinct notation systems across modalities, in contrast to OCR-based image-text pairing, our benchmark provides a rigorous assessment of the textual-symbolic versus visual-spatial reasoning capabilities of VLMs in chess, chemistry, music, and graph theory. Our findings highlight key limitations in current VLMs and inform future advancements in cross-modal reasoning.
+                        <a href="#" class="read-less" data-publication-id="seam">Read less</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <footer>
+        <div class="container">
+            <p>&copy; 2025 Difan Jiao</p>
+        </div>
+    </footer>
+
+    <!-- Modal for poster display -->
+    <div id="posterModal" class="modal">
+        <span class="close" onclick="closePosterModal()">&times;</span>
+        <img id="modalPosterImage" class="modal-content">
+    </div>
+
+    <script src="js/main.js"></script>
+</body>
+</html>
