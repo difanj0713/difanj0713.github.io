@@ -225,7 +225,10 @@ p {
 
 .publication-poster {
     flex: 0 0 200px;
+    width: 200px;
+    min-width: 0;
     height: 250px;
+    overflow: hidden;
 }
 
 .paper-thumbnail-link {
