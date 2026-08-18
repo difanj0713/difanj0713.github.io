@@ -695,7 +695,7 @@ h1.title {
 
 .back {
   font-family: var(--mono);
-  font-size: 0.74rem;
+  font-size: 0.86rem;
   letter-spacing: 0.14em;
   text-transform: uppercase;
   color: var(--ink-3);
@@ -1063,6 +1063,15 @@ h1.title {
 .paper-authors .eq {
   color: inherit;
   padding-left: 0.05em;
+}
+
+/* Institutes belong on their own row, under the three labs. */
+.people .rowbreak {
+  flex-basis: 100%;
+  height: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
 }
 
 .people li a {
