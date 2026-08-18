@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Agent-SIREN &middot; The SPIN-Universe</title>
+<meta name="description" content="Agent-SIREN: guards miss unsafe tool use because their output drops it, not because they cannot see it. A 2,561-parameter linear probe reads it back.">
+<link rel="canonical" href="https://difanj0713.github.io/spin-universe/agent-siren/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="Agent-SIREN &middot; The SPIN-Universe">
+<meta property="og:description" content="Agent-SIREN: guards miss unsafe tool use because their output drops it, not because they cannot see it. A 2,561-parameter linear probe reads it back.">
+<link rel="stylesheet" href="../assets/css/site.css">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%2305070d'/%3E%3Crect x='7' y='6' width='18' height='3' rx='1.5' fill='%23e0455f'/%3E%3Crect x='7' y='12' width='18' height='3' rx='1.5' fill='%237d8dff'/%3E%3Crect x='7' y='18' width='11' height='3' rx='1.5' fill='%237d8dff' opacity='.55'/%3E%3Crect x='7' y='24' width='6' height='3' rx='1.5' fill='%23a9b1c7' opacity='.35'/%3E%3C/svg%3E">
+</head>
+<body>
+
+<header class="layer solid paper-hero">
+  <div class="shell">
+    <a class="back" href="../">&larr; The SPIN-Universe</a>
+    <p class="eyebrow">Agent trajectories &middot; <b>Preprint</b></p>
+    <h1 class="paper-title">Agent-SIREN</h1>
+    <p class="paper-full">Detecting Harmful Agent Trajectories from LLM Internal Representations</p>
+    <p class="authors"><b>Difan Jiao</b>, Ashton Anderson</p>
+    <div class="links">
+      <a class="chip" href="https://github.com/CSSLab/agent-siren">Code</a>
+      <a class="chip" href="https://huggingface.co/difanjiao/Agent-SIREN-Qwen3-4B">Model</a>
+      <a class="chip" href="https://pypi.org/project/llm-siren/">pip install llm-siren</a>
+    </div>
+  </div>
+</header>
+
+<main class="layer solid section paper-body">
+  <div class="shell">
+   <div class="prose">
+    <h2>The idea</h2>
+    <p>An agent acts through tools, so its mistakes cost more than a chatbot's. But a trajectory can be unsafe in two quite different ways. <b>Harmful content</b> is stated outright, which is what content moderation was built to catch. <b>Unsafe tool use</b> turns on whether an action is consistent with the interaction that produced it: the right vendor, the right amount, the wrong authorisation. No single message in such a trajectory reads as harmful on its own.</p>
+    <p>To separate the two we built matched pairs. For tool use, two trajectories with byte&#8209;identical messages and byte&#8209;identical final actions, differing only in the schema of the tool that action calls. For content, two rollouts of the same scenario with the same toolkit, differing in what the agent says.</p>
+
+    <h2>What it showed</h2>
+    <p>On those pairs, the leading open guards' own verdicts separate harmful content well above chance and sit <b>at chance</b> on unsafe tool use. Reading the same models internally tells a different story: a linear direction estimated out of fold orders the tool&#8209;use pairs correctly up to <b>0.94 inside the guards and 0.98 inside the general&#8209;purpose backbones</b> they were tuned from, peaking in the middle layers and falling off toward the final one, which is exactly the state a generative guard reads its label from.</p>
+    <p>The two forms of risk also follow <b>near&#8209;orthogonal internal directions</b>, so supervision for one should not be expected to deliver the other. That is what motivates the guard: one linear score can carry both, and it does so from different coordinates.</p>
+    <p>The resulting readout is a single linear probe on one validation&#8209;selected hidden state of a frozen backbone: <b>2,561 trainable parameters</b>. Across six trajectory&#8209;safety benchmarks, held out one at a time, it reached the highest mean macro&#8209;F1 of the open guard checkpoints we evaluated. Under matched training data it is <b>on par with fully fine&#8209;tuning the same backbone</b>, and because it reads representations rather than replacing them, fitting it on top of that fine&#8209;tune improves the result again.</p>
+    <div class="stub">
+      This page is a placeholder while the full write-up is prepared. In the meantime the
+      paper, the code and the models above are the complete record.
+    </div>
+   </div>
+  </div>
+</main>
+
+<footer class="layer solid foot">
+  <div class="shell">
+    <a class="back" style="margin:0;" href="../">&larr; Back to the four papers</a>
+  </div>
+</footer>
+
+</body>
+</html>
