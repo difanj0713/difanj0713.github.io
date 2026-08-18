@@ -964,7 +964,7 @@ h1.title {
 .roster {
   display: grid;
   grid-template-columns: repeat(4, minmax(0, 1fr));
-  gap: 2.4rem 1.6rem;
+  gap: 2rem 1.6rem;
   list-style: none;
   margin: 0;
   padding: 0;
@@ -989,14 +989,14 @@ h1.title {
 .avatar-blank {
   display: block;
   width: 100%;
-  max-width: 9.6rem;
+  max-width: 6.6rem;
   /* height:auto is load-bearing: the width/height attributes on <img> are
      presentation hints, and without this the 480px height wins and the
      circle renders as an ellipse. */
   height: auto;
   aspect-ratio: 1 / 1;
   border-radius: 50%;
-  margin: 0 0 1rem;
+  margin: 0 0 0.85rem;
   background: #0c1020;
   box-shadow: 0 0 0 1px var(--line), 0 10px 30px rgba(0, 0, 0, 0.35);
   transition: box-shadow 220ms ease, transform 220ms ease;
@@ -1008,7 +1008,7 @@ h1.title {
   display: grid;
   place-items: center;
   font-family: var(--mono);
-  font-size: 1.5rem;
+  font-size: 1.05rem;
   letter-spacing: 0.06em;
   color: var(--ink-3);
   box-shadow: 0 0 0 1px var(--line-soft);
@@ -1023,7 +1023,7 @@ h1.title {
 }
 
 .person .who-name {
-  font-size: 1.04rem;
+  font-size: 0.98rem;
   font-weight: 600;
   letter-spacing: -0.012em;
   margin: 0 0 0.28rem;
@@ -1035,8 +1035,10 @@ h1.title {
 .person .who-role,
 .person .who-aff {
   margin: 0;
-  font-size: 0.86rem;
-  line-height: 1.42;
+  /* Small enough that every title, Ashton's included, holds one line. */
+  font-size: 0.78rem;
+  line-height: 1.45;
+  white-space: nowrap;
 }
 
 .person .who-role { color: var(--ink-2); }
@@ -1050,14 +1052,12 @@ h1.title {
 }
 
 .roster.lead .avatar,
-.roster.lead .avatar-blank { max-width: 11rem; }
+.roster.lead .avatar-blank { max-width: 7.2rem; }
 
-/* Ashton's title runs to two lines; reserve them so both leads' affiliations
-   sit on the same baseline. */
-.roster.lead .who-role { min-height: 2.84em; }
-
-@media (max-width: 560px) {
-  .roster.lead .who-role { min-height: 0; }
+/* Narrow columns cannot hold a full title on one line, so let it wrap there. */
+@media (max-width: 900px) {
+  .person .who-role,
+  .person .who-aff { white-space: normal; }
 }
 
 .team-note {
