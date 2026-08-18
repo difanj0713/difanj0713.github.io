@@ -94,14 +94,13 @@ a {
   background: var(--bg);
 }
 
+/* Fixed-height fades, not percentages: a percentage fade on a tall section
+   lands in the middle of the last element instead of below it. */
 .solid-top {
-  background: linear-gradient(
-    180deg,
-    rgba(5, 7, 13, 0) 0%,
-    var(--bg) 16%,
-    var(--bg) 84%,
-    rgba(5, 7, 13, 0) 100%
-  );
+  background:
+    linear-gradient(180deg, rgba(5, 7, 13, 0) 0, var(--bg) 11rem) top / 100% 11rem no-repeat,
+    linear-gradient(0deg, rgba(5, 7, 13, 0) 0, var(--bg) 9rem) bottom / 100% 9rem no-repeat,
+    var(--bg);
 }
 
 /* ------------------------------------------------------------------- nav */
@@ -188,12 +187,6 @@ a {
 }
 
 .pin::before {
-  background: linear-gradient(
-    5deg,
-    rgba(5, 7, 13, 0.93) 0%,
-    rgba(5, 7, 13, 0.6) 26%,
-    rgba(5, 7, 13, 0) 52%
-  );
   z-index: 0;
 }
 
@@ -204,7 +197,7 @@ a {
 
 .eyebrow {
   font-family: var(--mono);
-  font-size: 0.74rem;
+  font-size: clamp(0.8rem, 1.05vw, 0.92rem);
   letter-spacing: 0.22em;
   text-transform: uppercase;
   color: var(--ink-3);
@@ -217,11 +210,14 @@ a {
 }
 
 h1.title {
-  font-size: clamp(2.6rem, 7.2vw, 5.2rem);
-  line-height: 0.98;
+  /* One line, always: a wordmark that wraps after "The" reads like a mistake. */
+  white-space: nowrap;
+  max-width: none;
+  font-size: clamp(1.95rem, 5.3vw, 4.55rem);
+  line-height: 1.02;
   letter-spacing: -0.035em;
   font-weight: 680;
-  margin: 0 0 1.6rem;
+  margin: 0 0 1.5rem;
 }
 
 .lede {
@@ -413,11 +409,12 @@ h1.title {
 
 .panel {
   position: absolute;
-  bottom: clamp(3rem, 9vh, 6rem);
+  top: 50%;
   left: var(--gut);
   max-width: 34rem;
   opacity: 0;
-  transform: translateY(14px);
+  /* JS animates --rise only, so the centring offset survives. */
+  transform: translateY(calc(-50% + var(--rise, 14px)));
   will-change: opacity, transform;
 }
 
@@ -813,4 +810,151 @@ h1.title {
 .prose h2:first-child,
 .prose > h2:first-of-type {
   margin-top: 0;
+}
+
+/* ------------------------------------------------------ where this applies */
+
+.applies {
+  margin-top: clamp(3.5rem, 8vw, 6rem);
+  padding: clamp(1.8rem, 3.6vw, 2.8rem);
+  border: 1px solid var(--line-soft);
+  border-radius: 18px;
+  background: linear-gradient(180deg, rgba(125, 141, 255, 0.045), rgba(125, 141, 255, 0));
+  max-width: 62rem;
+}
+
+.applies h3 {
+  margin: 0 0 1rem;
+  font-size: clamp(1.3rem, 2.6vw, 1.7rem);
+  letter-spacing: -0.02em;
+  font-weight: 580;
+}
+
+.applies-lede {
+  margin: 0 0 1.6rem;
+  color: var(--ink-2);
+  max-width: 62ch;
+  font-size: 1.03rem;
+}
+
+.applies-lede b,
+.applies-list b {
+  color: var(--ink);
+  font-weight: 580;
+}
+
+.applies-list {
+  list-style: none;
+  margin: 0 0 1.6rem;
+  padding: 0;
+  display: grid;
+  gap: 0.85rem;
+  border-top: 1px solid var(--line-soft);
+  padding-top: 1.4rem;
+}
+
+.applies-list li {
+  color: var(--ink-2);
+  padding-left: 1.4rem;
+  position: relative;
+  max-width: 62ch;
+}
+
+.applies-list li::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 0.72em;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--indigo);
+}
+
+.applies-foot {
+  margin: 0;
+  color: var(--ink-3);
+  font-size: 0.96rem;
+  max-width: 62ch;
+  border-top: 1px solid var(--line-soft);
+  padding-top: 1.3rem;
+}
+
+/* ------------------------------------------------------------------- team */
+
+.team-group {
+  margin-bottom: clamp(2.5rem, 5vw, 3.5rem);
+}
+
+.team-group h2 {
+  font-size: 0.72rem;
+  font-family: var(--mono);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+  font-weight: 500;
+  margin: 0 0 1.3rem;
+  padding-bottom: 0.9rem;
+  border-bottom: 1px solid var(--line-soft);
+}
+
+.people {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.6rem 0.75rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.people li {
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 0.45rem 1rem;
+  font-size: 0.95rem;
+  color: var(--ink);
+}
+
+.people li span {
+  color: var(--ink-3);
+  font-size: 0.84rem;
+  margin-left: 0.4rem;
+}
+
+.people.lead li {
+  border-color: rgba(224, 69, 95, 0.35);
+  background: rgba(224, 69, 95, 0.07);
+}
+
+.paper-authors {
+  display: grid;
+  gap: 1.4rem;
+}
+
+.paper-authors div {
+  display: grid;
+  grid-template-columns: 8.5rem 1fr;
+  gap: 0.4rem 1.4rem;
+  align-items: baseline;
+}
+
+@media (max-width: 640px) {
+  .paper-authors div {
+    grid-template-columns: 1fr;
+  }
+}
+
+.paper-authors dt,
+.paper-authors .who {
+  margin: 0;
+}
+
+.paper-authors .what {
+  font-weight: 620;
+  letter-spacing: -0.01em;
+}
+
+.paper-authors .who {
+  color: var(--ink-2);
+  font-size: 0.96rem;
 }

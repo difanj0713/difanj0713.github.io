@@ -39,7 +39,8 @@ function update() {
   for (const panel of panels) {
     const o = panelOpacity(p, panel.from, panel.to);
     panel.el.style.opacity = o.toFixed(3);
-    panel.el.style.transform = `translateY(${((1 - o) * 14).toFixed(1)}px)`;
+    // Only the offset, never the whole transform: the panel is centred in CSS.
+    panel.el.style.setProperty('--rise', `${((1 - o) * 14).toFixed(1)}px`);
   }
 
   if (universe) {

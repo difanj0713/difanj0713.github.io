@@ -39,7 +39,7 @@
         <li><a href="siren/">SIREN</a></li>
         <li><a href="miner/">MINER</a></li>
         <li><a href="agent-siren/">Agent-SIREN</a></li>
-        <li><a href="https://csslab.cs.toronto.edu/">CSSLab</a></li>
+        <li><a href="team/">Team</a></li>
       </ul>
     </div>
   </nav>
@@ -50,10 +50,10 @@
       <p class="eyebrow">CSSLab &middot; <b>University of Toronto</b></p>
       <h1 class="title">The SPIN&#8209;Universe</h1>
       <p class="lede">Models think in layers.<br>They <em>answer from one</em>.</p>
-      <p class="sub">Everything else is still in there, and it is cheap to read. Four papers, four domains, one instrument.</p>
       <div class="cta-row">
         <a class="btn btn-primary" href="#phenomenon">Read the story</a>
-        <a class="btn btn-ghost" href="#papers">Four papers &rarr;</a>
+        <a class="btn btn-ghost" href="#stage">Visualizations</a>
+        <a class="btn btn-ghost" href="#papers">Our Papers</a>
       </div>
      </div>
     </div>
@@ -72,29 +72,40 @@
       <div class="beat">
         <div class="beat-n">01</div>
         <div>
-          <h3>A model computes its answer through dozens of layers, then speaks from the last one.</h3>
-          <p>A language model builds up its reading of an input step by step. Early layers pick up surface form, middle layers assemble meaning, late layers turn meaning back into tokens so that something can be said. Whatever the model has worked out has to pass through that final state to become an output.</p>
-          <p>Which means the final state is a <b>bottleneck</b>. And it is the only thing a classification head, a guard model, or a dense retriever ever gets to look at.</p>
+          <h3>Asking a model for a judgment means reading the very end of a long computation.</h3>
+          <p>Most of what we want out of a language model is not an essay. It is a judgment. Is this safe. Is this document the one. Which category applies. Should this action be allowed.</p>
+          <p>There are two standard ways to get one: read the model's final layer, or make the model say the answer out loud. Those are the same move. Both take a computation that ran through dozens of layers and read it at the last one.</p>
         </div>
       </div>
 
       <div class="beat">
         <div class="beat-n">02</div>
         <div>
-          <h3>The judgment is often already there, well before it is spoken.</h3>
-          <p>This is testable, and the sharpest test we have is on agent safety. Hand a guard model two tool-calling trajectories that are byte-for-byte identical except for the schema of the one tool the agent actually calls. One is safe, one is not. The guard's own verdict tells them apart at <b>chance</b>.</p>
-          <p>Now read the same model's internal states instead. A single linear direction, estimated out of fold, orders those pairs correctly up to <b>0.98</b> of the time. The distinction was formed. The output channel dropped it.</p>
+          <h3>The judgment is usually there before it is spoken.</h3>
+          <p>This is the part that keeps surprising us. Fit the simplest reader there is, a straight line, to what the model is holding partway through, and it recovers judgments the model's own answer never expresses. We have now watched it happen in four settings, on four different kinds of input.</p>
+          <p>The model did the work. The last step is just <b>narrow</b>, and the last step was the only part anyone was reading.</p>
         </div>
       </div>
 
       <div class="beat">
         <div class="beat-n">03</div>
         <div>
-          <h3>What gets dropped is sparse, sits mid&#8209;stack, and is almost free to recover.</h3>
-          <p>Across text classification, content moderation, multimodal retrieval, and agent trajectories, the same three properties keep turning up. The evidence is <b>linearly readable</b>, so a linear probe is enough. It is <b>concentrated</b>: a few percent of a layer's coordinates carries it. And it <b>peaks in the middle</b> of the network, above the depth everything is normally read from.</p>
-          <p>So recovering it does not take a fine-tune. It takes one forward pass and a head measured in kilobytes.</p>
+          <h3>What falls out is sparse, sits mid&#8209;stack, and is almost free to pick up.</h3>
+          <p>Three things hold every time. The signal is <b>linear</b>, so a straight line is enough to read it. It is <b>concentrated</b>, carried by a small fraction of the coordinates. And it is <b>strongest in the middle</b> of the network, above the depth everything gets read from.</p>
+          <p>So recovering it is not a research project. It is one forward pass and a set of weights small enough to send in an email.</p>
         </div>
       </div>
+    </div>
+
+    <div class="applies">
+      <h3>So when does this work?</h3>
+      <p class="applies-lede">The recipe does not care what the model is for. It cares that the answer is <b>compact</b>. Whenever what you want out of a model is a label, a score, a ranking or an embedding, rather than open-ended text, you can read it out instead of generating it.</p>
+      <ul class="applies-list">
+        <li><b>Read, do not generate.</b> The target is a concept to be recovered, not a passage to be written.</li>
+        <li><b>The concept is already in there.</b> Probing locates what pretraining put in the model. It does not put it there.</li>
+        <li><b>The incumbent reads the end.</b> A fine&#8209;tuned head, a generated verdict, a final&#8209;layer embedding. That is the bottleneck worth attacking.</li>
+      </ul>
+      <p class="applies-foot">And because a read is a number rather than a word, it hands you what a generated verdict cannot: a threshold you can move after the fact, a reading at every point in a stream, and the option to stop the forward pass early.</p>
     </div>
   </div>
 </section>
@@ -268,6 +279,7 @@
     <div>
       <h4>People</h4>
       <ul>
+        <li><a href="team/">The team</a></li>
         <li><a href="https://difanj0713.github.io/">Difan Jiao</a></li>
         <li><a href="https://www.cs.toronto.edu/~ashton/">Ashton Anderson</a></li>
         <li><a href="https://csslab.cs.toronto.edu/">CSSLab</a></li>
