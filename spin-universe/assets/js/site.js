@@ -80,7 +80,7 @@ async function boot() {
   const canvas = document.getElementById('viz');
   if (!canvas || !hasWebGL()) return;
   try {
-    const { createUniverse } = await import('./universe.js?v=3');
+    const { createUniverse } = await import('./universe.js?v=4');
     universe = createUniverse(canvas, {
       compact,
       reducedMotion,

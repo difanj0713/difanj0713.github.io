@@ -1061,8 +1061,7 @@ h1.title {
 }
 
 .paper-authors .eq {
-  color: var(--crimson);
-  font-weight: 600;
+  color: inherit;
   padding-left: 0.05em;
 }
 
