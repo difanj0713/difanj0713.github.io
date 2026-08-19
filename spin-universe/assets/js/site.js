@@ -1,4 +1,4 @@
-/* Scroll wiring for the SPIN-Universe front page.
+/* Scroll wiring for the SPINiverse front page.
  *
  * The visualisation is loaded after first paint. If WebGL is missing, the
  * module fails to load, or the visitor asks for reduced motion, the page still

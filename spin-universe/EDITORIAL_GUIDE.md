@@ -1,4 +1,4 @@
-# SPIN-Universe paper-page guide
+# SPINiverse paper-page guide
 
 These are the reusable decisions for SPIN, SIREN, MINER, and Agent-SIREN.
 

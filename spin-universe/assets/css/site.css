@@ -1,4 +1,4 @@
-/* The SPIN-Universe */
+/* SPINiverse */
 
 :root {
   --bg: #05070d;
@@ -173,7 +173,6 @@ body > header.layer {
   font-family: var(--mono);
   font-size: 0.82rem;
   letter-spacing: 0.13em;
-  text-transform: uppercase;
   color: var(--ink-2);
   text-decoration: none;
   font-weight: 600;
@@ -280,7 +279,7 @@ body > header.layer {
 }
 
 h1.title {
-  /* One line, always: a wordmark that wraps after "The" reads like a mistake. */
+  /* Keep the compact wordmark on one line. */
   white-space: nowrap;
   max-width: none;
   font-family: var(--display);

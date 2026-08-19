@@ -1,5 +1,5 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
-  <title id="title">The SPIN-Universe</title>
+  <title id="title">SPINiverse</title>
   <desc id="desc">Turning signals inside AI models into better, faster decisions.</desc>
   <defs>
     <radialGradient id="indigoGlow" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(985 248) rotate(132) scale(390 420)">
@@ -43,7 +43,7 @@
       <rect y="17" width="17" height="4" rx="2" fill="#7d8dff" opacity=".58"/>
       <rect y="25" width="9" height="4" rx="2" fill="#a9b1c7" opacity=".42"/>
     </g>
-    <text x="43" y="17" class="mono" fill="#eef0f7" font-size="17" font-weight="600" letter-spacing="2.4">THE SPIN-UNIVERSE</text>
+    <text x="43" y="17" class="mono" fill="#eef0f7" font-size="17" font-weight="600" letter-spacing="2.4">SPINiverse</text>
     <text x="43" y="37" class="mono" fill="#6f7893" font-size="10.5" font-weight="500" letter-spacing="2.1">INTERNAL SIGNALS · PRACTICAL READOUTS</text>
   </g>
 
@@ -105,5 +105,5 @@
     <circle cx="318" cy="-3.5" r="2" fill="#e0455f"/>
     <text x="334" class="mono" fill="#6f7893" font-size="10.5" font-weight="500" letter-spacing="1.6">AGENT MONITORING</text>
   </g>
-  <text x="1128" y="560" text-anchor="end" class="mono" fill="#6f7893" font-size="10.5" font-weight="500" letter-spacing="1.2">SPIN-UNIVERSE</text>
+  <text x="1128" y="560" text-anchor="end" class="mono" fill="#6f7893" font-size="10.5" font-weight="500" letter-spacing="1.2">SPINiverse</text>
 </svg>

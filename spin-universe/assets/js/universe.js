@@ -1,5 +1,5 @@
 /*
- * The SPIN-Universe title visualisation.
+ * The SPINiverse title visualisation.
  *
  * Adapted from the interactive SPIN demo built by Yilun Liu
  * (github.com/liuyilun2000/spin-visualization) for the ACL 2024 paper.

@@ -79,6 +79,7 @@
   color: var(--ink-2);
   font-size: 0.82rem;
   font-weight: 600;
+  text-transform: none;
   white-space: nowrap;
 }
 

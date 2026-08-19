@@ -40,7 +40,7 @@
     <rect width="26" height="4" rx="2" fill="#65d6c1"/>
     <rect y="8" width="26" height="4" rx="2" fill="#7d8dff"/>
     <rect y="16" width="16" height="4" rx="2" fill="#7d8dff" opacity=".55"/>
-    <text x="42" y="12" class="mono" fill="#a9b1c7" font-size="12" font-weight="600" letter-spacing="1.8">THE SPIN-UNIVERSE / 03</text>
+    <text x="42" y="12" class="mono" fill="#a9b1c7" font-size="12" font-weight="600" letter-spacing="1.8">SPINiverse / 03</text>
     <text x="42" y="31" class="mono" fill="#6f7893" font-size="10" font-weight="500" letter-spacing="1.8">VISUAL DOCUMENT RETRIEVAL</text>
   </g>
 
@@ -117,5 +117,5 @@
   </g>
 
   <text x="72" y="566" class="mono" fill="#6f7893" font-size="10.5" font-weight="500" letter-spacing="1.1">Mine more of the frozen retriever.</text>
-  <text x="1128" y="566" text-anchor="end" class="mono" fill="#6f7893" font-size="10.5" font-weight="500" letter-spacing="1.1">SPIN-UNIVERSE / MINER</text>
+  <text x="1128" y="566" text-anchor="end" class="mono" fill="#6f7893" font-size="10.5" font-weight="500" letter-spacing="1.1">SPINiverse / MINER</text>
 </svg>
