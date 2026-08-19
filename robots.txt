@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://difanj0713.github.io/spin-universe/sitemap.xml

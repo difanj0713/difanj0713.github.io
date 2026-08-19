@@ -1,0 +1,97 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">SPIN</title>
+  <desc id="desc">Use the whole model, not just its last layer. All 24 model-by-dataset comparisons improved.</desc>
+  <defs>
+    <radialGradient id="glowA" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(970 260) rotate(135) scale(430 480)">
+      <stop stop-color="#7d8dff" stop-opacity=".24"/>
+      <stop offset="1" stop-color="#7d8dff" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="glowB" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(765 600) rotate(-62) scale(300 450)">
+      <stop stop-color="#e0455f" stop-opacity=".13"/>
+      <stop offset="1" stop-color="#e0455f" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="rail" x1="820" y1="115" x2="1072" y2="488" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#7d8dff"/>
+      <stop offset="1" stop-color="#e0455f"/>
+    </linearGradient>
+    <filter id="glow" x="-100%" y="-100%" width="300%" height="300%">
+      <feGaussianBlur stdDeviation="6" result="b"/>
+      <feMerge><feMergeNode in="b"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <pattern id="grid" width="48" height="48" patternUnits="userSpaceOnUse">
+      <path d="M48 0H0V48" fill="none" stroke="#eef0f7" stroke-opacity=".032"/>
+    </pattern>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600&amp;family=Overpass:wght@400;500;600&amp;family=Platypi:wght@600;700;800&amp;display=swap');
+      .display { font-family: 'Platypi', Georgia, serif; }
+      .sans { font-family: 'Overpass', Arial, sans-serif; }
+      .mono { font-family: 'IBM Plex Mono', monospace; }
+    </style>
+  </defs>
+
+  <rect width="1200" height="630" fill="#05070d"/>
+  <rect width="1200" height="630" fill="url(#glowA)"/>
+  <rect width="1200" height="630" fill="url(#glowB)"/>
+  <rect x="720" width="480" height="630" fill="url(#grid)"/>
+  <rect x="28.5" y="28.5" width="1143" height="573" rx="8" fill="none" stroke="#eef0f7" stroke-opacity=".09"/>
+
+  <g transform="translate(72 66)">
+    <rect width="26" height="4" rx="2" fill="#e0455f"/>
+    <rect y="8" width="26" height="4" rx="2" fill="#7d8dff"/>
+    <rect y="16" width="16" height="4" rx="2" fill="#7d8dff" opacity=".55"/>
+    <text x="42" y="12" class="mono" fill="#a9b1c7" font-size="12" font-weight="600" letter-spacing="1.8">THE SPIN-UNIVERSE / 01</text>
+    <text x="42" y="31" class="mono" fill="#6f7893" font-size="10" font-weight="500" letter-spacing="1.8">TEXT CLASSIFICATION · FINDINGS OF ACL 2024</text>
+  </g>
+
+  <text x="65" y="250" class="display" fill="#eef0f7" font-size="151" font-weight="800" letter-spacing="-10">SPIN</text>
+  <text x="72" y="326" class="display" fill="#eef0f7" font-size="43" font-weight="650" letter-spacing="-1.8">
+    <tspan x="72">Use the whole model,</tspan>
+    <tspan x="72" dy="53">not just its last layer.</tspan>
+  </text>
+
+  <g transform="translate(72 496)">
+    <text class="display" fill="#e0455f" font-size="48" font-weight="700" letter-spacing="-1.8">24 / 24</text>
+    <line x1="173" y1="-16" x2="173" y2="31" stroke="#eef0f7" stroke-opacity=".16"/>
+    <text x="196" y="-2" class="mono" fill="#a9b1c7" font-size="11" font-weight="600" letter-spacing="1.35">
+      <tspan x="196">MODEL × DATASET</tspan>
+      <tspan x="196" dy="20">COMPARISONS IMPROVED</tspan>
+    </text>
+  </g>
+
+  <g aria-hidden="true">
+    <text x="798" y="103" class="mono" fill="#6f7893" font-size="10" font-weight="600" letter-spacing="1.6">SPARSE SIGNALS ACROSS DEPTH</text>
+    <g fill="#0a0e18" stroke="#eef0f7" stroke-opacity=".14">
+      <path d="M796 130H1075L1110 148 831 166Z"/>
+      <path d="M796 179H1075L1110 197 831 215Z"/>
+      <path d="M796 228H1075L1110 246 831 264Z"/>
+      <path d="M796 277H1075L1110 295 831 313Z"/>
+      <path d="M796 326H1075L1110 344 831 362Z"/>
+      <path d="M796 375H1075L1110 393 831 411Z"/>
+    </g>
+    <g fill="#7d8dff" opacity=".34">
+      <circle cx="842" cy="148" r="3"/><circle cx="900" cy="148" r="3"/><circle cx="965" cy="148" r="3"/><circle cx="1036" cy="148" r="3"/>
+      <circle cx="858" cy="197" r="3"/><circle cx="929" cy="197" r="3"/><circle cx="997" cy="197" r="3"/><circle cx="1060" cy="197" r="3"/>
+      <circle cx="839" cy="246" r="3"/><circle cx="893" cy="246" r="3"/><circle cx="958" cy="246" r="3"/><circle cx="1041" cy="246" r="3"/>
+      <circle cx="856" cy="295" r="3"/><circle cx="920" cy="295" r="3"/><circle cx="984" cy="295" r="3"/><circle cx="1065" cy="295" r="3"/>
+      <circle cx="840" cy="344" r="3"/><circle cx="905" cy="344" r="3"/><circle cx="970" cy="344" r="3"/><circle cx="1048" cy="344" r="3"/>
+      <circle cx="861" cy="393" r="3"/><circle cx="932" cy="393" r="3"/><circle cx="1001" cy="393" r="3"/><circle cx="1070" cy="393" r="3"/>
+    </g>
+    <g fill="#e0455f" filter="url(#glow)">
+      <circle cx="1036" cy="148" r="5"/>
+      <circle cx="929" cy="197" r="5"/>
+      <circle cx="958" cy="246" r="5"/>
+      <circle cx="856" cy="295" r="5"/>
+      <circle cx="970" cy="344" r="5"/>
+      <circle cx="1070" cy="393" r="5"/>
+    </g>
+    <path d="M1036 148C1003 162 970 182 929 197S915 231 958 246 925 274 856 295 909 326 970 344 1020 373 1070 393" fill="none" stroke="url(#rail)" stroke-width="2.5" stroke-linecap="round" stroke-dasharray="2 8"/>
+    <path d="M1070 393C1070 431 1028 444 988 460" fill="none" stroke="#e0455f" stroke-width="2"/>
+    <circle cx="978" cy="464" r="5" fill="#e0455f" filter="url(#glow)"/>
+    <rect x="862" y="487" width="226" height="52" rx="4" fill="#eef0f7"/>
+    <text x="975" y="508" text-anchor="middle" class="mono" fill="#05070d" font-size="9.5" font-weight="600" letter-spacing="1.5">CROSS-LAYER READOUT</text>
+    <text x="975" y="528" text-anchor="middle" class="display" fill="#05070d" font-size="19" font-weight="700">SPIN</text>
+  </g>
+
+  <text x="72" y="566" class="mono" fill="#6f7893" font-size="10.5" font-weight="500" letter-spacing="1.1">Sparsify then integrate.</text>
+  <text x="1128" y="566" text-anchor="end" class="mono" fill="#6f7893" font-size="10.5" font-weight="500" letter-spacing="1.1">SPIN-UNIVERSE / SPIN</text>
+</svg>

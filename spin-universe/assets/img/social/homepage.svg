@@ -1,0 +1,109 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
+  <title id="title">The SPIN-Universe</title>
+  <desc id="desc">Turning signals inside AI models into better, faster decisions.</desc>
+  <defs>
+    <radialGradient id="indigoGlow" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(985 248) rotate(132) scale(390 420)">
+      <stop stop-color="#7d8dff" stop-opacity=".22"/>
+      <stop offset="1" stop-color="#7d8dff" stop-opacity="0"/>
+    </radialGradient>
+    <radialGradient id="crimsonGlow" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(880 575) rotate(-64) scale(280 420)">
+      <stop stop-color="#e0455f" stop-opacity=".15"/>
+      <stop offset="1" stop-color="#e0455f" stop-opacity="0"/>
+    </radialGradient>
+    <linearGradient id="signal" x1="850" y1="170" x2="1070" y2="475" gradientUnits="userSpaceOnUse">
+      <stop stop-color="#7d8dff"/>
+      <stop offset=".58" stop-color="#a774b0"/>
+      <stop offset="1" stop-color="#e0455f"/>
+    </linearGradient>
+    <filter id="softGlow" x="-100%" y="-100%" width="300%" height="300%">
+      <feGaussianBlur stdDeviation="7" result="blur"/>
+      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
+    </filter>
+    <pattern id="grid" width="48" height="48" patternUnits="userSpaceOnUse">
+      <path d="M48 0H0V48" fill="none" stroke="#eef0f7" stroke-opacity=".035"/>
+    </pattern>
+    <style>
+      @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600&amp;family=Overpass:wght@400;500;600&amp;family=Platypi:ital,wght@0,600;0,700;0,800;1,600&amp;display=swap');
+      .display { font-family: 'Platypi', Georgia, serif; }
+      .sans { font-family: 'Overpass', Arial, sans-serif; }
+      .mono { font-family: 'IBM Plex Mono', monospace; }
+    </style>
+  </defs>
+
+  <rect width="1200" height="630" fill="#05070d"/>
+  <rect width="1200" height="630" fill="url(#indigoGlow)"/>
+  <rect width="1200" height="630" fill="url(#crimsonGlow)"/>
+  <rect x="760" width="440" height="630" fill="url(#grid)"/>
+  <rect x="28.5" y="28.5" width="1143" height="573" rx="8" fill="none" stroke="#eef0f7" stroke-opacity=".09"/>
+
+  <g transform="translate(72 65)">
+    <g aria-hidden="true">
+      <rect y="1" width="26" height="4" rx="2" fill="#e0455f"/>
+      <rect y="9" width="26" height="4" rx="2" fill="#7d8dff"/>
+      <rect y="17" width="17" height="4" rx="2" fill="#7d8dff" opacity=".58"/>
+      <rect y="25" width="9" height="4" rx="2" fill="#a9b1c7" opacity=".42"/>
+    </g>
+    <text x="43" y="17" class="mono" fill="#eef0f7" font-size="17" font-weight="600" letter-spacing="2.4">THE SPIN-UNIVERSE</text>
+    <text x="43" y="37" class="mono" fill="#6f7893" font-size="10.5" font-weight="500" letter-spacing="2.1">INTERNAL SIGNALS · PRACTICAL READOUTS</text>
+  </g>
+
+  <g>
+    <text x="72" y="204" class="display" fill="#eef0f7" font-size="51" font-weight="700" letter-spacing="-2.2">
+      <tspan x="72" dy="0">Turning signals inside</tspan>
+      <tspan x="72" dy="61">AI models into better,</tspan>
+      <tspan x="72" dy="61">faster decisions.</tspan>
+    </text>
+    <line x1="72" y1="416" x2="116" y2="416" stroke="#e0455f" stroke-width="3"/>
+    <text x="136" y="410" class="sans" fill="#a9b1c7" font-size="20" font-weight="500">
+      <tspan x="136" dy="0">Don’t retrain the model.</tspan>
+      <tspan x="136" dy="29">Read more of what it already computed.</tspan>
+    </text>
+  </g>
+
+  <g aria-hidden="true">
+    <text x="842" y="112" class="mono" fill="#6f7893" font-size="10" font-weight="600" letter-spacing="1.7">FROZEN MODEL</text>
+    <text x="1115" y="112" text-anchor="end" class="mono" fill="#6f7893" font-size="10" font-weight="600" letter-spacing="1.7">INTERNAL SIGNALS</text>
+
+    <g fill="#0a0e18" stroke="#eef0f7" stroke-opacity=".13">
+      <path d="M845 151H1088L1116 167 873 183Z"/>
+      <path d="M845 199H1088L1116 215 873 231Z"/>
+      <path d="M845 247H1088L1116 263 873 279Z"/>
+      <path d="M845 295H1088L1116 311 873 327Z"/>
+      <path d="M845 343H1088L1116 359 873 375Z"/>
+      <path d="M845 391H1088L1116 407 873 423Z"/>
+    </g>
+    <g fill="#7d8dff" opacity=".68">
+      <circle cx="890" cy="168" r="4"/><circle cx="974" cy="168" r="3"/><circle cx="1045" cy="168" r="5"/>
+      <circle cx="920" cy="216" r="3"/><circle cx="1016" cy="216" r="5"/>
+      <circle cx="885" cy="264" r="3"/><circle cx="960" cy="264" r="5"/><circle cx="1072" cy="264" r="3"/>
+      <circle cx="916" cy="312" r="5"/><circle cx="1037" cy="312" r="3"/>
+      <circle cx="873" cy="360" r="3"/><circle cx="982" cy="360" r="5"/><circle cx="1060" cy="360" r="3"/>
+      <circle cx="937" cy="408" r="3"/><circle cx="1021" cy="408" r="5"/>
+    </g>
+    <g fill="#e0455f" filter="url(#softGlow)">
+      <circle cx="1045" cy="168" r="4"/>
+      <circle cx="1016" cy="216" r="4"/>
+      <circle cx="960" cy="264" r="4"/>
+      <circle cx="916" cy="312" r="4"/>
+      <circle cx="982" cy="360" r="4"/>
+      <circle cx="1021" cy="408" r="4"/>
+    </g>
+    <path d="M1045 168C1042 212 1011 228 960 264S910 298 916 312 960 345 982 360 1004 390 1021 408" fill="none" stroke="url(#signal)" stroke-width="2.5" stroke-linecap="round" stroke-dasharray="3 7"/>
+    <path d="M918 448H1073" stroke="#eef0f7" stroke-opacity=".13"/>
+    <path d="M995 423V467" stroke="url(#signal)" stroke-width="2"/>
+    <circle cx="995" cy="476" r="6" fill="#e0455f" filter="url(#softGlow)"/>
+    <rect x="920" y="499" width="150" height="38" rx="19" fill="#eef0f7"/>
+    <text x="995" y="523" text-anchor="middle" class="mono" fill="#05070d" font-size="11" font-weight="600" letter-spacing="1.5">BETTER DECISION</text>
+  </g>
+
+  <g transform="translate(72 560)">
+    <text class="mono" fill="#6f7893" font-size="10.5" font-weight="500" letter-spacing="1.6">CLASSIFICATION</text>
+    <circle cx="126" cy="-3.5" r="2" fill="#e0455f"/>
+    <text x="142" class="mono" fill="#6f7893" font-size="10.5" font-weight="500" letter-spacing="1.6">SAFETY</text>
+    <circle cx="213" cy="-3.5" r="2" fill="#7d8dff"/>
+    <text x="229" class="mono" fill="#6f7893" font-size="10.5" font-weight="500" letter-spacing="1.6">RETRIEVAL</text>
+    <circle cx="318" cy="-3.5" r="2" fill="#e0455f"/>
+    <text x="334" class="mono" fill="#6f7893" font-size="10.5" font-weight="500" letter-spacing="1.6">AGENT MONITORING</text>
+  </g>
+  <text x="1128" y="560" text-anchor="end" class="mono" fill="#6f7893" font-size="10.5" font-weight="500" letter-spacing="1.2">SPIN-UNIVERSE</text>
+</svg>

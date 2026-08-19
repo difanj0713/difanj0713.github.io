@@ -1,0 +1,1716 @@
+/* MINER paper page --------------------------------------------------------- */
+
+.miner-page {
+  --miner-mint: #65d6c1;
+  --miner-mint-soft: rgba(101, 214, 193, 0.16);
+  --miner-gold: #f0aa5b;
+  --miner-gold-soft: rgba(240, 170, 91, 0.16);
+  background: #05070d;
+}
+
+.miner-page .light {
+  --ink-3: #626b7d;
+  --miner-mint: #198d7c;
+  --miner-gold: #b46618;
+}
+
+.miner-page :where(a, button, input, select, [tabindex]):focus-visible {
+  outline: 3px solid var(--miner-mint);
+  outline-offset: 3px;
+}
+
+.miner-sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.miner-page main {
+  position: relative;
+  z-index: 1;
+}
+
+.miner-page button,
+.miner-page input {
+  font: inherit;
+}
+
+.miner-page button {
+  color: inherit;
+}
+
+/* Navigation -------------------------------------------------------------- */
+
+.miner-nav {
+  position: fixed;
+  inset: 0 0 auto;
+  z-index: 50;
+  color: #eef0f7;
+  background: rgba(5, 7, 13, 0.8);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.065);
+  -webkit-backdrop-filter: blur(16px) saturate(125%);
+  backdrop-filter: blur(16px) saturate(125%);
+}
+
+.miner-nav-inner {
+  min-height: 4.25rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+}
+
+.miner-nav-home,
+.miner-nav-links a {
+  font-family: var(--mono);
+  text-decoration: none;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  transition: color 180ms ease;
+}
+
+.miner-nav-home {
+  color: var(--ink-2);
+  font-size: 0.82rem;
+  font-weight: 600;
+  white-space: nowrap;
+}
+
+.miner-nav-home span {
+  margin-right: 0.25rem;
+  color: var(--miner-mint);
+}
+
+.miner-nav-links {
+  display: flex;
+  gap: clamp(0.9rem, 2.2vw, 1.8rem);
+}
+
+.miner-nav-links a {
+  color: var(--ink-3);
+  font-size: 0.76rem;
+  font-weight: 500;
+}
+
+.miner-nav a:hover {
+  color: var(--ink);
+}
+
+/* Hero -------------------------------------------------------------------- */
+
+.miner-masthead {
+  position: relative;
+  z-index: 2;
+  min-height: 100svh;
+  padding: clamp(8rem, 14vh, 10rem) 0 0;
+  overflow: hidden;
+  color: var(--ink);
+  background:
+    radial-gradient(circle at 79% 22%, rgba(101, 214, 193, 0.14), transparent 29rem),
+    radial-gradient(circle at 70% 91%, rgba(240, 170, 91, 0.08), transparent 30rem),
+    #05070d;
+}
+
+.miner-masthead::after {
+  content: "";
+  position: absolute;
+  inset: auto 0 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, rgba(101, 214, 193, 0.72), rgba(240, 170, 91, 0.6), transparent);
+}
+
+.miner-masthead-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 0.94fr) minmax(26rem, 1.06fr);
+  align-items: center;
+  gap: clamp(2.5rem, 6vw, 6rem);
+}
+
+.miner-hero-copy {
+  position: relative;
+  z-index: 2;
+  grid-column: 1;
+  grid-row: 1;
+}
+
+.miner-hero-copy .eyebrow {
+  margin-bottom: 1.25rem;
+}
+
+.miner-hero-copy .eyebrow b {
+  color: var(--miner-mint);
+  white-space: nowrap;
+}
+
+.miner-hero-copy h1 {
+  margin: 0 0 1.5rem;
+  font-family: var(--display);
+  font-size: clamp(4.8rem, 10.5vw, 8.8rem);
+  font-weight: 800;
+  line-height: 0.82;
+  letter-spacing: -0.075em;
+}
+
+.miner-hero-claim {
+  max-width: 17ch;
+  margin: 0 0 1rem;
+  font-family: var(--display);
+  font-size: clamp(1.7rem, 3.3vw, 2.55rem);
+  font-weight: 650;
+  line-height: 1.13;
+  letter-spacing: -0.035em;
+  text-wrap: balance;
+}
+
+.miner-hero-deck {
+  max-width: 38rem;
+  margin: 0 0 1.45rem;
+  color: var(--ink-2);
+  font-size: clamp(1rem, 1.45vw, 1.12rem);
+  line-height: 1.62;
+  text-wrap: pretty;
+}
+
+.miner-hero-deck > b,
+.miner-expansion b {
+  color: var(--ink);
+  font-weight: 650;
+}
+
+.miner-authors {
+  max-width: 45rem;
+  margin: 0 0 1.65rem;
+  color: var(--ink-3);
+  font-size: 0.8rem;
+  line-height: 1.72;
+}
+
+.miner-authors b {
+  color: var(--ink-2);
+  font-weight: 600;
+}
+
+.miner-hero-links {
+  gap: 0.55rem;
+}
+
+.miner-hero-links .chip {
+  padding: 0.58rem 0.92rem;
+}
+
+.miner-hero-links .chip svg {
+  width: 1.05rem;
+  height: 1.05rem;
+  flex: 0 0 auto;
+}
+
+.miner-hero-links .miner-chip-primary {
+  border-color: var(--ink);
+  background: var(--ink);
+  color: #070910;
+}
+
+.miner-hero-links .miner-chip-primary:hover {
+  background: #fff;
+  color: #05070d;
+}
+
+/* Hero illustration ------------------------------------------------------- */
+
+.miner-hero-art {
+  position: relative;
+  grid-column: 2;
+  grid-row: 1;
+  min-height: clamp(28rem, 43vw, 35.5rem);
+  overflow: hidden;
+  border: 1px solid rgba(255, 255, 255, 0.075);
+  border-radius: 8px;
+  background:
+    linear-gradient(145deg, rgba(255, 255, 255, 0.026), transparent 52%),
+    rgba(8, 11, 20, 0.76);
+  box-shadow: 0 32px 90px rgba(0, 0, 0, 0.28);
+}
+
+.miner-hero-art::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(255, 255, 255, 0.024) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.024) 1px, transparent 1px);
+  background-size: 2.6rem 2.6rem;
+  -webkit-mask-image: linear-gradient(150deg, #000, transparent 80%);
+  mask-image: linear-gradient(150deg, #000, transparent 80%);
+  pointer-events: none;
+}
+
+.miner-art-top {
+  position: absolute;
+  inset: 1.2rem 1.3rem auto;
+  z-index: 3;
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  font-family: var(--mono);
+  font-size: 0.58rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+
+.miner-art-inputs {
+  position: absolute;
+  z-index: 2;
+  inset: 4.6rem auto auto 1.4rem;
+  width: 8.4rem;
+  display: grid;
+  gap: 1rem;
+}
+
+.miner-art-query,
+.miner-art-page {
+  border: 1px solid rgba(255, 255, 255, 0.11);
+  border-radius: 5px;
+  background: rgba(13, 18, 32, 0.92);
+  box-shadow: 0 14px 30px rgba(0, 0, 0, 0.18);
+}
+
+.miner-art-query {
+  padding: 0.8rem 0.85rem 0.9rem;
+}
+
+.miner-art-query span,
+.miner-hero-output > span {
+  display: block;
+  margin-bottom: 0.38rem;
+  font-family: var(--mono);
+  font-size: 0.52rem;
+  letter-spacing: 0.11em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+
+.miner-art-query strong {
+  display: block;
+  font-family: var(--display);
+  font-size: 0.92rem;
+  line-height: 1.28;
+}
+
+.miner-art-page {
+  position: relative;
+  height: 10.7rem;
+  padding: 0.85rem;
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  grid-template-rows: repeat(8, 1fr);
+  gap: 0.24rem;
+}
+
+.miner-art-page i,
+.miner-art-page b {
+  display: block;
+  border-radius: 1px;
+  background: rgba(169, 177, 199, 0.2);
+}
+
+.miner-art-page i:nth-child(1) { grid-column: 1 / -1; grid-row: 1; background: rgba(101, 214, 193, 0.46); }
+.miner-art-page i:nth-child(2) { grid-column: 1 / 5; grid-row: 2; }
+.miner-art-page i:nth-child(3) { grid-column: 1 / -1; grid-row: 3; }
+.miner-art-page i:nth-child(4) { grid-column: 1 / 4; grid-row: 4; }
+.miner-art-page i:nth-child(5) { grid-column: 1 / -1; grid-row: 8; }
+.miner-art-page b:nth-of-type(1) { grid-column: 1 / 4; grid-row: 5 / 8; background: rgba(240, 170, 91, 0.2); }
+.miner-art-page b:nth-of-type(2) { grid-column: 4 / 7; grid-row: 5; }
+.miner-art-page b:nth-of-type(3) { grid-column: 4 / 7; grid-row: 6 / 8; background: rgba(101, 214, 193, 0.11); }
+
+.miner-hero-layers {
+  position: absolute;
+  z-index: 1;
+  inset: 4.7rem 8.9rem 5.1rem 11.3rem;
+  display: grid;
+  align-content: center;
+  gap: 0.44rem;
+  perspective: 900px;
+}
+
+.miner-hero-layer {
+  position: relative;
+  height: 1.55rem;
+  display: grid;
+  grid-template-columns: repeat(10, minmax(0, 1fr));
+  align-items: center;
+  gap: 0.28rem;
+  padding: 0.3rem 0.42rem;
+  transform: translateX(var(--shift, 0)) rotateY(-7deg);
+  border: 1px solid rgba(255, 255, 255, 0.04);
+  background: rgba(255, 255, 255, 0.018);
+}
+
+.miner-hero-layer::after {
+  content: attr(data-layer);
+  position: absolute;
+  left: calc(100% + 0.38rem);
+  font-family: var(--mono);
+  font-size: 0.48rem;
+  color: var(--ink-3);
+}
+
+.miner-hero-layer i {
+  height: 0.34rem;
+  border-radius: 1px;
+  background: rgba(169, 177, 199, 0.12);
+}
+
+.miner-hero-layer i.is-signal {
+  background: var(--miner-mint);
+  box-shadow: 0 0 9px rgba(101, 214, 193, 0.48);
+  animation: minerSignal 3.2s ease-in-out infinite;
+  animation-delay: var(--delay, 0ms);
+}
+
+.miner-hero-layer.is-late i.is-signal {
+  background: var(--miner-gold);
+  box-shadow: 0 0 9px rgba(240, 170, 91, 0.48);
+}
+
+.miner-hero-funnel {
+  position: absolute;
+  z-index: 2;
+  right: 1.3rem;
+  top: 7.8rem;
+  display: grid;
+  gap: 0.72rem;
+}
+
+.miner-hero-funnel span {
+  display: grid;
+  place-items: center;
+  width: 5.9rem;
+  height: 2.15rem;
+  border: 1px solid rgba(101, 214, 193, 0.25);
+  border-radius: 4px;
+  background: rgba(101, 214, 193, 0.055);
+  color: var(--ink-2);
+  font-family: var(--mono);
+  font-size: 0.55rem;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+}
+
+.miner-hero-funnel span:nth-child(2) {
+  border-color: rgba(240, 170, 91, 0.24);
+  background: rgba(240, 170, 91, 0.05);
+}
+
+.miner-hero-output {
+  position: absolute;
+  z-index: 3;
+  right: 1.3rem;
+  bottom: 1.25rem;
+  width: 12.5rem;
+  padding: 0.9rem 1rem 0.82rem;
+  border: 1px solid rgba(101, 214, 193, 0.36);
+  border-radius: 5px;
+  background: rgba(5, 7, 13, 0.9);
+  box-shadow: 0 0 42px rgba(101, 214, 193, 0.1);
+}
+
+.miner-vector,
+.miner-serving-vector {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  gap: 0.16rem;
+}
+
+.miner-vector i,
+.miner-serving-vector i {
+  height: 1.45rem;
+  border-radius: 1px;
+  background: color-mix(in srgb, var(--miner-mint) var(--level, 45%), rgba(169, 177, 199, 0.12));
+}
+
+.miner-vector i:nth-child(2n) { --level: 76%; }
+.miner-vector i:nth-child(3n) { --level: 24%; }
+.miner-vector i:nth-child(5n) { --level: 92%; background: var(--miner-gold); }
+
+.miner-hero-output strong {
+  display: block;
+  margin-top: 0.42rem;
+  color: var(--ink);
+  font-family: var(--display);
+  font-size: 1.25rem;
+  line-height: 1;
+}
+
+@keyframes minerSignal {
+  0%, 100% { opacity: 0.52; transform: scaleX(0.82); }
+  50% { opacity: 1; transform: scaleX(1); }
+}
+
+.miner-proof-rail {
+  grid-column: 1 / -1;
+  grid-row: 2;
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  border-top: 1px solid var(--line);
+}
+
+.miner-proof {
+  min-height: 8.7rem;
+  padding: 1.8rem clamp(1rem, 2.2vw, 1.8rem);
+  border-left: 1px solid var(--line);
+}
+
+.miner-proof:last-child {
+  border-right: 1px solid var(--line);
+}
+
+.miner-proof strong,
+.miner-proof span {
+  display: block;
+}
+
+.miner-proof strong {
+  margin-bottom: 0.55rem;
+  font-family: var(--display);
+  font-size: clamp(1.7rem, 3vw, 2.55rem);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.045em;
+}
+
+.miner-proof span {
+  max-width: 23ch;
+  color: var(--ink-3);
+  font-size: 0.9rem;
+  line-height: 1.45;
+}
+
+/* Shared section language -------------------------------------------------- */
+
+.miner-section {
+  position: relative;
+  padding-block: clamp(5.5rem, 10vw, 8.5rem);
+  scroll-margin-top: 4.25rem;
+}
+
+.miner-page .section-label {
+  font-size: 0.82rem;
+}
+
+.miner-section-head {
+  display: grid;
+  grid-template-columns: minmax(0, 1.3fr) minmax(15rem, 0.7fr);
+  align-items: end;
+  gap: clamp(1.5rem, 5vw, 5rem);
+  margin-bottom: clamp(2.8rem, 5vw, 4.5rem);
+}
+
+.miner-section-head h2,
+.miner-serving-copy h2 {
+  margin: 0;
+  font-family: var(--display);
+  font-size: clamp(2.25rem, 5vw, 4rem);
+  font-weight: 700;
+  line-height: 1.07;
+  letter-spacing: -0.045em;
+  text-wrap: balance;
+}
+
+.miner-section-head > p {
+  max-width: 37ch;
+  margin: 0;
+  color: var(--ink-2);
+  font-size: 1.02rem;
+}
+
+/* Results ----------------------------------------------------------------- */
+
+.miner-results {
+  background:
+    radial-gradient(circle at 88% 6%, rgba(25, 141, 124, 0.08), transparent 28rem),
+    radial-gradient(circle at 5% 70%, rgba(180, 102, 24, 0.045), transparent 25rem),
+    var(--bg);
+}
+
+.miner-tradeoff-card {
+  overflow: hidden;
+  border: 1px solid var(--line-soft);
+  border-radius: 8px;
+  background: #fff;
+  box-shadow: 0 18px 55px rgba(20, 24, 36, 0.075);
+}
+
+.miner-chart-head,
+.miner-lab-head {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 2rem;
+  padding: clamp(1.25rem, 3vw, 2rem) clamp(1.25rem, 3vw, 2.25rem);
+  border-bottom: 1px solid var(--line-soft);
+}
+
+.miner-chart-head h3,
+.miner-lab-head h3 {
+  margin: 0.25rem 0 0;
+  font-family: var(--display);
+  font-size: clamp(1.3rem, 2.2vw, 1.75rem);
+  letter-spacing: -0.03em;
+}
+
+.miner-chart-kicker {
+  margin: 0;
+  color: var(--miner-mint);
+  font-family: var(--mono);
+  font-size: 0.7rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+}
+
+.miner-tradeoff-controls,
+.miner-backbone-switch {
+  display: inline-flex;
+  gap: 0.3rem;
+  padding: 0.27rem;
+  border: 1px solid var(--line);
+  border-radius: 6px;
+  background: #f7f8fa;
+}
+
+.miner-tradeoff-controls[hidden],
+.miner-backbone-switch[hidden],
+.miner-cutoff-control[hidden] {
+  display: none;
+}
+
+.miner-tradeoff-controls button,
+.miner-backbone-switch button {
+  padding: 0.58rem 0.78rem;
+  border: 0;
+  border-radius: 4px;
+  background: transparent;
+  color: var(--ink-3);
+  cursor: pointer;
+  font-family: var(--mono);
+  font-size: 0.67rem;
+  letter-spacing: 0.035em;
+  transition: color 180ms ease, background 180ms ease;
+}
+
+.miner-tradeoff-controls button:hover,
+.miner-backbone-switch button:hover {
+  color: var(--ink);
+}
+
+.miner-tradeoff-controls button.is-active,
+.miner-backbone-switch button.is-active {
+  background: var(--ink);
+  color: #fff;
+}
+
+.miner-chart-wrap {
+  position: relative;
+  padding: 0 clamp(0.5rem, 2vw, 1.5rem);
+  overflow-x: auto;
+  scrollbar-width: thin;
+}
+
+.miner-tradeoff-chart {
+  display: block;
+  width: 100%;
+  min-width: 50rem;
+  height: auto;
+}
+
+.miner-tradeoff-chart text {
+  font-family: var(--mono);
+}
+
+.miner-tradeoff-chart .miner-svg-fallback {
+  fill: var(--ink-3);
+  font-family: var(--sans);
+  font-size: 15px;
+}
+
+.miner-tradeoff-chart .tradeoff-grid {
+  stroke: rgba(20, 24, 36, 0.075);
+  stroke-width: 1;
+}
+
+.miner-tradeoff-chart .tradeoff-axis {
+  stroke: rgba(20, 24, 36, 0.18);
+  stroke-width: 1;
+}
+
+.miner-tradeoff-chart .tradeoff-tick,
+.miner-tradeoff-chart .tradeoff-axis-title {
+  fill: var(--ink-3);
+  font-size: 10px;
+  letter-spacing: 0.045em;
+}
+
+.miner-tradeoff-chart .tradeoff-axis-title {
+  font-size: 11px;
+  font-weight: 600;
+}
+
+.miner-tradeoff-chart .tradeoff-gain-line {
+  fill: none;
+  stroke: var(--miner-mint);
+  stroke-width: 2;
+  stroke-dasharray: 4 5;
+  opacity: 0.7;
+}
+
+.miner-tradeoff-chart .tradeoff-point {
+  stroke: #fff;
+  stroke-width: 3;
+  transform-box: fill-box;
+  transform-origin: center;
+  transition: cx 440ms cubic-bezier(.2,.7,.2,1), cy 440ms cubic-bezier(.2,.7,.2,1), transform 180ms ease;
+}
+
+.miner-tradeoff-chart .tradeoff-point:hover {
+  transform: scale(1.15);
+}
+
+.miner-tradeoff-chart .point-dense { fill: #8f98aa; }
+.miner-tradeoff-chart .point-miner { fill: var(--miner-mint); filter: drop-shadow(0 4px 7px rgba(25, 141, 124, 0.28)); }
+.miner-tradeoff-chart .point-late { fill: var(--miner-gold); }
+
+.miner-tradeoff-chart .tradeoff-label {
+  fill: var(--ink);
+  font-family: var(--display);
+  font-size: 16px;
+  font-weight: 700;
+}
+
+.miner-tradeoff-chart .tradeoff-value {
+  fill: var(--ink-3);
+  font-size: 10px;
+}
+
+.miner-tradeoff-chart .tradeoff-callout-box {
+  fill: #17201f;
+}
+
+.miner-tradeoff-chart .tradeoff-callout {
+  fill: #fff;
+  font-size: 10px;
+  font-weight: 600;
+}
+
+.miner-chart-foot {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.7rem 1.25rem;
+  padding: 1rem clamp(1.25rem, 3vw, 2.25rem) 1.2rem;
+  border-top: 1px solid var(--line-soft);
+  color: var(--ink-3);
+  font-family: var(--mono);
+  font-size: 0.69rem;
+}
+
+.miner-chart-foot span {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.38rem;
+}
+
+.miner-chart-foot i {
+  width: 0.62rem;
+  height: 0.62rem;
+  border-radius: 50%;
+  background: #8f98aa;
+}
+
+.miner-chart-foot .legend-miner { background: var(--miner-mint); }
+.miner-chart-foot .legend-late { background: var(--miner-gold); }
+
+.miner-chart-foot p {
+  flex: 1 1 22rem;
+  margin: 0 0 0 auto;
+  text-align: right;
+}
+
+.miner-result-story {
+  display: grid;
+  grid-template-columns: minmax(13rem, 0.58fr) minmax(0, 1.42fr);
+  align-items: start;
+  gap: clamp(2rem, 6vw, 6rem);
+  margin-top: clamp(2.5rem, 5vw, 4rem);
+  padding-block: clamp(2rem, 4vw, 3.2rem);
+  border-block: 1px solid var(--line-soft);
+}
+
+.miner-result-story h3 {
+  margin: 0;
+  font-family: var(--display);
+  font-size: clamp(1.8rem, 3.4vw, 2.65rem);
+  line-height: 1.08;
+  letter-spacing: -0.04em;
+}
+
+.miner-result-story p {
+  max-width: 63ch;
+  margin: 0;
+  color: var(--ink-2);
+  font-size: clamp(1rem, 1.35vw, 1.1rem);
+  line-height: 1.75;
+}
+
+.miner-raw-results {
+  margin-top: 2rem;
+  border-block: 1px solid var(--line-soft);
+}
+
+.miner-raw-results summary {
+  padding: 1rem 0;
+  cursor: pointer;
+  color: var(--ink-2);
+  font-family: var(--mono);
+  font-size: 0.72rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+}
+
+.miner-table-block {
+  padding: 1.2rem 0 1.8rem;
+}
+
+.miner-table-block + .miner-table-block {
+  border-top: 1px solid var(--line-soft);
+}
+
+.miner-table-block h3 {
+  margin: 0 0 0.9rem;
+  font-family: var(--display);
+  font-size: 1.1rem;
+}
+
+.miner-table-scroll {
+  overflow-x: auto;
+}
+
+.miner-raw-results table {
+  width: 100%;
+  min-width: 46rem;
+  border-collapse: collapse;
+  font-variant-numeric: tabular-nums;
+}
+
+.miner-raw-results th,
+.miner-raw-results td {
+  padding: 0.66rem 0.75rem;
+  border-bottom: 1px solid var(--line-soft);
+  text-align: right;
+  font-size: 0.78rem;
+}
+
+.miner-raw-results th:first-child,
+.miner-raw-results td:nth-child(2),
+.miner-raw-results td:nth-child(3) {
+  text-align: left;
+}
+
+.miner-raw-results tbody td:nth-last-child(2),
+.miner-raw-results tbody td:last-child {
+  color: var(--miner-mint);
+  font-weight: 700;
+}
+
+.miner-raw-results tbody tr:nth-child(3) td:last-child {
+  color: #a23b48;
+}
+
+.miner-efficiency-table tbody td:last-child {
+  color: inherit;
+  font-weight: 400;
+}
+
+.miner-efficiency-table tbody tr:nth-child(2) td:last-child {
+  color: var(--miner-mint);
+  font-weight: 700;
+}
+
+/* Method ------------------------------------------------------------------ */
+
+.miner-method {
+  color: var(--ink);
+  background:
+    radial-gradient(circle at 12% 46%, rgba(101, 214, 193, 0.09), transparent 27rem),
+    radial-gradient(circle at 88% 20%, rgba(240, 170, 91, 0.09), transparent 29rem),
+    #05070d;
+}
+
+.miner-section-head-dark > p {
+  color: var(--ink-2);
+}
+
+.miner-layer-lab {
+  overflow: hidden;
+  border: 1px solid var(--line);
+  border-radius: 8px;
+  background: rgba(10, 14, 24, 0.8);
+  box-shadow: 0 30px 90px rgba(0, 0, 0, 0.22);
+}
+
+.miner-lab-head {
+  border-color: var(--line);
+}
+
+.miner-backbone-switch {
+  border-color: var(--line);
+  background: rgba(255, 255, 255, 0.025);
+}
+
+.miner-backbone-switch button.is-active {
+  background: var(--ink);
+  color: #05070d;
+}
+
+.miner-lab-grid {
+  display: grid;
+  grid-template-columns: minmax(15rem, 0.64fr) minmax(28rem, 1.36fr);
+  min-height: 28rem;
+}
+
+.miner-lab-controls {
+  padding: clamp(1.5rem, 3.6vw, 2.7rem);
+  border-right: 1px solid var(--line-soft);
+}
+
+.miner-lab-controls > p:first-child {
+  margin: 0;
+  color: var(--ink-2);
+  font-size: 0.92rem;
+}
+
+.miner-lab-controls b {
+  color: var(--ink);
+}
+
+.miner-cutoff-control {
+  margin-top: 2.1rem;
+}
+
+.miner-cutoff-control label,
+.miner-cutoff-control > div {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  font-family: var(--mono);
+  font-size: 0.64rem;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: var(--ink-3);
+}
+
+.miner-cutoff-control output {
+  color: var(--ink);
+  text-transform: none;
+}
+
+.miner-cutoff-control input {
+  width: 100%;
+  margin: 0.72rem 0 0.25rem;
+  accent-color: var(--miner-mint);
+  cursor: pointer;
+}
+
+.miner-cutoff-control > div {
+  font-size: 0.55rem;
+}
+
+.miner-candidate-readout {
+  margin-top: 2rem;
+  padding: 1rem 1.05rem;
+  border: 1px solid rgba(101, 214, 193, 0.22);
+  border-radius: 5px;
+  background: rgba(101, 214, 193, 0.055);
+}
+
+.miner-candidate-readout strong,
+.miner-candidate-readout span {
+  display: block;
+}
+
+.miner-candidate-readout strong {
+  font-family: var(--display);
+  font-size: clamp(1.35rem, 2.5vw, 1.85rem);
+  line-height: 1;
+}
+
+.miner-candidate-readout span {
+  margin-top: 0.42rem;
+  color: var(--ink-3);
+  font-size: 0.7rem;
+}
+
+.miner-lab-fact {
+  margin: 1.25rem 0 0;
+  padding-top: 1rem;
+  border-top: 1px solid var(--line-soft);
+  color: var(--ink-3);
+  font-size: 0.75rem;
+  line-height: 1.52;
+}
+
+.miner-layer-stage {
+  min-width: 0;
+  padding: clamp(1.5rem, 3vw, 2.4rem);
+  display: grid;
+  align-content: center;
+}
+
+.miner-depth-labels {
+  display: flex;
+  justify-content: space-between;
+  margin: 0 0 0.72rem;
+  color: var(--ink-3);
+  font-family: var(--mono);
+  font-size: 0.56rem;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.miner-layer-stack {
+  position: relative;
+  min-height: 16rem;
+  display: grid;
+  grid-template-columns: repeat(36, minmax(0.42rem, 1fr));
+  align-items: end;
+  gap: clamp(0.12rem, 0.45vw, 0.34rem);
+  padding: 1rem 0.4rem 2.3rem;
+  border-block: 1px solid var(--line-soft);
+}
+
+.miner-layer-fallback {
+  grid-column: 1 / -1;
+  align-self: center;
+  max-width: 42rem;
+  margin: auto;
+  color: var(--ink-2);
+  text-align: center;
+  font-size: 0.86rem;
+}
+
+.miner-layer {
+  --layer-height: 32%;
+  position: relative;
+  height: var(--layer-height);
+  min-height: 2.4rem;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  border-radius: 2px 2px 0 0;
+  background: rgba(169, 177, 199, 0.08);
+  transition: height 320ms cubic-bezier(.2,.7,.2,1), background 260ms ease, border-color 260ms ease, opacity 260ms ease, box-shadow 260ms ease;
+}
+
+.miner-layer::before {
+  content: "";
+  position: absolute;
+  inset: 13% 22%;
+  border-radius: 1px;
+  background: rgba(255, 255, 255, 0.045);
+}
+
+.miner-layer::after {
+  content: attr(data-label);
+  position: absolute;
+  top: calc(100% + 0.55rem);
+  left: 50%;
+  transform: translateX(-50%);
+  color: var(--ink-3);
+  font-family: var(--mono);
+  font-size: 0.48rem;
+}
+
+.miner-layer:not(.has-label)::after {
+  content: "";
+}
+
+.miner-layer.is-realign {
+  border-color: rgba(101, 214, 193, 0.32);
+  background: linear-gradient(180deg, rgba(101, 214, 193, 0.58), rgba(101, 214, 193, 0.12));
+  box-shadow: 0 0 12px rgba(101, 214, 193, 0.08);
+}
+
+.miner-layer.is-reweight {
+  border-color: rgba(240, 170, 91, 0.42);
+  background: linear-gradient(180deg, rgba(240, 170, 91, 0.72), rgba(240, 170, 91, 0.14));
+  box-shadow: 0 0 13px rgba(240, 170, 91, 0.1);
+}
+
+.miner-layer.is-realign::before,
+.miner-layer.is-reweight::before {
+  background: rgba(255, 255, 255, 0.22);
+}
+
+.miner-layer-key {
+  display: flex;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  gap: 0.55rem 1rem;
+  margin-top: 0.85rem;
+  color: var(--ink-3);
+  font-family: var(--mono);
+  font-size: 0.57rem;
+  text-transform: uppercase;
+}
+
+.miner-layer-key span {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.miner-layer-key i {
+  width: 0.62rem;
+  height: 0.62rem;
+  border-radius: 1px;
+  background: rgba(169, 177, 199, 0.1);
+}
+
+.miner-layer-key .key-align { background: var(--miner-mint); }
+.miner-layer-key .key-weight { background: var(--miner-gold); }
+
+.miner-treatment-row {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  border-top: 1px solid var(--line-soft);
+}
+
+.miner-treatment-row article {
+  min-width: 0;
+  padding: clamp(1.3rem, 3vw, 2rem);
+  border-right: 1px solid var(--line-soft);
+}
+
+.miner-treatment-row article:last-child {
+  border-right: 0;
+}
+
+.miner-treatment-row p {
+  margin: 1.1rem 0 0;
+  color: var(--ink-3);
+  font-size: 0.78rem;
+  line-height: 1.55;
+}
+
+.miner-treatment-row p span,
+.miner-treatment-row p strong {
+  display: block;
+}
+
+.miner-treatment-row p span {
+  margin-bottom: 0.4rem;
+  color: var(--miner-mint);
+  font-family: var(--mono);
+  font-size: 0.59rem;
+  letter-spacing: 0.07em;
+  text-transform: uppercase;
+}
+
+.miner-treatment-row article:nth-child(2) p span {
+  color: var(--miner-gold);
+}
+
+.miner-treatment-row p strong {
+  margin-bottom: 0.3rem;
+  color: var(--ink);
+  font-family: var(--display);
+  font-size: 1.12rem;
+  letter-spacing: -0.02em;
+}
+
+.miner-treatment-visual {
+  position: relative;
+  height: 7.4rem;
+  overflow: hidden;
+  border: 1px solid var(--line-soft);
+  border-radius: 5px;
+  background:
+    linear-gradient(rgba(255, 255, 255, 0.026) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255, 255, 255, 0.026) 1px, transparent 1px),
+    rgba(255, 255, 255, 0.018);
+  background-size: 1.2rem 1.2rem;
+}
+
+.miner-rotated-space i,
+.miner-rotated-space b {
+  position: absolute;
+  width: 0.48rem;
+  height: 0.48rem;
+  border-radius: 50%;
+  background: var(--miner-mint);
+  box-shadow: 0 0 8px rgba(101, 214, 193, 0.35);
+}
+
+.miner-rotated-space i:nth-of-type(1) { left: 12%; top: 61%; }
+.miner-rotated-space i:nth-of-type(2) { left: 19%; top: 48%; }
+.miner-rotated-space i:nth-of-type(3) { left: 25%; top: 38%; }
+.miner-rotated-space i:nth-of-type(4) { left: 31%; top: 27%; }
+.miner-rotated-space i:nth-of-type(5) { left: 37%; top: 17%; }
+.miner-rotated-space i:nth-of-type(6) { left: 30%; top: 55%; opacity: 0.38; }
+.miner-rotated-space b:nth-of-type(1) { right: 36%; top: 25%; }
+.miner-rotated-space b:nth-of-type(2) { right: 28%; top: 25%; }
+.miner-rotated-space b:nth-of-type(3) { right: 20%; top: 25%; }
+.miner-rotated-space b:nth-of-type(4) { right: 36%; top: 58%; }
+.miner-rotated-space b:nth-of-type(5) { right: 28%; top: 58%; }
+.miner-rotated-space b:nth-of-type(6) { right: 20%; top: 58%; }
+
+.miner-rotated-space span {
+  position: absolute;
+  left: 48%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  color: var(--ink-3);
+}
+
+.miner-weighted-space {
+  display: grid;
+  grid-template-columns: repeat(8, 1fr);
+  align-items: end;
+  gap: 0.36rem;
+  padding: 1rem;
+}
+
+.miner-weighted-space i {
+  display: block;
+  height: var(--height, 42%);
+  min-height: 0.8rem;
+  border-radius: 2px 2px 0 0;
+  background: rgba(169, 177, 199, 0.12);
+}
+
+.miner-weighted-space i:nth-child(1) { --height: 25%; }
+.miner-weighted-space i:nth-child(2) { --height: 84%; background: var(--miner-gold); }
+.miner-weighted-space i:nth-child(3) { --height: 36%; }
+.miner-weighted-space i:nth-child(4) { --height: 68%; background: var(--miner-gold); opacity: 0.75; }
+.miner-weighted-space i:nth-child(5) { --height: 18%; }
+.miner-weighted-space i:nth-child(6) { --height: 92%; background: var(--miner-gold); }
+.miner-weighted-space i:nth-child(7) { --height: 31%; }
+.miner-weighted-space i:nth-child(8) { --height: 57%; background: var(--miner-gold); opacity: 0.62; }
+
+.miner-fusion-vector {
+  display: grid;
+  grid-template-columns: repeat(12, 1fr);
+  align-items: center;
+  gap: 0.18rem;
+  padding: 2.2rem 1rem;
+}
+
+.miner-fusion-vector i {
+  display: block;
+  height: 3rem;
+  border-radius: 1px;
+  background: color-mix(in srgb, var(--miner-mint) var(--mix, 45%), rgba(169, 177, 199, 0.1));
+}
+
+.miner-fusion-vector i:nth-child(2n) { --mix: 72%; }
+.miner-fusion-vector i:nth-child(3n) { --mix: 26%; }
+.miner-fusion-vector i:nth-child(5n) { background: var(--miner-gold); }
+
+.miner-lab-note {
+  margin: 0;
+  padding: 0.85rem clamp(1.3rem, 3vw, 2rem);
+  border-top: 1px solid var(--line-soft);
+  color: var(--ink-3);
+  font-size: 0.68rem;
+}
+
+.miner-method-steps {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  margin-top: clamp(2.5rem, 5vw, 4rem);
+  border-block: 1px solid var(--line-soft);
+}
+
+.miner-method-steps article {
+  padding: 1.8rem clamp(1rem, 2.8vw, 2.2rem);
+  border-left: 1px solid var(--line-soft);
+}
+
+.miner-method-steps article:last-child {
+  border-right: 1px solid var(--line-soft);
+}
+
+.miner-method-steps span {
+  color: var(--miner-mint);
+  font-family: var(--mono);
+  font-size: 0.65rem;
+}
+
+.miner-method-steps article:nth-child(2) span {
+  color: var(--miner-gold);
+}
+
+.miner-method-steps h3 {
+  margin: 0.65rem 0 0.55rem;
+  font-family: var(--display);
+  font-size: 1.35rem;
+  letter-spacing: -0.025em;
+}
+
+.miner-method-steps p {
+  max-width: 30ch;
+  margin: 0;
+  color: var(--ink-3);
+  font-size: 0.85rem;
+}
+
+/* Serving ----------------------------------------------------------------- */
+
+.miner-serving {
+  background:
+    radial-gradient(circle at 82% 30%, rgba(25, 141, 124, 0.07), transparent 28rem),
+    var(--bg);
+}
+
+.miner-serving-grid {
+  display: grid;
+  grid-template-columns: minmax(15rem, 0.62fr) minmax(31rem, 1.38fr);
+  align-items: center;
+  gap: clamp(2.5rem, 7vw, 7rem);
+}
+
+.miner-serving-copy h2 {
+  font-size: clamp(2.2rem, 4.6vw, 3.65rem);
+}
+
+.miner-serving-copy p {
+  max-width: 39ch;
+  margin: 1.25rem 0 0;
+  color: var(--ink-2);
+}
+
+.miner-serving-board {
+  display: grid;
+  grid-template-columns: minmax(7rem, 1fr) auto minmax(8.5rem, 1.15fr) auto minmax(8.5rem, 1.15fr);
+  align-items: center;
+  gap: clamp(0.55rem, 1.5vw, 1.1rem);
+  padding: clamp(1.2rem, 3vw, 2.2rem);
+  border: 1px solid var(--line-soft);
+  border-radius: 8px;
+  background: #fff;
+  box-shadow: 0 20px 60px rgba(20, 24, 36, 0.075);
+}
+
+.miner-serving-source,
+.miner-serving-one,
+.miner-serving-index {
+  min-height: 12.5rem;
+  padding: 1rem;
+  border: 1px solid var(--line-soft);
+  border-radius: 5px;
+  background: #f8f9fb;
+}
+
+.miner-serving-board :where(.miner-serving-source, .miner-serving-one, .miner-serving-index) > span {
+  display: block;
+  color: var(--ink-3);
+  font-family: var(--mono);
+  font-size: 0.52rem;
+  letter-spacing: 0.09em;
+  text-transform: uppercase;
+}
+
+.miner-mini-page {
+  height: 8.2rem;
+  margin-top: 0.8rem;
+  padding: 0.65rem;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(6, 1fr);
+  gap: 0.25rem;
+  border-radius: 3px;
+  background: #fff;
+  box-shadow: inset 0 0 0 1px var(--line-soft);
+}
+
+.miner-mini-page i {
+  background: #dfe3e9;
+  border-radius: 1px;
+}
+
+.miner-mini-page i:nth-child(1) { grid-column: 1 / -1; grid-row: 1; background: rgba(25, 141, 124, 0.45); }
+.miner-mini-page i:nth-child(2) { grid-column: 1 / 3; grid-row: 2 / 5; background: rgba(180, 102, 24, 0.16); }
+.miner-mini-page i:nth-child(3) { grid-column: 3 / -1; grid-row: 2; }
+.miner-mini-page i:nth-child(4) { grid-column: 1 / -1; grid-row: 6; }
+
+.miner-serving-arrow {
+  color: var(--miner-mint);
+  font-family: var(--display);
+  font-size: 1.35rem;
+  text-align: center;
+}
+
+.miner-serving-arrow span {
+  display: block;
+  margin-bottom: 0.2rem;
+  color: var(--ink-3);
+  font-family: var(--mono);
+  font-size: 0.47rem;
+  letter-spacing: 0.06em;
+}
+
+.miner-serving-vector {
+  grid-template-columns: repeat(10, 1fr);
+  gap: 0.13rem;
+  margin-top: 2.7rem;
+}
+
+.miner-serving-vector i {
+  height: 3.4rem;
+  background: color-mix(in srgb, var(--miner-mint) var(--level, 48%), #e8ecef);
+}
+
+.miner-serving-vector i:nth-child(2n) { --level: 80%; }
+.miner-serving-vector i:nth-child(3n) { --level: 22%; }
+.miner-serving-vector i:nth-child(5n) { background: var(--miner-gold); }
+
+.miner-serving-one strong,
+.miner-serving-index strong {
+  display: block;
+  margin-top: 0.62rem;
+  font-family: var(--display);
+  font-size: 1.15rem;
+}
+
+.miner-serving-index > div {
+  display: grid;
+  gap: 0.43rem;
+  margin-top: 2rem;
+}
+
+.miner-serving-index i {
+  display: block;
+  height: 0.58rem;
+  border-radius: 2px;
+  background: linear-gradient(90deg, rgba(25, 141, 124, 0.78), rgba(25, 141, 124, 0.14));
+}
+
+.miner-serving-index i:nth-child(2) { width: 76%; }
+.miner-serving-index i:nth-child(3) { width: 91%; }
+.miner-serving-index i:nth-child(4) { width: 61%; }
+.miner-serving-index i:nth-child(5) { width: 84%; }
+
+/* Reveal enhancement ------------------------------------------------------ */
+
+[data-reveal] {
+  opacity: 1;
+  transform: none;
+}
+
+.miner-enhanced [data-reveal] {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 650ms ease, transform 650ms cubic-bezier(.2,.7,.2,1);
+}
+
+.miner-enhanced [data-reveal].is-visible {
+  opacity: 1;
+  transform: none;
+}
+
+/* Responsive -------------------------------------------------------------- */
+
+@media (max-width: 1040px) {
+  .miner-masthead-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .miner-hero-copy {
+    grid-column: 1;
+    grid-row: 1;
+    max-width: 48rem;
+  }
+
+  .miner-proof-rail {
+    grid-column: 1;
+    grid-row: 2;
+  }
+
+  .miner-hero-art {
+    grid-column: 1;
+    grid-row: 3;
+    min-height: 30rem;
+  }
+
+  .miner-section-head,
+  .miner-serving-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .miner-section-head > p {
+    max-width: 50ch;
+  }
+
+  .miner-serving-copy {
+    max-width: 45rem;
+  }
+}
+
+@media (max-width: 820px) {
+  .miner-lab-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .miner-lab-controls {
+    border-right: 0;
+    border-bottom: 1px solid var(--line-soft);
+  }
+
+  .miner-layer-stage {
+    overflow-x: auto;
+  }
+
+  .miner-depth-labels,
+  .miner-layer-stack,
+  .miner-layer-key {
+    min-width: 39rem;
+  }
+
+  .miner-treatment-row {
+    grid-template-columns: 1fr;
+  }
+
+  .miner-treatment-row article,
+  .miner-treatment-row article:last-child {
+    border-right: 0;
+  }
+
+  .miner-treatment-row article + article {
+    border-top: 1px solid var(--line-soft);
+  }
+
+  .miner-treatment-visual {
+    max-width: 34rem;
+  }
+
+  .miner-serving-board {
+    grid-template-columns: 1fr;
+    gap: 0.7rem;
+  }
+
+  .miner-serving-arrow {
+    transform: rotate(90deg);
+    width: 2rem;
+    margin: -0.2rem auto;
+  }
+
+  .miner-serving-arrow span {
+    display: none;
+  }
+
+  .miner-serving-source,
+  .miner-serving-one,
+  .miner-serving-index {
+    min-height: 0;
+  }
+
+  .miner-mini-page {
+    max-width: 15rem;
+  }
+
+  .miner-serving-vector {
+    max-width: 22rem;
+    margin-top: 1.6rem;
+  }
+
+  .miner-serving-index > div {
+    max-width: 22rem;
+    margin-top: 1.4rem;
+  }
+}
+
+@media (max-width: 760px) {
+  .miner-nav-links a:nth-child(3) {
+    display: none;
+  }
+
+  .miner-masthead {
+    padding-top: 7.5rem;
+  }
+
+  .miner-hero-copy h1 {
+    font-size: clamp(4.2rem, 23vw, 6.5rem);
+  }
+
+  .miner-hero-art {
+    min-height: 26rem;
+  }
+
+  .miner-art-inputs {
+    width: 7rem;
+  }
+
+  .miner-art-page {
+    height: 8.7rem;
+  }
+
+  .miner-hero-layers {
+    left: 9.1rem;
+    right: 7.2rem;
+  }
+
+  .miner-hero-funnel {
+    right: 0.8rem;
+  }
+
+  .miner-hero-funnel span {
+    width: 4.9rem;
+  }
+
+  .miner-proof-rail {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .miner-proof:nth-child(3),
+  .miner-proof:nth-child(4) {
+    border-top: 1px solid var(--line);
+  }
+
+  .miner-chart-head,
+  .miner-lab-head {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .miner-chart-foot p {
+    flex-basis: 100%;
+    margin-left: 0;
+    text-align: left;
+  }
+
+  .miner-result-story,
+  .miner-method-steps {
+    grid-template-columns: 1fr;
+  }
+
+  .miner-method-steps article,
+  .miner-method-steps article:last-child {
+    border-right: 1px solid var(--line-soft);
+  }
+
+  .miner-method-steps article + article {
+    border-top: 1px solid var(--line-soft);
+  }
+}
+
+@media (max-width: 500px) {
+  .miner-nav-inner {
+    min-height: 4rem;
+    gap: 0.75rem;
+  }
+
+  .miner-nav-links {
+    gap: 0.65rem;
+  }
+
+  .miner-nav-home,
+  .miner-nav-links a {
+    font-size: 0.66rem;
+  }
+
+  .miner-art-top span:last-child {
+    display: none;
+  }
+
+  .miner-hero-art {
+    min-height: 24rem;
+  }
+
+  .miner-art-inputs {
+    left: 0.8rem;
+    width: 6.6rem;
+  }
+
+  .miner-art-query strong {
+    font-size: 0.75rem;
+  }
+
+  .miner-hero-layers {
+    left: 8rem;
+    right: 5.7rem;
+  }
+
+  .miner-hero-funnel {
+    display: none;
+  }
+
+  .miner-hero-output {
+    right: 0.8rem;
+    width: 10.6rem;
+  }
+
+  .miner-proof {
+    min-height: 8rem;
+    padding: 1.4rem 0.85rem;
+  }
+
+  .miner-proof strong {
+    font-size: 1.55rem;
+  }
+
+  .miner-tradeoff-controls,
+  .miner-backbone-switch {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .miner-backbone-switch {
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .miner-tradeoff-controls button,
+  .miner-backbone-switch button {
+    padding-inline: 0.45rem;
+  }
+
+  .miner-tradeoff-chart {
+    min-width: 0;
+  }
+
+  .miner-chart-wrap {
+    overflow-x: visible;
+  }
+
+  .miner-layer-stage {
+    overflow-x: visible;
+    padding-inline: 1rem;
+  }
+
+  .miner-depth-labels,
+  .miner-layer-stack,
+  .miner-layer-key {
+    min-width: 0;
+  }
+
+  .miner-layer-stack {
+    grid-template-columns: repeat(36, minmax(0, 1fr));
+    gap: 0.1rem;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .miner-hero-layer i.is-signal {
+    animation: none;
+  }
+
+  .miner-enhanced [data-reveal],
+  .miner-layer,
+  .miner-tradeoff-chart .tradeoff-point {
+    transition: none;
+  }
+}

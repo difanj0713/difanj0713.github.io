@@ -5,6 +5,8 @@
  * reads correctly: every panel is simply shown in sequence as it scrolls by.
  */
 
+document.documentElement.classList.add('home-enhanced');
+
 const clamp01 = (v) => (v < 0 ? 0 : v > 1 ? 1 : v);
 
 const stage = document.getElementById('stage');
@@ -64,6 +66,24 @@ window.addEventListener('resize', () => {
   requestUpdate();
 });
 update();
+
+/* Build the contact address only after a deliberate click. This keeps the
+   address out of the rendered page while preserving the native mail client. */
+for (const link of document.querySelectorAll('[data-email-contact]')) {
+  link.addEventListener('click', (event) => {
+    const encoded = link.dataset.emailContact;
+    if (!encoded) return;
+
+    try {
+      const address = window.atob(encoded);
+      if (!address.includes('@')) return;
+      event.preventDefault();
+      window.location.href = `mailto:${address}`;
+    } catch (_error) {
+      // Leave the in-page fallback untouched if the address cannot be decoded.
+    }
+  });
+}
 
 /* --------------------------------------------------------------- boot viz */
 

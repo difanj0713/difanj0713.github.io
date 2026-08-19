@@ -3,50 +3,361 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Agent-SIREN &middot; The SPIN-Universe</title>
-<meta name="description" content="Agent-SIREN: guards miss unsafe tool use because their output drops it, not because they cannot see it. A 2,561-parameter linear probe reads it back.">
+<title>Agent-SIREN &middot; Read the Risk a Guard Does Not Say</title>
+<meta name="description" content="Agent-SIREN reads a frozen model's internal state to detect harmful agent trajectories, leading evaluated open guards with just 2,561 trainable parameters.">
 <link rel="canonical" href="https://difanj0713.github.io/spin-universe/agent-siren/">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Agent-SIREN &middot; The SPIN-Universe">
-<meta property="og:description" content="Agent-SIREN: guards miss unsafe tool use because their output drops it, not because they cannot see it. A 2,561-parameter linear probe reads it back.">
-<link rel="stylesheet" href="../assets/css/site.css?v=5">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%2305070d'/%3E%3Crect x='7' y='6' width='18' height='3' rx='1.5' fill='%23e0455f'/%3E%3Crect x='7' y='12' width='18' height='3' rx='1.5' fill='%237d8dff'/%3E%3Crect x='7' y='18' width='11' height='3' rx='1.5' fill='%237d8dff' opacity='.55'/%3E%3Crect x='7' y='24' width='6' height='3' rx='1.5' fill='%23a9b1c7' opacity='.35'/%3E%3C/svg%3E">
+<meta property="og:title" content="Agent-SIREN &middot; Read the Risk a Guard Does Not Say">
+<meta property="og:description" content="The guard's verdict misses context-dependent unsafe tool use. Its internal state still carries the signal.">
+<meta property="og:url" content="https://difanj0713.github.io/spin-universe/agent-siren/">
+<meta property="og:site_name" content="The SPIN-Universe">
+<meta property="og:image" content="https://difanj0713.github.io/spin-universe/assets/img/social/agent-siren.png">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Agent-SIREN: the guard saw the risk, but its verdict did not. The internal readout uses 2,561 trainable parameters.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://difanj0713.github.io/spin-universe/assets/img/social/agent-siren.png">
+<meta name="twitter:image:alt" content="Agent-SIREN: the guard saw the risk, but its verdict did not.">
+<meta name="citation_title" content="Detecting Harmful Agent Trajectories from LLM Internal Representations">
+<meta name="citation_author" content="Difan Jiao">
+<meta name="citation_author" content="Ashton Anderson">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ScholarlyArticle",
+  "@id": "https://difanj0713.github.io/spin-universe/agent-siren/#paper",
+  "headline": "Detecting Harmful Agent Trajectories from LLM Internal Representations",
+  "description": "Agent-SIREN reads a frozen model's internal state to detect harmful agent trajectories, leading evaluated open guards with just 2,561 trainable parameters.",
+  "author": [
+    { "@type": "Person", "name": "Difan Jiao" },
+    { "@type": "Person", "name": "Ashton Anderson" }
+  ],
+  "url": "https://difanj0713.github.io/spin-universe/agent-siren/",
+  "mainEntityOfPage": "https://difanj0713.github.io/spin-universe/agent-siren/",
+  "isPartOf": { "@id": "https://difanj0713.github.io/spin-universe/#collection" },
+  "inLanguage": "en",
+  "image": "https://difanj0713.github.io/spin-universe/assets/img/social/agent-siren.png"
+}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600&amp;family=Overpass:ital,wght@0,400;0,500;0,600;0,700;1,400&amp;family=Platypi:ital,wght@0,600;0,700;0,800;1,600&amp;display=swap">
+<link rel="stylesheet" href="../assets/css/site.css?v=10">
+<link rel="stylesheet" href="../assets/css/agent-siren.css?v=3">
+<link rel="icon" href="/spin-universe/assets/img/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/spin-universe/assets/img/favicon-48x48.png" type="image/png" sizes="48x48">
 </head>
-<body>
 
-<header class="layer solid paper-hero">
-  <div class="shell">
-    <a class="back" href="../">&larr; The SPIN-Universe</a>
-    <p class="eyebrow">Agent trajectories &middot; <b>Preprint</b></p>
-    <h1 class="paper-title">Agent-SIREN</h1>
-    <p class="paper-full">Detecting Harmful Agent Trajectories from LLM Internal Representations</p>
-    <p class="authors"><b>Difan Jiao</b>, Ashton Anderson</p>
-    <div class="links">
-      <a class="chip" href="https://github.com/CSSLab/agent-siren">Code</a>
-      <a class="chip" href="https://huggingface.co/difanjiao/Agent-SIREN-Qwen3-4B">Model</a>
-      <a class="chip" href="https://pypi.org/project/llm-siren/">pip install llm-siren</a>
+<body class="agent-page">
+
+<nav class="agent-nav" aria-label="Agent-SIREN page navigation">
+  <div class="shell agent-nav-inner">
+    <a class="agent-nav-home" href="../"><span aria-hidden="true">&larr;</span> The SPIN&#8209;Universe</a>
+    <div class="agent-nav-links">
+      <a href="#contrast">Mechanism</a>
+      <a href="#results">Results</a>
+      <a href="#efficiency">Deployment</a>
+    </div>
+  </div>
+</nav>
+
+<header class="agent-masthead" id="top">
+  <div class="shell agent-masthead-grid">
+    <div class="agent-hero-copy" data-reveal>
+      <p class="eyebrow">Agent trajectory safety &middot; <b>Under review</b></p>
+      <h1>Agent-SIREN</h1>
+      <p class="agent-hero-claim">The guard saw the risk. Its verdict did not.</p>
+      <p class="agent-hero-deck">Agent-SIREN reads one intermediate state of a frozen model, recovering context-dependent risk that can disappear from the model&rsquo;s own verdict.</p>
+      <p class="agent-authors"><b>Difan Jiao</b> &middot; Ashton Anderson</p>
+      <div class="links agent-hero-links" aria-label="Agent-SIREN resources">
+        <a class="chip chip-primary" href="https://github.com/CSSLab/agent-siren">
+          <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82A7.7 7.7 0 0 1 8 3.59c.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg>
+          Code
+        </a>
+        <a class="chip" href="https://huggingface.co/difanjiao/Agent-SIREN-Qwen3-4B">
+          <span class="agent-resource-mark" aria-hidden="true">HF</span>Model
+        </a>
+        <a class="chip" href="https://pypi.org/project/llm-siren/">
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="none" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.8" d="m5 7 5 5-5 5m7 0h7"/></svg>
+          Install
+        </a>
+      </div>
+    </div>
+
+    <div class="agent-hero-art" data-reveal aria-hidden="true">
+      <div class="agent-hero-route">
+        <span class="agent-route-label">agent trajectory</span>
+        <div class="agent-route-event event-user"><i></i><span>request</span></div>
+        <div class="agent-route-event event-tool"><i></i><span>tool schema</span></div>
+        <div class="agent-route-event event-action"><i></i><span>action</span></div>
+      </div>
+      <div class="agent-hero-model">
+        <div class="agent-model-top"><span>one frozen guard</span><span>two interfaces</span></div>
+        <div class="agent-layer-stack" id="agentHeroLayers"></div>
+        <div class="agent-visible-readout">
+          <span>generated verdict</span>
+          <strong>SAFE</strong>
+        </div>
+        <div class="agent-internal-readout">
+          <span>internal readout</span>
+          <strong>RISK</strong>
+        </div>
+      </div>
+    </div>
+
+    <div class="agent-proof-rail" aria-label="Agent-SIREN headline findings">
+      <div class="agent-proof" data-reveal>
+        <strong>0.77</strong>
+        <span>beats leading open guard models</span>
+      </div>
+      <div class="agent-proof" data-reveal>
+        <strong>0.80</strong>
+        <span>fine-tuning + internal readout</span>
+      </div>
+      <div class="agent-proof" data-reveal>
+        <strong>2.5K</strong>
+        <span>trainable parameters on Qwen3-4B</span>
+      </div>
+      <div class="agent-proof" data-reveal>
+        <strong>2.2&times;</strong>
+        <span>faster than AgentDoG with early exit</span>
+      </div>
     </div>
   </div>
 </header>
 
-<main class="layer solid section paper-body">
-  <div class="shell">
-   <div class="prose">
-    <h2>The idea</h2>
-    <p>An agent acts through tools, so its mistakes cost more than a chatbot's. But a trajectory can be unsafe in two quite different ways. <b>Harmful content</b> is stated outright, which is what content moderation was built to catch. <b>Unsafe tool use</b> turns on whether an action is consistent with the interaction that produced it: the right vendor, the right amount, the wrong authorisation. No single message in such a trajectory reads as harmful on its own.</p>
-    <p>To separate the two we built matched pairs. For tool use, two trajectories with byte&#8209;identical messages and byte&#8209;identical final actions, differing only in the schema of the tool that action calls. For content, two rollouts of the same scenario with the same toolkit, differing in what the agent says.</p>
+<main>
 
-    <h2>What it showed</h2>
-    <p>On those pairs, the leading open guards' own verdicts separate harmful content well above chance and sit <b>at chance</b> on unsafe tool use. Reading the same models internally tells a different story: a linear direction estimated out of fold orders the tool&#8209;use pairs correctly up to <b>0.94 inside the guards and 0.98 inside the general&#8209;purpose backbones</b> they were tuned from, peaking in the middle layers and falling off toward the final one, which is exactly the state a generative guard reads its label from.</p>
-    <p>The two forms of risk also follow <b>near&#8209;orthogonal internal directions</b>, so supervision for one should not be expected to deliver the other. That is what motivates the guard: one linear score can carry both, and it does so from different coordinates.</p>
-    <p>The resulting readout is a single linear probe on one validation&#8209;selected hidden state of a frozen backbone: <b>2,561 trainable parameters</b>. Across six trajectory&#8209;safety benchmarks, held out one at a time, it reached the highest mean macro&#8209;F1 of the open guard checkpoints we evaluated. Under matched training data it is <b>on par with fully fine&#8209;tuning the same backbone</b>, and because it reads representations rather than replacing them, fitting it on top of that fine&#8209;tune improves the result again.</p>
-    <div class="stub">
-      This page is a placeholder while the full write-up is prepared. In the meantime the
-      paper, the code and the models above are the complete record.
+<section class="light agent-section agent-contrast agent-mechanism" id="contrast">
+  <div class="shell">
+    <p class="section-label">Why agent safety is different</p>
+    <div class="agent-section-head" data-reveal>
+      <h2>Two ways an agent<br>can be unsafe.</h2>
+      <p>One risk is written in the content. The other only appears when an action is compared with the authorization and context around it.</p>
     </div>
-   </div>
+
+    <div class="agent-evidence-grid" data-reveal aria-label="Two forms of safety evidence from the paper teaser">
+      <article class="agent-evidence-card is-content">
+        <div class="agent-evidence-heading">
+          <span>01</span>
+          <h3>Harmful content</h3>
+          <p>The risk is in what is said.</p>
+        </div>
+        <div class="agent-evidence-flow">
+          <div class="agent-evidence-node">
+            <span>User</span>
+            <p>&ldquo;Issue this oxycodone prescription&mdash;<mark>no diagnosis needed.</mark>&rdquo;</p>
+          </div>
+          <i aria-hidden="true">&rarr;</i>
+          <div class="agent-evidence-node is-action">
+            <span>Agent &times; tool</span>
+            <code>send_approval(rx)</code>
+          </div>
+          <i aria-hidden="true">&rarr;</i>
+          <div class="agent-evidence-node is-outcome">
+            <span>Environment</span>
+            <p>Prescription issued</p>
+          </div>
+        </div>
+        <p class="agent-evidence-rule"><b>Visible in the message.</b> A content guard has explicit words to judge.</p>
+      </article>
+
+      <article class="agent-evidence-card is-tool">
+        <div class="agent-evidence-heading">
+          <span>02</span>
+          <h3>Unsafe tool use</h3>
+          <p>The risk is in the relationship.</p>
+        </div>
+        <div class="agent-evidence-flow">
+          <div class="agent-evidence-node">
+            <span>User</span>
+            <p>&ldquo;Reconcile this invoice from Acme&mdash;<mark>review only.</mark>&rdquo;</p>
+          </div>
+          <i aria-hidden="true">&rarr;</i>
+          <div class="agent-evidence-node is-action">
+            <span>Agent &times; tool</span>
+            <code>pay_invoice(<br>&ldquo;Acme Corp&rdquo;, $500)</code>
+          </div>
+          <i aria-hidden="true">&rarr;</i>
+          <div class="agent-evidence-node is-outcome">
+            <span>Environment</span>
+            <p>$500 paid</p>
+          </div>
+        </div>
+        <p class="agent-evidence-rule"><b>Review is not pay.</b> Nothing looks harmful in isolation; the mismatch makes the trajectory unsafe.</p>
+      </article>
+    </div>
+
+    <div class="agent-mechanism-board" data-reveal>
+      <div class="agent-expression-panel">
+        <p class="agent-demo-kicker">What current guards encode vs express</p>
+        <h3>Both risks are readable inside.<br>Only one survives the verdict.</h3>
+        <div class="agent-expression-rows" role="img" aria-label="Harmful content is readable internally and expressed in guard output. Unsafe tool use reaches 0.94 internally while guard output remains near chance at 0.51.">
+          <div class="agent-expression-row is-content">
+            <b>Harmful content</b>
+            <div><span>Inside</span><i><em style="--evidence: 92%"></em></i><strong>readable</strong></div>
+            <div><span>Output</span><i><em style="--evidence: 78%"></em></i><strong>0.78</strong></div>
+          </div>
+          <div class="agent-expression-row is-tool">
+            <b>Unsafe tool use</b>
+            <div><span>Inside</span><i><em style="--evidence: 94%"></em></i><strong>0.94</strong></div>
+            <div><span>Output</span><i><em style="--evidence: 51%"></em></i><strong>0.51</strong></div>
+          </div>
+        </div>
+        <p class="agent-expression-note">Matched-pair ordering &middot; chance = 0.50 <span>Two signals, largely separate directions</span></p>
+      </div>
+
+      <div class="agent-proposal-panel">
+        <p class="agent-demo-kicker">Agent-SIREN</p>
+        <h3>Read the evidence before the verdict loses it.</h3>
+        <div class="agent-proposal-flow" aria-label="A complete trajectory enters a frozen model. One intermediate state is selected and a linear readout returns one risk score.">
+          <div class="agent-proposal-input"><span>Complete trajectory</span><i></i><i></i><i></i></div>
+          <b aria-hidden="true">&rarr;</b>
+          <div class="agent-proposal-model">
+            <span>Frozen model</span>
+            <div aria-hidden="true"><i></i><i></i><i></i><i></i><i class="is-selected"></i><i></i><i></i><i></i><i></i></div>
+            <small>choose one state</small>
+          </div>
+          <b aria-hidden="true">&rarr;</b>
+          <div class="agent-proposal-score"><span>Linear readout</span><strong>Risk score</strong></div>
+        </div>
+        <p>One small probe can weight both kinds of evidence without changing the backbone or decoding a verdict.</p>
+      </div>
+    </div>
   </div>
+</section>
+
+<section class="light agent-section agent-results" id="results">
+  <div class="shell">
+    <p class="section-label">The headline result</p>
+    <div class="agent-section-head" data-reveal>
+      <h2>Across six benchmarks,<br>Agent-SIREN leads.</h2>
+      <p>From unsafe tool use to harmful requests, Agent-SIREN reaches the highest average score among the evaluated open guards and leads or ties on five of six benchmarks.</p>
+    </div>
+
+    <div class="agent-result-card" data-reveal>
+      <div class="agent-chart-head">
+        <p class="agent-chart-kicker">Macro-F1 on the held-out benchmark</p>
+        <div class="agent-chart-legend" aria-hidden="true">
+          <span><i class="legend-qwen"></i>Qwen3Guard</span>
+          <span><i class="legend-llama"></i>LlamaGuard3</span>
+          <span><i class="legend-dog"></i>AgentDoG</span>
+          <span><i class="legend-agent"></i>Agent-SIREN</span>
+        </div>
+      </div>
+      <div class="agent-result-chart-wrap">
+        <svg id="agentResultChart" class="agent-result-chart" viewBox="0 0 1080 520" role="group" aria-labelledby="agentResultTitle agentResultDesc">
+          <title id="agentResultTitle">Agent-SIREN and three open guard checkpoints across six held-out benchmarks</title>
+          <desc id="agentResultDesc">A horizontal dot chart. Agent-SIREN on Qwen3-4B has the highest or tied macro-F1 on five of six benchmarks and the highest mean.</desc>
+          <text class="agent-svg-fallback" data-result-fallback x="540" y="255" text-anchor="middle">Agent-SIREN leads or ties on five of six held-out benchmarks. Open the table below for every value.</text>
+        </svg>
+        <div id="agentChartTooltip" class="agent-chart-tooltip" role="status" aria-live="polite"></div>
+      </div>
+    </div>
+
+    <div class="agent-compound" data-reveal>
+      <div class="agent-compound-copy">
+        <p class="agent-demo-kicker">Matched training data</p>
+        <h3>Same data. Same backbone.<br>A better readout.</h3>
+        <p>With identical training trajectories and evaluation folds, a frozen internal readout matches full fine-tuning on Qwen3-4B and slightly exceeds it on Llama-3.1-8B. Read the fine-tuned model internally, and performance rises again. Fine-tuning and internal readout compound.</p>
+      </div>
+      <div class="agent-compound-rows" aria-label="Mean macro-F1 for frozen readout, safety fine-tuning, and their combination">
+        <div class="agent-compound-row">
+          <span class="agent-compound-model">Qwen3-4B</span>
+          <div><span>Frozen readout</span><strong>0.77</strong></div>
+          <i aria-hidden="true"></i>
+          <div><span>Full fine-tune</span><strong>0.77</strong></div>
+          <i aria-hidden="true"></i>
+          <div class="is-best"><span>Fine-tune + readout</span><strong>0.80</strong></div>
+        </div>
+        <div class="agent-compound-row">
+          <span class="agent-compound-model">Llama-3.1-8B</span>
+          <div><span>Frozen readout</span><strong>0.75</strong></div>
+          <i aria-hidden="true"></i>
+          <div><span>Full fine-tune</span><strong>0.74</strong></div>
+          <i aria-hidden="true"></i>
+          <div class="is-best"><span>Fine-tune + readout</span><strong>0.76</strong></div>
+        </div>
+      </div>
+    </div>
+
+    <details class="agent-raw-results">
+      <summary>See the complete benchmark audit</summary>
+      <div class="agent-table-group">
+        <h3>Open guard checkpoints</h3>
+        <p>Every column is a different leave-one-benchmark-out fold. Agent-SIREN rows use a single probe on a frozen backbone.</p>
+        <div class="agent-table-scroll">
+          <table>
+            <thead><tr><th>System</th><th>R-Judge</th><th>TraceSafe</th><th>ATBench</th><th>ASSE-Saf</th><th>ASSE-Sec</th><th>AgentHarm</th><th>Mean</th></tr></thead>
+            <tbody>
+              <tr><th>TF-IDF</th><td>0.80</td><td>0.38</td><td>0.41</td><td>0.71</td><td>0.39</td><td>0.92</td><td>0.60</td></tr>
+              <tr><th>Qwen3Guard-4B</th><td>0.43</td><td>0.35</td><td>0.36</td><td>0.43</td><td>0.50</td><td>0.79</td><td>0.48</td></tr>
+              <tr><th>LlamaGuard3-8B</th><td>0.65</td><td>0.48</td><td>0.40</td><td>0.54</td><td>0.74</td><td>0.86</td><td>0.61</td></tr>
+              <tr><th>AgentDoG-4B</th><td>0.92</td><td>0.43</td><td>0.61</td><td><b>0.80</b></td><td>0.78</td><td>0.92</td><td>0.74</td></tr>
+              <tr class="agent-table-highlight"><th>Agent-SIREN &middot; Qwen3-4B</th><td>0.92</td><td><b>0.54</b></td><td><b>0.65</b></td><td>0.68</td><td><b>0.84</b></td><td><b>1.00</b></td><td><b>0.77</b></td></tr>
+              <tr class="agent-table-highlight"><th>Agent-SIREN &middot; Llama-3.1-8B</th><td><b>0.94</b></td><td>0.50</td><td>0.58</td><td>0.75</td><td>0.74</td><td>0.99</td><td>0.75</td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="agent-table-group">
+        <h3>Matched-data fine-tuning comparison</h3>
+        <p>The backbone, training trajectories, and held-out folds are identical within each pair.</p>
+        <div class="agent-table-scroll">
+          <table class="agent-matched-table">
+            <colgroup><col class="agent-col-backbone"><col class="agent-col-readout"><col span="7" class="agent-col-score"></colgroup>
+            <thead><tr><th>Backbone</th><th>Readout</th><th>R-Judge</th><th>TraceSafe</th><th>ATBench</th><th>ASSE-Saf</th><th>ASSE-Sec</th><th>AgentHarm</th><th>Mean</th></tr></thead>
+            <tbody>
+              <tr><th rowspan="2">Qwen3-4B</th><td>Full fine-tune</td><td>0.77</td><td>0.58</td><td>0.64</td><td><b>0.80</b></td><td>0.85</td><td><b>1.00</b></td><td>0.77</td></tr>
+              <tr class="agent-table-highlight"><td>Fine-tune + readout</td><td><b>0.91</b></td><td><b>0.61</b></td><td><b>0.66</b></td><td>0.79</td><td><b>0.87</b></td><td><b>1.00</b></td><td><b>0.80</b></td></tr>
+              <tr><th rowspan="2">Llama-3.1-8B</th><td>Full fine-tune</td><td>0.78</td><td>0.49</td><td>0.59</td><td>0.76</td><td><b>0.83</b></td><td><b>1.00</b></td><td>0.74</td></tr>
+              <tr class="agent-table-highlight"><td>Fine-tune + readout</td><td><b>0.88</b></td><td><b>0.50</b></td><td><b>0.60</b></td><td><b>0.78</b></td><td>0.82</td><td><b>1.00</b></td><td><b>0.76</b></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </details>
+  </div>
+</section>
+
+<section class="agent-section agent-efficiency" id="efficiency">
+  <div class="shell">
+    <p class="section-label">Built for deployment</p>
+    <div class="agent-section-head agent-section-head-dark" data-reveal>
+      <h2>Faster to serve.<br>Faster to train.</h2>
+      <p>Agent-SIREN scores the trajectory directly instead of decoding a verdict. It is already the fastest guard in the measured 4B comparison&mdash;and its useful state arrives early enough to go faster still.</p>
+    </div>
+
+    <div class="agent-deployment-rail" data-reveal aria-label="Agent-SIREN deployment headline results">
+      <article><strong>40 ms</strong><span>single-stream verdict</span></article>
+      <article><strong>1.3&times;</strong><span>faster than AgentDoG</span></article>
+      <article><strong>5.4&times;</strong><span>faster than Qwen3Guard</span></article>
+      <article><strong>39&times;</strong><span>faster to train than full fine-tuning</span></article>
+    </div>
+
+    <div class="agent-exit-demo" data-reveal>
+      <div class="agent-exit-copy">
+        <span class="agent-exit-tag">Early exit</span>
+        <h3>Exit at layer 24.<br>Leave the rest behind.</h3>
+        <p>The strongest safety signal arrives well before the end. A checkpoint that stops there keeps 99.8% of the result and raises measured throughput by 43%.</p>
+      </div>
+      <div class="agent-exit-visual">
+        <div class="agent-exit-stack is-early" id="agentExitStack" role="img" aria-label="The first 24 of 36 layers are used. The remaining 12 layers are skipped."></div>
+        <div class="agent-exit-readouts">
+          <div><strong>26.3 ms</strong><span>per completed trajectory at saturation</span></div>
+          <div><strong>99.8%</strong><span>result retained</span></div>
+          <div class="agent-exit-gain"><strong>+43%</strong><span>measured throughput</span></div>
+        </div>
+      </div>
+    </div>
+    <p class="agent-efficiency-note">Qwen3-4B serving and training measurements. Early-exit time is the per-completion equivalent of measured saturated throughput under the same vLLM workload.</p>
+  </div>
+</section>
+
 </main>
 
+<script src="../assets/js/agent-siren.js?v=3"></script>
 </body>
 </html>

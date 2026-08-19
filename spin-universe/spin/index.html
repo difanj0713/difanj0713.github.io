@@ -3,50 +3,355 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>SPIN &middot; The SPIN-Universe</title>
-<meta name="description" content="SPIN: sparsify each layer's internal neurons by linear probing, integrate them across depth, and classify from that instead of the final layer.">
+<title>SPIN &middot; Better Classification from the Model You Already Have</title>
+<meta name="description" content="SPIN reads the useful signals across a frozen language model's internal layers, improving text classification in all 24 model-and-dataset comparisons we tested.">
 <link rel="canonical" href="https://difanj0713.github.io/spin-universe/spin/">
 <meta property="og:type" content="article">
-<meta property="og:title" content="SPIN &middot; The SPIN-Universe">
-<meta property="og:description" content="SPIN: sparsify each layer's internal neurons by linear probing, integrate them across depth, and classify from that instead of the final layer.">
-<link rel="stylesheet" href="../assets/css/site.css?v=5">
-<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='7' fill='%2305070d'/%3E%3Crect x='7' y='6' width='18' height='3' rx='1.5' fill='%23e0455f'/%3E%3Crect x='7' y='12' width='18' height='3' rx='1.5' fill='%237d8dff'/%3E%3Crect x='7' y='18' width='11' height='3' rx='1.5' fill='%237d8dff' opacity='.55'/%3E%3Crect x='7' y='24' width='6' height='3' rx='1.5' fill='%23a9b1c7' opacity='.35'/%3E%3C/svg%3E">
+<meta property="og:title" content="SPIN &middot; Read More Than the Final Layer">
+<meta property="og:description" content="Better text classification from the model you already have: 24 wins in 24 comparisons, with no backbone retraining.">
+<meta property="og:url" content="https://difanj0713.github.io/spin-universe/spin/">
+<meta property="og:site_name" content="The SPIN-Universe">
+<meta property="og:image" content="https://difanj0713.github.io/spin-universe/assets/img/social/spin.png">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="SPIN: use the whole model, not just its last layer. All 24 model and dataset comparisons improved.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://difanj0713.github.io/spin-universe/assets/img/social/spin.png">
+<meta name="twitter:image:alt" content="SPIN: use the whole model, not just its last layer.">
+<meta name="citation_title" content="SPIN: Sparsifying and Integrating Internal Neurons in Large Language Models for Text Classification">
+<meta name="citation_author" content="Difan Jiao">
+<meta name="citation_author" content="Yilun Liu">
+<meta name="citation_author" content="Zhenwei Tang">
+<meta name="citation_author" content="Daniel Matter">
+<meta name="citation_author" content="J&uuml;rgen Pfeffer">
+<meta name="citation_author" content="Ashton Anderson">
+<meta name="citation_conference_title" content="Findings of the Association for Computational Linguistics: ACL 2024">
+<meta name="citation_publication_date" content="2024/08">
+<meta name="citation_pdf_url" content="https://aclanthology.org/2024.findings-acl.277.pdf">
+<meta name="citation_doi" content="10.18653/v1/2024.findings-acl.277">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ScholarlyArticle",
+  "@id": "https://difanj0713.github.io/spin-universe/spin/#paper",
+  "headline": "SPIN: Sparsifying and Integrating Internal Neurons in Large Language Models for Text Classification",
+  "description": "SPIN reads the useful signals across a frozen language model's internal layers, improving text classification in all 24 model-and-dataset comparisons we tested.",
+  "author": [
+    { "@type": "Person", "name": "Difan Jiao" },
+    { "@type": "Person", "name": "Yilun Liu" },
+    { "@type": "Person", "name": "Zhenwei Tang" },
+    { "@type": "Person", "name": "Daniel Matter" },
+    { "@type": "Person", "name": "Jürgen Pfeffer" },
+    { "@type": "Person", "name": "Ashton Anderson" }
+  ],
+  "url": "https://difanj0713.github.io/spin-universe/spin/",
+  "mainEntityOfPage": "https://difanj0713.github.io/spin-universe/spin/",
+  "isPartOf": { "@id": "https://difanj0713.github.io/spin-universe/#collection" },
+  "inLanguage": "en",
+  "image": "https://difanj0713.github.io/spin-universe/assets/img/social/spin.png",
+  "sameAs": "https://arxiv.org/abs/2311.15983",
+  "datePublished": "2024-08",
+  "identifier": {
+    "@type": "PropertyValue",
+    "propertyID": "DOI",
+    "value": "10.18653/v1/2024.findings-acl.277"
+  }
+}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600&amp;family=Overpass:ital,wght@0,400;0,500;0,600;0,700;1,400&amp;family=Platypi:ital,wght@0,600;0,700;0,800;1,600&amp;display=swap">
+<link rel="stylesheet" href="../assets/css/site.css?v=10">
+<link rel="stylesheet" href="../assets/css/spin.css?v=4">
+<link rel="icon" href="/spin-universe/assets/img/favicon.svg" type="image/svg+xml">
+<link rel="icon" href="/spin-universe/assets/img/favicon-48x48.png" type="image/png" sizes="48x48">
 </head>
-<body>
 
-<header class="layer solid paper-hero">
-  <div class="shell">
-    <a class="back" href="../">&larr; The SPIN-Universe</a>
-    <p class="eyebrow">Text classification &middot; <b>Findings of ACL 2024</b></p>
-    <h1 class="paper-title">SPIN</h1>
-    <p class="paper-full">Sparsifying and Integrating Internal Neurons in Large Language Models for Text Classification</p>
-    <p class="authors"><b>Difan Jiao</b>*, <b>Yilun Liu</b>*, Zhenwei Tang, Daniel Matter, J&uuml;rgen Pfeffer, Ashton Anderson &nbsp;<span style='opacity:.7'>(* equal contribution)</span></p>
-    <div class="links">
-      <a class="chip" href="https://aclanthology.org/2024.findings-acl.277/">Paper</a>
-      <a class="chip" href="https://arxiv.org/abs/2311.15983">arXiv 2311.15983</a>
-      <a class="chip" href="https://github.com/difanj0713/SPIN">Code</a>
-      <a class="chip" href="https://liuyilun2000.github.io/spin-visualization/">Interactive demo</a>
+<body class="spin-page">
+
+<nav class="spin-nav" aria-label="SPIN page navigation">
+  <div class="shell spin-nav-inner">
+    <a class="spin-nav-home" href="../"><span aria-hidden="true">&larr;</span> The SPIN&#8209;Universe</a>
+    <div class="spin-nav-links">
+      <a href="#results">Results</a>
+      <a href="#method">Method</a>
+      <a href="#explorer">Explorer</a>
+    </div>
+  </div>
+</nav>
+
+<header class="spin-masthead" id="top">
+  <div class="shell spin-masthead-grid">
+    <div class="spin-hero-copy" data-reveal>
+      <p class="eyebrow">Text classification &middot; <b>Findings of ACL 2024</b></p>
+      <h1>SPIN</h1>
+      <p class="spin-hero-claim">Use the whole model, not just its last layer.</p>
+      <p class="spin-hero-deck"><b>SPIN</b> (<span class="spin-expansion"><b>SP</b>arsify</span> then <span class="spin-expansion"><b>IN</b>tegrate</span>) finds the few internal signals that already carry the answer and reads them together.</p>
+      <p class="spin-authors"><b>Difan Jiao</b>* &middot; <b>Yilun Liu</b>* &middot; Zhenwei Tang &middot; Daniel Matter &middot; J&uuml;rgen Pfeffer &middot; Ashton Anderson</p>
+      <div class="links spin-hero-links">
+        <a class="chip chip-primary" href="https://arxiv.org/abs/2311.15983">
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M3.842 0a1.004 1.004 0 0 0-.922.608c-.154.369-.044.627.294 1.111l6.918 8.36-1.022 1.106a1.039 1.039 0 0 0 .003 1.422l1.229 1.314-5.439 6.444c-.28.299-.454.823-.297 1.199a1.025 1.025 0 0 0 .959.635.913.913 0 0 0 .689-.341l5.783-6.126 7.49 8.005a.853.853 0 0 0 .683.26.958.958 0 0 0 .878-.614c.158-.377-.017-.75-.306-1.141l-7.052-8.342 1.063-1.13a.963.963 0 0 0 .009-1.316L4.634.464S4.26.01 3.866 0h-.024Zm14.341 1.842a.877.877 0 0 0-.655.242l-5.696 6.158 1.694 1.832 5.309-6.514c.325-.433.479-.66.325-1.029a1.12 1.12 0 0 0-.977-.689Z"/></svg>
+          Read the paper
+        </a>
+        <a class="chip" href="https://github.com/difanj0713/SPIN">
+          <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82A7.7 7.7 0 0 1 8 3.59c.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg>
+          Code
+        </a>
+        <a class="chip" href="https://liuyilun2000.github.io/spin-visualization/">
+          <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82A7.7 7.7 0 0 1 8 3.59c.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg>
+          Full 3D demo
+        </a>
+        <a class="chip" href="../spin-poster.pdf"><span class="spin-pdf-mark" aria-hidden="true">PDF</span>Poster</a>
+      </div>
+    </div>
+
+    <div class="spin-hero-art" data-reveal aria-hidden="true">
+      <div class="spin-hero-art-top">
+        <span>one frozen model</span>
+        <span>many readable layers</span>
+      </div>
+      <div id="spinHeroSignal" class="spin-hero-signal"></div>
+      <div class="spin-hero-readout">
+        <span>cross-layer readout</span>
+        <strong>SPIN</strong>
+      </div>
+    </div>
+
+    <div class="spin-proof-rail" aria-label="SPIN headline results">
+      <div class="spin-proof" data-reveal>
+        <strong>24 / 24</strong>
+        <span>model &times; dataset improved</span>
+      </div>
+      <div class="spin-proof" data-reveal>
+        <strong>+24.97%</strong>
+        <span>largest relative lift</span>
+      </div>
+      <div class="spin-proof" data-reveal>
+        <strong>0</strong>
+        <span>backbone weights updated</span>
+      </div>
+      <div class="spin-proof" data-reveal>
+        <strong>1.67&times;</strong>
+        <span>inference speedup</span>
+      </div>
     </div>
   </div>
 </header>
 
-<main class="layer solid section paper-body">
-  <div class="shell">
-   <div class="prose">
-    <h2>The idea</h2>
-    <p>A classification head on a frozen language model normally reads one vector: the pooled hidden state of the final layer. SPIN asks what is being thrown away, and takes it back.</p>
-    <p>It fits an L1&#8209;regularised linear probe on every layer independently, reads off which units carry the decision from the magnitude of the learned weights, keeps the smallest set whose weight mass clears a threshold, and concatenates those survivors across layers into the features the classifier actually sees. The model's weights are never touched.</p>
+<main>
 
-    <h2>What it showed</h2>
-    <p>Across eight backbones spanning encoder, decoder and encoder&#8209;decoder architectures and three datasets, SPIN improved on the final&#8209;layer baseline in <b>all 24 model and dataset pairs</b>. The largest gain was Flan&#8209;T5&#8209;Small on EDOS, from 59.62 to 74.51 macro&#8209;F1. On IMDb, SPIN over a frozen Flan&#8209;T5&#8209;XL reached <b>99.91% of the accuracy of a fully fine&#8209;tuned XLNet</b>.</p>
-    <p>Two properties from this paper carry through the whole line. The signal is <b>sparse</b>: at a threshold of 0.4 the method keeps roughly 3% of the units in a layer. And it is <b>early</b>: reading only the first 60% of the layers preserves close to 99% of the accuracy, which makes early exit free.</p>
-    <div class="stub">
-      This page is a placeholder while the full write-up is prepared. In the meantime the
-      paper, the code and the models above are the complete record.
+<section class="light spin-section spin-results" id="results">
+  <div class="shell">
+    <p class="section-label">The headline result</p>
+    <div class="spin-section-head" data-reveal>
+      <h2>Every model we tested got better.</h2>
+      <p>Eight language models. Three tasks. Every line below moves upward when the final-layer readout is replaced with SPIN.</p>
     </div>
-   </div>
+
+    <div class="spin-result-card" data-reveal>
+      <div class="spin-chart-head">
+        <div>
+          <p class="spin-chart-kicker">24 head-to-head comparisons</p>
+        </div>
+        <div class="spin-chart-legend" aria-hidden="true">
+          <span><i class="legend-base"></i> Final layer</span>
+          <span><i class="legend-spin"></i> SPIN</span>
+          <span><i class="legend-sota"></i> Paper&rsquo;s 2024 reference</span>
+        </div>
+      </div>
+      <div class="spin-result-chart-wrap">
+        <svg id="spinResultChart" class="spin-result-chart" viewBox="0 0 1080 470" role="group" aria-labelledby="resultChartTitle resultChartDesc">
+          <title id="resultChartTitle">SPIN versus final-layer classification across 24 comparisons</title>
+          <desc id="resultChartDesc">Three paired slope charts for IMDb, SST-2, and EDOS. All eight model lines rise from the final-layer baseline to SPIN.</desc>
+          <text class="spin-svg-fallback" data-result-fallback x="540" y="235" text-anchor="middle">24 of 24 measured comparisons improved. Open the table below for every value.</text>
+        </svg>
+        <div id="spinChartTooltip" class="spin-chart-tooltip" role="status" aria-live="polite"></div>
+      </div>
+    </div>
+
+    <div class="spin-result-story" data-reveal>
+      <h3>Why this matters.</h3>
+      <p>Back in 2023, serious text classification still usually meant a task-specific BERT-style model or fine-tuning general-purpose models separately for each task. Prompting was convenient, but task-specific classifiers remained the stronger default. SPIN showed that the missing signal was already inside: intermediate layers held clean, separable evidence that the final layer left behind. Reading that evidence improved every pretrained comparison, brought the strongest unchanged models close to published state-of-the-art results, and still added another gain after fine-tuning.</p>
+    </div>
+
+    <details class="spin-raw-results">
+      <summary>See all 24 results</summary>
+      <div class="spin-table-scroll">
+        <table>
+          <thead>
+            <tr><th rowspan="2">Backbone</th><th colspan="2">IMDb accuracy</th><th colspan="2">SST-2 accuracy</th><th colspan="2">EDOS macro-F1</th></tr>
+            <tr><th>Final</th><th>SPIN</th><th>Final</th><th>SPIN</th><th>Final</th><th>SPIN</th></tr>
+          </thead>
+          <tbody>
+            <tr><th>DistilBERT</th><td>86.95</td><td>89.78</td><td>81.88</td><td>83.94</td><td>65.09</td><td>75.79</td></tr>
+            <tr><th>RoBERTa</th><td>89.67</td><td>93.61</td><td>84.06</td><td>90.59</td><td>68.81</td><td>73.50</td></tr>
+            <tr><th>GPT2</th><td>87.72</td><td>91.94</td><td>85.89</td><td>87.73</td><td>68.57</td><td>76.08</td></tr>
+            <tr><th>GPT2-M</th><td>88.59</td><td>93.92</td><td>86.12</td><td>90.25</td><td>71.17</td><td>75.74</td></tr>
+            <tr><th>GPT2-XL</th><td>91.86</td><td>94.92</td><td>90.02</td><td>93.23</td><td>72.56</td><td>76.79</td></tr>
+            <tr><th>Flan-T5-S</th><td>84.08</td><td>91.15</td><td>77.17</td><td>88.99</td><td>59.62</td><td>74.51</td></tr>
+            <tr><th>Flan-T5</th><td>90.01</td><td>94.14</td><td>78.26</td><td>92.32</td><td>66.64</td><td>78.04</td></tr>
+            <tr><th>Flan-T5-XL</th><td>90.50</td><td>96.12</td><td>84.75</td><td>95.64</td><td>70.08</td><td>81.48</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </details>
   </div>
+</section>
+
+<section class="spin-section spin-method" id="method">
+  <div class="shell">
+    <p class="section-label">The visual thesis</p>
+    <div class="spin-section-head spin-section-head-dark spin-section-head-single" data-reveal>
+      <h2>Most classifiers read one layer.<br>SPIN reads the useful ones.</h2>
+    </div>
+
+    <div class="spin-readout-demo" data-reveal>
+      <div class="spin-mode-switch" role="group" aria-label="Choose a model readout">
+        <button type="button" data-readout-mode="base" aria-pressed="false">Final layer only</button>
+        <button type="button" data-readout-mode="spin" class="is-active" aria-pressed="true">SPIN</button>
+      </div>
+      <div class="spin-readout-board">
+        <svg id="spinReadoutSvg" viewBox="0 0 900 470" role="img" aria-labelledby="readoutTitle readoutDesc">
+          <title id="readoutTitle">Interactive comparison of a final-layer classifier and SPIN</title>
+          <desc id="readoutDesc">The final-layer mode reads only the end of the model. SPIN selects a few signals across many layers and combines them into one classification.</desc>
+          <text class="spin-svg-fallback" x="450" y="235" text-anchor="middle">SPIN reads selected signals across the frozen model&rsquo;s layers.</text>
+        </svg>
+      </div>
+      <div class="spin-readout-caption">
+        <p id="spinReadoutCaption"><b>The useful signals get a vote, wherever they appear.</b> Small readers find them layer by layer; the rest is discarded.</p>
+      </div>
+    </div>
+
+    <div class="spin-method-steps">
+      <article data-reveal>
+        <span>01</span>
+        <h3>Ask every layer.</h3>
+        <p>A simple reader checks where the task signal is strongest.</p>
+      </article>
+      <article data-reveal>
+        <span>02</span>
+        <h3>Keep the few that matter.</h3>
+        <p>Low-value coordinates fade away. The useful ones stay.</p>
+      </article>
+      <article data-reveal>
+        <span>03</span>
+        <h3>Read them together.</h3>
+        <p>Signals from different depths become one compact decision.</p>
+      </article>
+    </div>
+
+  </div>
+</section>
+
+<section class="light spin-section spin-explorer" id="explorer">
+  <div class="shell">
+    <p class="section-label">The core choices</p>
+    <div class="spin-section-head" data-reveal>
+      <h2>What. Which. Where.</h2>
+      <p>SPIN comes down to three choices: what signal to keep, which view to read, and where to stop. Together, they define the classifier.</p>
+    </div>
+
+    <div class="spin-www" data-reveal>
+      <div class="spin-www-tabs" role="tablist" aria-label="What Which Where explorer" hidden>
+        <button type="button" id="www-tab-what" role="tab" aria-selected="true" aria-controls="www-what" data-www-tab="what"><b>What</b><span>should we keep?</span></button>
+        <button type="button" id="www-tab-which" role="tab" aria-selected="false" aria-controls="www-which" data-www-tab="which"><b>Which</b><span>view of the text?</span></button>
+        <button type="button" id="www-tab-where" role="tab" aria-selected="false" aria-controls="www-where" data-www-tab="where"><b>Where</b><span>should we stop?</span></button>
+      </div>
+
+      <div class="spin-www-panels">
+        <section class="spin-www-panel" id="www-what" role="tabpanel" aria-labelledby="www-tab-what" data-www-panel="what">
+          <div class="spin-www-copy">
+            <p class="spin-www-step">01 &middot; Sparsify</p>
+            <h3>Keep the signal. Drop the crowd.</h3>
+            <p>&eta; is the share of a layer&rsquo;s classifier weight SPIN wants to preserve. Neurons are ranked by influence, and SPIN keeps the smallest group whose combined weight reaches that target.</p>
+            <label class="spin-range-label" for="spinEta"><span>Signal mass kept</span><output id="spinEtaValue">&eta; = 0.4</output></label>
+            <input id="spinEta" class="spin-range" type="range" min="0" max="8" value="4" step="1" aria-describedby="spinEtaFact">
+            <div class="spin-range-scale" aria-hidden="true"><span>&eta; &asymp; 0</span><span>&eta; = 0.8</span></div>
+            <p class="spin-fact" id="spinEtaFact">At &eta; = 0.4, the paper selects about 3% of neurons per layer. Even at &eta; = 0.8, fewer than one in four are needed&mdash;the classification signal is concentrated.</p>
+          </div>
+          <div class="spin-neuron-demo" aria-label="Illustration of selected features">
+            <div class="spin-neuron-grid" id="spinNeuronGrid"></div>
+            <div class="spin-neuron-counter"><strong id="spinNeuronPercent">3%</strong><span>kept</span></div>
+          </div>
+        </section>
+
+        <section class="spin-www-panel" id="www-which" role="tabpanel" aria-labelledby="www-tab-which" data-www-panel="which">
+          <div class="spin-www-copy">
+            <p class="spin-www-step">02 &middot; Summarize</p>
+            <h3>Turn a sentence into one comparable snapshot.</h3>
+            <p>Use one token, keep each feature&rsquo;s strongest moment, or average the whole sequence.</p>
+            <div class="spin-pool-switch" role="group" aria-label="Choose a pooling view">
+              <button type="button" data-pool="single" aria-pressed="false">One token</button>
+              <button type="button" data-pool="max" class="is-active" aria-pressed="true">Strongest</button>
+              <button type="button" data-pool="avg" aria-pressed="false">Average</button>
+            </div>
+          </div>
+          <div class="spin-pooling-demo">
+            <div class="spin-token-activations" id="spinTokenActivations" aria-hidden="true"></div>
+            <div class="spin-pool-arrow" aria-hidden="true">&darr;</div>
+            <div class="spin-pooled-vector" id="spinPooledVector" aria-label="Pooled sentence representation"></div>
+            <p id="spinPoolingCaption">For each feature, keep the strongest response anywhere in the sentence.</p>
+          </div>
+        </section>
+
+        <section class="spin-www-panel" id="www-where" role="tabpanel" aria-labelledby="www-tab-where" data-www-panel="where">
+          <div class="spin-www-copy">
+            <p class="spin-www-step">03 &middot; Exit</p>
+            <h3>Stop when the answer is already there.</h3>
+            <p>Pick a backbone and slide through depth. The scores below are the paper&rsquo;s IMDb early-exit results.</p>
+            <label class="spin-select-label" for="spinExitModel">Model</label>
+            <select id="spinExitModel" class="spin-select">
+              <option>DistilBERT</option><option>RoBERTa</option><option>GPT2</option><option>GPT2-M</option><option selected>GPT2-XL</option><option>Flan-T5-S</option><option>Flan-T5</option><option>Flan-T5-XL</option>
+            </select>
+            <label class="spin-range-label" for="spinExitDepth"><span>Layers used</span><output id="spinExitDepthValue">60%</output></label>
+            <input id="spinExitDepth" class="spin-range spin-range-stepped" type="range" min="0" max="4" value="2" step="1">
+          </div>
+          <div class="spin-exit-demo">
+            <svg id="spinExitChart" viewBox="0 0 620 300" role="img" aria-label="IMDb accuracy at five early-exit depths">
+              <text class="spin-svg-fallback" x="310" y="150" text-anchor="middle">60% of GPT2-XL&rsquo;s layers retained 99.8% of its full-depth result.</text>
+            </svg>
+            <div class="spin-exit-readout" aria-live="polite">
+              <div><strong id="spinExitAccuracy">94.73</strong><span>accuracy</span></div>
+              <div><strong id="spinExitRetention">99.8%</strong><span>of full-depth result</span></div>
+            </div>
+          </div>
+        </section>
+      </div>
+      <p class="spin-www-note">What and Which are schematics. Where uses the paper&rsquo;s measured IMDb scores.</p>
+    </div>
+  </div>
+</section>
+
+<section class="spin-section spin-token-story">
+  <div class="shell spin-token-grid">
+    <div data-reveal>
+      <p class="section-label">A readable decision</p>
+      <h2>A whole-review classifier can still show where the story turns.</h2>
+      <p>After training on complete reviews, the same SPIN readout can be applied at each token position.</p>
+    </div>
+    <div class="spin-sentiment" data-reveal>
+      <p class="spin-sentiment-label"><span class="sentiment-neg"></span> pulls negative <span class="sentiment-pos"></span> pulls positive</p>
+      <div class="spin-phrase-track" aria-label="Qualitative sentiment shifts from the paper's token-level example">
+        <span class="spin-phrase phrase-positive"><span class="spin-sr-only">Positive signal: </span>profound exploration</span>
+        <span class="phrase-bridge">then</span>
+        <span class="spin-phrase phrase-negative"><span class="spin-sr-only">Negative signal: </span>clich&eacute;d plot twists</span>
+        <span class="phrase-bridge">yet</span>
+        <span class="spin-phrase phrase-positive"><span class="spin-sr-only">Positive signal: </span>moments of brilliance</span>
+        <span class="phrase-bridge">despite</span>
+        <span class="spin-phrase phrase-negative"><span class="spin-sr-only">Negative signal: </span>its predictability</span>
+        <span class="phrase-bridge">nonetheless</span>
+        <span class="spin-phrase phrase-negative"><span class="spin-sr-only">Negative signal: </span>agreeing with its detractors</span>
+        <span class="phrase-bridge">and still</span>
+        <span class="spin-phrase phrase-positive"><span class="spin-sr-only">Positive signal: </span>a monument in movie history</span>
+      </div>
+      <p class="spin-sentiment-note">Qualitative reconstruction of the sentiment reversals discussed in Appendix C.4; color shows direction, not a synthetic score.</p>
+    </div>
+  </div>
+</section>
+
 </main>
 
+<script type="module" src="../assets/js/spin.js?v=2"></script>
 </body>
 </html>
