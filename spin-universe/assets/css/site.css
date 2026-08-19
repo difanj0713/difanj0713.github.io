@@ -1059,7 +1059,7 @@ h1.title {
 }
 
 .applies-lede {
-  margin: 0 0 1.6rem;
+  margin: 0;
   color: var(--ink-2);
   max-width: 62ch;
   font-size: 1.03rem;
@@ -1148,6 +1148,12 @@ h1.title {
 .paper-authors {
   display: grid;
   gap: 1.4rem;
+}
+
+.team-thanks {
+  max-width: 48rem;
+  margin: -0.15rem 0 1.65rem;
+  color: var(--ink-2);
 }
 
 .paper-authors div {

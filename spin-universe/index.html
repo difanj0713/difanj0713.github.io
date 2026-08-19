@@ -4,11 +4,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>The SPIN-Universe &middot; Read More from the Model You Have</title>
-<meta name="description" content="The SPIN-Universe turns signals inside AI models into better, faster decisions. Don't retrain the model—read more of what it already computed.">
+<meta name="description" content="The SPIN-Universe turns signals inside AI models into better, faster decisions. Don't just read the output—read what the model already computed.">
 <link rel="canonical" href="https://difanj0713.github.io/spin-universe/">
 <meta property="og:type" content="website">
 <meta property="og:title" content="The SPIN-Universe &middot; Read More from the Model You Have">
-<meta property="og:description" content="Turning signals inside AI models into better, faster decisions. Don't retrain the model—read more of what it already computed.">
+<meta property="og:description" content="Turning signals inside AI models into better, faster decisions. Don't just read the output—read what the model already computed.">
 <meta property="og:url" content="https://difanj0713.github.io/spin-universe/">
 <meta property="og:site_name" content="The SPIN-Universe">
 <meta property="og:image" content="https://difanj0713.github.io/spin-universe/assets/img/social/homepage.png">
@@ -28,7 +28,7 @@
       "@id": "https://difanj0713.github.io/spin-universe/#collection",
       "url": "https://difanj0713.github.io/spin-universe/",
       "name": "The SPIN-Universe · Read More from the Model You Have",
-      "description": "The SPIN-Universe turns signals inside AI models into better, faster decisions. Don't retrain the model—read more of what it already computed.",
+      "description": "The SPIN-Universe turns signals inside AI models into better, faster decisions. Don't just read the output—read what the model already computed.",
       "inLanguage": "en",
       "primaryImageOfPage": {
         "@type": "ImageObject",
@@ -78,7 +78,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600&amp;family=Overpass:ital,wght@0,400;0,500;0,600;0,700;1,400&amp;family=Platypi:ital,wght@0,600;0,700;0,800;1,600&amp;display=swap">
-<link rel="stylesheet" href="assets/css/site.css?v=10">
+<link rel="stylesheet" href="assets/css/site.css?v=12">
 <link rel="icon" href="/spin-universe/assets/img/favicon.svg" type="image/svg+xml">
 <link rel="icon" href="/spin-universe/assets/img/favicon-48x48.png" type="image/png" sizes="48x48">
 
@@ -118,7 +118,7 @@
       <p class="eyebrow collaboration"><span class="institution">University of Toronto</span><span class="collab-mark">&times;</span><span class="institution">McGill University</span><span class="collab-mark">&times;</span><span class="institution">LMU Munich</span></p>
       <h1 class="title">The SPIN&#8209;Universe</h1>
       <p class="hero-promise">Turning signals inside AI models into better, faster decisions.</p>
-      <p class="lede">Don&rsquo;t retrain the model.<br><em class="lede-line">Read more of what it already computed.</em></p>
+      <p class="lede">Don&rsquo;t just read the output.<br><em class="lede-line">Read what the model already computed.</em></p>
       <div class="cta-row">
         <a class="btn btn-primary" href="#phenomenon">Read the story</a>
         <a class="btn btn-ghost" href="#stage">Visualizations</a>
@@ -141,18 +141,16 @@
       <div class="beat">
         <div class="beat-n">01</div>
         <div>
-          <h3>The output is not the whole computation.</h3>
-          <p>A human answer rarely contains every clue behind it. A model&rsquo;s output has the same basic gap: the visible tokens show the result, not every useful signal formed across its layers.</p>
-          <p>When we read only the output, we leave the rest of that computation unused.</p>
+          <h3>A model does not say everything it computes.</h3>
+          <p>People rarely say every thought behind an answer. Models have a similar gap: the words you see are only the end of a much larger computation, and useful signals can remain inside without ever reaching the output.</p>
         </div>
       </div>
 
       <div class="beat">
         <div class="beat-n">02</div>
         <div>
-          <h3>What goes unsaid can still be useful.</h3>
-          <p>Across multiple domains, we found useful internal signals that the model&rsquo;s usual output did not fully reveal. Reading them improved text classification, caught more safety risks, strengthened document retrieval, and exposed unsafe agent behavior&mdash;all without changing the backbone.</p>
-          <p>The signal was already there. We gave it another way out.</p>
+          <h3>The signal you need may already be there.</h3>
+          <p>We found those signals in text classification, AI safety, document search, and agent monitoring. Read those internal states differently, and the same model can classify better, catch more risks, and return better search results.</p>
         </div>
       </div>
 
@@ -160,20 +158,14 @@
         <div class="beat-n">03</div>
         <div>
           <h3>For compact tasks, better can be cheaper.</h3>
-          <p>Later layers prepare the model to produce its output. That matters for writing, but a compact task may already have what it needs.</p>
-          <p>Reading the signal where it is strongest can improve the result, skip token generation, and, when that point comes early, stop the forward pass there.</p>
+          <p>A label, safety score, or search ranking does not need a paragraph of generated text. A small readout can skip decoding. If the useful signal appears early, you can stop the computation there too.</p>
         </div>
       </div>
     </div>
 
     <div class="applies">
       <h3>So when is this worth trying?</h3>
-      <p class="applies-lede">The best fit is a compact task where efficiency matters. If what you need is a label, a score, a ranking, or an embedding rather than open-ended text, try reading it out instead of generating it.</p>
-      <ul class="applies-list">
-        <li><b>Read, do not generate.</b> The target is a decision to recover, not a passage to write.</li>
-        <li><b>Start with the model you already have.</b> Keep the backbone frozen and test whether a small readout can expose a useful internal signal.</li>
-        <li><b>Take the shortest useful path.</b> Skip token generation; if the signal is strongest before the final layer, stop there.</li>
-      </ul>
+      <p class="applies-lede">Whenever the result you need is compact and efficiency matters. Start with the model you already have and test whether the signal is readable inside.</p>
     </div>
   </div>
 </section>

@@ -55,8 +55,8 @@
     </text>
     <line x1="72" y1="416" x2="116" y2="416" stroke="#e0455f" stroke-width="3"/>
     <text x="136" y="410" class="sans" fill="#a9b1c7" font-size="20" font-weight="500">
-      <tspan x="136" dy="0">Don’t retrain the model.</tspan>
-      <tspan x="136" dy="29">Read more of what it already computed.</tspan>
+      <tspan x="136" dy="0">Don’t just read the output.</tspan>
+      <tspan x="136" dy="29">Read what the model already computed.</tspan>
     </text>
   </g>
 
