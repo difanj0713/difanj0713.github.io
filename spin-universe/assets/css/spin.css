@@ -1713,3 +1713,732 @@
     transition: none;
   }
 }
+
+/* Academic editorial theme ------------------------------------------------
+   This final layer deliberately keeps the page's existing structure and
+   interactions intact while moving the presentation from a product launch
+   toward a calm, figure-led research article. */
+
+.spin-page,
+.spin-page .light {
+  --bg: #ffffff;
+  --bg-raise: #ffffff;
+  --ink: #202326;
+  --ink-2: #50555a;
+  --ink-3: #646a6f;
+  --crimson: #a64a3e;
+  --indigo: #3f6f8f;
+  --line: #cbc9c1;
+  --line-soft: #dfddd6;
+}
+
+.spin-page {
+  background: var(--bg);
+  color: var(--ink);
+  font-size: 16.5px;
+}
+
+.spin-page :where(a, button, input, select, [tabindex]):focus-visible {
+  outline: 2px solid var(--indigo);
+  outline-offset: 3px;
+}
+
+/* Navigation */
+
+.spin-nav {
+  color: var(--ink);
+  background: rgba(255, 255, 255, 0.96);
+  border-color: var(--line-soft);
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+}
+
+.spin-nav-inner {
+  min-height: 3.75rem;
+}
+
+.spin-nav-home,
+.spin-nav-links a {
+  font-family: var(--sans);
+  letter-spacing: 0.025em;
+}
+
+.spin-nav-home {
+  color: var(--ink-2);
+  font-size: 0.82rem;
+  font-weight: 600;
+}
+
+.spin-nav-home span {
+  color: var(--indigo);
+}
+
+.spin-nav-links {
+  gap: clamp(1rem, 2.5vw, 2rem);
+}
+
+.spin-nav-links a {
+  color: var(--ink-3);
+  font-size: 0.75rem;
+  font-weight: 600;
+  text-transform: none;
+}
+
+.spin-nav a:hover {
+  color: var(--indigo);
+}
+
+/* Paper cover */
+
+.spin-masthead {
+  min-height: 0;
+  padding: clamp(7.25rem, 11vw, 9rem) 0 0;
+  color: var(--ink);
+  background: #e8ebec;
+  overflow: hidden;
+}
+
+.spin-masthead::after {
+  background: var(--line);
+}
+
+.spin-masthead-grid {
+  grid-template-columns: minmax(0, 0.88fr) minmax(25rem, 1.12fr);
+  align-items: center;
+  gap: clamp(2.5rem, 6vw, 5.5rem);
+}
+
+.spin-hero-copy .eyebrow {
+  margin-bottom: 1.1rem;
+  color: var(--ink-3);
+  font-family: var(--sans);
+  font-size: 0.76rem;
+  font-weight: 600;
+  letter-spacing: 0.06em;
+}
+
+.spin-hero-copy .eyebrow b {
+  color: var(--indigo);
+}
+
+.spin-hero-copy h1 {
+  margin-bottom: 1.15rem;
+  color: var(--ink);
+  font-size: clamp(4.2rem, 8vw, 6.5rem);
+  font-weight: 700;
+  line-height: 0.92;
+  letter-spacing: -0.055em;
+}
+
+.spin-hero-claim {
+  max-width: 21ch;
+  margin-bottom: 0.9rem;
+  color: var(--ink);
+  font-size: clamp(1.55rem, 2.65vw, 2.1rem);
+  font-weight: 650;
+  line-height: 1.2;
+  letter-spacing: -0.025em;
+}
+
+.spin-hero-deck {
+  max-width: 38rem;
+  margin-bottom: 1.2rem;
+  color: var(--ink-2);
+  font-size: 1rem;
+  line-height: 1.65;
+}
+
+.spin-hero-deck > b,
+.spin-expansion b {
+  color: var(--ink);
+}
+
+.spin-authors {
+  margin-bottom: 1.45rem;
+  color: var(--ink-3);
+  font-family: var(--sans);
+  font-size: 0.8rem;
+  line-height: 1.65;
+}
+
+.spin-authors b {
+  color: var(--ink-2);
+}
+
+.spin-hero-links {
+  gap: 0.45rem;
+}
+
+.spin-hero-links .chip {
+  padding: 0.5rem 0.78rem;
+  border-color: var(--line);
+  border-radius: 2px;
+  background: #fff;
+  color: var(--ink-2);
+  font-family: var(--sans);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0;
+}
+
+.spin-hero-links .chip:hover {
+  border-color: var(--indigo);
+  background: #fff;
+  color: var(--indigo);
+}
+
+.spin-hero-links .chip-primary {
+  border-color: var(--indigo);
+  background: var(--indigo);
+  color: #fff;
+}
+
+.spin-hero-links .chip-primary:hover {
+  border-color: #315d78;
+  background: #315d78;
+  color: #fff;
+}
+
+.spin-hero-art {
+  min-height: clamp(25rem, 38vw, 31rem);
+  border-color: var(--line);
+  border-radius: 2px;
+  background: #fff;
+  box-shadow: none;
+}
+
+.spin-hero-art::before {
+  background-image:
+    linear-gradient(rgba(62, 70, 74, 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(62, 70, 74, 0.045) 1px, transparent 1px);
+  background-size: 2.75rem 2.75rem;
+  -webkit-mask-image: none;
+  mask-image: none;
+}
+
+.spin-hero-art-top {
+  color: var(--ink-3);
+}
+
+.spin-hero-signal {
+  transform: none;
+}
+
+.spin-signal-row {
+  border-color: #e1dfd8;
+  background: rgba(235, 238, 238, 0.72);
+}
+
+.spin-signal-row::before {
+  color: var(--ink-3);
+}
+
+.spin-signal-dot {
+  background: #d9dcd9;
+}
+
+.spin-signal-dot.is-signal {
+  box-shadow: none;
+  animation: none;
+}
+
+.spin-hero-readout {
+  border-color: #9eb2bf;
+  border-radius: 2px;
+  background: #f8fbfc;
+  color: var(--ink);
+  box-shadow: none;
+}
+
+.spin-hero-readout span {
+  color: var(--ink-3);
+}
+
+.spin-proof-rail {
+  margin-top: clamp(3rem, 6vw, 5rem);
+  border-block: 1px solid var(--line);
+}
+
+.spin-proof {
+  min-height: 7.6rem;
+  padding-block: 1.55rem;
+  border-color: var(--line);
+}
+
+.spin-proof strong {
+  margin-bottom: 0.45rem;
+  color: var(--ink);
+  font-size: clamp(1.65rem, 2.5vw, 2.2rem);
+  font-weight: 650;
+}
+
+.spin-proof span {
+  color: var(--ink-3);
+  font-size: 0.82rem;
+}
+
+/* Article rhythm */
+
+.spin-section {
+  padding-block: clamp(4.75rem, 8vw, 7rem);
+}
+
+.spin-page .section-label {
+  margin-bottom: 2.1rem;
+  color: var(--ink-3);
+  font-family: var(--sans);
+  font-size: 0.72rem;
+  font-weight: 650;
+  letter-spacing: 0.08em;
+}
+
+.spin-page .section-label::after {
+  background: var(--line-soft);
+}
+
+.spin-section-head {
+  align-items: start;
+  margin-bottom: clamp(2.5rem, 4vw, 3.6rem);
+}
+
+.spin-section-head h2,
+.spin-token-story h2 {
+  color: var(--ink);
+  font-size: clamp(2.1rem, 4.2vw, 3.35rem);
+  font-weight: 650;
+  line-height: 1.12;
+  letter-spacing: -0.035em;
+}
+
+.spin-section-head p {
+  max-width: 42ch;
+  padding-top: 0.25rem;
+  color: var(--ink-2);
+  font-size: 0.98rem;
+  line-height: 1.7;
+}
+
+/* Results as a paper figure */
+
+.spin-results {
+  background: #fff;
+}
+
+.spin-result-card {
+  padding: clamp(1rem, 2.5vw, 1.8rem);
+  border-color: var(--line);
+  border-radius: 2px;
+  background: #fff;
+  box-shadow: none;
+}
+
+.spin-chart-head {
+  border-color: var(--line-soft);
+}
+
+.spin-chart-kicker {
+  color: var(--ink-2);
+  font-family: var(--sans);
+  font-size: 0.7rem;
+  font-weight: 650;
+  letter-spacing: 0.065em;
+}
+
+.spin-chart-legend {
+  color: var(--ink-3);
+  font-family: var(--sans);
+  font-size: 0.75rem;
+}
+
+.spin-chart-legend i {
+  background: #9da4a6;
+}
+
+.spin-chart-legend .legend-spin {
+  background: var(--indigo);
+}
+
+.spin-result-chart .chart-model-line {
+  stroke: #9ea6a8;
+}
+
+.spin-result-chart .chart-point-base {
+  fill: #fff;
+  stroke: #858e90;
+}
+
+.spin-result-chart .chart-point-spin {
+  fill: var(--indigo);
+  stroke: #fff;
+}
+
+.spin-chart-tooltip {
+  border-color: #4c5457;
+  border-radius: 2px;
+  background: #303639;
+  box-shadow: 0 8px 20px rgba(32, 35, 38, 0.16);
+}
+
+.spin-result-story {
+  border-color: var(--line-soft);
+}
+
+.spin-result-story h3 {
+  color: var(--ink);
+  font-size: clamp(1.65rem, 3vw, 2.3rem);
+  font-weight: 650;
+}
+
+.spin-result-story p {
+  color: var(--ink-2);
+  font-family: var(--sans);
+  font-size: 1rem;
+  line-height: 1.75;
+}
+
+.spin-raw-results {
+  border-color: var(--line-soft);
+}
+
+.spin-raw-results summary {
+  color: var(--ink-2);
+  font-family: var(--sans);
+  font-size: 0.72rem;
+  font-weight: 650;
+  letter-spacing: 0.06em;
+}
+
+/* Method as a neutral figure spread */
+
+.spin-method {
+  color: var(--ink);
+  background: #f2f3f1;
+}
+
+.spin-section-head-dark p {
+  color: var(--ink-2);
+}
+
+.spin-readout-demo {
+  border-color: var(--line);
+  border-radius: 2px;
+  background: #fff;
+  box-shadow: none;
+}
+
+.spin-mode-switch {
+  gap: 0;
+  padding: 0;
+  border-color: var(--line);
+  border-radius: 2px;
+  background: #f3f2ed;
+}
+
+.spin-mode-switch button,
+.spin-pool-switch button {
+  border-radius: 0;
+  font-family: var(--sans);
+  font-size: 0.72rem;
+  font-weight: 600;
+  letter-spacing: 0;
+}
+
+.spin-mode-switch button {
+  color: var(--ink-3);
+}
+
+.spin-mode-switch button + button {
+  border-left: 1px solid var(--line);
+}
+
+.spin-mode-switch button:hover {
+  color: var(--indigo);
+}
+
+.spin-mode-switch button.is-active {
+  color: #fff;
+  background: var(--indigo);
+}
+
+#spinReadoutSvg .readout-small-label {
+  fill: var(--ink-3);
+}
+
+#spinReadoutSvg .readout-main-label,
+#spinReadoutSvg .readout-output-score {
+  fill: var(--ink);
+}
+
+#spinReadoutSvg .readout-layer-line {
+  stroke: #deddd7;
+}
+
+#spinReadoutSvg .readout-neuron {
+  fill: #e2e4e1;
+  stroke: #c7cbc8;
+}
+
+#spinReadoutSvg .readout-neuron.is-signal {
+  fill: var(--indigo);
+  stroke: #264e68;
+  filter: none;
+}
+
+#spinReadoutSvg .readout-neuron.is-signal.is-hot {
+  fill: var(--crimson);
+  stroke: #7c332b;
+  filter: none;
+}
+
+#spinReadoutSvg .readout-wire {
+  stroke: rgba(63, 111, 143, 0.48);
+}
+
+#spinReadoutSvg .readout-wire.is-hot {
+  stroke: rgba(166, 74, 62, 0.62);
+}
+
+#spinReadoutSvg .readout-node {
+  fill: #f8f8f4;
+  stroke: #bfc3c1;
+}
+
+#spinReadoutSvg .readout-output {
+  fill: #edf3f5;
+  stroke: #86a1b2;
+}
+
+.spin-readout-caption {
+  border-color: var(--line-soft);
+}
+
+.spin-readout-caption p {
+  color: var(--ink-2);
+}
+
+.spin-readout-caption b {
+  color: var(--ink);
+}
+
+.spin-method-steps {
+  border-color: var(--line);
+}
+
+.spin-method-steps article,
+.spin-method-steps article:last-child {
+  border-color: var(--line);
+}
+
+.spin-method-steps span {
+  color: var(--indigo);
+}
+
+.spin-method-steps h3 {
+  color: var(--ink);
+  font-size: 1.25rem;
+  font-weight: 650;
+}
+
+.spin-method-steps p {
+  color: var(--ink-2);
+}
+
+/* Interactive appendix */
+
+.spin-explorer {
+  background: #fff;
+}
+
+.spin-www {
+  border-color: var(--line);
+  border-radius: 2px;
+  background: #fff;
+  box-shadow: none;
+}
+
+.spin-www-tabs {
+  border-color: var(--line);
+}
+
+.spin-www-tabs button {
+  border-color: var(--line);
+  background: #f1f0eb;
+  color: var(--ink-3);
+}
+
+.spin-www-tabs button::after {
+  height: 3px;
+  background: var(--indigo);
+}
+
+.spin-www-tabs button[aria-selected="true"] {
+  background: #fff;
+  color: var(--ink);
+}
+
+.spin-www-tabs b {
+  font-size: 1.1rem;
+}
+
+.spin-www-step {
+  color: var(--indigo);
+  font-family: var(--sans);
+  font-weight: 650;
+  letter-spacing: 0.07em;
+}
+
+.spin-www-copy h3 {
+  color: var(--ink);
+  font-size: clamp(1.65rem, 3vw, 2.3rem);
+  font-weight: 650;
+}
+
+.spin-neuron-demo,
+.spin-pooling-demo,
+.spin-exit-demo {
+  border-color: var(--line-soft);
+  border-radius: 2px;
+  background: #f3f2ed;
+}
+
+.spin-neuron-grid span {
+  border-radius: 1px;
+  background: #d8dad7;
+}
+
+.spin-neuron-grid span.is-selected {
+  box-shadow: none;
+}
+
+.spin-neuron-counter {
+  border: 1px solid #667276;
+  border-radius: 2px;
+  background: #3e494d;
+  box-shadow: none;
+}
+
+.spin-pool-switch {
+  gap: 0;
+}
+
+.spin-pool-switch button {
+  border-color: var(--line);
+  background: #fff;
+  color: var(--ink-3);
+}
+
+.spin-pool-switch button + button {
+  border-left: 0;
+}
+
+.spin-pool-switch button.is-active {
+  border-color: var(--indigo);
+  background: #e8f0f4;
+  color: #315d78;
+}
+
+.spin-token-bars,
+.spin-pooled-vector,
+.spin-select,
+.spin-exit-readout > div {
+  border-radius: 1px;
+  background: #fff;
+}
+
+.spin-token-bars i {
+  background: var(--indigo);
+}
+
+#spinExitChart .exit-point.is-current {
+  filter: none;
+}
+
+.spin-www-note {
+  border-color: var(--line-soft);
+}
+
+/* Qualitative figure */
+
+.spin-token-story {
+  color: var(--ink);
+  background: #e8ebec;
+}
+
+.spin-token-story .spin-token-grid > div:first-child > p:last-child {
+  color: var(--ink-2);
+}
+
+.spin-sentiment {
+  border-color: #c7cdd0;
+  border-radius: 2px;
+  background: #fff;
+}
+
+.spin-phrase-track > .phrase-bridge,
+.spin-sentiment-label,
+.spin-sentiment-note {
+  color: var(--ink-3);
+}
+
+.spin-phrase {
+  border-radius: 1px;
+}
+
+.spin-phrase-track .phrase-positive {
+  border-color: #95bba6;
+  background: #e8f1eb;
+  color: #315f48;
+}
+
+.spin-phrase-track .phrase-negative {
+  border-color: #c99b94;
+  background: #f4e9e6;
+  color: #823f36;
+}
+
+@media (max-width: 980px) {
+  .spin-masthead-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .spin-hero-copy {
+    max-width: 43rem;
+  }
+
+  .spin-hero-art {
+    min-height: 27rem;
+  }
+}
+
+@media (max-width: 760px) {
+  .spin-masthead {
+    padding-top: 6.75rem;
+  }
+
+  .spin-hero-copy h1 {
+    font-size: clamp(3.9rem, 20vw, 5.5rem);
+  }
+
+  .spin-proof {
+    min-height: 7rem;
+  }
+
+  .spin-method-steps article,
+  .spin-method-steps article:last-child {
+    border-color: var(--line);
+  }
+}
+
+@media (max-width: 480px) {
+  .spin-nav-inner {
+    min-height: 3.65rem;
+  }
+
+  .spin-hero-art {
+    min-height: 21rem;
+  }
+
+  .spin-proof strong {
+    font-size: 1.5rem;
+  }
+}

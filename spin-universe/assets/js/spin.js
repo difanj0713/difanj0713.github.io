@@ -225,7 +225,7 @@ function initReadoutDemo() {
   function draw() {
     svg.replaceChildren();
     svg.appendChild(svgElement('title', {}, 'Interactive comparison of a final-layer classifier and SPIN'));
-    svg.appendChild(svgElement('desc', {}, 'The final-layer mode reads only the end of the model. SPIN selects a few signals across many layers and combines them into one classification.'));
+    svg.appendChild(svgElement('desc', {}, 'The final-layer baseline uses the terminal hidden state. SPIN selects salient neurons within each layer and concatenates their activations into a cross-layer representation.'));
     const wireLayer = svgElement('g', { class: 'readout-wires' });
     svg.appendChild(wireLayer);
 
@@ -295,8 +295,8 @@ function initReadoutDemo() {
     svg.appendChild(output);
 
     caption.innerHTML = mode === 'spin'
-      ? '<b>The useful signals get a vote, wherever they appear.</b> Small readers find them layer by layer; the rest is discarded.'
-      : '<b>One layer gets the entire vote.</b> The standard classifier ignores every intermediate state and reads only the end.';
+      ? '<b>Layer-wise probes identify salient neurons.</b> Their selected activations form a cross-layer representation for the classification head.'
+      : '<b>The baseline uses the terminal hidden state.</b> Intermediate representations are not included in its classification features.';
   }
 
   for (const control of controls) {
@@ -447,13 +447,13 @@ function initPoolingDemo() {
     if (mode === 'single') {
       pooled = activations.at(-1);
       sourceTokens.add(activations.length - 1);
-      caption.textContent = 'Use one designated token as the sentence snapshot.';
+      caption.textContent = 'Single-token pooling uses the designated token embedding as the sequence representation.';
     } else if (mode === 'avg') {
       pooled = activations[0].map((_, dimension) => (
         activations.reduce((sum, row) => sum + row[dimension], 0) / activations.length
       ));
       activations.forEach((_, index) => sourceTokens.add(index));
-      caption.textContent = 'Average every token so the whole sentence contributes evenly.';
+      caption.textContent = 'Mean pooling averages each feature across all token positions.';
     } else {
       pooled = activations[0].map((_, dimension) => {
         let maximum = -Infinity;
@@ -467,7 +467,7 @@ function initPoolingDemo() {
         sourceTokens.add(source);
         return maximum;
       });
-      caption.textContent = 'For each feature, keep the strongest response anywhere in the sentence.';
+      caption.textContent = 'Max pooling retains each feature’s largest activation across token positions.';
     }
 
     cards.forEach((card, index) => {

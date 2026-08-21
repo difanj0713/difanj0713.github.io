@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
   <title id="title">Agent-SIREN</title>
-  <desc id="desc">The guard saw the risk. Its verdict did not. Agent-SIREN uses 2,561 trainable parameters on Qwen3-4B.</desc>
+  <desc id="desc">A guard can encode tool-use risk that its output misses. Agent-SIREN uses 2,561 trainable parameters on Qwen3-4B.</desc>
   <defs>
     <radialGradient id="redGlow" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(930 260) rotate(135) scale(420 470)">
       <stop stop-color="#ea526b" stop-opacity=".2"/>
@@ -46,9 +46,9 @@
   </g>
 
   <text x="65" y="232" class="display" fill="#f3f4f9" font-size="102" font-weight="800" letter-spacing="-7.5">Agent-SIREN</text>
-  <text x="72" y="313" class="display" fill="#f3f4f9" font-size="43" font-weight="650" letter-spacing="-1.9">
-    <tspan x="72">The guard saw the risk.</tspan>
-    <tspan x="72" dy="53">Its verdict did not.</tspan>
+  <text x="72" y="313" class="display" fill="#f3f4f9" font-size="39" font-weight="650" letter-spacing="-1.7">
+    <tspan x="72">A guard can encode tool-use risk</tspan>
+    <tspan x="72" dy="53">that its output misses.</tspan>
   </text>
 
   <g transform="translate(72 496)">
@@ -61,7 +61,7 @@
   </g>
 
   <g aria-hidden="true">
-    <text x="796" y="103" class="mono" fill="#747d94" font-size="10" font-weight="600" letter-spacing="1.6">ONE FROZEN GUARD · TWO INTERFACES</text>
+    <text x="796" y="103" class="mono" fill="#747d94" font-size="10" font-weight="600" letter-spacing="1.6">FROZEN BACKBONE · OUTPUT VS INTERNAL STATE</text>
 
     <g transform="translate(790 136)">
       <rect width="218" height="296" rx="5" fill="#0d111c" stroke="#eef0f7" stroke-opacity=".14"/>
@@ -108,6 +108,6 @@
     <circle cx="1044" cy="472" r="5" fill="#ea526b" filter="url(#glow)"/>
   </g>
 
-  <text x="72" y="566" class="mono" fill="#747d94" font-size="10.5" font-weight="500" letter-spacing="1.1">Read risk before the verdict loses it.</text>
+  <text x="72" y="566" class="mono" fill="#747d94" font-size="10.5" font-weight="500" letter-spacing="1.1">LINEAR PROBE · ONE VALIDATION-SELECTED INTERNAL STATE</text>
   <text x="1128" y="566" text-anchor="end" class="mono" fill="#747d94" font-size="10.5" font-weight="500" letter-spacing="1.1">SPINiverse / AGENT-SIREN</text>
 </svg>

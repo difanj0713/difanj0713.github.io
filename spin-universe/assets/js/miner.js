@@ -148,7 +148,7 @@ function initTradeoffChart() {
       : (mode === 'storage' ? minerX + 52 : minerX - 224);
     const boxY = minerY - 14;
     chart.appendChild(svgElement('rect', { x: boxX, y: boxY, width: boxWidth, height: 27, rx: 4, class: 'tradeoff-callout-box' }));
-    chart.appendChild(svgElement('text', { x: boxX + boxWidth / 2, y: boxY + 18, 'text-anchor': 'middle', class: 'tradeoff-callout' }, mode === 'storage' ? '+1.9 nDCG · +0 MB index' : '93% of dense throughput'));
+    chart.appendChild(svgElement('text', { x: boxX + boxWidth / 2, y: boxY + 18, 'text-anchor': 'middle', class: 'tradeoff-callout' }, mode === 'storage' ? '+1.9 nDCG pts · +0 MB index' : '93% of dense throughput'));
 
     controls.forEach((control) => {
       const active = control.dataset.tradeoff === mode;
@@ -156,7 +156,7 @@ function initTradeoffChart() {
       control.setAttribute('aria-pressed', String(active));
     });
     status.textContent = mode === 'storage'
-      ? 'Showing retrieval quality against index size. MINER improves Jina by 1.9 nDCG with no added index storage.'
+      ? 'Showing retrieval quality against index size. MINER improves Jina by 1.9 nDCG points with no added index storage.'
       : 'Showing retrieval quality against search speed. MINER retains 93 percent of dense throughput and is 5.3 times faster than late interaction.';
   }
 

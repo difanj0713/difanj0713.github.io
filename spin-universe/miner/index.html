@@ -3,22 +3,22 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>MINER &middot; Better Visual Retrieval, Still One Vector</title>
-<meta name="description" content="MINER recovers retrieval signal from a frozen multimodal model's internal layers, improving visual document search while keeping one compact vector per page.">
+<title>MINER &middot; Single-Vector Visual Document Retrieval from Internal Representations</title>
+<meta name="description" content="MINER improves visual document retrieval by selecting, aligning, and fusing internal representations from frozen multimodal retrievers into one dense vector per page.">
 <link rel="canonical" href="https://difanj0713.github.io/spin-universe/miner/">
 <meta property="og:type" content="article">
-<meta property="og:title" content="MINER &middot; Keep One Vector. Retrieve More With It.">
-<meta property="og:description" content="Better visual document retrieval with the same one-vector index: up to 4.5% average retrieval lift and a 42.4× smaller index than late interaction.">
+<meta property="og:title" content="MINER &middot; Single-Vector Visual Document Retrieval from Internal Representations">
+<meta property="og:description" content="MINER improves dense visual document retrieval while retaining one vector per page: up to 4.5% average nDCG gain and a 42.4× smaller index than late interaction.">
 <meta property="og:url" content="https://difanj0713.github.io/spin-universe/miner/">
 <meta property="og:site_name" content="SPINiverse">
 <meta property="og:image" content="https://difanj0713.github.io/spin-universe/assets/img/social/miner.png?v=2">
 <meta property="og:image:type" content="image/png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="MINER: keep one vector and retrieve more with it, with a 42.4 times smaller index than late interaction.">
+<meta property="og:image:alt" content="MINER improves visual document retrieval with one dense vector per page and a 42.4 times smaller index than late interaction.">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://difanj0713.github.io/spin-universe/assets/img/social/miner.png?v=2">
-<meta name="twitter:image:alt" content="MINER: keep one vector and retrieve more with it.">
+<meta name="twitter:image:alt" content="MINER: single-vector visual document retrieval from internal representations.">
 <meta name="citation_title" content="MINER: Mining Multimodal Internal Representation for Efficient Retrieval">
 <meta name="citation_author" content="Weien Li">
 <meta name="citation_author" content="Rui Song">
@@ -40,7 +40,7 @@
   "@type": "ScholarlyArticle",
   "@id": "https://difanj0713.github.io/spin-universe/miner/#paper",
   "headline": "MINER: Mining Multimodal Internal Representation for Efficient Retrieval",
-  "description": "MINER recovers retrieval signal from a frozen multimodal model's internal layers, improving visual document search while keeping one compact vector per page.",
+  "description": "MINER improves visual document retrieval by selecting, aligning, and fusing internal representations from frozen multimodal retrievers into one dense vector per page.",
   "author": [
     { "@type": "Person", "name": "Weien Li" },
     { "@type": "Person", "name": "Rui Song" },
@@ -70,9 +70,9 @@
 </script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600&amp;family=Overpass:ital,wght@0,400;0,500;0,600;0,700;1,400&amp;family=Platypi:ital,wght@0,600;0,700;0,800;1,600&amp;display=swap">
-<link rel="stylesheet" href="../assets/css/site.css?v=13">
-<link rel="stylesheet" href="../assets/css/miner.css?v=3">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600&amp;family=Poppins:wght@400;500;600;700&amp;family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&amp;display=swap">
+<link rel="stylesheet" href="../assets/css/site.css?v=14">
+<link rel="stylesheet" href="../assets/css/miner.css?v=4">
 <link rel="icon" href="/spin-universe/assets/img/favicon.svg" type="image/svg+xml">
 <link rel="icon" href="/spin-universe/assets/img/favicon-48x48.png" type="image/png" sizes="48x48">
 </head>
@@ -96,7 +96,7 @@
       <p class="eyebrow">Visual document retrieval &middot; <b>Under review</b></p>
       <h1>MINER</h1>
       <p class="miner-hero-claim">Keep one vector. Retrieve more with it.</p>
-      <p class="miner-hero-deck"><b>MINER</b> (<span class="miner-expansion"><b>M</b>ining Multimodal <b>I</b>nternal Represe<b>N</b>tation for <b>E</b>fficient <b>R</b>etrieval</span>) recovers useful signals across a frozen retriever and fuses them into one compact embedding.</p>
+      <p class="miner-hero-deck"><b>MINER</b> (<span class="miner-expansion"><b>M</b>ining Multimodal <b>I</b>nternal Represe<b>N</b>tation for <b>E</b>fficient <b>R</b>etrieval</span>) selects, aligns, and fuses internal representations from a frozen retriever into one dense embedding.</p>
       <p class="miner-authors"><b>Weien Li</b>* &middot; <b>Rui Song</b>* &middot; Zeyu Li &middot; Haochen Liu &middot; Gonghao Zhang &middot; Difan Jiao &middot; Zhenwei Tang &middot; Bowei He &middot; Haolun Wu &middot; Xue Liu &middot; Ye Yuan</p>
       <div class="links miner-hero-links">
         <a class="chip miner-chip-primary" href="https://arxiv.org/abs/2605.06460">
@@ -123,7 +123,7 @@
       </div>
       <div id="minerHeroLayers" class="miner-hero-layers"></div>
       <div class="miner-hero-funnel">
-        <span>align</span><span>keep</span><span>fuse</span>
+        <span>realign</span><span>sparsify</span><span>fuse</span>
       </div>
       <div class="miner-hero-output">
         <span>dense embedding</span>
@@ -135,7 +135,7 @@
     <div class="miner-proof-rail" aria-label="MINER headline results">
       <div class="miner-proof" data-reveal>
         <strong>+4.5%</strong>
-        <span>best average retrieval lift</span>
+        <span>largest relative average nDCG@5 gain</span>
       </div>
       <div class="miner-proof" data-reveal>
         <strong>42.4&times;</strong>
@@ -147,7 +147,7 @@
       </div>
       <div class="miner-proof" data-reveal>
         <strong>1</strong>
-        <span>vector stored per page</span>
+        <span>dense vector stored per page</span>
       </div>
     </div>
   </div>
@@ -157,10 +157,10 @@
 
 <section class="light miner-section miner-results" id="results">
   <div class="shell">
-    <p class="section-label">The headline result</p>
+    <p class="section-label">Results</p>
     <div class="miner-section-head" data-reveal>
-      <h2>The single-vector trade-off moved.</h2>
-      <p>MINER raises retrieval quality without turning every page into a pile of token vectors.</p>
+      <h2>Improved dense retrieval without a multi-vector index.</h2>
+      <p>Across the ViDoRe suite, MINER improves eight of nine backbone averages while retaining one embedding per page.</p>
     </div>
 
     <div class="miner-tradeoff-card" data-reveal>
@@ -191,12 +191,12 @@
     </div>
 
     <div class="miner-result-story" data-reveal>
-      <h3>Why this matters<br>at index scale.</h3>
-      <p>Late interaction gets fine-grained matches by storing many vectors for every page. That cost multiplies across the entire corpus. Dense retrieval stores one vector, but normally reads only the model&rsquo;s final layer. MINER found a better bargain: recover the useful structure already present inside the dense backbone, then hand the existing index one stronger vector. Across ViDoRe V1, V2 and V3, eight of nine backbone averages moved up.</p>
+      <h3>Index-scale<br>efficiency.</h3>
+      <p>Late-interaction systems improve fine-grained matching by storing many token vectors for every page, so their storage and search costs grow across the corpus. Dense retrievers store one vector but ordinarily use only the final-layer embedding. MINER instead combines selected internal representations into a single D-dimensional embedding compatible with the same dense index. Across ViDoRe V1, V2 and V3, eight of nine backbone averages improve.</p>
     </div>
 
     <details class="miner-raw-results">
-      <summary>See the measured results</summary>
+      <summary>Complete measured results</summary>
       <div class="miner-table-block">
         <h3>Backbone averages across the ViDoRe suite</h3>
         <div class="miner-table-scroll">
@@ -239,17 +239,17 @@
 
 <section class="miner-section miner-method" id="method">
   <div class="shell">
-    <p class="section-label">Inside MINER</p>
+    <p class="section-label">Method</p>
     <div class="miner-section-head miner-section-head-dark" data-reveal>
-      <h2>Some layers are ready to read. Others need lining up first.</h2>
-      <p>MINER first finds the layers worth reading. Then it gives each one only as much help as it needs.</p>
+      <h2>Earlier layers require realignment; later layers require only reweighting.</h2>
+      <p>Normalized CKA selects candidate layers; an alignment diagnostic determines whether each representation needs projection or only feature reweighting.</p>
     </div>
 
     <div class="miner-layer-lab" data-reveal>
       <div class="miner-lab-head">
         <div>
           <p class="miner-chart-kicker">Layer selection &middot; measured ranges</p>
-          <h3>Find the usable part of the stack.</h3>
+          <h3>Candidate layers selected by normalized CKA</h3>
         </div>
         <div class="miner-backbone-switch" role="group" aria-label="Choose a retrieval backbone" hidden>
           <button type="button" class="is-active" data-backbone="Jina" aria-pressed="true">Jina</button>
@@ -260,7 +260,7 @@
 
       <div class="miner-lab-grid">
         <div class="miner-lab-controls">
-          <p><b>CKA asks a practical question:</b> does this layer already organize pages and queries like the retrieval space does?</p>
+          <p><b>Normalized CKA measures structural similarity:</b> whether a layer organizes pages and queries similarly to the retriever&rsquo;s final embedding space.</p>
           <div class="miner-cutoff-control" hidden>
             <label for="minerCkaCutoff"><span>Similarity cutoff</span><output id="minerCkaValue">CKA = 0.60</output></label>
             <input id="minerCkaCutoff" type="range" min="0" max="4" step="1" value="2" aria-describedby="minerCkaFact">
@@ -293,19 +293,19 @@
             <span>&rarr;</span>
             <b></b><b></b><b></b><b></b><b></b><b></b>
           </div>
-          <p><span id="minerRealignCount">18 layers</span><strong>Realign the earlier candidates.</strong> The retrieval structure is there, but its coordinate system needs turning.</p>
+          <p><span id="minerRealignCount">18 layers</span><strong>NormProbe realigns earlier candidates.</strong> A row-normalized projection maps retrieval structure from a different coordinate system into the final embedding space.</p>
         </article>
         <article>
           <div class="miner-treatment-visual miner-weighted-space" aria-hidden="true">
             <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
           </div>
-          <p><span>Last 3 layers</span><strong>Reweight what already lines up.</strong> A simpler probe preserves their geometry and keeps the useful dimensions.</p>
+          <p><span>Last 3 layers</span><strong>BaseProbe reweights aligned layers.</strong> Element-wise feature weights preserve the geometry of representations already aligned with the final embedding.</p>
         </article>
         <article class="miner-fusion-article">
           <div class="miner-treatment-visual miner-fusion-vector" aria-hidden="true">
             <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
           </div>
-          <p><span>Original dimension</span><strong>Fuse back to one vector.</strong> Stronger layers keep more signal; the index receives the same compact shape.</p>
+          <p><span>Original dimension</span><strong>Adaptive fusion preserves dimension.</strong> Layer-specific feature masks and weights combine the selected representations into one D-dimensional vector.</p>
         </article>
       </div>
       <p class="miner-lab-note">The default ranges follow the paper&rsquo;s 0&ndash;35 analysis figures; cutoff variants use the appendix ranges in the same display. Geometry motion and feature cells are schematics.</p>
@@ -314,18 +314,18 @@
     <div class="miner-method-steps">
       <article data-reveal>
         <span>01</span>
-        <h3>Find useful layers.</h3>
-        <p>Keep the internal spaces that already resemble cross-modal retrieval.</p>
+        <h3>Candidate-layer selection</h3>
+        <p>Normalized CKA identifies internal representations with retrieval-relevant structure.</p>
       </article>
       <article data-reveal>
         <span>02</span>
-        <h3>Align, then trim.</h3>
-        <p>Turn the earlier signals into place and suppress weak coordinates.</p>
+        <h3>Regime-specific probing</h3>
+        <p>NormProbe realigns earlier layers; BaseProbe reweights layers already in the final coordinate space.</p>
       </article>
       <article data-reveal>
         <span>03</span>
-        <h3>Fuse once.</h3>
-        <p>Combine the survivors into one embedding the existing index can use.</p>
+        <h3>Dimension-preserving fusion</h3>
+        <p>Adaptive masks and weighted summation produce one embedding for the existing dense index.</p>
       </article>
     </div>
   </div>
@@ -333,11 +333,11 @@
 
 <section class="light miner-section miner-serving" id="serving">
   <div class="shell">
-    <p class="section-label">The deployment payoff</p>
+    <p class="section-label">Deployment</p>
     <div class="miner-serving-grid">
       <div class="miner-serving-copy" data-reveal>
-        <h2>The index never learns a new trick.</h2>
-        <p>No token-level index. No new scorer. MINER changes the embedding that enters the database, not the database itself.</p>
+        <h2>MINER retains the standard dense retrieval interface.</h2>
+        <p>The output remains one D-dimensional embedding, so the existing approximate-nearest-neighbor index and dot-product scorer are unchanged; unlike late interaction, MINER introduces no token-level index.</p>
       </div>
       <div class="miner-serving-board" data-reveal aria-label="MINER keeps the standard single-vector retrieval interface">
         <div class="miner-serving-source">

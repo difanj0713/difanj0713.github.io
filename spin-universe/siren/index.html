@@ -3,22 +3,22 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>SIREN &middot; Better, Faster LLM Safety from Within</title>
-<meta name="description" content="SIREN turns a frozen general-purpose LLM into a stronger, faster harmfulness detector than the safety-tuned guard built from the same backbone.">
+<title>SIREN &middot; Harmfulness Detection from Internal LLM Representations</title>
+<meta name="description" content="SIREN identifies sparse safety neurons across a frozen LLM and achieves higher average macro-F1 than matched safety-tuned guards on all four backbones.">
 <link rel="canonical" href="https://difanj0713.github.io/spin-universe/siren/">
 <meta property="og:type" content="article">
-<meta property="og:title" content="SIREN &middot; The General Model Beat the Guard Built from It">
-<meta property="og:description" content="Read safety from within: four wins in four matched-backbone comparisons, with 250&times; fewer trainable parameters and approximately 5&times; fewer inference FLOPs.">
+<meta property="og:title" content="SIREN &middot; Harmfulness Detection from Internal LLM Representations">
+<meta property="og:description" content="A sparse cross-layer readout achieves higher average macro-F1 than matched safety-tuned guards on all four backbones, with 250&times; fewer trainable parameters and approximately 5&times; fewer inference FLOPs.">
 <meta property="og:url" content="https://difanj0713.github.io/spin-universe/siren/">
 <meta property="og:site_name" content="SPINiverse">
 <meta property="og:image" content="https://difanj0713.github.io/spin-universe/assets/img/social/siren.png?v=2">
 <meta property="og:image:type" content="image/png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="SIREN: the general model beat the guard built from it, with approximately five times fewer inference FLOPs.">
+<meta property="og:image:alt" content="SIREN aggregates sparse safety neurons across a frozen LLM for harmfulness detection.">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="https://difanj0713.github.io/spin-universe/assets/img/social/siren.png?v=2">
-<meta name="twitter:image:alt" content="SIREN: the general model beat the guard built from it.">
+<meta name="twitter:image:alt" content="SIREN detects harmful content from internal LLM representations.">
 <meta name="citation_title" content="LLM Safety From Within: Detecting Harmful Content with Internal Representations">
 <meta name="citation_author" content="Difan Jiao">
 <meta name="citation_author" content="Yilun Liu">
@@ -37,7 +37,7 @@
   "@type": "ScholarlyArticle",
   "@id": "https://difanj0713.github.io/spin-universe/siren/#paper",
   "headline": "LLM Safety From Within: Detecting Harmful Content with Internal Representations",
-  "description": "SIREN turns a frozen general-purpose LLM into a stronger, faster harmfulness detector than the safety-tuned guard built from the same backbone.",
+  "description": "SIREN identifies sparse safety neurons across a frozen LLM and achieves higher average macro-F1 than matched safety-tuned guards on all four backbones.",
   "author": [
     { "@type": "Person", "name": "Difan Jiao" },
     { "@type": "Person", "name": "Yilun Liu" },
@@ -63,9 +63,9 @@
 </script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600&amp;family=Overpass:ital,wght@0,400;0,500;0,600;0,700;1,400&amp;family=Platypi:ital,wght@0,600;0,700;0,800;1,600&amp;display=swap">
-<link rel="stylesheet" href="../assets/css/site.css?v=13">
-<link rel="stylesheet" href="../assets/css/siren.css?v=3">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600&amp;family=Poppins:wght@400;500;600;700&amp;family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&amp;display=swap">
+<link rel="stylesheet" href="../assets/css/site.css?v=14">
+<link rel="stylesheet" href="../assets/css/siren.css?v=4">
 <link rel="icon" href="/spin-universe/assets/img/favicon.svg" type="image/svg+xml">
 <link rel="icon" href="/spin-universe/assets/img/favicon-48x48.png" type="image/png" sizes="48x48">
 </head>
@@ -89,7 +89,7 @@
       <p class="eyebrow">Content safety &middot; <b>ACL 2026 Main</b></p>
       <h1>SIREN</h1>
       <p class="siren-hero-claim">The general model beat the guard built from it.</p>
-      <p class="siren-hero-deck"><b>SIREN</b> (<span class="siren-expansion"><b>S</b>afeguard with <b>I</b>nternal <b>RE</b>presentatio<b>N</b></span>) reads safety signals across a frozen LLM and turns them into one fast harmfulness score.</p>
+      <p class="siren-hero-deck"><b>SIREN</b> (<span class="siren-expansion"><b>S</b>afeguard with <b>I</b>nternal <b>RE</b>presentatio<b>N</b></span>) identifies sparse safety neurons across a frozen LLM and aggregates them into a continuous harmfulness score.</p>
       <p class="siren-authors"><b>Difan Jiao</b> &middot; Yilun Liu &middot; Ye Yuan &middot; Zhenwei Tang &middot; Linfeng Du &middot; Haolun Wu &middot; Ashton Anderson</p>
       <div class="links siren-hero-links">
         <a class="chip siren-chip-primary" href="https://arxiv.org/abs/2604.18519">
@@ -112,17 +112,17 @@
 
     <div class="siren-hero-art" data-reveal aria-hidden="true">
       <div class="siren-hero-art-top">
-        <span>frozen backbone</span>
-        <span>live safety readout</span>
+        <span>frozen language model</span>
+        <span>cross-layer safety readout</span>
       </div>
       <div class="siren-hero-input">
-        <span>incoming content</span>
+        <span>input sequence</span>
         <i></i>
       </div>
       <div class="siren-hero-layers" id="sirenHeroLayers"></div>
       <div class="siren-hero-wire"></div>
       <div class="siren-hero-score">
-        <span>harmfulness</span>
+        <span>harmfulness score</span>
         <strong>0.87</strong>
         <i><b></b></i>
         <em>flag</em>
@@ -132,15 +132,15 @@
     <div class="siren-proof-rail" aria-label="SIREN headline results">
       <div class="siren-proof" data-reveal>
         <strong>4 / 4</strong>
-        <span>matched guard pairs beaten</span>
+        <span>matched comparisons with higher mean F1</span>
       </div>
       <div class="siren-proof" data-reveal>
         <strong>+15.0</strong>
-        <span>largest average F1 lift</span>
+        <span>largest mean F1 improvement</span>
       </div>
       <div class="siren-proof" data-reveal>
         <strong>250&times;</strong>
-        <span>fewer trainable params on 4B</span>
+        <span>fewer trainable parameters on 4B</span>
       </div>
       <div class="siren-proof" data-reveal>
         <strong>&asymp;5&times;</strong>
@@ -154,10 +154,10 @@
 
 <section class="light siren-section siren-results" id="results">
   <div class="shell">
-    <p class="section-label">The headline result</p>
+    <p class="section-label">Matched-backbone evaluation</p>
     <div class="siren-section-head" data-reveal>
-      <h2>Four backbones.<br>Four stronger guards.</h2>
-      <p>Each comparison starts from the same underlying LLM. One side safety-tunes the whole model; SIREN keeps it frozen and reads what is already inside.</p>
+      <h2>SIREN improves macro-F1 in all four matched-backbone comparisons.</h2>
+      <p>For each Qwen or Llama backbone, the comparison pairs SIREN with the safety-tuned guard derived from the same base model. Results average macro-F1 over seven benchmarks.</p>
     </div>
 
     <div class="siren-result-card" data-reveal>
@@ -172,18 +172,18 @@
         <svg id="sirenResultChart" class="siren-result-chart" viewBox="0 0 1000 410" role="img" aria-labelledby="sirenResultTitle sirenResultDesc">
           <title id="sirenResultTitle">Average harmfulness detection performance for SIREN and matched guard models</title>
           <desc id="sirenResultDesc">SIREN scores 85.6, 85.7, 86.7, and 86.3 average macro-F1 across four backbones, outperforming every matched safety-tuned guard.</desc>
-          <text class="siren-svg-fallback" data-result-fallback x="500" y="205" text-anchor="middle">SIREN beat the matched guard on all four backbones. Open the table below for every value.</text>
+          <text class="siren-svg-fallback" data-result-fallback x="500" y="205" text-anchor="middle">SIREN achieved higher average macro-F1 in all four matched comparisons; the table below reports every value.</text>
         </svg>
       </div>
     </div>
 
     <div class="siren-result-story" data-reveal>
-      <h3>Same backbone,<br>different interface.</h3>
-      <p>The guard on each row was fine-tuned from the exact general-purpose model SIREN reads. That makes the comparison unusually direct: change billions of weights and generate a verdict, or leave the model intact and recover its internal safety evidence. Across seven established benchmarks, the smaller readout won every matched pair.</p>
+      <h3>Controlled comparison<br>on the same backbone.</h3>
+      <p>Each matched guard is produced by full-model safety fine-tuning and decodes a verdict; SIREN freezes the same base model and fits a sparse cross-layer readout. Holding the backbone family fixed isolates the interface and training strategy. SIREN achieved the higher average macro-F1 in all four matched comparisons across seven benchmarks.</p>
     </div>
 
     <details class="siren-raw-results">
-      <summary>See all 56 benchmark results</summary>
+      <summary>View all 56 benchmark results</summary>
       <div class="siren-table-scroll">
         <table>
           <thead>
@@ -207,9 +207,9 @@
 
 <section class="siren-section siren-method" id="method">
   <div class="shell">
-    <p class="section-label">The interface change</p>
+    <p class="section-label">Method</p>
     <div class="siren-section-head siren-section-head-dark siren-section-head-single" data-reveal>
-      <h2>Generative guards write a verdict.<br>SIREN reads one.</h2>
+      <h2>Sparse safety neurons with<br>adaptive cross-layer aggregation.</h2>
     </div>
 
     <div class="siren-readout-demo" data-reveal>
@@ -220,21 +220,21 @@
       <div class="siren-readout-board">
         <svg id="sirenReadoutSvg" viewBox="0 0 980 500" role="img" aria-labelledby="sirenReadoutTitle sirenReadoutDesc">
           <title id="sirenReadoutTitle">Interactive comparison of a generative guard and SIREN</title>
-          <desc id="sirenReadoutDesc">A generative guard decodes a safety verdict from its final layer. SIREN selects safety signals across a frozen model and combines them into a continuous score.</desc>
-          <text class="siren-svg-fallback" x="490" y="250" text-anchor="middle">SIREN reads selected safety signals across a frozen model in one forward pass.</text>
+          <desc id="sirenReadoutDesc">A generative guard decodes a safety verdict from its terminal layer. SIREN selects sparse safety neurons within each layer and aggregates them into a continuous harmfulness score.</desc>
+          <text class="siren-svg-fallback" x="490" y="250" text-anchor="middle">SIREN aggregates selected safety-neuron activations across a frozen model.</text>
         </svg>
       </div>
       <div class="siren-readout-caption">
-        <p id="sirenReadoutCaption"><b>The model stays intact.</b> Safety neurons from informative layers become one continuous harmfulness score.</p>
+        <p id="sirenReadoutCaption"><b>Layer-wise probes identify safety neurons.</b> SIREN weights layers by validation F1 and trains a classifier on their concatenated activations.</p>
       </div>
     </div>
 
     <div class="siren-speed-proof" data-reveal>
       <div class="siren-speed-copy">
-        <p class="siren-chart-kicker">The latency advantage</p>
-        <h3>Skip decoding.<br>Get the verdict sooner.</h3>
-        <p>A generative guard reads the input, then writes its answer token by token. SIREN returns one score from the forward pass already in flight.</p>
-        <div class="siren-speed-headline"><strong>&asymp;5&times;</strong><span>less inference compute<br>before the verdict</span></div>
+        <p class="siren-chart-kicker">Inference efficiency</p>
+        <h3>A direct score avoids<br>autoregressive verdict decoding.</h3>
+        <p>Generative guards process the input and then decode a verdict token by token. SIREN produces a harmfulness score from internal activations collected during a single forward pass.</p>
+        <div class="siren-speed-headline"><strong>&asymp;5&times;</strong><span>fewer inference FLOPs<br>per sample</span></div>
       </div>
 
       <div class="siren-flops-chart" role="img" aria-label="Paper Figure 6 inference FLOPs. Qwen3 0.6B: SIREN 155 billion versus guard 785 billion. Llama 3.2 1B: SIREN 257 billion versus guard 1.31 trillion. Qwen3 4B: SIREN 1.03 trillion versus guard 5.22 trillion. Llama 3.1 8B: SIREN 2.05 trillion versus guard 10.4 trillion.">
@@ -266,18 +266,18 @@
     <div class="siren-method-steps">
       <article data-reveal>
         <span>01</span>
-        <h3>Find the safety signal.</h3>
-        <p>A small reader checks every layer for harmful versus safe content.</p>
+        <h3>Layer-wise safety probing</h3>
+        <p>Mean-pool residual-stream activations and fit an L1-regularized harmful-versus-safe probe at each layer.</p>
       </article>
       <article data-reveal>
         <span>02</span>
-        <h3>Keep the useful coordinates.</h3>
-        <p>Only the neurons carrying most of each layer&rsquo;s safety evidence survive.</p>
+        <h3>Safety-neuron selection</h3>
+        <p>Rank neurons by probe-weight magnitude and retain the smallest set that reaches the cumulative threshold.</p>
       </article>
       <article data-reveal>
         <span>03</span>
-        <h3>Let better layers speak louder.</h3>
-        <p>Layers are weighted by validation performance, then combined into one score.</p>
+        <h3>Adaptive cross-layer aggregation</h3>
+        <p>Weight selected activations by each layer&rsquo;s validation F1, concatenate them, and train the final classifier.</p>
       </article>
     </div>
   </div>
@@ -285,10 +285,10 @@
 
 <section class="light siren-section siren-streaming" id="streaming">
   <div class="shell">
-    <p class="section-label">Beyond the training set</p>
+    <p class="section-label">Generalization and streaming</p>
     <div class="siren-section-head" data-reveal>
-      <h2>Streaming detection:<br>watch every prefix.</h2>
-      <p>SIREN was never trained for streaming. The same fitted readout can score a response while it is still arriving.</p>
+      <h2>Prefix-level harmfulness detection<br>without streaming-specific training.</h2>
+      <p>Although trained on complete sequences, the fitted SIREN readout can score each prefix as a response arrives.</p>
     </div>
 
     <div class="siren-stream-grid">
@@ -298,18 +298,18 @@
           <span>F1 on unseen reasoning traces<br>for the 8B comparison</span>
         </article>
         <article>
-          <strong>Every latency</strong>
-          <span>caught more harmful examples<br>than Qwen3Guard-Stream</span>
+          <strong>Higher detection</strong>
+          <span>than Qwen3Guard-Stream<br>at every measured latency</span>
         </article>
         <article>
           <strong>0</strong>
-          <span>extra streaming training</span>
+          <span>additional training for streaming evaluation</span>
         </article>
       </div>
 
       <div class="siren-stream-demo" data-reveal>
         <div class="siren-stream-head">
-          <p>Growing response</p>
+          <p>Response prefix</p>
           <span>Schematic</span>
         </div>
         <div class="siren-stream-text" id="sirenStreamText" aria-label="Illustrative response prefix">
@@ -330,7 +330,7 @@
           </div>
           <p id="sirenStreamStatus">Harmful signal detected in the current prefix.</p>
         </div>
-        <p class="siren-schematic-note">The interaction explains prefix scoring; its text and score path are illustrative, not a measured paper trace.</p>
+        <p class="siren-schematic-note">The text and score trajectory are illustrative; this interaction demonstrates prefix scoring and does not reproduce a measured trace.</p>
       </div>
     </div>
   </div>
@@ -338,6 +338,6 @@
 
 </main>
 
-<script type="module" src="../assets/js/siren.js?v=1"></script>
+<script type="module" src="../assets/js/siren.js?v=2"></script>
 </body>
 </html>

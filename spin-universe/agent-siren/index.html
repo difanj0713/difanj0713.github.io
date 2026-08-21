@@ -3,22 +3,22 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Agent-SIREN &middot; Read the Risk a Guard Does Not Say</title>
-<meta name="description" content="Agent-SIREN reads a frozen model's internal state to detect harmful agent trajectories, leading evaluated open guards with just 2,561 trainable parameters.">
+<title>Agent-SIREN &middot; Detecting Harmful Agent Trajectories from LLM Internal Representations</title>
+<meta name="description" content="Agent-SIREN detects harmful agent trajectories with a linear probe on one internal state of a frozen LLM, achieving the highest mean macro-F1 among the evaluated open guards.">
 <link rel="canonical" href="https://difanj0713.github.io/spin-universe/agent-siren/">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Agent-SIREN &middot; Read the Risk a Guard Does Not Say">
-<meta property="og:description" content="The guard's verdict misses context-dependent unsafe tool use. Its internal state still carries the signal.">
+<meta property="og:title" content="Agent-SIREN &middot; Detecting Harmful Agent Trajectories from LLM Internal Representations">
+<meta property="og:description" content="Unsafe tool use remains linearly readable inside current guard models even when their output scores remain at chance. Agent-SIREN fits a linear probe to one selected internal state.">
 <meta property="og:url" content="https://difanj0713.github.io/spin-universe/agent-siren/">
 <meta property="og:site_name" content="SPINiverse">
-<meta property="og:image" content="https://difanj0713.github.io/spin-universe/assets/img/social/agent-siren.png?v=2">
+<meta property="og:image" content="https://difanj0713.github.io/spin-universe/assets/img/social/agent-siren.png?v=3">
 <meta property="og:image:type" content="image/png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="Agent-SIREN: the guard saw the risk, but its verdict did not. The internal readout uses 2,561 trainable parameters.">
+<meta property="og:image:alt" content="Agent-SIREN detects harmful agent trajectories from one internal state of a frozen LLM using 2,561 trainable parameters.">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://difanj0713.github.io/spin-universe/assets/img/social/agent-siren.png?v=2">
-<meta name="twitter:image:alt" content="Agent-SIREN: the guard saw the risk, but its verdict did not.">
+<meta name="twitter:image" content="https://difanj0713.github.io/spin-universe/assets/img/social/agent-siren.png?v=3">
+<meta name="twitter:image:alt" content="Agent-SIREN: detecting harmful agent trajectories from LLM internal representations.">
 <meta name="citation_title" content="Detecting Harmful Agent Trajectories from LLM Internal Representations">
 <meta name="citation_author" content="Difan Jiao">
 <meta name="citation_author" content="Ashton Anderson">
@@ -28,7 +28,7 @@
   "@type": "ScholarlyArticle",
   "@id": "https://difanj0713.github.io/spin-universe/agent-siren/#paper",
   "headline": "Detecting Harmful Agent Trajectories from LLM Internal Representations",
-  "description": "Agent-SIREN reads a frozen model's internal state to detect harmful agent trajectories, leading evaluated open guards with just 2,561 trainable parameters.",
+  "description": "Agent-SIREN detects harmful agent trajectories with a linear probe on one internal state of a frozen LLM, achieving the highest mean macro-F1 among the evaluated open guards.",
   "author": [
     { "@type": "Person", "name": "Difan Jiao" },
     { "@type": "Person", "name": "Ashton Anderson" }
@@ -37,14 +37,14 @@
   "mainEntityOfPage": "https://difanj0713.github.io/spin-universe/agent-siren/",
   "isPartOf": { "@id": "https://difanj0713.github.io/spin-universe/#collection" },
   "inLanguage": "en",
-  "image": "https://difanj0713.github.io/spin-universe/assets/img/social/agent-siren.png?v=2"
+  "image": "https://difanj0713.github.io/spin-universe/assets/img/social/agent-siren.png?v=3"
 }
 </script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600&amp;family=Overpass:ital,wght@0,400;0,500;0,600;0,700;1,400&amp;family=Platypi:ital,wght@0,600;0,700;0,800;1,600&amp;display=swap">
-<link rel="stylesheet" href="../assets/css/site.css?v=13">
-<link rel="stylesheet" href="../assets/css/agent-siren.css?v=3">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600&amp;family=Poppins:wght@400;500;600;700&amp;family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&amp;display=swap">
+<link rel="stylesheet" href="../assets/css/site.css?v=14">
+<link rel="stylesheet" href="../assets/css/agent-siren.css?v=4">
 <link rel="icon" href="/spin-universe/assets/img/favicon.svg" type="image/svg+xml">
 <link rel="icon" href="/spin-universe/assets/img/favicon-48x48.png" type="image/png" sizes="48x48">
 </head>
@@ -67,8 +67,8 @@
     <div class="agent-hero-copy" data-reveal>
       <p class="eyebrow">Agent trajectory safety &middot; <b>Under review</b></p>
       <h1>Agent-SIREN</h1>
-      <p class="agent-hero-claim">The guard saw the risk. Its verdict did not.</p>
-      <p class="agent-hero-deck">Agent-SIREN reads one intermediate state of a frozen model, recovering context-dependent risk that can disappear from the model&rsquo;s own verdict.</p>
+      <p class="agent-hero-claim">A guard can encode tool-use risk that its output misses.</p>
+      <p class="agent-hero-deck">Agent-SIREN fits a linear probe to one validation-selected internal state of a frozen LLM, scoring complete agent trajectories without decoding a label.</p>
       <p class="agent-authors"><b>Difan Jiao</b> &middot; Ashton Anderson</p>
       <div class="links agent-hero-links" aria-label="Agent-SIREN resources">
         <a class="chip chip-primary" href="https://github.com/CSSLab/agent-siren">
@@ -93,7 +93,7 @@
         <div class="agent-route-event event-action"><i></i><span>action</span></div>
       </div>
       <div class="agent-hero-model">
-        <div class="agent-model-top"><span>one frozen guard</span><span>two interfaces</span></div>
+        <div class="agent-model-top"><span>frozen backbone</span><span>output vs internal state</span></div>
         <div class="agent-layer-stack" id="agentHeroLayers"></div>
         <div class="agent-visible-readout">
           <span>generated verdict</span>
@@ -109,19 +109,19 @@
     <div class="agent-proof-rail" aria-label="Agent-SIREN headline findings">
       <div class="agent-proof" data-reveal>
         <strong>0.77</strong>
-        <span>beats leading open guard models</span>
+        <span>highest mean macro-F1 among evaluated open guards</span>
       </div>
       <div class="agent-proof" data-reveal>
         <strong>0.80</strong>
-        <span>fine-tuning + internal readout</span>
+        <span>Qwen3-4B after fine-tuning + internal readout</span>
       </div>
       <div class="agent-proof" data-reveal>
         <strong>2.5K</strong>
-        <span>trainable parameters on Qwen3-4B</span>
+        <span>trainable probe parameters on Qwen3-4B</span>
       </div>
       <div class="agent-proof" data-reveal>
         <strong>2.2&times;</strong>
-        <span>faster than AgentDoG with early exit</span>
+        <span>faster than AgentDoG after early exit</span>
       </div>
     </div>
   </div>
@@ -131,10 +131,10 @@
 
 <section class="light agent-section agent-contrast agent-mechanism" id="contrast">
   <div class="shell">
-    <p class="section-label">Why agent safety is different</p>
+    <p class="section-label">Two sources of safety evidence</p>
     <div class="agent-section-head" data-reveal>
-      <h2>Two ways an agent<br>can be unsafe.</h2>
-      <p>One risk is written in the content. The other only appears when an action is compared with the authorization and context around it.</p>
+      <h2>Harmful content and unsafe tool use require different evidence.</h2>
+      <p>Harmful content is expressed directly in a request or action. Unsafe tool use depends on whether an action is consistent with its authorization, tool schema, and preceding context.</p>
     </div>
 
     <div class="agent-evidence-grid" data-reveal aria-label="Two forms of safety evidence from the paper teaser">
@@ -142,7 +142,7 @@
         <div class="agent-evidence-heading">
           <span>01</span>
           <h3>Harmful content</h3>
-          <p>The risk is in what is said.</p>
+          <p>Expressed directly in a request or action.</p>
         </div>
         <div class="agent-evidence-flow">
           <div class="agent-evidence-node">
@@ -160,14 +160,14 @@
             <p>Prescription issued</p>
           </div>
         </div>
-        <p class="agent-evidence-rule"><b>Visible in the message.</b> A content guard has explicit words to judge.</p>
+        <p class="agent-evidence-rule"><b>Direct evidence.</b> The request itself provides the content that a guard must classify.</p>
       </article>
 
       <article class="agent-evidence-card is-tool">
         <div class="agent-evidence-heading">
           <span>02</span>
           <h3>Unsafe tool use</h3>
-          <p>The risk is in the relationship.</p>
+          <p>Depends on the action, authorization, and context.</p>
         </div>
         <div class="agent-evidence-flow">
           <div class="agent-evidence-node">
@@ -185,14 +185,14 @@
             <p>$500 paid</p>
           </div>
         </div>
-        <p class="agent-evidence-rule"><b>Review is not pay.</b> Nothing looks harmful in isolation; the mismatch makes the trajectory unsafe.</p>
+        <p class="agent-evidence-rule"><b>Relational evidence.</b> The payment call is unsafe because the user authorized review rather than payment.</p>
       </article>
     </div>
 
     <div class="agent-mechanism-board" data-reveal>
       <div class="agent-expression-panel">
-        <p class="agent-demo-kicker">What current guards encode vs express</p>
-        <h3>Both risks are readable inside.<br>Only one survives the verdict.</h3>
+        <p class="agent-demo-kicker">Internal states and guard outputs</p>
+        <h3>Both distinctions are linearly readable internally; guard outputs do not separate unsafe tool use.</h3>
         <div class="agent-expression-rows" role="img" aria-label="Harmful content is readable internally and expressed in guard output. Unsafe tool use reaches 0.94 internally while guard output remains near chance at 0.51.">
           <div class="agent-expression-row is-content">
             <b>Harmful content</b>
@@ -205,24 +205,24 @@
             <div><span>Output</span><i><em style="--evidence: 51%"></em></i><strong>0.51</strong></div>
           </div>
         </div>
-        <p class="agent-expression-note">Matched-pair ordering &middot; chance = 0.50 <span>Two signals, largely separate directions</span></p>
+        <p class="agent-expression-note">Matched-pair rank accuracy &middot; chance = 0.50 <span>Risk directions are close to orthogonal</span></p>
       </div>
 
       <div class="agent-proposal-panel">
         <p class="agent-demo-kicker">Agent-SIREN</p>
-        <h3>Read the evidence before the verdict loses it.</h3>
+        <h3>A linear probe on one validation-selected internal state.</h3>
         <div class="agent-proposal-flow" aria-label="A complete trajectory enters a frozen model. One intermediate state is selected and a linear readout returns one risk score.">
           <div class="agent-proposal-input"><span>Complete trajectory</span><i></i><i></i><i></i></div>
           <b aria-hidden="true">&rarr;</b>
           <div class="agent-proposal-model">
             <span>Frozen model</span>
             <div aria-hidden="true"><i></i><i></i><i></i><i></i><i class="is-selected"></i><i></i><i></i><i></i><i></i></div>
-            <small>choose one state</small>
+            <small>validation-selected state</small>
           </div>
           <b aria-hidden="true">&rarr;</b>
           <div class="agent-proposal-score"><span>Linear readout</span><strong>Risk score</strong></div>
         </div>
-        <p>One small probe can weight both kinds of evidence without changing the backbone or decoding a verdict.</p>
+        <p>The frozen backbone encodes the complete trajectory once; the probe maps its selected state directly to one risk score without decoding a label.</p>
       </div>
     </div>
   </div>
@@ -230,10 +230,10 @@
 
 <section class="light agent-section agent-results" id="results">
   <div class="shell">
-    <p class="section-label">The headline result</p>
+    <p class="section-label">Results</p>
     <div class="agent-section-head" data-reveal>
-      <h2>Across six benchmarks,<br>Agent-SIREN leads.</h2>
-      <p>From unsafe tool use to harmful requests, Agent-SIREN reaches the highest average score among the evaluated open guards and leads or ties on five of six benchmarks.</p>
+      <h2>Highest mean macro-F1 across six held-out benchmarks.</h2>
+      <p>Under leave-one-benchmark-out evaluation, Agent-SIREN reaches the highest mean among the evaluated open guard checkpoints and leads or ties on five of six benchmarks.</p>
     </div>
 
     <div class="agent-result-card" data-reveal>
@@ -250,7 +250,7 @@
         <svg id="agentResultChart" class="agent-result-chart" viewBox="0 0 1080 520" role="group" aria-labelledby="agentResultTitle agentResultDesc">
           <title id="agentResultTitle">Agent-SIREN and three open guard checkpoints across six held-out benchmarks</title>
           <desc id="agentResultDesc">A horizontal dot chart. Agent-SIREN on Qwen3-4B has the highest or tied macro-F1 on five of six benchmarks and the highest mean.</desc>
-          <text class="agent-svg-fallback" data-result-fallback x="540" y="255" text-anchor="middle">Agent-SIREN leads or ties on five of six held-out benchmarks. Open the table below for every value.</text>
+          <text class="agent-svg-fallback" data-result-fallback x="540" y="255" text-anchor="middle">Agent-SIREN leads or ties on five of six held-out benchmarks; complete values appear in the table below.</text>
         </svg>
         <div id="agentChartTooltip" class="agent-chart-tooltip" role="status" aria-live="polite"></div>
       </div>
@@ -259,8 +259,8 @@
     <div class="agent-compound" data-reveal>
       <div class="agent-compound-copy">
         <p class="agent-demo-kicker">Matched training data</p>
-        <h3>Same data. Same backbone.<br>A better readout.</h3>
-        <p>With identical training trajectories and evaluation folds, a frozen internal readout matches full fine-tuning on Qwen3-4B and slightly exceeds it on Llama-3.1-8B. Read the fine-tuned model internally, and performance rises again. Fine-tuning and internal readout compound.</p>
+        <h3>Internal readout complements full fine-tuning.</h3>
+        <p>With identical backbones, training trajectories, and evaluation folds, the frozen probe matches full fine-tuning on Qwen3-4B and slightly exceeds it on Llama-3.1-8B. Applying the same readout after fine-tuning improves both results, showing that internal readout and safety fine-tuning are complementary.</p>
       </div>
       <div class="agent-compound-rows" aria-label="Mean macro-F1 for frozen readout, safety fine-tuning, and their combination">
         <div class="agent-compound-row">
@@ -283,10 +283,10 @@
     </div>
 
     <details class="agent-raw-results">
-      <summary>See the complete benchmark audit</summary>
+      <summary>Complete benchmark results</summary>
       <div class="agent-table-group">
         <h3>Open guard checkpoints</h3>
-        <p>Every column is a different leave-one-benchmark-out fold. Agent-SIREN rows use a single probe on a frozen backbone.</p>
+        <p>Each column reports the benchmark held out under leave-one-benchmark-out evaluation. Agent-SIREN uses one linear probe on a frozen backbone.</p>
         <div class="agent-table-scroll">
           <table>
             <thead><tr><th>System</th><th>R-Judge</th><th>TraceSafe</th><th>ATBench</th><th>ASSE-Saf</th><th>ASSE-Sec</th><th>AgentHarm</th><th>Mean</th></tr></thead>
@@ -324,14 +324,14 @@
 
 <section class="agent-section agent-efficiency" id="efficiency">
   <div class="shell">
-    <p class="section-label">Built for deployment</p>
+    <p class="section-label">Training and serving efficiency</p>
     <div class="agent-section-head agent-section-head-dark" data-reveal>
-      <h2>Faster to serve.<br>Faster to train.</h2>
-      <p>Agent-SIREN scores the trajectory directly instead of decoding a verdict. It is already the fastest guard in the measured 4B comparison&mdash;and its useful state arrives early enough to go faster still.</p>
+      <h2>No label decoding and no backbone gradients.</h2>
+      <p>Agent-SIREN scores a selected internal state directly. In the measured 4B comparison, it has the lowest single-stream latency, while fitting the probe takes substantially less time than full safety fine-tuning.</p>
     </div>
 
     <div class="agent-deployment-rail" data-reveal aria-label="Agent-SIREN deployment headline results">
-      <article><strong>40 ms</strong><span>single-stream verdict</span></article>
+      <article><strong>40 ms</strong><span>single-stream latency</span></article>
       <article><strong>1.3&times;</strong><span>faster than AgentDoG</span></article>
       <article><strong>5.4&times;</strong><span>faster than Qwen3Guard</span></article>
       <article><strong>39&times;</strong><span>faster to train than full fine-tuning</span></article>
@@ -340,8 +340,8 @@
     <div class="agent-exit-demo" data-reveal>
       <div class="agent-exit-copy">
         <span class="agent-exit-tag">Early exit</span>
-        <h3>Exit at layer 24.<br>Leave the rest behind.</h3>
-        <p>The strongest safety signal arrives well before the end. A checkpoint that stops there keeps 99.8% of the result and raises measured throughput by 43%.</p>
+        <h3>Early exit at layer 24.</h3>
+        <p>The validation-selected safety state occurs before the final layer. Stopping at layer 24 retains 99.8% of the result and increases measured throughput by 43%.</p>
       </div>
       <div class="agent-exit-visual">
         <div class="agent-exit-stack is-early" id="agentExitStack" role="img" aria-label="The first 24 of 36 layers are used. The remaining 12 layers are skipped."></div>

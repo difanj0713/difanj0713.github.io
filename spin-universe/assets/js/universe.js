@@ -55,9 +55,9 @@ const PAN_FRACTION = 0.24;
 
 /* Colours carried over from the original: crimson marks the probing stage,
    indigo marks the integration stage. They are also the site's two accents. */
-const PROBE_COLOR = 0xaa1234;
-const INTEGRATE_COLOR = 0x3456bb;
-const TUBE_COLOR = 0xefeff4;
+const PROBE_COLOR = 0x983b4f;
+const INTEGRATE_COLOR = 0x4e609e;
+const TUBE_COLOR = 0x596167;
 
 /** Saliency cut. Matches the original: keeps a little under a third. */
 const SALIENCY_CUT = 0.36;
@@ -87,7 +87,7 @@ function makeLabelSprite(text, pxSize = 44) {
   // Resizing the canvas resets the context, so the font must be set again.
   ctx.font = font;
   ctx.textBaseline = 'middle';
-  ctx.fillStyle = 'rgba(255,255,255,0.92)';
+  ctx.fillStyle = 'rgba(53,53,53,0.9)';
   ctx.fillText(text, 4, h / 2);
 
   const texture = new THREE.Texture(canvas);
@@ -168,7 +168,7 @@ export function createUniverse(canvas, options = {}) {
      leaves a grey haze, which is the other reason not to do it. */
   const renderer = new THREE.WebGLRenderer({ canvas, antialias: !compact, alpha: false, powerPreference: 'high-performance' });
   renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, compact ? 1.5 : 2));
-  renderer.setClearColor(options.background ?? 0x05070d, 1);
+  renderer.setClearColor(options.background ?? 0xe8ebec, 1);
 
   let composer = null;
   let bloomPass = null;
@@ -186,9 +186,9 @@ export function createUniverse(canvas, options = {}) {
   /* The original ramps hue from red to green. Here the activation field is kept
      cool so that crimson can mean one thing only, the probing stage, and so the
      block sits inside the site's palette instead of beside it. */
-  const COLD = new THREE.Color(0x2f3f9e);
-  const MID = new THREE.Color(0x6b7dfb);
-  const HOT = new THREE.Color(0xe9edff);
+  const COLD = new THREE.Color(0xb9c5d1);
+  const MID = new THREE.Color(0x7088a3);
+  const HOT = new THREE.Color(0x304f68);
   const activationColor = (a) => {
     const c = new THREE.Color();
     return a < 0.72 ? c.copy(COLD).lerp(MID, a / 0.72) : c.copy(MID).lerp(HOT, (a - 0.72) / 0.28);
@@ -382,7 +382,7 @@ export function createUniverse(canvas, options = {}) {
   let visible = true;
 
   const tmpColor = new THREE.Color();
-  const black = new THREE.Color(0x000000);
+  const paper = new THREE.Color(0xe8ebec);
 
   function applyProgress(p, t) {
     const introEase = easeOut(intro);
@@ -409,8 +409,8 @@ export function createUniverse(canvas, options = {}) {
         const f = 1 - poolFade;
         op *= f;
         if (poolFade > 0) {
-          // desaturate toward black as the value is discarded
-          m.color.copy(black).lerp(c.color, f);
+          // Desaturate toward the figure paper as the value is discarded.
+          m.color.copy(paper).lerp(c.color, f);
         }
       } else if (!c.salient) {
         op *= 1 - sparsify;

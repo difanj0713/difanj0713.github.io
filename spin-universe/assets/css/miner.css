@@ -1715,3 +1715,641 @@
     transition: none;
   }
 }
+
+/* Academic editorial skin -------------------------------------------------
+   The underlying modules and interaction geometry above stay intact. This
+   final layer gives the page a quiet, paper-like visual language: warm white
+   surfaces, typographic hierarchy, thin rules, and figure-style panels. */
+
+.miner-page {
+  --bg: #fbfaf7;
+  --bg-raise: #ffffff;
+  --ink: #242724;
+  --ink-2: #505750;
+  --ink-3: #666865;
+  --line: #d5d8d2;
+  --line-soft: #e4e5e0;
+  --miner-mint: #357b70;
+  --miner-mint-soft: #e7f0ed;
+  --miner-gold: #a66e32;
+  --miner-gold-soft: #f3eadf;
+  background: #fbfaf7;
+  color: var(--ink);
+}
+
+.miner-page .light {
+  --bg: #fbfaf7;
+  --bg-raise: #ffffff;
+  --ink: #242724;
+  --ink-2: #505750;
+  --ink-3: #666865;
+  --line: #d5d8d2;
+  --line-soft: #e4e5e0;
+  --miner-mint: #357b70;
+  --miner-gold: #a66e32;
+  background: #fbfaf7;
+  color: var(--ink);
+}
+
+.miner-page ::selection {
+  background: #d9e9e4;
+  color: #1e2825;
+}
+
+.miner-page :where(a, button, input, select, [tabindex]):focus-visible {
+  outline: 2px solid var(--miner-mint);
+  outline-offset: 3px;
+}
+
+.miner-page .shell {
+  max-width: 1160px;
+}
+
+/* Calm, opaque navigation instead of a floating glass bar. */
+.miner-nav {
+  color: var(--ink);
+  background: rgba(255, 255, 255, 0.97);
+  border-bottom-color: var(--line-soft);
+  -webkit-backdrop-filter: none;
+  backdrop-filter: none;
+}
+
+.miner-nav-inner {
+  min-height: 3.9rem;
+}
+
+.miner-nav-home,
+.miner-nav-links a {
+  font-family: var(--sans);
+  letter-spacing: 0.01em;
+  text-transform: none;
+}
+
+.miner-nav-home {
+  color: var(--ink-2);
+  font-size: 0.84rem;
+  font-weight: 600;
+}
+
+.miner-nav-home span {
+  color: var(--miner-mint);
+}
+
+.miner-nav-links a {
+  color: var(--ink-3);
+  font-size: 0.81rem;
+  font-weight: 500;
+}
+
+.miner-nav a:hover {
+  color: var(--miner-mint);
+}
+
+/* Title page. */
+.miner-masthead {
+  min-height: 0;
+  padding: clamp(7.5rem, 11vw, 9rem) 0 clamp(3.5rem, 6vw, 5rem);
+  color: var(--ink);
+  background: #e8ebec;
+  overflow: visible;
+}
+
+.miner-masthead::after {
+  background: var(--line);
+}
+
+.miner-masthead-grid {
+  grid-template-columns: minmax(0, 0.92fr) minmax(25rem, 1.08fr);
+  align-items: center;
+  gap: clamp(2.5rem, 6vw, 5.5rem);
+}
+
+.miner-hero-copy .eyebrow {
+  margin-bottom: 1.15rem;
+  color: var(--ink-3);
+  font-family: var(--sans);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+}
+
+.miner-hero-copy .eyebrow b {
+  color: var(--miner-mint);
+}
+
+.miner-hero-copy h1 {
+  margin-bottom: 1.25rem;
+  color: var(--ink);
+  font-size: clamp(4.3rem, 8vw, 6.9rem);
+  font-weight: 700;
+  line-height: 0.9;
+  letter-spacing: -0.06em;
+}
+
+.miner-hero-claim {
+  max-width: 21ch;
+  margin-bottom: 1rem;
+  color: var(--ink);
+  font-size: clamp(1.55rem, 2.8vw, 2.2rem);
+  font-weight: 650;
+  letter-spacing: -0.03em;
+  line-height: 1.17;
+}
+
+.miner-hero-deck {
+  color: var(--ink-2);
+  font-size: 1rem;
+  line-height: 1.68;
+}
+
+.miner-hero-deck > b,
+.miner-expansion b {
+  color: var(--ink);
+}
+
+.miner-authors {
+  margin-bottom: 1.45rem;
+  color: var(--ink-3);
+  font-size: 0.81rem;
+  line-height: 1.7;
+}
+
+.miner-authors b {
+  color: var(--ink-2);
+}
+
+.miner-hero-links .chip {
+  min-height: 2.45rem;
+  padding: 0.52rem 0.82rem;
+  border-color: #c8cbc5;
+  border-radius: 2px;
+  background: transparent;
+  color: var(--ink-2);
+  font-family: var(--sans);
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0;
+}
+
+.miner-hero-links .chip:hover {
+  border-color: var(--miner-mint);
+  background: #f1f6f4;
+  color: var(--miner-mint);
+}
+
+.miner-hero-links .miner-chip-primary,
+.miner-hero-links .miner-chip-primary:hover {
+  border-color: var(--miner-mint);
+  background: var(--miner-mint);
+  color: #fff;
+}
+
+/* The hero schematic reads as an academic figure rather than a product card. */
+.miner-hero-art {
+  min-height: clamp(27rem, 40vw, 33rem);
+  border-color: var(--line);
+  border-radius: 2px;
+  background: #f2f3ef;
+  box-shadow: none;
+}
+
+.miner-hero-art::before {
+  background-image:
+    linear-gradient(rgba(44, 55, 49, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(44, 55, 49, 0.035) 1px, transparent 1px);
+  -webkit-mask-image: none;
+  mask-image: none;
+}
+
+.miner-art-query,
+.miner-art-page {
+  border-color: #d4d7d1;
+  border-radius: 2px;
+  background: #fff;
+  box-shadow: none;
+}
+
+.miner-art-page i,
+.miner-art-page b {
+  background: #dfe2dc;
+}
+
+.miner-hero-layer {
+  border-color: #daddd7;
+  background: rgba(255, 255, 255, 0.7);
+}
+
+.miner-hero-layer i {
+  background: #d7dbd5;
+}
+
+.miner-hero-layer i.is-signal,
+.miner-hero-layer.is-late i.is-signal {
+  box-shadow: none;
+}
+
+.miner-hero-funnel span {
+  border-color: #b9d2ca;
+  border-radius: 2px;
+  background: #e8f1ee;
+  color: #315e56;
+}
+
+.miner-hero-funnel span:nth-child(2) {
+  border-color: #dbc6aa;
+  background: #f3eadf;
+  color: #795328;
+}
+
+.miner-hero-output {
+  border-color: #a9c9c0;
+  border-radius: 2px;
+  background: #fff;
+  box-shadow: none;
+}
+
+.miner-vector i,
+.miner-serving-vector i {
+  background: color-mix(in srgb, var(--miner-mint) var(--level, 45%), #e2e5df);
+}
+
+.miner-proof-rail {
+  margin-top: clamp(2.7rem, 5vw, 4rem);
+  border-top-color: var(--line);
+  border-bottom: 1px solid var(--line);
+}
+
+.miner-proof {
+  min-height: 7.8rem;
+  border-left-color: var(--line-soft);
+}
+
+.miner-proof:last-child {
+  border-right-color: var(--line-soft);
+}
+
+.miner-proof strong {
+  color: var(--ink);
+  font-size: clamp(1.55rem, 2.5vw, 2.1rem);
+  letter-spacing: -0.035em;
+}
+
+.miner-proof:first-child strong {
+  color: var(--miner-mint);
+}
+
+.miner-proof span {
+  color: var(--ink-3);
+  font-size: 0.82rem;
+}
+
+/* Editorial section rhythm and type. */
+.miner-section {
+  padding-block: clamp(4.8rem, 8vw, 7rem);
+}
+
+.miner-page .section-label {
+  margin-bottom: 2rem;
+  color: var(--ink-3);
+  font-family: var(--sans);
+  font-size: 0.75rem;
+  font-weight: 650;
+  letter-spacing: 0.1em;
+}
+
+.miner-page .section-label::after {
+  background: var(--line);
+}
+
+.miner-section-head {
+  grid-template-columns: minmax(0, 1.15fr) minmax(17rem, 0.85fr);
+  align-items: start;
+  margin-bottom: clamp(2.4rem, 4.5vw, 3.8rem);
+}
+
+.miner-section-head h2,
+.miner-serving-copy h2 {
+  font-size: clamp(2rem, 4vw, 3.25rem);
+  font-weight: 650;
+  line-height: 1.12;
+  letter-spacing: -0.035em;
+}
+
+.miner-section-head > p,
+.miner-serving-copy p {
+  color: var(--ink-2);
+  font-size: 0.98rem;
+  line-height: 1.7;
+}
+
+.miner-results {
+  background: #fff;
+}
+
+.miner-method {
+  color: var(--ink);
+  background: #f4f3ef;
+  border-block: 1px solid var(--line-soft);
+}
+
+.miner-serving {
+  background: #fbfaf7;
+}
+
+.miner-section-head-dark > p {
+  color: var(--ink-2);
+}
+
+/* Flat figure frames. */
+.miner-tradeoff-card,
+.miner-layer-lab,
+.miner-serving-board {
+  border-color: var(--line);
+  border-radius: 2px;
+  background: #fff;
+  box-shadow: none;
+}
+
+.miner-chart-head,
+.miner-lab-head {
+  border-bottom-color: var(--line-soft);
+  background: #f6f6f3;
+}
+
+.miner-chart-head h3,
+.miner-lab-head h3 {
+  color: var(--ink);
+  font-size: clamp(1.25rem, 2vw, 1.6rem);
+  font-weight: 650;
+}
+
+.miner-chart-kicker {
+  color: var(--miner-mint);
+  font-family: var(--sans);
+  font-size: 0.68rem;
+  font-weight: 650;
+  letter-spacing: 0.08em;
+}
+
+.miner-tradeoff-controls,
+.miner-backbone-switch {
+  border-color: #ced1cb;
+  border-radius: 2px;
+  background: #eeefeb;
+}
+
+.miner-tradeoff-controls button,
+.miner-backbone-switch button {
+  border-radius: 1px;
+  color: var(--ink-3);
+  font-family: var(--sans);
+  font-size: 0.72rem;
+  letter-spacing: 0;
+}
+
+.miner-tradeoff-controls button.is-active,
+.miner-backbone-switch button.is-active {
+  background: #fff;
+  color: var(--ink);
+  box-shadow: 0 0 0 1px #c9ccc6;
+}
+
+.miner-tradeoff-chart .point-miner {
+  filter: none;
+}
+
+.miner-tradeoff-chart .tradeoff-callout-box {
+  fill: #344f49;
+}
+
+.miner-chart-foot {
+  border-top-color: var(--line-soft);
+  color: var(--ink-3);
+  font-family: var(--sans);
+  font-size: 0.73rem;
+}
+
+.miner-result-story {
+  border-color: var(--line);
+}
+
+.miner-result-story h3 {
+  color: var(--ink);
+  font-size: clamp(1.7rem, 3vw, 2.35rem);
+}
+
+.miner-result-story p {
+  color: var(--ink-2);
+  font-size: 1rem;
+}
+
+.miner-raw-results,
+.miner-table-block + .miner-table-block,
+.miner-raw-results th,
+.miner-raw-results td {
+  border-color: var(--line-soft);
+}
+
+.miner-raw-results summary {
+  color: var(--ink-2);
+  font-family: var(--sans);
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.05em;
+}
+
+.miner-raw-results tbody tr:nth-child(odd) {
+  background: #f7f7f4;
+}
+
+/* Method lab: a diagram on paper, not a glowing dashboard. */
+.miner-lab-grid {
+  color: var(--ink);
+}
+
+.miner-lab-controls {
+  border-right-color: var(--line-soft);
+}
+
+.miner-lab-controls > p:first-child,
+.miner-lab-fact,
+.miner-candidate-readout span,
+.miner-depth-labels,
+.miner-layer-key,
+.miner-treatment-row p,
+.miner-lab-note,
+.miner-method-steps p {
+  color: var(--ink-3);
+}
+
+.miner-lab-controls b,
+.miner-candidate-readout strong,
+.miner-treatment-row p strong,
+.miner-method-steps h3 {
+  color: var(--ink);
+}
+
+.miner-candidate-readout {
+  border-color: #bad1ca;
+  border-radius: 2px;
+  background: #edf4f1;
+}
+
+.miner-layer-stack,
+.miner-treatment-row,
+.miner-treatment-row article,
+.miner-lab-note,
+.miner-method-steps,
+.miner-method-steps article {
+  border-color: var(--line-soft);
+}
+
+.miner-layer {
+  border-color: #d3d7d1;
+  background: #e3e5e0;
+}
+
+.miner-layer::before {
+  background: rgba(255, 255, 255, 0.46);
+}
+
+.miner-layer.is-realign {
+  border-color: #8fb9ae;
+  background: linear-gradient(180deg, #6ba598, #dcebe7);
+  box-shadow: none;
+}
+
+.miner-layer.is-reweight {
+  border-color: #c89e6c;
+  background: linear-gradient(180deg, #bd8243, #efe1d0);
+  box-shadow: none;
+}
+
+.miner-treatment-visual {
+  border-color: var(--line-soft);
+  border-radius: 2px;
+  background:
+    linear-gradient(rgba(45, 54, 49, 0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(45, 54, 49, 0.035) 1px, transparent 1px),
+    #fafaf8;
+  background-size: 1.2rem 1.2rem;
+}
+
+.miner-rotated-space i,
+.miner-rotated-space b {
+  box-shadow: none;
+}
+
+/* Serving schematic. */
+.miner-serving-board {
+  background: #f4f4f1;
+}
+
+.miner-serving-source,
+.miner-serving-one,
+.miner-serving-index {
+  border-color: var(--line);
+  border-radius: 2px;
+  background: #fff;
+}
+
+.miner-mini-page {
+  border-radius: 1px;
+  box-shadow: inset 0 0 0 1px var(--line-soft);
+}
+
+.miner-serving-arrow {
+  color: var(--miner-mint);
+}
+
+/* Responsive: restate layout after the final theme overrides. */
+@media (max-width: 1040px) {
+  .miner-masthead-grid,
+  .miner-section-head,
+  .miner-serving-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .miner-hero-copy {
+    grid-column: 1;
+    grid-row: 1;
+    max-width: 48rem;
+  }
+
+  .miner-proof-rail {
+    grid-column: 1;
+    grid-row: 2;
+  }
+
+  .miner-hero-art {
+    grid-column: 1;
+    grid-row: 3;
+    min-height: 29rem;
+  }
+}
+
+@media (max-width: 820px) {
+  .miner-lab-grid,
+  .miner-treatment-row,
+  .miner-serving-board {
+    grid-template-columns: 1fr;
+  }
+
+  .miner-lab-controls {
+    border-right: 0;
+    border-bottom: 1px solid var(--line-soft);
+  }
+
+  .miner-treatment-row article,
+  .miner-treatment-row article:last-child {
+    border-right: 0;
+  }
+
+  .miner-treatment-row article + article {
+    border-top: 1px solid var(--line-soft);
+  }
+}
+
+@media (max-width: 760px) {
+  .miner-masthead {
+    padding-top: 6.8rem;
+  }
+
+  .miner-hero-copy h1 {
+    font-size: clamp(3.7rem, 19vw, 5.6rem);
+  }
+
+  .miner-proof-rail {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .miner-proof:nth-child(3),
+  .miner-proof:nth-child(4) {
+    border-top: 1px solid var(--line-soft);
+  }
+
+  .miner-chart-head,
+  .miner-lab-head {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .miner-result-story,
+  .miner-method-steps {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 500px) {
+  .miner-nav-inner {
+    min-height: 3.75rem;
+  }
+
+  .miner-hero-art {
+    min-height: 23rem;
+  }
+
+  .miner-proof {
+    min-height: 7.4rem;
+  }
+}

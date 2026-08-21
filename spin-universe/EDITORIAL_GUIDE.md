@@ -5,9 +5,12 @@ These are the reusable decisions for SPIN, SIREN, MINER, and Agent-SIREN.
 ## Audience and voice
 
 - Write for an intelligent visitor who has not read the paper. Researchers can open the paper or detailed results.
-- Lead with the practical consequence, then explain the mechanism in plain language.
-- Maximize impact while keeping the central claim defensible. Do not weaken the hero with review-style caveats.
+- Aim for an academic project page with public-facing clarity, not a product launch page. Each paper may keep one memorable claim in its hero; the rest of the page should earn that claim with method, scope, and evidence.
+- Lead with the practical consequence, then explain the mechanism in plain language and introduce the paper's own terminology.
+- Maximize impact while keeping the central claim defensible. Put qualifiers where they define the comparison (for example, “among evaluated open guards”), not as generic self-protection.
 - Prefer concrete verbs and outcomes. Remove vague metaphors, unexplained acronyms, and sentences that do not answer “so what?”
+- Avoid repeated imperative headlines, anthropomorphism, mirrored slogans, and stacks of sentence fragments. Method steps should usually use descriptive labels such as “Layer-wise probing” or direct findings such as “SIREN improves all four matched comparisons.”
+- Let measured results, comparison design, and visuals provide the impact. Avoid adjective-led claims when a metric or named baseline can make the same point.
 - Give unfamiliar work its historical context: what people normally did then, what was missing, and why this result changed the picture.
 - Frame the core problem as an interface gap: visible tokens are not a complete record of the model’s internal computation. Keep any human analogy to one line so the story does not drift into anthropomorphism or mechanistic interpretability.
 - For the four-paper umbrella story, unite the work around a better interface to internal computation—not claims that every method is linear, sparse, or strongest in the middle.
@@ -35,6 +38,9 @@ These are the reusable decisions for SPIN, SIREN, MINER, and Agent-SIREN.
 
 ## Editing rules
 
+- Keep paragraphs short. A module should make one claim, explain one mechanism, or report one result—not all three again.
+- State the evaluation scope and comparator near headline results. Prefer “highest mean macro-F1 among the evaluated open guards” to “best guard.”
+- Use stable search terms in titles, descriptions, first-page explanations, and structured data: the task, internal representations, frozen backbone, the method name, the principal comparison, and the efficiency mechanism. Do not keyword-stuff visible footer copy.
 - Give each resource—paper, code, demo, poster—one clear entry on the page. Do not repeat the same CTA at the bottom.
 - Use recognizable icons for resource types so visitors can scan before reading.
 - Expand a paper acronym once, near the first plain-language explanation.

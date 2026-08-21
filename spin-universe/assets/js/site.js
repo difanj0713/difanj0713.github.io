@@ -100,11 +100,12 @@ async function boot() {
   const canvas = document.getElementById('viz');
   if (!canvas || !hasWebGL()) return;
   try {
-    const { createUniverse } = await import('./universe.js?v=5');
+    const { createUniverse } = await import('./universe.js?v=6');
     universe = createUniverse(canvas, {
       compact,
       reducedMotion,
-      background: 0x05070d,
+      background: 0xe8ebec,
+      bloom: false,
     });
     universe.start();
     canvas.classList.add('is-ready');

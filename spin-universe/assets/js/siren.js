@@ -266,8 +266,8 @@ function initReadoutDemo() {
     }
 
     caption.innerHTML = mode === 'siren'
-      ? '<b>The model stays intact.</b> Safety neurons from informative layers become one continuous harmfulness score.'
-      : '<b>The verdict has to be written.</b> A safety-tuned model reads its final layer and generates the label token by token.';
+      ? '<b>SIREN aggregates selected safety neurons.</b> Validation-F1 weights scale each layer before the final classifier.'
+      : '<b>The matched guard decodes its verdict autoregressively.</b> Its generated label is read from the terminal-layer output.';
   }
 
   controls.forEach((control) => {
