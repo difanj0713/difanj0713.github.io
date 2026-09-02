@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
   <title id="title">SPIN</title>
-  <desc id="desc">Use the whole model, not just its last layer. All 24 model-by-dataset comparisons improved.</desc>
+  <desc id="desc">SPIN sparsifies and integrates internal neurons for text classification. All 24 model-by-dataset comparisons improved.</desc>
   <defs>
     <radialGradient id="glowA" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(970 260) rotate(135) scale(430 480)">
       <stop stop-color="#7d8dff" stop-opacity=".24"/>
@@ -45,8 +45,8 @@
 
   <text x="65" y="250" class="display" fill="#eef0f7" font-size="151" font-weight="800" letter-spacing="-10">SPIN</text>
   <text x="72" y="326" class="display" fill="#eef0f7" font-size="43" font-weight="650" letter-spacing="-1.8">
-    <tspan x="72">Use the whole model,</tspan>
-    <tspan x="72" dy="53">not just its last layer.</tspan>
+    <tspan x="72">Sparsifying and integrating</tspan>
+    <tspan x="72" dy="53">internal neurons</tspan>
   </text>
 
   <g transform="translate(72 496)">
@@ -88,10 +88,10 @@
     <path d="M1070 393C1070 431 1028 444 988 460" fill="none" stroke="#e0455f" stroke-width="2"/>
     <circle cx="978" cy="464" r="5" fill="#e0455f" filter="url(#glow)"/>
     <rect x="862" y="487" width="226" height="52" rx="4" fill="#eef0f7"/>
-    <text x="975" y="508" text-anchor="middle" class="mono" fill="#05070d" font-size="9.5" font-weight="600" letter-spacing="1.5">CROSS-LAYER READOUT</text>
+    <text x="975" y="508" text-anchor="middle" class="mono" fill="#05070d" font-size="9.5" font-weight="600" letter-spacing="1.5">CROSS-LAYER FEATURES</text>
     <text x="975" y="528" text-anchor="middle" class="display" fill="#05070d" font-size="19" font-weight="700">SPIN</text>
   </g>
 
-  <text x="72" y="566" class="mono" fill="#6f7893" font-size="10.5" font-weight="500" letter-spacing="1.1">Sparsify then integrate.</text>
+  <text x="72" y="566" class="mono" fill="#6f7893" font-size="10.5" font-weight="500" letter-spacing="1.1">LAYER-WISE PROBES · NEURON SELECTION · INTEGRATION</text>
   <text x="1128" y="566" text-anchor="end" class="mono" fill="#6f7893" font-size="10.5" font-weight="500" letter-spacing="1.1">SPINiverse / SPIN</text>
 </svg>

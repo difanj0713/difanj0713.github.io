@@ -25,7 +25,6 @@ function initHeroLayers() {
   signals.forEach((selected, rowIndex) => {
     const row = document.createElement('div');
     row.className = `miner-hero-layer${rowIndex >= 8 ? ' is-late' : ''}`;
-    row.dataset.layer = `L${15 + rowIndex * 2}`;
     row.style.setProperty('--shift', `${Math.sin(rowIndex * 0.78) * 7}px`);
 
     for (let index = 0; index < 10; index += 1) {
@@ -148,7 +147,7 @@ function initTradeoffChart() {
       : (mode === 'storage' ? minerX + 52 : minerX - 224);
     const boxY = minerY - 14;
     chart.appendChild(svgElement('rect', { x: boxX, y: boxY, width: boxWidth, height: 27, rx: 4, class: 'tradeoff-callout-box' }));
-    chart.appendChild(svgElement('text', { x: boxX + boxWidth / 2, y: boxY + 18, 'text-anchor': 'middle', class: 'tradeoff-callout' }, mode === 'storage' ? '+1.9 nDCG pts · +0 MB index' : '93% of dense throughput'));
+    chart.appendChild(svgElement('text', { x: boxX + boxWidth / 2, y: boxY + 18, 'text-anchor': 'middle', class: 'tradeoff-callout' }, mode === 'storage' ? '+1.9 pts · same index' : '93% of dense throughput'));
 
     controls.forEach((control) => {
       const active = control.dataset.tradeoff === mode;
@@ -201,8 +200,7 @@ function initLayerExplorer() {
   const cutoffValue = document.getElementById('minerCkaValue');
   const range = document.getElementById('minerCandidateRange');
   const count = document.getElementById('minerCandidateCount');
-  const realignCount = document.getElementById('minerRealignCount');
-  if (!stack || !modelControls.length || !modelGroup || !cutoffControl || !cutoff || !cutoffValue || !range || !count || !realignCount) return;
+  if (!stack || !modelControls.length || !modelGroup || !cutoffControl || !cutoff || !cutoffValue || !range || !count) return;
 
   let model = 'Jina';
   const layers = [];
@@ -224,7 +222,6 @@ function initLayerExplorer() {
     const end = 35;
     const baseStart = 33;
     const selectedCount = end - start + 1;
-    const alignedCount = Math.max(0, baseStart - start);
 
     layers.forEach((layer, layerIndex) => {
       const selected = layerIndex >= start;
@@ -238,11 +235,10 @@ function initLayerExplorer() {
 
     cutoffValue.value = `CKA = ${ckaCutoffs[cutoffIndex]}`;
     cutoffValue.textContent = `CKA = ${ckaCutoffs[cutoffIndex]}`;
-    range.textContent = `Layers ${start}–${end}`;
+    range.innerHTML = `Layers ${start}–${end} <small>(zero-indexed)</small>`;
     count.textContent = `${selectedCount} of 36 layers selected`;
-    realignCount.textContent = `${alignedCount} layer${alignedCount === 1 ? '' : 's'}`;
-    stack.setAttribute('aria-label', `${model} layers ${start} through ${end} selected at a CKA cutoff of ${ckaCutoffs[cutoffIndex]}. Layers ${start} through 32 are realigned and layers 33 through 35 are reweighted.`);
-    cutoff.setAttribute('aria-valuetext', `CKA cutoff ${ckaCutoffs[cutoffIndex]}, ${model} layers ${start} through ${end} selected`);
+    stack.setAttribute('aria-label', `${model} zero-indexed layers ${start} through ${end} selected at a CKA cutoff of ${ckaCutoffs[cutoffIndex]}. Layers ${start} through 32 are realigned and layers 33 through 35 are reweighted.`);
+    cutoff.setAttribute('aria-valuetext', `CKA cutoff ${ckaCutoffs[cutoffIndex]}, ${model} zero-indexed layers ${start} through ${end} selected`);
 
     modelControls.forEach((control) => {
       const active = control.dataset.backbone === model;

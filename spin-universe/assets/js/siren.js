@@ -25,7 +25,6 @@ function initHeroLayers() {
   for (let layerIndex = 0; layerIndex < safetyByLayer.length; layerIndex += 1) {
     const layer = document.createElement('div');
     layer.className = 'siren-hero-layer';
-    layer.dataset.layer = `L${layerIndex * 3}`;
     const rise = Math.sin((Math.PI * layerIndex) / (safetyByLayer.length - 1)) * 4;
     layer.style.setProperty('--layer-rise', `${rise.toFixed(2)}rem`);
 
@@ -149,9 +148,8 @@ function initResultChart() {
 
 function initReadoutDemo() {
   const svg = document.getElementById('sirenReadoutSvg');
-  const caption = document.getElementById('sirenReadoutCaption');
   const controls = Array.from(document.querySelectorAll('[data-safety-mode]'));
-  if (!svg || !caption || !controls.length) return;
+  if (!svg || !controls.length) return;
 
   const selectedByLayer = [
     [], [4], [1], [3], [0, 4], [2], [1, 3], [0, 4], [2], [1], [],
@@ -166,8 +164,8 @@ function initReadoutDemo() {
 
   function draw() {
     svg.replaceChildren();
-    svg.appendChild(svgElement('title', {}, 'Interactive comparison of a generative guard and SIREN'));
-    svg.appendChild(svgElement('desc', {}, 'A generative guard decodes a safety verdict from its final layer. SIREN selects safety signals across a frozen model and combines them into a continuous score.'));
+    svg.appendChild(svgElement('title', { id: 'sirenReadoutTitle' }, 'Interactive comparison of a generative guard and SIREN'));
+    svg.appendChild(svgElement('desc', { id: 'sirenReadoutDesc' }, 'A generative guard decodes a safety verdict from its final layer. SIREN selects safety signals across a frozen model and combines them into a continuous score.'));
 
     const wires = svgElement('g');
     svg.appendChild(wires);
@@ -175,10 +173,8 @@ function initReadoutDemo() {
     svg.appendChild(svgElement('rect', {
       x: 20, y: 172, width: 158, height: 136, rx: 7, class: 'readout-box',
     }));
-    addText(99, 201, 'readout-small', 'CONTENT', 'middle');
-    addText(99, 235, 'readout-main', 'Prompt or', 'middle');
-    addText(99, 261, 'readout-main', 'response', 'middle');
-    addText(99, 288, 'readout-copy', 'one sequence', 'middle');
+    addText(99, 229, 'readout-main', 'Prompt or', 'middle');
+    addText(99, 257, 'readout-main', 'response', 'middle');
 
     const startX = 232;
     const stepX = 43;
@@ -223,7 +219,6 @@ function initReadoutDemo() {
     });
 
     if (mode === 'siren') {
-      addText(773, 91, 'readout-small', 'CROSS-LAYER READOUT', 'middle');
       svg.appendChild(svgElement('circle', {
         cx: 773, cy: 240, r: 16, class: 'readout-score',
       }));
@@ -233,12 +228,8 @@ function initReadoutDemo() {
       svg.appendChild(svgElement('rect', {
         x: 820, y: 165, width: 140, height: 150, rx: 7, class: 'readout-score',
       }));
-      addText(890, 195, 'readout-small', 'HARMFULNESS', 'middle');
       addText(890, 247, 'readout-score-text', '0.87', 'middle');
-      addText(890, 278, 'readout-copy', 'FLAG', 'middle');
-      addText(890, 296, 'readout-small', 'ONE SCORE', 'middle');
     } else {
-      addText(792, 105, 'readout-small', 'AUTOREGRESSIVE VERDICT', 'middle');
       wires.appendChild(svgElement('path', {
         d: `M ${lastX + 12} 240 H 715`, class: 'readout-flow',
       }));
@@ -262,12 +253,7 @@ function initReadoutDemo() {
         }
         tokenX += token.width + 8;
       });
-      addText(824, 298, 'readout-copy', 'four decoded tokens', 'middle');
     }
-
-    caption.innerHTML = mode === 'siren'
-      ? '<b>SIREN aggregates selected safety neurons.</b> Validation-F1 weights scale each layer before the final classifier.'
-      : '<b>The matched guard decodes its verdict autoregressively.</b> Its generated label is read from the terminal-layer output.';
   }
 
   controls.forEach((control) => {

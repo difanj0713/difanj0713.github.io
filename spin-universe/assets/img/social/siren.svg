@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
   <title id="title">SIREN</title>
-  <desc id="desc">The general model beat the guard built from it, with approximately five times fewer inference FLOPs.</desc>
+  <desc id="desc">SIREN detects harmful content from internal representations with approximately five times fewer inference FLOPs.</desc>
   <defs>
     <radialGradient id="redGlow" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(975 240) rotate(137) scale(425 475)">
       <stop stop-color="#e0455f" stop-opacity=".24"/>
@@ -45,12 +45,12 @@
 
   <text x="65" y="250" class="display" fill="#eef0f7" font-size="143" font-weight="800" letter-spacing="-9">SIREN</text>
   <text x="72" y="326" class="display" fill="#eef0f7" font-size="42" font-weight="650" letter-spacing="-1.8">
-    <tspan x="72">The general model beat</tspan>
-    <tspan x="72" dy="53">the guard built from it.</tspan>
+    <tspan x="72">Harmful-content detection</tspan>
+    <tspan x="72" dy="53">from internal representations</tspan>
   </text>
 
   <g transform="translate(72 496)">
-    <text class="display" fill="#e0455f" font-size="49" font-weight="700" letter-spacing="-1.8">≈5×</text>
+    <text class="display" fill="#e0455f" font-size="49" font-weight="700" letter-spacing="-1.8">&gt;4×</text>
     <line x1="111" y1="-16" x2="111" y2="31" stroke="#eef0f7" stroke-opacity=".16"/>
     <text x="135" y="-2" class="mono" fill="#a9b1c7" font-size="11" font-weight="600" letter-spacing="1.35">
       <tspan x="135">FEWER INFERENCE FLOPs</tspan>
@@ -87,12 +87,12 @@
     <path d="M981 383V447" stroke="#e0455f" stroke-width="2"/>
     <circle cx="981" cy="452" r="5" fill="#e0455f" filter="url(#glow)"/>
     <rect x="815" y="476" width="332" height="63" rx="4" fill="#eef0f7"/>
-    <text x="839" y="500" class="mono" fill="#50586a" font-size="9.5" font-weight="600" letter-spacing="1.25">DIRECT READOUT</text>
+    <text x="839" y="500" class="mono" fill="#50586a" font-size="9.5" font-weight="600" letter-spacing="1.25">SIREN CLASSIFIER</text>
     <text x="839" y="524" class="display" fill="#05070d" font-size="23" font-weight="700">Harmfulness score</text>
     <circle cx="1113" cy="507" r="14" fill="#e0455f"/>
     <path d="m1107 507 4 4 8-9" fill="none" stroke="#fff" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"/>
   </g>
 
-  <text x="72" y="566" class="mono" fill="#6f7893" font-size="10.5" font-weight="500" letter-spacing="1.1">Read the signal. Skip the verdict.</text>
+  <text x="72" y="566" class="mono" fill="#6f7893" font-size="10.5" font-weight="500" letter-spacing="1.1">SAFETY NEURONS · ADAPTIVE CROSS-LAYER AGGREGATION</text>
   <text x="1128" y="566" text-anchor="end" class="mono" fill="#6f7893" font-size="10.5" font-weight="500" letter-spacing="1.1">SPINiverse / SIREN</text>
 </svg>

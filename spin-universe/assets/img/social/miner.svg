@@ -1,6 +1,6 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
   <title id="title">MINER</title>
-  <desc id="desc">Keep one vector. Retrieve more with it. A 42.4 times smaller index than late interaction.</desc>
+  <desc id="desc">MINER mines multimodal internal representations for efficient retrieval with 42.4 times less index storage than Jina late interaction on ViDoRe V2.</desc>
   <defs>
     <radialGradient id="mintGlow" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(970 240) rotate(137) scale(425 475)">
       <stop stop-color="#65d6c1" stop-opacity=".19"/>
@@ -46,16 +46,16 @@
 
   <text x="65" y="250" class="display" fill="#eef0f7" font-size="139" font-weight="800" letter-spacing="-9">MINER</text>
   <text x="72" y="326" class="display" fill="#eef0f7" font-size="43" font-weight="650" letter-spacing="-1.8">
-    <tspan x="72">Keep one vector.</tspan>
-    <tspan x="72" dy="53">Retrieve more with it.</tspan>
+    <tspan x="72">Internal representations</tspan>
+    <tspan x="72" dy="53">for efficient retrieval</tspan>
   </text>
 
   <g transform="translate(72 496)">
     <text class="display" fill="#65d6c1" font-size="47" font-weight="700" letter-spacing="-1.8">42.4×</text>
     <line x1="137" y1="-16" x2="137" y2="31" stroke="#eef0f7" stroke-opacity=".16"/>
     <text x="161" y="-2" class="mono" fill="#a9b1c7" font-size="11" font-weight="600" letter-spacing="1.35">
-      <tspan x="161">SMALLER INDEX</tspan>
-      <tspan x="161" dy="20">THAN LATE INTERACTION</tspan>
+      <tspan x="161">SMALLER INDEX THAN JINA</tspan>
+      <tspan x="161" dy="20">LATE INTERACTION · VIDORE V2</tspan>
     </text>
   </g>
 
@@ -116,6 +116,6 @@
     <text x="965" y="525" text-anchor="middle" class="mono" fill="#6f7893" font-size="9.5" font-weight="600" letter-spacing="1.3">ONE COMPACT EMBEDDING</text>
   </g>
 
-  <text x="72" y="566" class="mono" fill="#6f7893" font-size="10.5" font-weight="500" letter-spacing="1.1">Mine more of the frozen retriever.</text>
+  <text x="72" y="566" class="mono" fill="#6f7893" font-size="10.5" font-weight="500" letter-spacing="1.1">NORMALIZED CKA · ALIGNMENT · DIMENSION-PRESERVING FUSION</text>
   <text x="1128" y="566" text-anchor="end" class="mono" fill="#6f7893" font-size="10.5" font-weight="500" letter-spacing="1.1">SPINiverse / MINER</text>
 </svg>

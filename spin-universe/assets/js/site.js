@@ -96,11 +96,56 @@ function hasWebGL() {
   }
 }
 
+function enableVizDrag(controller) {
+  for (const zone of document.querySelectorAll('[data-viz-drag]')) {
+    let pointerId = null;
+    let lastX = 0;
+    let lastY = 0;
+
+    const finish = (event) => {
+      if (pointerId === null) return;
+      if (event && Number.isFinite(event.pointerId) && event.pointerId !== pointerId) return;
+      const capturedId = pointerId;
+      pointerId = null;
+      zone.classList.remove('is-dragging');
+      controller.endDrag();
+      if (zone.hasPointerCapture(capturedId)) zone.releasePointerCapture(capturedId);
+    };
+
+    zone.addEventListener('pointerdown', (event) => {
+      if (pointerId !== null || event.button !== 0 || !event.isPrimary || event.pointerType === 'touch') return;
+      pointerId = event.pointerId;
+      lastX = event.clientX;
+      lastY = event.clientY;
+      zone.setPointerCapture(pointerId);
+      zone.classList.add('is-dragging');
+      controller.beginDrag();
+      event.preventDefault();
+    });
+
+    zone.addEventListener('pointermove', (event) => {
+      if (event.pointerId !== pointerId) return;
+      const dx = event.clientX - lastX;
+      const dy = event.clientY - lastY;
+      lastX = event.clientX;
+      lastY = event.clientY;
+      controller.dragBy(dx, dy);
+      event.preventDefault();
+    });
+
+    zone.addEventListener('pointerup', finish);
+    zone.addEventListener('pointercancel', finish);
+    zone.addEventListener('lostpointercapture', finish);
+    window.addEventListener('blur', finish);
+    zone.classList.add('is-ready');
+  }
+}
+
 async function boot() {
   const canvas = document.getElementById('viz');
   if (!canvas || !hasWebGL()) return;
   try {
-    const { createUniverse } = await import('./universe.js?v=6');
+    const { createUniverse } = await import('./universe.js?v=8');
     universe = createUniverse(canvas, {
       compact,
       reducedMotion,
@@ -108,6 +153,7 @@ async function boot() {
       bloom: false,
     });
     universe.start();
+    enableVizDrag(universe);
     canvas.classList.add('is-ready');
     update();
   } catch (err) {

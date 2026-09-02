@@ -2346,7 +2346,7 @@
 }
 
 .agent-exit-stack::after {
-  content: "LAYERS 25–36 · NOT NEEDED";
+  content: "LAYERS 24–36 · NOT NEEDED";
   position: absolute;
   right: 0;
   top: 0;
@@ -2379,7 +2379,7 @@
 }
 
 .agent-exit-stack span.is-stop::after {
-  content: "EXIT 24";
+  content: "EXIT 23";
   position: absolute;
   left: 50%;
   bottom: calc(100% + 0.8rem);
@@ -3771,5 +3771,637 @@
 
   .agent-exit-readouts .agent-exit-gain {
     border-top-color: var(--line-soft);
+  }
+}
+
+/* SPIN-aligned paper structure ------------------------------------------
+   Keep the paper's evidence and terminology in the foreground: a compact
+   cover, restrained section hierarchy, and figures that carry the detail. */
+
+.agent-masthead {
+  padding: clamp(6.5rem, 9vw, 7.75rem) 0 clamp(3.25rem, 5vw, 4.5rem);
+}
+
+.agent-masthead-grid {
+  grid-template-columns: minmax(0, 1.1fr) minmax(22rem, 0.9fr);
+  gap: clamp(2.5rem, 5vw, 4.5rem);
+}
+
+.agent-hero-copy h1 {
+  margin-bottom: 0.85rem;
+  font-size: clamp(2.6rem, 4vw, 3.3rem);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.045em;
+}
+
+.agent-hero-claim {
+  max-width: 35ch;
+  margin: 0 0 1.05rem;
+  font-size: clamp(1.3rem, 2vw, 1.7rem);
+  font-weight: 600;
+  line-height: 1.28;
+  letter-spacing: -0.018em;
+}
+
+.agent-keywords {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.2rem 0;
+  margin: 0 0 1rem;
+  padding: 0;
+  color: var(--ink-3);
+  font-family: var(--sans);
+  font-size: 0.8rem;
+  font-weight: 500;
+  line-height: 1.6;
+  list-style: none;
+}
+
+.agent-keywords li + li::before {
+  content: "\00b7";
+  margin-inline: 0.55rem;
+  color: var(--line);
+}
+
+.agent-authors {
+  margin-top: 0;
+  font-size: 0.8rem;
+}
+
+.agent-hero-links {
+  gap: 0.45rem;
+  margin-top: 1.45rem;
+}
+
+.agent-page .agent-hero-links .chip {
+  min-height: 0;
+  padding: 0.5rem 0.78rem;
+  font-size: 0.72rem;
+}
+
+.agent-hero-art {
+  min-height: clamp(22rem, 32vw, 27rem);
+  grid-template-columns: 5.5rem minmax(0, 1fr);
+  gap: 0.9rem;
+}
+
+.agent-hero-route {
+  height: 18rem;
+  padding-top: 1rem;
+}
+
+.agent-hero-route::before {
+  top: 2.5rem;
+  bottom: 2.5rem;
+}
+
+.agent-hero-model {
+  min-height: clamp(20rem, 29vw, 24rem);
+  padding: 2.5rem 1.5rem 2rem;
+}
+
+.agent-layer-stack {
+  inset: 2.5rem 1.6rem 5rem;
+}
+
+.agent-visible-readout,
+.agent-internal-readout {
+  width: auto;
+  min-width: 5.4rem;
+  justify-content: center;
+  padding: 0.62rem 0.75rem;
+}
+
+.agent-visible-readout {
+  right: 1rem;
+  bottom: 0.9rem;
+}
+
+.agent-internal-readout {
+  left: -0.85rem;
+  bottom: 6.5rem;
+}
+
+.agent-section,
+.agent-section.light {
+  padding-block: clamp(3.75rem, 6vw, 5.5rem);
+}
+
+.agent-section-head {
+  align-items: start;
+  margin-bottom: clamp(1.8rem, 3vw, 2.6rem);
+}
+
+.agent-section-head-single {
+  grid-template-columns: minmax(0, 1fr);
+}
+
+.agent-section-head h2,
+.agent-section-head-dark h2 {
+  font-size: clamp(1.65rem, 2.8vw, 2.3rem);
+  font-weight: 600;
+  line-height: 1.18;
+  letter-spacing: -0.025em;
+}
+
+.agent-section-head p,
+.agent-section-head-dark p {
+  max-width: 43ch;
+  padding-top: 0.2rem;
+  font-size: 0.98rem;
+  line-height: 1.7;
+}
+
+.agent-motivation {
+  border-bottom: 1px solid var(--line-soft);
+}
+
+.agent-evidence-heading {
+  grid-template-columns: 1fr;
+  gap: 0.35rem;
+  padding: 1.15rem 1.25rem 1rem;
+}
+
+.agent-evidence-heading h3 {
+  font-size: 1.15rem;
+}
+
+.agent-evidence-flow {
+  grid-template-columns: minmax(0, 1.2fr) auto minmax(0, 0.9fr);
+  gap: 0.55rem;
+  padding: 1rem;
+}
+
+.agent-evidence-node {
+  min-height: 7rem;
+}
+
+.agent-findings {
+  border-bottom: 1px solid var(--line-soft);
+  background: #f4f3ef;
+}
+
+.agent-findings-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) minmax(16rem, 0.75fr);
+  gap: 1rem;
+}
+
+.agent-finding-table,
+.agent-direction-finding {
+  border: 1px solid var(--line);
+  background: #fff;
+}
+
+.agent-finding-table {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+}
+
+.agent-finding-table article {
+  padding: clamp(1.2rem, 2.5vw, 1.8rem);
+}
+
+.agent-finding-table article + article {
+  border-left: 1px solid var(--line-soft);
+}
+
+.agent-finding-table h3,
+.agent-direction-finding h3 {
+  margin: 0 0 1.2rem;
+  color: var(--ink);
+  font-family: var(--display);
+  font-size: 1.1rem;
+  font-weight: 650;
+  line-height: 1.25;
+  letter-spacing: -0.018em;
+}
+
+.agent-finding-table article > div {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 0.7rem;
+  padding: 0.72rem 0;
+  border-top: 1px solid var(--line-soft);
+}
+
+.agent-finding-table span {
+  color: var(--ink-3);
+  font-size: 0.78rem;
+}
+
+.agent-finding-table strong {
+  color: var(--agent-red);
+  font-family: var(--sans);
+  font-size: 0.86rem;
+  font-weight: 650;
+  white-space: nowrap;
+}
+
+.agent-direction-finding {
+  padding: clamp(1.2rem, 2.5vw, 1.8rem);
+}
+
+.agent-direction-finding > strong {
+  display: block;
+  margin-bottom: 0.75rem;
+  color: var(--agent-teal);
+  font-family: var(--display);
+  font-size: clamp(1.7rem, 3vw, 2.2rem);
+  line-height: 1;
+}
+
+.agent-direction-finding h3 {
+  margin-bottom: 0.7rem;
+}
+
+.agent-direction-finding p,
+.agent-findings-note {
+  color: var(--ink-2);
+  font-size: 0.88rem;
+  line-height: 1.65;
+}
+
+.agent-direction-finding p {
+  margin: 0;
+}
+
+.agent-findings-note {
+  max-width: 75ch;
+  margin: 1.1rem 0 0;
+}
+
+.agent-method {
+  border-bottom: 1px solid var(--line-soft);
+  background: #fbfaf7;
+}
+
+.agent-method-intro {
+  max-width: 68ch;
+  margin: -1rem 0 2rem;
+  color: var(--ink-2);
+  font-family: var(--sans);
+  font-size: 1.03rem;
+  line-height: 1.78;
+}
+
+.agent-method-figure {
+  min-height: 15rem;
+  display: grid;
+  grid-template-columns: minmax(7rem, 0.7fr) auto minmax(18rem, 1.5fr) auto 5rem auto 4.5rem;
+  align-items: center;
+  gap: clamp(0.5rem, 1.5vw, 1.15rem);
+  padding: clamp(1.35rem, 3.5vw, 2.5rem);
+  border: 1px solid var(--line);
+  background: #fff;
+}
+
+.agent-method-figure > b {
+  color: var(--ink-3);
+  font-family: var(--sans);
+  font-size: 0.9rem;
+  font-weight: 400;
+}
+
+.agent-method-trajectory {
+  display: grid;
+  gap: 0.45rem;
+}
+
+.agent-method-trajectory i {
+  display: block;
+  height: 0.72rem;
+  border: 1px solid #cfd2cd;
+  background: #ecece8;
+}
+
+.agent-method-trajectory i:nth-child(2) {
+  width: 86%;
+}
+
+.agent-method-trajectory i:nth-child(3) {
+  width: 94%;
+  border-color: #b6c9c4;
+  background: #e4efec;
+}
+
+.agent-method-trajectory i:nth-child(4) {
+  width: 72%;
+}
+
+.agent-method-layer-stack {
+  display: flex;
+  align-items: stretch;
+  gap: clamp(0.18rem, 0.7vw, 0.4rem);
+  min-height: 8.5rem;
+}
+
+.agent-method-layer-stack > span {
+  flex: 1 1 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 0.35rem;
+  padding: 0.35rem 0.2rem;
+  border: 1px solid #d6d8d3;
+  background: #f0f1ee;
+}
+
+.agent-method-layer-stack i {
+  display: block;
+  height: 0.28rem;
+  background: #d5d8d3;
+}
+
+.agent-method-layer-stack > span:nth-child(3) i:nth-child(2),
+.agent-method-layer-stack > span:nth-child(5) i:first-child,
+.agent-method-layer-stack > span:nth-child(6) i:nth-child(3),
+.agent-method-layer-stack > span:nth-child(8) i:nth-child(2) {
+  background: var(--agent-red);
+}
+
+.agent-method-layer-stack > span:nth-child(3),
+.agent-method-layer-stack > span:nth-child(5),
+.agent-method-layer-stack > span:nth-child(6),
+.agent-method-layer-stack > span:nth-child(8) {
+  border-color: #cba9af;
+  background: #f7edef;
+}
+
+.agent-method-head,
+.agent-method-score {
+  min-height: 5rem;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--line);
+  background: #f5f5f2;
+  color: var(--ink-2);
+  font-family: var(--sans);
+  font-size: 0.8rem;
+  font-weight: 650;
+}
+
+.agent-method-score {
+  border-color: #a9c8c1;
+  background: #edf5f2;
+  color: var(--agent-teal);
+  font-size: 1.05rem;
+}
+
+.agent-method-steps {
+  margin-top: 0;
+  border: 1px solid var(--line-soft);
+  border-top: 0;
+  background: #fff;
+}
+
+.agent-method-steps article,
+.agent-method-steps article:first-child {
+  padding: 1.35rem;
+  border-color: var(--line-soft);
+}
+
+.agent-method-steps article > span {
+  display: none;
+}
+
+.agent-method-steps h3 {
+  margin: 0 0 0.5rem;
+  color: var(--ink);
+  font-size: 1.05rem;
+}
+
+.agent-method-steps p {
+  color: var(--ink-2);
+  font-size: 0.84rem;
+}
+
+.agent-results {
+  background: #fff;
+}
+
+.agent-results .agent-proof-rail {
+  grid-column: auto;
+  grid-row: auto;
+  margin: 0 0 clamp(2.5rem, 4vw, 3.6rem);
+  border-block: 1px solid var(--line);
+}
+
+.agent-result-card {
+  border-radius: 2px;
+}
+
+.agent-chart-head {
+  min-height: 0;
+  justify-content: flex-end;
+  padding-block: 1rem;
+}
+
+.legend-agent-llama {
+  background: var(--agent-teal);
+}
+
+.agent-chart-dot.agent-llama {
+  fill: var(--agent-teal);
+}
+
+.agent-result-story {
+  max-width: 68ch;
+  display: block;
+  margin: clamp(2rem, 4vw, 3rem) 0 0;
+}
+
+.agent-result-story p {
+  font-family: var(--sans);
+  font-size: 1rem;
+  line-height: 1.75;
+}
+
+.agent-compound {
+  margin-top: clamp(2rem, 4vw, 3rem);
+  padding: clamp(1.4rem, 3vw, 2.2rem);
+  border-radius: 2px;
+}
+
+.agent-compound-copy h3 {
+  margin-top: 0;
+  font-size: clamp(1.35rem, 2.2vw, 1.75rem);
+}
+
+.agent-raw-results {
+  margin-top: clamp(2.5rem, 4.5vw, 4rem);
+}
+
+.agent-efficiency {
+  background: #f4f3ef;
+}
+
+.agent-efficiency-comparison {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  border: 1px solid var(--line-soft);
+  border-top: 0;
+  background: #fff;
+}
+
+.agent-efficiency-comparison article {
+  padding: clamp(1.15rem, 2.5vw, 1.7rem);
+}
+
+.agent-efficiency-comparison article + article {
+  border-left: 1px solid var(--line-soft);
+}
+
+.agent-efficiency-comparison h3 {
+  margin: 0 0 0.55rem;
+  color: var(--ink);
+  font-family: var(--display);
+  font-size: 1.05rem;
+  font-weight: 650;
+}
+
+.agent-efficiency-comparison p {
+  margin: 0;
+  color: var(--ink-2);
+  font-size: 0.83rem;
+  line-height: 1.65;
+}
+
+.agent-exit-demo {
+  min-height: 25rem;
+  margin-top: 1rem;
+  border-radius: 2px;
+}
+
+.agent-exit-copy h3 {
+  margin-top: 0;
+  font-size: clamp(1.35rem, 2.2vw, 1.75rem);
+}
+
+.agent-exit-stack::after {
+  content: "LAYERS 24\2013 36 \00b7  SKIPPED";
+}
+
+.agent-exit-stack span.is-stop::after {
+  content: "EXIT 23";
+}
+
+@media (max-width: 1050px) {
+  .agent-findings-grid,
+  .agent-efficiency-comparison {
+    grid-template-columns: 1fr;
+  }
+
+  .agent-efficiency-comparison article + article {
+    border-top: 1px solid var(--line-soft);
+    border-left: 0;
+  }
+}
+
+@media (max-width: 850px) {
+  .agent-nav-links a {
+    display: block;
+  }
+
+  .agent-nav-links a:nth-child(1),
+  .agent-nav-links a:nth-child(4) {
+    display: block;
+  }
+
+  .agent-masthead-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .agent-hero-art {
+    grid-row: 2;
+  }
+
+  .agent-finding-table {
+    grid-template-columns: 1fr;
+  }
+
+  .agent-finding-table article + article {
+    border-top: 1px solid var(--line-soft);
+    border-left: 0;
+  }
+
+  .agent-method-figure {
+    grid-template-columns: minmax(5rem, 0.6fr) auto minmax(14rem, 1.4fr) auto 4.5rem auto 4rem;
+    gap: 0.5rem;
+    padding-inline: 1rem;
+  }
+}
+
+@media (max-width: 660px) {
+  .agent-masthead {
+    padding-top: 6.5rem;
+  }
+
+  .agent-hero-copy h1 {
+    font-size: clamp(2.6rem, 14vw, 3.5rem);
+  }
+
+  .agent-hero-claim {
+    font-size: clamp(1.25rem, 6.5vw, 1.6rem);
+  }
+
+  .agent-nav-links a {
+    display: none;
+  }
+
+  .agent-nav-links a:nth-child(1),
+  .agent-nav-links a:nth-child(3),
+  .agent-nav-links a:nth-child(4) {
+    display: block;
+  }
+
+  .agent-hero-art {
+    min-height: 24rem;
+  }
+
+  .agent-section-head h2 {
+    font-size: clamp(1.65rem, 8vw, 2.15rem);
+  }
+
+  .agent-method-intro {
+    margin-top: -0.5rem;
+  }
+
+  .agent-method-figure {
+    min-height: 0;
+    grid-template-columns: 1fr;
+    justify-items: stretch;
+  }
+
+  .agent-method-figure > b {
+    justify-self: center;
+    transform: rotate(90deg);
+  }
+
+  .agent-method-trajectory {
+    width: 8rem;
+    justify-self: center;
+  }
+
+  .agent-method-layer-stack {
+    width: 100%;
+    min-height: 7rem;
+  }
+
+  .agent-method-head,
+  .agent-method-score {
+    width: 7rem;
+    min-height: 3.6rem;
+    justify-self: center;
+  }
+
+  .agent-result-chart-wrap {
+    min-width: 0;
+  }
+
+  .agent-chart-legend {
+    justify-content: flex-start;
   }
 }

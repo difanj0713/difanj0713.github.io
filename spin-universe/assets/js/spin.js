@@ -29,7 +29,6 @@ function initHeroSignal() {
   for (let row = 0; row < 10; row += 1) {
     const rowNode = document.createElement('div');
     rowNode.className = 'spin-signal-row';
-    rowNode.dataset.label = `L${String(row * 5).padStart(2, '0')}`;
     rowNode.style.setProperty('--row-offset', `${Math.sin(row * 0.72) * 10}px`);
 
     for (let column = 0; column < 14; column += 1) {
@@ -61,9 +60,9 @@ const resultData = [
 ];
 
 const resultPanels = [
-  { key: 'imdb', label: 'IMDb', metric: 'accuracy', min: 80, max: 100, ticks: [80, 85, 90, 95, 100], sota: 96.21 },
-  { key: 'sst', label: 'SST-2', metric: 'accuracy', min: 70, max: 100, ticks: [70, 80, 90, 100], sota: 97.50 },
-  { key: 'edos', label: 'EDOS', metric: 'macro-F1', min: 50, max: 85, ticks: [50, 60, 70, 80], sota: 82.35 },
+  { key: 'imdb', label: 'IMDb', min: 80, max: 100, ticks: [80, 85, 90, 95, 100], sota: 96.21 },
+  { key: 'sst', label: 'SST-2', min: 70, max: 100, ticks: [70, 80, 90, 100], sota: 97.50 },
+  { key: 'edos', label: 'EDOS', min: 50, max: 85, ticks: [50, 60, 70, 80], sota: 82.35 },
 ];
 
 function initResultChart() {
@@ -91,8 +90,7 @@ function initResultChart() {
     const baseX = x0 + 108;
     const spinX = x0 + 236;
 
-    chart.appendChild(svgElement('text', { x: x0 + 34, y: 31, class: 'chart-panel-title' }, panel.label));
-    chart.appendChild(svgElement('text', { x: x0 + 34, y: 51, class: 'chart-panel-metric' }, panel.metric));
+    chart.appendChild(svgElement('text', { x: x0 + 34, y: 38, class: 'chart-panel-title' }, panel.label));
 
     for (const tick of panel.ticks) {
       const y = scaleY(tick, panel);
@@ -213,9 +211,8 @@ function initResultChart() {
 
 function initReadoutDemo() {
   const svg = document.getElementById('spinReadoutSvg');
-  const caption = document.getElementById('spinReadoutCaption');
   const controls = Array.from(document.querySelectorAll('[data-readout-mode]'));
-  if (!svg || !caption || !controls.length) return;
+  if (!svg || !controls.length) return;
 
   const selectedByLayer = [
     [1], [5], [2], [4], [0, 6], [3], [1, 5], [4], [0, 3], [5], [2, 6], [1, 4],
@@ -224,16 +221,17 @@ function initReadoutDemo() {
 
   function draw() {
     svg.replaceChildren();
-    svg.appendChild(svgElement('title', {}, 'Interactive comparison of a final-layer classifier and SPIN'));
-    svg.appendChild(svgElement('desc', {}, 'The final-layer baseline uses the terminal hidden state. SPIN selects salient neurons within each layer and concatenates their activations into a cross-layer representation.'));
+    svg.appendChild(svgElement('title', { id: 'readoutTitle' }, 'Interactive comparison of a final-layer classifier and SPIN'));
+    svg.appendChild(svgElement('desc', { id: 'readoutDesc' }, 'The final-layer baseline uses the terminal hidden state. SPIN selects salient neurons within each layer and concatenates their activations into a cross-layer representation.'));
     const wireLayer = svgElement('g', { class: 'readout-wires' });
     svg.appendChild(wireLayer);
 
     const input = svgElement('g');
     input.appendChild(svgElement('rect', { x: 22, y: 175, width: 128, height: 116, rx: 7, class: 'readout-node' }));
     input.appendChild(svgElement('text', { x: 86, y: 202, 'text-anchor': 'middle', class: 'readout-small-label' }, 'INPUT'));
-    input.appendChild(svgElement('text', { x: 86, y: 232, 'text-anchor': 'middle', class: 'readout-main-label' }, 'This movie'));
-    input.appendChild(svgElement('text', { x: 86, y: 258, 'text-anchor': 'middle', class: 'readout-main-label' }, 'is the best!'));
+    input.appendChild(svgElement('text', { x: 86, y: 224, 'text-anchor': 'middle', class: 'readout-main-label readout-input-label' }, 'The assistant’s'));
+    input.appendChild(svgElement('text', { x: 86, y: 247, 'text-anchor': 'middle', class: 'readout-main-label readout-input-label' }, 'answer was'));
+    input.appendChild(svgElement('text', { x: 86, y: 270, 'text-anchor': 'middle', class: 'readout-main-label readout-input-label' }, 'confidently wrong.'));
     svg.appendChild(input);
 
     const startX = 198;
@@ -289,14 +287,9 @@ function initReadoutDemo() {
     svg.appendChild(svgElement('path', { d: `M ${integrationX + 16} ${integrationY} H 782`, class: 'readout-wire is-hot' }));
     const output = svgElement('g');
     output.appendChild(svgElement('rect', { x: 782, y: 167, width: 103, height: 128, rx: 7, class: 'readout-node readout-output' }));
-    output.appendChild(svgElement('text', { x: 833.5, y: 197, 'text-anchor': 'middle', class: 'readout-small-label' }, 'CLASS'));
-    output.appendChild(svgElement('text', { x: 833.5, y: 243, 'text-anchor': 'middle', class: 'readout-output-score' }, 'POSITIVE'));
-    output.appendChild(svgElement('text', { x: 833.5, y: 271, 'text-anchor': 'middle', class: 'readout-small-label' }, 'ONE SCORE'));
+    output.appendChild(svgElement('text', { x: 833.5, y: 238, 'text-anchor': 'middle', class: 'readout-output-score' }, 'NEGATIVE'));
     svg.appendChild(output);
 
-    caption.innerHTML = mode === 'spin'
-      ? '<b>Layer-wise probes identify salient neurons.</b> Their selected activations form a cross-layer representation for the classification head.'
-      : '<b>The baseline uses the terminal hidden state.</b> Intermediate representations are not included in its classification features.';
   }
 
   for (const control of controls) {
@@ -407,7 +400,7 @@ function initPoolingDemo() {
   const controls = Array.from(document.querySelectorAll('[data-pool]'));
   if (!tokenRoot || !vectorRoot || !caption || !controls.length) return;
 
-  const tokens = ['This', 'movie', 'is', 'the', 'best', '!'];
+  const tokens = ['The', 'assistant’s', 'answer', 'was', 'confidently', 'wrong.'];
   const activations = [
     [28, 72, 18, 44, 36, 63, 24, 41],
     [52, 36, 78, 31, 66, 22, 49, 58],

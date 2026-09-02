@@ -3,22 +3,22 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>SPINiverse &middot; Internal Representations for AI Decisions</title>
-<meta name="description" content="SPINiverse studies internal representations in frozen AI models for classification, content safety, visual document retrieval, agent safety, and efficient inference.">
+<title>SPINiverse &middot; Research on Internal Model Representations</title>
+<meta name="description" content="SPINiverse is a research collection on recovering task-relevant information from internal model states for classification, content safety, visual document retrieval, agent safety, and efficient inference.">
 <link rel="canonical" href="https://difanj0713.github.io/spin-universe/">
 <meta property="og:type" content="website">
-<meta property="og:title" content="SPINiverse &middot; Internal Representations for AI Decisions">
-<meta property="og:description" content="Research on internal representations and efficient readouts from frozen AI models across classification, content safety, visual document retrieval, and agent safety.">
+<meta property="og:title" content="SPINiverse &middot; Research on Internal Model Representations">
+<meta property="og:description" content="Research on task-relevant information in internal model states across classification, content safety, visual document retrieval, and agent safety.">
 <meta property="og:url" content="https://difanj0713.github.io/spin-universe/">
 <meta property="og:site_name" content="SPINiverse">
-<meta property="og:image" content="https://difanj0713.github.io/spin-universe/assets/img/social/homepage.png?v=3">
+<meta property="og:image" content="https://difanj0713.github.io/spin-universe/assets/img/social/homepage.png?v=4">
 <meta property="og:image:type" content="image/png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="SPINiverse: internal representations and efficient readouts for frozen AI models.">
+<meta property="og:image:alt" content="SPINiverse: research on task-relevant information in internal model states.">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://difanj0713.github.io/spin-universe/assets/img/social/homepage.png?v=3">
-<meta name="twitter:image:alt" content="SPINiverse: internal representations and efficient readouts for frozen AI models.">
+<meta name="twitter:image" content="https://difanj0713.github.io/spin-universe/assets/img/social/homepage.png?v=4">
+<meta name="twitter:image:alt" content="SPINiverse: research on task-relevant information in internal model states.">
 <script type="application/ld+json">
 {
   "@context": "https://schema.org",
@@ -27,12 +27,12 @@
       "@type": "CollectionPage",
       "@id": "https://difanj0713.github.io/spin-universe/#collection",
       "url": "https://difanj0713.github.io/spin-universe/",
-      "name": "SPINiverse · Internal Representations for AI Decisions",
-      "description": "SPINiverse studies internal representations in frozen AI models for classification, content safety, visual document retrieval, agent safety, and efficient inference.",
+      "name": "SPINiverse · Research on Internal Model Representations",
+      "description": "SPINiverse is a research collection on recovering task-relevant information from internal model states for classification, content safety, visual document retrieval, agent safety, and efficient inference.",
       "inLanguage": "en",
       "primaryImageOfPage": {
         "@type": "ImageObject",
-        "url": "https://difanj0713.github.io/spin-universe/assets/img/social/homepage.png?v=3",
+        "url": "https://difanj0713.github.io/spin-universe/assets/img/social/homepage.png?v=4",
         "width": 1200,
         "height": 630
       },
@@ -78,7 +78,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600&amp;family=Poppins:wght@400;500;600;700&amp;family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&amp;display=swap">
-<link rel="stylesheet" href="assets/css/site.css?v=14">
+<link rel="stylesheet" href="assets/css/site.css?v=28">
 <link rel="icon" href="/spin-universe/assets/img/favicon.svg" type="image/svg+xml">
 <link rel="icon" href="/spin-universe/assets/img/favicon-48x48.png" type="image/png" sizes="48x48">
 
@@ -113,20 +113,20 @@
   </nav>
 
   <section class="hero">
+    <div class="viz-drag-zone hero-viz-drag-zone" data-viz-drag aria-hidden="true"></div>
     <div class="shell">
      <div class="hero-copy">
       <p class="eyebrow collaboration"><span class="institution">University of Toronto</span><span class="collab-mark">&times;</span><span class="institution">McGill University</span><span class="collab-mark">&times;</span><span class="institution">LMU Munich</span></p>
       <h1 class="title">SPINiverse</h1>
-      <p class="hero-promise">Turning signals inside AI models into better, faster decisions.</p>
-      <p class="lede">Model outputs are one interface.<br><em class="lede-line">Readouts over internal representations are another.</em></p>
+      <p class="hero-promise">Model mind-reading</p>
+      <p class="lede">Research on using signals from within AI models<br><em class="lede-line">for classification, safety, and retrieval.</em></p>
       <div class="cta-row">
         <a class="btn btn-primary" href="#phenomenon">Research overview</a>
-        <a class="btn btn-ghost" href="#stage">Visualizations</a>
         <a class="btn btn-ghost" href="#papers">Papers</a>
+        <a class="btn btn-ghost" href="#stage">Visualization</a>
       </div>
      </div>
     </div>
-    <div class="scroll-hint">Scroll</div>
   </section>
 </header>
 
@@ -134,81 +134,133 @@
 
 <!-- ======================================================== phenomenon -->
 <section class="layer light story-section section" id="phenomenon">
+  <div class="shell rq-feature">
+    <figure class="rq-archive">
+      <!-- Elliott & Fry, Alan Turing (1951), public domain. Source: https://commons.wikimedia.org/wiki/File:Alan_Turing_(1951)_(crop).jpg -->
+      <img class="rq-portrait" src="assets/img/turing-1951.jpg" alt="" aria-hidden="true" loading="lazy" decoding="async">
+      <div class="rq-archive-meta" aria-hidden="true">
+        <span>MIND</span>
+        <span>1950</span>
+      </div>
+      <blockquote>&ldquo;The output signals, the only externally visible indication of the internal state&hellip;&rdquo;</blockquote>
+      <figcaption>
+        <a href="https://academic.oup.com/mind/article/LIX/236/433/986238" target="_blank" rel="noopener">A. M. Turing, <cite>Computing Machinery and Intelligence</cite>, 1950, p. 440</a>
+      </figcaption>
+    </figure>
+
+    <div class="rq-copy">
+      <p class="rq-lede">But today, we can look inside.</p>
+      <p class="rq-context">Electroencephalography (EEG) turned the brain&rsquo;s electrical activity into a measurable, clinically useful signal. Large language models offer a related opportunity: their internal states can be measured directly.</p>
+      <p class="rq-close"><span>SPINiverse studies what those states</span><span>reveal before the model speaks.</span></p>
+    </div>
+  </div>
+</section>
+
+<!-- ============================================================ papers -->
+<section class="layer light papers-section section" id="papers">
   <div class="shell">
-    <h2 class="section-label">The research question</h2>
-
-    <div class="beats">
-      <div class="beat">
-        <div class="beat-n">01</div>
-        <div>
-          <h3>The output is a narrow interface.</h3>
-          <p>A model exposes its final output, not every task-relevant signal formed across its layers. For labels, scores, rankings, or embeddings, that distinction can matter.</p>
-        </div>
-      </div>
-
-      <div class="beat">
-        <div class="beat-n">02</div>
-        <div>
-          <h3>Evidence across four domains</h3>
-          <p>In text classification, content safety, visual document retrieval, and agent safety, our methods recover useful evidence from internal representations while keeping the backbone frozen.</p>
-        </div>
-      </div>
-
-      <div class="beat">
-        <div class="beat-n">03</div>
-        <div>
-          <h3>Direct readouts can reduce inference cost.</h3>
-          <p>Compact task-specific components avoid full-model updates. Classification readouts can also skip token-by-token decoding and, when the relevant state occurs early, stop before the final layer.</p>
-        </div>
-      </div>
+    <div class="papers-head">
+      <h2>Research</h2>
     </div>
 
-    <div class="applies">
-      <h3>When internal readouts are useful</h3>
-      <p class="applies-lede">When the target is a label, score, ranking, or embedding and adaptation or serving cost matters, the central empirical question is whether that signal is accessible in the model&rsquo;s internal representations.</p>
+    <div class="grid">
+      <a class="card" href="spin/">
+        <div class="card-top">
+          <span class="card-name">SPIN</span>
+          <span class="card-venue">ACL 2024</span>
+        </div>
+        <p class="card-domain">Text classification</p>
+        <div class="card-copy">
+          <h3>SPIN: Sparsifying and Integrating Internal Neurons in Large Language Models for Text Classification</h3>
+          <p class="card-thesis">Sparse probes identify task-relevant units at multiple layers, which are then integrated for text classification.</p>
+        </div>
+        <span class="card-go">Read more &rarr;</span>
+      </a>
+
+      <a class="card" href="siren/">
+        <div class="card-top">
+          <span class="card-name">SIREN</span>
+          <span class="card-venue">ACL 2026</span>
+        </div>
+        <p class="card-domain">Content safety</p>
+        <div class="card-copy">
+          <h3>LLM Safety From Within: Detecting Harmful Content with Internal Representations</h3>
+          <p class="card-thesis">A continuous harmfulness score is estimated from a frozen LLM&rsquo;s internal representations without generative decoding.</p>
+        </div>
+        <span class="card-go">Read more &rarr;</span>
+      </a>
+
+      <a class="card" href="miner/">
+        <div class="card-top">
+          <span class="card-name">MINER</span>
+          <span class="card-venue">Under review</span>
+        </div>
+        <p class="card-domain">Visual document retrieval</p>
+        <div class="card-copy">
+          <h3>MINER: Mining Multimodal Internal Representation for Efficient Retrieval</h3>
+          <p class="card-thesis">Retrieval signals from internal layers are aligned and fused into one dense embedding for visual document search.</p>
+        </div>
+        <span class="card-go">Read more &rarr;</span>
+      </a>
+
+      <a class="card" href="agent-siren/">
+        <div class="card-top">
+          <span class="card-name">Agent&#8209;SIREN</span>
+          <span class="card-venue">Under review</span>
+        </div>
+        <p class="card-domain">Agentic LLM safety</p>
+        <div class="card-copy">
+          <h3>Detecting Harmful Agent Trajectories from LLM Internal Representations</h3>
+          <p class="card-thesis">Sparse representations selected across the model&rsquo;s layers are combined to detect harmful content and context-dependent unsafe tool use in agent trajectories.</p>
+        </div>
+        <span class="card-go">Read more &rarr;</span>
+      </a>
     </div>
   </div>
 </section>
 
 <!-- ============================================================= stage -->
-<section id="stage" class="layer">
-  <h2 class="visually-hidden">SPIN workflow for a layer-wise internal readout</h2>
+<section id="stage" class="layer" aria-labelledby="stage-title">
   <div class="pin">
+    <div class="shell stage-label-wrap">
+      <h2 id="stage-title" class="stage-label">SPINiverse visualization</h2>
+    </div>
+    <div class="viz-drag-zone stage-viz-drag-zone" data-viz-drag aria-hidden="true"></div>
     <div class="panels">
      <div class="shell panels-shell">
       <div class="panel" data-from="0.00" data-to="0.11">
-        <p class="panel-k">01 &middot; Layer activations</p>
-        <h3>A forward pass exposes activations across depth.</h3>
+        <p class="panel-k">01 &middot; Representations</p>
+        <h3>Layer activations</h3>
         <p>For one input, SPIN collects each internal unit&rsquo;s activation at every token position and layer.</p>
       </div>
 
       <div class="panel" data-from="0.14" data-to="0.30">
         <p class="panel-k">02 &middot; Pooling</p>
-        <h3>Pooling produces one vector per layer.</h3>
+        <h3>Sequence-level pooling</h3>
         <p>Max pooling retains each unit&rsquo;s strongest response across token positions, removing the token axis.</p>
       </div>
 
       <div class="panel" data-from="0.34" data-to="0.48">
         <p class="panel-k">03 &middot; Probing</p>
-        <h3>Sparse probes estimate unit saliency.</h3>
+        <h3>Layer-wise sparse probes</h3>
         <p>An L1-regularized linear probe is fitted to each layer; coefficient magnitude provides a task-specific saliency score.</p>
       </div>
 
       <div class="panel" data-from="0.52" data-to="0.62">
-        <p class="panel-k">04 &middot; Sparsifying</p>
-        <h3>A cumulative threshold controls sparsity.</h3>
+        <p class="panel-k">04 &middot; Selection</p>
+        <h3>Cumulative-weight selection</h3>
         <p>SPIN retains the smallest subset whose normalized probe weights account for a chosen share of each layer&rsquo;s decision.</p>
       </div>
 
       <div class="panel" data-from="0.66" data-to="0.87">
-        <p class="panel-k">05 &middot; Integrating</p>
-        <h3>Selected features form a cross-layer representation.</h3>
+        <p class="panel-k">05 &middot; Integration</p>
+        <h3>Cross-layer representation</h3>
         <p>The selected activations are concatenated across layers into multi-grained features for classification.</p>
       </div>
 
       <div class="panel" data-from="0.90" data-to="1.00">
-        <p class="panel-k">06 &middot; Classification</p>
-        <h3>A compact classifier returns the prediction.</h3>
+        <p class="panel-k">06 &middot; Prediction</p>
+        <h3>Classification head</h3>
         <p>The frozen backbone runs once; the classification head requires no token generation and can use a validated early exit.</p>
       </div>
      </div>
@@ -222,88 +274,11 @@
   </div>
 </section>
 
-<!-- ============================================================ papers -->
-<section class="layer light papers-section section" id="papers">
-  <div class="shell">
-    <div class="papers-head">
-      <h2>One principle. Many domains.</h2>
-      <p>The projects share a frozen backbone and an internal readout, but adapt the method and evaluation to each task.</p>
-    </div>
-
-    <div class="grid">
-      <a class="card" href="spin/">
-        <div class="card-top">
-          <h3 class="card-name">SPIN</h3>
-          <span class="card-venue">Findings of ACL 2024</span>
-        </div>
-        <p class="card-domain">Text classification</p>
-        <p class="card-thesis">SPIN fits sparse probes at multiple internal layers, selects task-relevant units, and integrates them for text classification. Against a classifier trained on the final layer, it improves all 24 model&ndash;dataset comparisons.</p>
-        <dl class="card-metrics" aria-label="SPIN headline results">
-          <div class="card-metric"><dt>24 / 24</dt><dd>model &times; dataset pairs improved</dd></div>
-          <div class="card-metric"><dt>+24.97%</dt><dd>largest relative lift</dd></div>
-          <div class="card-metric"><dt>0</dt><dd>backbone weights updated</dd></div>
-          <div class="card-metric"><dt>1.67&times;</dt><dd>inference speedup</dd></div>
-        </dl>
-        <span class="card-go">Read more &rarr;</span>
-      </a>
-
-      <a class="card" href="siren/">
-        <div class="card-top">
-          <h3 class="card-name">SIREN</h3>
-          <span class="card-venue">ACL 2026 Main</span>
-        </div>
-        <p class="card-domain">Content safety</p>
-        <p class="card-thesis">SIREN maps internal representations from a frozen general-purpose LLM to a continuous harmfulness score. Across four matched backbones, it outperforms the corresponding safety-tuned generative guard while avoiding token-by-token decoding.</p>
-        <dl class="card-metrics" aria-label="SIREN headline results">
-          <div class="card-metric"><dt>4 / 4</dt><dd>matched-backbone comparisons won</dd></div>
-          <div class="card-metric"><dt>+15.0</dt><dd>macro-F1 points, largest gain</dd></div>
-          <div class="card-metric"><dt>250&times;</dt><dd>fewer trainable params on 4B</dd></div>
-          <div class="card-metric"><dt>&asymp;5&times;</dt><dd>fewer inference FLOPs</dd></div>
-        </dl>
-        <span class="card-go">Read more &rarr;</span>
-      </a>
-
-      <a class="card" href="miner/">
-        <div class="card-top">
-          <h3 class="card-name">MINER</h3>
-          <span class="card-venue">Under review</span>
-        </div>
-        <p class="card-domain">Visual document retrieval</p>
-        <p class="card-thesis">MINER identifies retrieval-ready internal layers in frozen multimodal encoders, aligns the remaining layers, and fuses them into one dense embedding. It improves visual document retrieval while preserving a single-vector index and standard dot-product search.</p>
-        <dl class="card-metrics" aria-label="MINER headline results">
-          <div class="card-metric"><dt>+4.5%</dt><dd>largest relative average nDCG@5 gain</dd></div>
-          <div class="card-metric"><dt>42.4&times;</dt><dd>smaller index than late interaction</dd></div>
-          <div class="card-metric"><dt>5.3&times;</dt><dd>faster search than late interaction</dd></div>
-          <div class="card-metric"><dt>1</dt><dd>vector stored per page</dd></div>
-        </dl>
-        <span class="card-go">Read more &rarr;</span>
-      </a>
-
-      <a class="card" href="agent-siren/">
-        <div class="card-top">
-          <h3 class="card-name">Agent&#8209;SIREN</h3>
-          <span class="card-venue">Under review</span>
-        </div>
-        <p class="card-domain">Agent trajectories</p>
-        <p class="card-thesis">Agent-SIREN reads an intermediate representation from a frozen LLM to detect both harmful content and context-dependent unsafe tool use. Across six agent-safety benchmarks, it leads the evaluated open guards and can exit before the final layer.</p>
-        <dl class="card-metrics" aria-label="Agent-SIREN headline results">
-          <div class="card-metric"><dt>0.77</dt><dd>highest mean macro-F1, evaluated open guards</dd></div>
-          <div class="card-metric"><dt>0.80</dt><dd>mean macro-F1 with fine-tuning + readout</dd></div>
-          <div class="card-metric"><dt>2.5K</dt><dd>trainable parameters on Qwen3-4B</dd></div>
-          <div class="card-metric"><dt>2.2&times;</dt><dd>speedup over AgentDoG with early exit</dd></div>
-        </dl>
-        <span class="card-go">Read more &rarr;</span>
-      </a>
-    </div>
-  </div>
-</section>
-
 <!-- ============================================================ footer -->
 <footer class="layer solid foot">
   <div class="shell foot-grid">
     <div class="foot-brand">
       <h4>SPINiverse</h4>
-      <p>A research collaboration across the University of Toronto, McGill University, and LMU Munich studying how internal representations can support more accurate and efficient AI systems.</p>
     </div>
     <div>
       <h4>Papers</h4>
@@ -332,6 +307,6 @@
 
 </main>
 
-<script type="module" src="assets/js/site.js?v=8"></script>
+<script type="module" src="assets/js/site.js?v=11"></script>
 </body>
 </html>

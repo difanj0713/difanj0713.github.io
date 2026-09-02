@@ -3,21 +3,21 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Agent-SIREN &middot; Detecting Harmful Agent Trajectories from LLM Internal Representations</title>
-<meta name="description" content="Agent-SIREN detects harmful agent trajectories with a linear probe on one internal state of a frozen LLM, achieving the highest mean macro-F1 among the evaluated open guards.">
+<title>Agent-SIREN &middot; Detecting Harmful Agent Trajectories from Internal Representations</title>
+<meta name="description" content="Agent-SIREN detects harmful agent trajectories with sparse cross-layer representations from a frozen LLM, achieving the highest mean macro-F1 among the evaluated open guards.">
 <link rel="canonical" href="https://difanj0713.github.io/spin-universe/agent-siren/">
 <meta property="og:type" content="article">
-<meta property="og:title" content="Agent-SIREN &middot; Detecting Harmful Agent Trajectories from LLM Internal Representations">
-<meta property="og:description" content="Unsafe tool use remains linearly readable inside current guard models even when their output scores remain at chance. Agent-SIREN fits a linear probe to one selected internal state.">
+<meta property="og:title" content="Agent-SIREN &middot; Detecting Harmful Agent Trajectories from Internal Representations">
+<meta property="og:description" content="Agent-SIREN combines salient dimensions across a frozen LLM's layers to detect harmful content and unsafe tool use in agent trajectories.">
 <meta property="og:url" content="https://difanj0713.github.io/spin-universe/agent-siren/">
 <meta property="og:site_name" content="SPINiverse">
-<meta property="og:image" content="https://difanj0713.github.io/spin-universe/assets/img/social/agent-siren.png?v=3">
+<meta property="og:image" content="https://difanj0713.github.io/spin-universe/assets/img/social/agent-siren.png?v=5">
 <meta property="og:image:type" content="image/png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="Agent-SIREN detects harmful agent trajectories from one internal state of a frozen LLM using 2,561 trainable parameters.">
+<meta property="og:image:alt" content="Agent-SIREN detects harmful agent trajectories from sparse cross-layer internal representations.">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://difanj0713.github.io/spin-universe/assets/img/social/agent-siren.png?v=3">
+<meta name="twitter:image" content="https://difanj0713.github.io/spin-universe/assets/img/social/agent-siren.png?v=5">
 <meta name="twitter:image:alt" content="Agent-SIREN: detecting harmful agent trajectories from LLM internal representations.">
 <meta name="citation_title" content="Detecting Harmful Agent Trajectories from LLM Internal Representations">
 <meta name="citation_author" content="Difan Jiao">
@@ -28,7 +28,7 @@
   "@type": "ScholarlyArticle",
   "@id": "https://difanj0713.github.io/spin-universe/agent-siren/#paper",
   "headline": "Detecting Harmful Agent Trajectories from LLM Internal Representations",
-  "description": "Agent-SIREN detects harmful agent trajectories with a linear probe on one internal state of a frozen LLM, achieving the highest mean macro-F1 among the evaluated open guards.",
+  "description": "Agent-SIREN detects harmful agent trajectories with sparse cross-layer representations from a frozen LLM, achieving the highest mean macro-F1 among the evaluated open guards.",
   "author": [
     { "@type": "Person", "name": "Difan Jiao" },
     { "@type": "Person", "name": "Ashton Anderson" }
@@ -37,14 +37,14 @@
   "mainEntityOfPage": "https://difanj0713.github.io/spin-universe/agent-siren/",
   "isPartOf": { "@id": "https://difanj0713.github.io/spin-universe/#collection" },
   "inLanguage": "en",
-  "image": "https://difanj0713.github.io/spin-universe/assets/img/social/agent-siren.png?v=3"
+  "image": "https://difanj0713.github.io/spin-universe/assets/img/social/agent-siren.png?v=5"
 }
 </script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600&amp;family=Poppins:wght@400;500;600;700&amp;family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&amp;display=swap">
 <link rel="stylesheet" href="../assets/css/site.css?v=14">
-<link rel="stylesheet" href="../assets/css/agent-siren.css?v=4">
+<link rel="stylesheet" href="../assets/css/agent-siren.css?v=7">
 <link rel="icon" href="/spin-universe/assets/img/favicon.svg" type="image/svg+xml">
 <link rel="icon" href="/spin-universe/assets/img/favicon-48x48.png" type="image/png" sizes="48x48">
 </head>
@@ -55,9 +55,11 @@
   <div class="shell agent-nav-inner">
     <a class="agent-nav-home" href="../"><span aria-hidden="true">&larr;</span> SPINiverse</a>
     <div class="agent-nav-links">
-      <a href="#contrast">Mechanism</a>
+      <a href="#motivation">Motivation</a>
+      <a href="#findings">Findings</a>
+      <a href="#method">Method</a>
       <a href="#results">Results</a>
-      <a href="#efficiency">Deployment</a>
+      <a href="#efficiency">Efficiency</a>
     </div>
   </div>
 </nav>
@@ -65,10 +67,13 @@
 <header class="agent-masthead" id="top">
   <div class="shell agent-masthead-grid">
     <div class="agent-hero-copy" data-reveal>
-      <p class="eyebrow">Agent trajectory safety &middot; <b>Under review</b></p>
       <h1>Agent-SIREN</h1>
-      <p class="agent-hero-claim">A guard can encode tool-use risk that its output misses.</p>
-      <p class="agent-hero-deck">Agent-SIREN fits a linear probe to one validation-selected internal state of a frozen LLM, scoring complete agent trajectories without decoding a label.</p>
+      <p class="agent-hero-claim">Detecting harmful agent trajectories from LLM internal representations</p>
+      <ul class="agent-keywords" aria-label="Keywords">
+        <li>Agent safety</li>
+        <li>Guard models</li>
+        <li>Internal representations</li>
+      </ul>
       <p class="agent-authors"><b>Difan Jiao</b> &middot; Ashton Anderson</p>
       <div class="links agent-hero-links" aria-label="Agent-SIREN resources">
         <a class="chip chip-primary" href="https://github.com/CSSLab/agent-siren">
@@ -87,41 +92,14 @@
 
     <div class="agent-hero-art" data-reveal aria-hidden="true">
       <div class="agent-hero-route">
-        <span class="agent-route-label">agent trajectory</span>
-        <div class="agent-route-event event-user"><i></i><span>request</span></div>
-        <div class="agent-route-event event-tool"><i></i><span>tool schema</span></div>
-        <div class="agent-route-event event-action"><i></i><span>action</span></div>
+        <div class="agent-route-event event-user"><i></i></div>
+        <div class="agent-route-event event-tool"><i></i></div>
+        <div class="agent-route-event event-action"><i></i></div>
       </div>
       <div class="agent-hero-model">
-        <div class="agent-model-top"><span>frozen backbone</span><span>output vs internal state</span></div>
         <div class="agent-layer-stack" id="agentHeroLayers"></div>
-        <div class="agent-visible-readout">
-          <span>generated verdict</span>
-          <strong>SAFE</strong>
-        </div>
-        <div class="agent-internal-readout">
-          <span>internal readout</span>
-          <strong>RISK</strong>
-        </div>
-      </div>
-    </div>
-
-    <div class="agent-proof-rail" aria-label="Agent-SIREN headline findings">
-      <div class="agent-proof" data-reveal>
-        <strong>0.77</strong>
-        <span>highest mean macro-F1 among evaluated open guards</span>
-      </div>
-      <div class="agent-proof" data-reveal>
-        <strong>0.80</strong>
-        <span>Qwen3-4B after fine-tuning + internal readout</span>
-      </div>
-      <div class="agent-proof" data-reveal>
-        <strong>2.5K</strong>
-        <span>trainable probe parameters on Qwen3-4B</span>
-      </div>
-      <div class="agent-proof" data-reveal>
-        <strong>2.2&times;</strong>
-        <span>faster than AgentDoG after early exit</span>
+        <div class="agent-visible-readout"><strong>SAFE</strong></div>
+        <div class="agent-internal-readout"><strong>RISK</strong></div>
       </div>
     </div>
   </div>
@@ -129,20 +107,18 @@
 
 <main>
 
-<section class="light agent-section agent-contrast agent-mechanism" id="contrast">
+<section class="light agent-section agent-mechanism agent-motivation" id="motivation">
   <div class="shell">
-    <p class="section-label">Two sources of safety evidence</p>
     <div class="agent-section-head" data-reveal>
-      <h2>Harmful content and unsafe tool use require different evidence.</h2>
-      <p>Harmful content is expressed directly in a request or action. Unsafe tool use depends on whether an action is consistent with its authorization, tool schema, and preceding context.</p>
+      <h2>Harmful content and unsafe tool use</h2>
+      <p>Agent trajectories can be unsafe because of what they say or do, and because an action is inconsistent with its authorization, tool schema, or preceding context.</p>
     </div>
 
-    <div class="agent-evidence-grid" data-reveal aria-label="Two forms of safety evidence from the paper teaser">
+    <div class="agent-evidence-grid" data-reveal>
       <article class="agent-evidence-card is-content">
         <div class="agent-evidence-heading">
-          <span>01</span>
           <h3>Harmful content</h3>
-          <p>Expressed directly in a request or action.</p>
+          <p>The risk is expressed directly in the request or action.</p>
         </div>
         <div class="agent-evidence-flow">
           <div class="agent-evidence-node">
@@ -154,20 +130,13 @@
             <span>Agent &times; tool</span>
             <code>send_approval(rx)</code>
           </div>
-          <i aria-hidden="true">&rarr;</i>
-          <div class="agent-evidence-node is-outcome">
-            <span>Environment</span>
-            <p>Prescription issued</p>
-          </div>
         </div>
-        <p class="agent-evidence-rule"><b>Direct evidence.</b> The request itself provides the content that a guard must classify.</p>
       </article>
 
       <article class="agent-evidence-card is-tool">
         <div class="agent-evidence-heading">
-          <span>02</span>
           <h3>Unsafe tool use</h3>
-          <p>Depends on the action, authorization, and context.</p>
+          <p>The risk depends on the action&rsquo;s relation to the preceding interaction.</p>
         </div>
         <div class="agent-evidence-flow">
           <div class="agent-evidence-node">
@@ -177,116 +146,147 @@
           <i aria-hidden="true">&rarr;</i>
           <div class="agent-evidence-node is-action">
             <span>Agent &times; tool</span>
-            <code>pay_invoice(<br>&ldquo;Acme Corp&rdquo;, $500)</code>
-          </div>
-          <i aria-hidden="true">&rarr;</i>
-          <div class="agent-evidence-node is-outcome">
-            <span>Environment</span>
-            <p>$500 paid</p>
+            <code>pay_invoice(&ldquo;Acme&rdquo;, $500)</code>
           </div>
         </div>
-        <p class="agent-evidence-rule"><b>Relational evidence.</b> The payment call is unsafe because the user authorized review rather than payment.</p>
       </article>
     </div>
+  </div>
+</section>
 
-    <div class="agent-mechanism-board" data-reveal>
-      <div class="agent-expression-panel">
-        <p class="agent-demo-kicker">Internal states and guard outputs</p>
-        <h3>Both distinctions are linearly readable internally; guard outputs do not separate unsafe tool use.</h3>
-        <div class="agent-expression-rows" role="img" aria-label="Harmful content is readable internally and expressed in guard output. Unsafe tool use reaches 0.94 internally while guard output remains near chance at 0.51.">
-          <div class="agent-expression-row is-content">
-            <b>Harmful content</b>
-            <div><span>Inside</span><i><em style="--evidence: 92%"></em></i><strong>readable</strong></div>
-            <div><span>Output</span><i><em style="--evidence: 78%"></em></i><strong>0.78</strong></div>
-          </div>
-          <div class="agent-expression-row is-tool">
-            <b>Unsafe tool use</b>
-            <div><span>Inside</span><i><em style="--evidence: 94%"></em></i><strong>0.94</strong></div>
-            <div><span>Output</span><i><em style="--evidence: 51%"></em></i><strong>0.51</strong></div>
-          </div>
-        </div>
-        <p class="agent-expression-note">Matched-pair rank accuracy &middot; chance = 0.50 <span>Risk directions are close to orthogonal</span></p>
-      </div>
+<section class="agent-section agent-findings" id="findings">
+  <div class="shell">
+    <div class="agent-section-head agent-section-head-dark" data-reveal>
+      <h2>Mechanistic findings</h2>
+      <p>Matched trajectory pairs isolate one form of risk at a time and compare what can be read inside a guard with what its generated verdict expresses.</p>
+    </div>
 
-      <div class="agent-proposal-panel">
-        <p class="agent-demo-kicker">Agent-SIREN</p>
-        <h3>A linear probe on one validation-selected internal state.</h3>
-        <div class="agent-proposal-flow" aria-label="A complete trajectory enters a frozen model. One intermediate state is selected and a linear readout returns one risk score.">
-          <div class="agent-proposal-input"><span>Complete trajectory</span><i></i><i></i><i></i></div>
-          <b aria-hidden="true">&rarr;</b>
-          <div class="agent-proposal-model">
-            <span>Frozen model</span>
-            <div aria-hidden="true"><i></i><i></i><i></i><i></i><i class="is-selected"></i><i></i><i></i><i></i><i></i></div>
-            <small>validation-selected state</small>
-          </div>
-          <b aria-hidden="true">&rarr;</b>
-          <div class="agent-proposal-score"><span>Linear readout</span><strong>Risk score</strong></div>
-        </div>
-        <p>The frozen backbone encodes the complete trajectory once; the probe maps its selected state directly to one risk score without decoding a label.</p>
+    <div class="agent-findings-grid" data-reveal>
+      <div class="agent-finding-table" role="img" aria-label="Guard outputs rank harmful-content pairs above 0.70 but remain around chance for unsafe-tool-use pairs. Unsafe tool use reaches rank accuracy 0.94 inside guards and 0.98 inside their general-purpose backbones.">
+        <article>
+          <h3>Harmful content</h3>
+          <div><span>Internal states</span><strong>Readable</strong></div>
+          <div><span>Guard output</span><strong>&gt;0.70</strong></div>
+        </article>
+        <article>
+          <h3>Unsafe tool use</h3>
+          <div><span>Internal states</span><strong>Up to 0.94</strong></div>
+          <div><span>Guard output</span><strong>&asymp;0.50</strong></div>
+        </article>
       </div>
+      <div class="agent-direction-finding">
+        <strong>&asymp;0</strong>
+        <h3>Cross-risk direction similarity</h3>
+        <p>The directions for harmful content and unsafe tool use remain close to orthogonal through most layers. Same-risk split halves reach 0.81 similarity in Qwen and 0.87 in Llama.</p>
+      </div>
+    </div>
+    <p class="agent-findings-note" data-reveal>Unsafe-tool-use rank accuracy reaches 0.98 inside the corresponding general-purpose backbones, even though all three evaluated guard outputs remain at or below chance.</p>
+  </div>
+</section>
+
+<section class="light agent-section agent-method" id="method">
+  <div class="shell">
+    <div class="agent-section-head agent-section-head-single" data-reveal>
+      <h2>Method: sparse cross-layer trajectory classification</h2>
+    </div>
+    <p class="agent-method-intro" data-reveal>Agent-SIREN renders the complete trajectory with the backbone&rsquo;s chat template, reads its last-token state at every layer, and trains a compact classifier while keeping the LLM frozen.</p>
+
+    <div class="agent-method-figure" data-reveal role="img" aria-label="A complete agent trajectory passes once through a frozen LLM. Layer-wise sparse probes select salient dimensions across the stack, and a small MLP produces a risk score.">
+      <div class="agent-method-trajectory"><i></i><i></i><i></i><i></i></div>
+      <b aria-hidden="true">&rarr;</b>
+      <div class="agent-method-layer-stack" aria-hidden="true">
+        <span><i></i><i></i><i></i></span><span><i></i><i></i><i></i></span><span><i></i><i></i><i></i></span><span><i></i><i></i><i></i></span><span><i></i><i></i><i></i></span><span><i></i><i></i><i></i></span><span><i></i><i></i><i></i></span><span><i></i><i></i><i></i></span><span><i></i><i></i><i></i></span>
+      </div>
+      <b aria-hidden="true">&rarr;</b>
+      <div class="agent-method-head">MLP</div>
+      <b aria-hidden="true">&rarr;</b>
+      <div class="agent-method-score">0.86</div>
+    </div>
+
+    <div class="agent-method-steps">
+      <article data-reveal>
+        <h3>Layer-wise sparse probing</h3>
+        <p>An L1-regularized logistic probe is fit to the last-token representation at each layer.</p>
+      </article>
+      <article data-reveal>
+        <h3>Salient dimension selection</h3>
+        <p>Within each layer, the smallest set of dimensions reaching the cumulative weight threshold is retained.</p>
+      </article>
+      <article data-reveal>
+        <h3>Cross-layer classification</h3>
+        <p>The selected dimensions are concatenated and passed to a small MLP that predicts trajectory safety.</p>
+      </article>
     </div>
   </div>
 </section>
 
 <section class="light agent-section agent-results" id="results">
   <div class="shell">
-    <p class="section-label">Results</p>
     <div class="agent-section-head" data-reveal>
-      <h2>Highest mean macro-F1 across six held-out benchmarks.</h2>
-      <p>Under leave-one-benchmark-out evaluation, Agent-SIREN reaches the highest mean among the evaluated open guard checkpoints and leads or ties on five of six benchmarks.</p>
+      <h2>Experiments and results</h2>
+      <p>Each of six trajectory-safety benchmarks is held out in turn. Agent-SIREN is trained on the remaining five, with no probe, head, threshold, or hyperparameter selected on the held-out benchmark.</p>
+    </div>
+
+    <div class="agent-proof-rail" aria-label="Summary of Agent-SIREN results">
+      <div class="agent-proof" data-reveal><strong>0.78</strong><span>highest mean macro-F1</span></div>
+      <div class="agent-proof" data-reveal><strong>+0.04</strong><span>over same-backbone AgentDoG</span></div>
+      <div class="agent-proof" data-reveal><strong>5 / 6</strong><span>benchmarks led across both backbones</span></div>
+      <div class="agent-proof" data-reveal><strong>0.81</strong><span>after fine-tuning + Agent-SIREN</span></div>
     </div>
 
     <div class="agent-result-card" data-reveal>
       <div class="agent-chart-head">
-        <p class="agent-chart-kicker">Macro-F1 on the held-out benchmark</p>
         <div class="agent-chart-legend" aria-hidden="true">
           <span><i class="legend-qwen"></i>Qwen3Guard</span>
           <span><i class="legend-llama"></i>LlamaGuard3</span>
           <span><i class="legend-dog"></i>AgentDoG</span>
-          <span><i class="legend-agent"></i>Agent-SIREN</span>
+          <span><i class="legend-agent"></i>Agent-SIREN &middot; Qwen</span>
+          <span><i class="legend-agent-llama"></i>Agent-SIREN &middot; Llama</span>
         </div>
       </div>
       <div class="agent-result-chart-wrap">
         <svg id="agentResultChart" class="agent-result-chart" viewBox="0 0 1080 520" role="group" aria-labelledby="agentResultTitle agentResultDesc">
-          <title id="agentResultTitle">Agent-SIREN and three open guard checkpoints across six held-out benchmarks</title>
-          <desc id="agentResultDesc">A horizontal dot chart. Agent-SIREN on Qwen3-4B has the highest or tied macro-F1 on five of six benchmarks and the highest mean.</desc>
-          <text class="agent-svg-fallback" data-result-fallback x="540" y="255" text-anchor="middle">Agent-SIREN leads or ties on five of six held-out benchmarks; complete values appear in the table below.</text>
+          <title id="agentResultTitle">Agent-SIREN and open guard checkpoints across six held-out benchmarks</title>
+          <desc id="agentResultDesc">Agent-SIREN on Qwen3-4B has the highest mean macro-F1 and leads four benchmarks. Across the two Agent-SIREN backbones, the method leads five of six benchmarks.</desc>
+          <text class="agent-svg-fallback" data-result-fallback x="540" y="255" text-anchor="middle">Agent-SIREN reaches the highest mean macro-F1; complete values appear below.</text>
         </svg>
         <div id="agentChartTooltip" class="agent-chart-tooltip" role="status" aria-live="polite"></div>
       </div>
     </div>
 
+    <div class="agent-result-story" data-reveal>
+      <p>Agent-SIREN on Qwen3-4B reaches 0.78 mean macro-F1, compared with 0.74 for AgentDoG-4B, the trajectory-specialized guard fine-tuned from the same backbone. The paired-bootstrap difference is significant at P&nbsp;&lt;&nbsp;10<sup>&minus;5</sup>.</p>
+    </div>
+
     <div class="agent-compound" data-reveal>
       <div class="agent-compound-copy">
-        <p class="agent-demo-kicker">Matched training data</p>
-        <h3>Internal readout complements full fine-tuning.</h3>
-        <p>With identical backbones, training trajectories, and evaluation folds, the frozen probe matches full fine-tuning on Qwen3-4B and slightly exceeds it on Llama-3.1-8B. Applying the same readout after fine-tuning improves both results, showing that internal readout and safety fine-tuning are complementary.</p>
+        <h3>Comparison with full fine-tuning</h3>
+        <p>With the same backbones, training trajectories, and held-out folds, Agent-SIREN on a frozen backbone matches full safety fine-tuning. Fitting Agent-SIREN on the fine-tuned model improves both backbones further.</p>
       </div>
-      <div class="agent-compound-rows" aria-label="Mean macro-F1 for frozen readout, safety fine-tuning, and their combination">
+      <div class="agent-compound-rows" aria-label="Mean macro-F1 for Agent-SIREN on a frozen backbone, full safety fine-tuning, and their combination">
         <div class="agent-compound-row">
           <span class="agent-compound-model">Qwen3-4B</span>
-          <div><span>Frozen readout</span><strong>0.77</strong></div>
+          <div><span>Frozen Agent-SIREN</span><strong>0.78</strong></div>
           <i aria-hidden="true"></i>
-          <div><span>Full fine-tune</span><strong>0.77</strong></div>
+          <div><span>Full fine-tuning</span><strong>0.78</strong></div>
           <i aria-hidden="true"></i>
-          <div class="is-best"><span>Fine-tune + readout</span><strong>0.80</strong></div>
+          <div class="is-best"><span>Fine-tuning + Agent-SIREN</span><strong>0.81</strong></div>
         </div>
         <div class="agent-compound-row">
           <span class="agent-compound-model">Llama-3.1-8B</span>
-          <div><span>Frozen readout</span><strong>0.75</strong></div>
+          <div><span>Frozen Agent-SIREN</span><strong>0.75</strong></div>
           <i aria-hidden="true"></i>
-          <div><span>Full fine-tune</span><strong>0.74</strong></div>
+          <div><span>Full fine-tuning</span><strong>0.75</strong></div>
           <i aria-hidden="true"></i>
-          <div class="is-best"><span>Fine-tune + readout</span><strong>0.76</strong></div>
+          <div class="is-best"><span>Fine-tuning + Agent-SIREN</span><strong>0.77</strong></div>
         </div>
       </div>
     </div>
 
     <details class="agent-raw-results">
-      <summary>Complete benchmark results</summary>
+      <summary>View full benchmark tables</summary>
       <div class="agent-table-group">
         <h3>Open guard checkpoints</h3>
-        <p>Each column reports the benchmark held out under leave-one-benchmark-out evaluation. Agent-SIREN uses one linear probe on a frozen backbone.</p>
         <div class="agent-table-scroll">
           <table>
             <thead><tr><th>System</th><th>R-Judge</th><th>TraceSafe</th><th>ATBench</th><th>ASSE-Saf</th><th>ASSE-Sec</th><th>AgentHarm</th><th>Mean</th></tr></thead>
@@ -295,8 +295,8 @@
               <tr><th>Qwen3Guard-4B</th><td>0.43</td><td>0.35</td><td>0.36</td><td>0.43</td><td>0.50</td><td>0.79</td><td>0.48</td></tr>
               <tr><th>LlamaGuard3-8B</th><td>0.65</td><td>0.48</td><td>0.40</td><td>0.54</td><td>0.74</td><td>0.86</td><td>0.61</td></tr>
               <tr><th>AgentDoG-4B</th><td>0.92</td><td>0.43</td><td>0.61</td><td><b>0.80</b></td><td>0.78</td><td>0.92</td><td>0.74</td></tr>
-              <tr class="agent-table-highlight"><th>Agent-SIREN &middot; Qwen3-4B</th><td>0.92</td><td><b>0.54</b></td><td><b>0.65</b></td><td>0.68</td><td><b>0.84</b></td><td><b>1.00</b></td><td><b>0.77</b></td></tr>
-              <tr class="agent-table-highlight"><th>Agent-SIREN &middot; Llama-3.1-8B</th><td><b>0.94</b></td><td>0.50</td><td>0.58</td><td>0.75</td><td>0.74</td><td>0.99</td><td>0.75</td></tr>
+              <tr class="agent-table-highlight"><th>Agent-SIREN &middot; Qwen3-4B</th><td><b>0.96</b></td><td><b>0.53</b></td><td>0.60</td><td>0.74</td><td><b>0.85</b></td><td><b>0.99</b></td><td><b>0.78</b></td></tr>
+              <tr class="agent-table-highlight"><th>Agent-SIREN &middot; Llama-3.1-8B</th><td>0.88</td><td>0.43</td><td><b>0.63</b></td><td>0.75</td><td>0.84</td><td><b>0.99</b></td><td>0.75</td></tr>
             </tbody>
           </table>
         </div>
@@ -304,16 +304,17 @@
 
       <div class="agent-table-group">
         <h3>Matched-data fine-tuning comparison</h3>
-        <p>The backbone, training trajectories, and held-out folds are identical within each pair.</p>
         <div class="agent-table-scroll">
           <table class="agent-matched-table">
             <colgroup><col class="agent-col-backbone"><col class="agent-col-readout"><col span="7" class="agent-col-score"></colgroup>
-            <thead><tr><th>Backbone</th><th>Readout</th><th>R-Judge</th><th>TraceSafe</th><th>ATBench</th><th>ASSE-Saf</th><th>ASSE-Sec</th><th>AgentHarm</th><th>Mean</th></tr></thead>
+            <thead><tr><th>Backbone</th><th>Method</th><th>R-Judge</th><th>TraceSafe</th><th>ATBench</th><th>ASSE-Saf</th><th>ASSE-Sec</th><th>AgentHarm</th><th>Mean</th></tr></thead>
             <tbody>
-              <tr><th rowspan="2">Qwen3-4B</th><td>Full fine-tune</td><td>0.77</td><td>0.58</td><td>0.64</td><td><b>0.80</b></td><td>0.85</td><td><b>1.00</b></td><td>0.77</td></tr>
-              <tr class="agent-table-highlight"><td>Fine-tune + readout</td><td><b>0.91</b></td><td><b>0.61</b></td><td><b>0.66</b></td><td>0.79</td><td><b>0.87</b></td><td><b>1.00</b></td><td><b>0.80</b></td></tr>
-              <tr><th rowspan="2">Llama-3.1-8B</th><td>Full fine-tune</td><td>0.78</td><td>0.49</td><td>0.59</td><td>0.76</td><td><b>0.83</b></td><td><b>1.00</b></td><td>0.74</td></tr>
-              <tr class="agent-table-highlight"><td>Fine-tune + readout</td><td><b>0.88</b></td><td><b>0.50</b></td><td><b>0.60</b></td><td><b>0.78</b></td><td>0.82</td><td><b>1.00</b></td><td><b>0.76</b></td></tr>
+              <tr class="agent-table-highlight"><th rowspan="3">Qwen3-4B</th><td>Agent-SIREN &middot; frozen</td><td>0.96</td><td>0.53</td><td>0.60</td><td>0.74</td><td>0.85</td><td>0.99</td><td>0.78</td></tr>
+              <tr><td>Full fine-tuning</td><td>0.78</td><td>0.60</td><td>0.64</td><td>0.81</td><td>0.86</td><td>1.00</td><td>0.78</td></tr>
+              <tr class="agent-table-highlight"><td>Fine-tuning + Agent-SIREN</td><td>0.92</td><td>0.62</td><td>0.66</td><td>0.76</td><td>0.89</td><td>1.00</td><td><b>0.81</b></td></tr>
+              <tr class="agent-table-highlight"><th rowspan="3">Llama-3.1-8B</th><td>Agent-SIREN &middot; frozen</td><td>0.88</td><td>0.43</td><td>0.63</td><td>0.75</td><td>0.84</td><td>0.99</td><td>0.75</td></tr>
+              <tr><td>Full fine-tuning</td><td>0.79</td><td>0.51</td><td>0.59</td><td>0.76</td><td>0.83</td><td>1.00</td><td>0.75</td></tr>
+              <tr class="agent-table-highlight"><td>Fine-tuning + Agent-SIREN</td><td>0.88</td><td>0.51</td><td>0.60</td><td>0.78</td><td>0.85</td><td>1.00</td><td><b>0.77</b></td></tr>
             </tbody>
           </table>
         </div>
@@ -324,40 +325,43 @@
 
 <section class="agent-section agent-efficiency" id="efficiency">
   <div class="shell">
-    <p class="section-label">Training and serving efficiency</p>
     <div class="agent-section-head agent-section-head-dark" data-reveal>
-      <h2>No label decoding and no backbone gradients.</h2>
-      <p>Agent-SIREN scores a selected internal state directly. In the measured 4B comparison, it has the lowest single-stream latency, while fitting the probe takes substantially less time than full safety fine-tuning.</p>
+      <h2>Training and inference efficiency</h2>
+      <p>Agent-SIREN fits layer-wise probes and a small classification head without backpropagating through the backbone, and produces a verdict without token decoding.</p>
     </div>
 
-    <div class="agent-deployment-rail" data-reveal aria-label="Agent-SIREN deployment headline results">
+    <div class="agent-deployment-rail" data-reveal aria-label="Agent-SIREN efficiency measurements on Qwen3-4B">
+      <article><strong>0.90M</strong><span>trainable parameters</span></article>
+      <article><strong>0.17</strong><span>GPU-hours for all six folds</span></article>
       <article><strong>40 ms</strong><span>single-stream latency</span></article>
-      <article><strong>1.3&times;</strong><span>faster than AgentDoG</span></article>
-      <article><strong>5.4&times;</strong><span>faster than Qwen3Guard</span></article>
-      <article><strong>39&times;</strong><span>faster to train than full fine-tuning</span></article>
+      <article><strong>26.5 / s</strong><span>saturated throughput</span></article>
+    </div>
+
+    <div class="agent-efficiency-comparison" data-reveal>
+      <article><h3>Training</h3><p>Agent-SIREN uses 0.17 GPU-hours for the complete six-fold Qwen3-4B protocol, compared with 7.0 GPU-hours for full fine-tuning.</p></article>
+      <article><h3>Single-stream latency</h3><p>Agent-SIREN takes 40 ms per trajectory, compared with 53 ms for AgentDoG and 215 ms for Qwen3Guard.</p></article>
+      <article><h3>Saturated throughput</h3><p>Agent-SIREN processes 26.5 trajectories per second, compared with 25.1 for Qwen3Guard and 17.6 for AgentDoG.</p></article>
     </div>
 
     <div class="agent-exit-demo" data-reveal>
       <div class="agent-exit-copy">
-        <span class="agent-exit-tag">Early exit</span>
-        <h3>Early exit at layer 24.</h3>
-        <p>The validation-selected safety state occurs before the final layer. Stopping at layer 24 retains 99.8% of the result and increases measured throughput by 43%.</p>
+        <h3>Early exit</h3>
+        <p>A single-layer classifier first exceeds AgentDoG at layer 9. Exiting the truncated Qwen3-4B checkpoint at layer 23 reduces macro-F1 by 0.01 and increases saturated throughput from 26.5 to 41.1 trajectories per second.</p>
       </div>
       <div class="agent-exit-visual">
-        <div class="agent-exit-stack is-early" id="agentExitStack" role="img" aria-label="The first 24 of 36 layers are used. The remaining 12 layers are skipped."></div>
+        <div class="agent-exit-stack is-early" id="agentExitStack" role="img" aria-label="The model exits at layer 23 of 36; the remaining layers are skipped."></div>
         <div class="agent-exit-readouts">
-          <div><strong>26.3 ms</strong><span>per completed trajectory at saturation</span></div>
-          <div><strong>99.8%</strong><span>result retained</span></div>
-          <div class="agent-exit-gain"><strong>+43%</strong><span>measured throughput</span></div>
+          <div><strong>41.1 / s</strong><span>saturated throughput</span></div>
+          <div><strong>&minus;0.01</strong><span>macro-F1</span></div>
+          <div class="agent-exit-gain"><strong>+55%</strong><span>throughput</span></div>
         </div>
       </div>
     </div>
-    <p class="agent-efficiency-note">Qwen3-4B serving and training measurements. Early-exit time is the per-completion equivalent of measured saturated throughput under the same vLLM workload.</p>
   </div>
 </section>
 
 </main>
 
-<script src="../assets/js/agent-siren.js?v=3"></script>
+<script src="../assets/js/agent-siren.js?v=4"></script>
 </body>
 </html>

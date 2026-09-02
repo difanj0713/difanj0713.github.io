@@ -263,7 +263,7 @@ export function createUniverse(canvas, options = {}) {
 
   /* -- labels ----------------------------------------------------------- */
 
-  const tokenWords = ['This', 'movie', 'is', 'the', 'best', '!', 'really', '?'];
+  const tokenWords = ['The', 'assistant’s', 'answer', 'was', 'confidently', 'wrong.'];
   const layerSprites = [];
   const neuronSprites = [];
   const tokenSprites = [];
@@ -424,6 +424,7 @@ export function createUniverse(canvas, options = {}) {
         c.mesh.visible = true;
         m.opacity = op;
         if (c.isMax && poolMove > 0) {
+          c.mesh.position.copy(c.home);
           c.mesh.position.z = c.home.z * (1 - poolMove);
         } else if (intro < 1) {
           c.mesh.position.lerpVectors(c.scatter, c.home, easeInOut(intro));
@@ -528,7 +529,17 @@ export function createUniverse(canvas, options = {}) {
   /* -- camera ----------------------------------------------------------- */
 
   const CAM_RADIUS = Math.sqrt(20 * 20 + 20 * 20);
-  let yaw = Math.atan2(20, -20);
+  const BASE_YAW = Math.atan2(20, -20);
+  const AUTO_SWAY = 0.13;
+  const MAX_DRAG_YAW = 0.58;
+  const MAX_DRAG_PITCH = 0.17;
+  let yawPhase = 0;
+  let dragYaw = 0;
+  let dragPitch = 0;
+  let dragTargetYaw = 0;
+  let dragTargetPitch = 0;
+  let autoWeight = 1;
+  let dragging = false;
   let pan = 0; // world units, set on resize
 
   const camPos = new THREE.Vector3();
@@ -538,10 +549,38 @@ export function createUniverse(canvas, options = {}) {
   const WORLD_UP = new THREE.Vector3(0, 1, 0);
 
   function updateCamera(dt, p) {
-    if (!reduced) yaw += dt * 0.055;
+    /* Keep the structure near its clearest isometric view. A full orbit passes
+       through edge-on and rear angles where the layered field appears to drift
+       out of frame; this bounded motion keeps the scene alive without losing
+       its visual reference point. */
+    if (!reduced) yawPhase += dt * 0.2;
+
+    if (!dragging) {
+      const release = 1 - Math.exp(-dt * 1.35);
+      dragTargetYaw = lerp(dragTargetYaw, 0, release);
+      dragTargetPitch = lerp(dragTargetPitch, 0, release);
+    }
+
+    const follow = 1 - Math.exp(-dt * (dragging ? 18 : 7));
+    dragYaw = lerp(dragYaw, dragTargetYaw, follow);
+    dragPitch = lerp(dragPitch, dragTargetPitch, follow);
+    autoWeight = lerp(autoWeight, dragging ? 0 : 1, 1 - Math.exp(-dt * (dragging ? 18 : 1.6)));
+
+    const autoYaw = reduced ? 0 : Math.sin(yawPhase) * AUTO_SWAY * autoWeight;
+    const yaw = BASE_YAW + Math.max(-0.68, Math.min(0.68, autoYaw + dragYaw));
     const t = clamp01(p);
-    camPos.set(Math.cos(yaw) * CAM_RADIUS, lerp(20, 25, easeInOut(t)), Math.sin(yaw) * CAM_RADIUS);
-    camTarget.set(0, lerp(0, 3.5, t), 0);
+    const targetY = lerp(0, 3.5, t);
+    const baseCameraY = lerp(20, 25, easeInOut(t));
+    const baseRise = baseCameraY - targetY;
+    const orbitDistance = Math.hypot(CAM_RADIUS, baseRise);
+    const elevation = Math.atan2(baseRise, CAM_RADIUS) + dragPitch;
+    const horizontalRadius = Math.cos(elevation) * orbitDistance;
+    camPos.set(
+      Math.cos(yaw) * horizontalRadius,
+      targetY + Math.sin(elevation) * orbitDistance,
+      Math.sin(yaw) * horizontalRadius
+    );
+    camTarget.set(0, targetY, 0);
 
     /* Slide camera and target together along the screen-horizontal axis, which
        moves the subject the other way and opens space for the copy. */
@@ -616,6 +655,22 @@ export function createUniverse(canvas, options = {}) {
     },
     setVisible(v) {
       visible = v;
+    },
+    beginDrag() {
+      if (dragging) return;
+      const autoYaw = reduced ? 0 : Math.sin(yawPhase) * AUTO_SWAY * autoWeight;
+      dragYaw = Math.max(-MAX_DRAG_YAW, Math.min(MAX_DRAG_YAW, dragYaw + autoYaw));
+      dragTargetYaw = Math.max(-MAX_DRAG_YAW, Math.min(MAX_DRAG_YAW, dragTargetYaw + autoYaw));
+      autoWeight = 0;
+      dragging = true;
+    },
+    dragBy(dx, dy) {
+      if (!dragging) return;
+      dragTargetYaw = Math.max(-MAX_DRAG_YAW, Math.min(MAX_DRAG_YAW, dragTargetYaw - dx * 0.004));
+      dragTargetPitch = Math.max(-MAX_DRAG_PITCH, Math.min(MAX_DRAG_PITCH, dragTargetPitch + dy * 0.0022));
+    },
+    endDrag() {
+      dragging = false;
     },
     resize,
     dispose() {

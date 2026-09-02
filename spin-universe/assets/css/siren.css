@@ -1602,6 +1602,189 @@
   }
 }
 
+/* SPIN-aligned paper structure ------------------------------------------- */
+
+.siren-masthead {
+  padding: clamp(6.5rem, 9vw, 7.75rem) 0 clamp(3.25rem, 5vw, 4.5rem);
+}
+
+.siren-masthead-grid {
+  grid-template-columns: minmax(0, 1.1fr) minmax(22rem, 0.9fr);
+  gap: clamp(2.5rem, 5vw, 4.5rem);
+}
+
+.siren-hero-copy h1 {
+  margin-bottom: 0.85rem;
+  font-size: clamp(2.6rem, 4vw, 3.3rem);
+  line-height: 1;
+  letter-spacing: -0.045em;
+}
+
+.siren-hero-claim {
+  max-width: 35ch;
+  margin-bottom: 1.05rem;
+  font-size: clamp(1.3rem, 2vw, 1.7rem);
+  font-weight: 600;
+  line-height: 1.28;
+  letter-spacing: -0.018em;
+}
+
+.siren-keywords {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.2rem 0;
+  margin: 0 0 1rem;
+  padding: 0;
+  color: var(--ink-3);
+  font-family: var(--sans);
+  font-size: 0.8rem;
+  font-weight: 500;
+  line-height: 1.6;
+  list-style: none;
+}
+
+.siren-keywords li + li::before {
+  content: "\00b7";
+  margin-inline: 0.55rem;
+  color: var(--line);
+}
+
+.siren-hero-art {
+  min-height: clamp(22rem, 32vw, 27rem);
+}
+
+.siren-hero-input {
+  inset: 3rem 2rem auto;
+}
+
+.siren-hero-layers {
+  inset: 4.8rem 2.25rem 4.6rem;
+}
+
+.siren-hero-layer::after {
+  display: none;
+}
+
+.siren-hero-score {
+  min-width: 8rem;
+  padding: 0.72rem 0.78rem;
+}
+
+.siren-hero-score > strong {
+  margin: 0 0 0.35rem;
+  font-size: 1.7rem;
+}
+
+.siren-hero-score > i {
+  margin-right: 0;
+}
+
+.siren-section {
+  padding-block: clamp(3.75rem, 6vw, 5.5rem);
+}
+
+.siren-section-head {
+  margin-bottom: clamp(1.8rem, 3vw, 2.6rem);
+}
+
+.siren-section-head h2 {
+  font-size: clamp(1.65rem, 2.8vw, 2.3rem);
+  font-weight: 600;
+  line-height: 1.18;
+  letter-spacing: -0.025em;
+}
+
+.siren-motivation {
+  border-bottom: 1px solid var(--line-soft);
+  background: #fff;
+}
+
+.siren-motivation .siren-section-head {
+  margin-bottom: 1.4rem;
+}
+
+.siren-motivation-copy,
+.siren-method-intro {
+  max-width: 68ch;
+  margin: 0;
+  color: var(--ink-2);
+  font-family: var(--sans);
+  font-size: 1.03rem;
+  line-height: 1.78;
+}
+
+.siren-method-intro {
+  margin: -1rem 0 2rem;
+}
+
+.siren-method-intro b,
+.siren-expansion b {
+  color: var(--ink);
+  font-weight: 650;
+}
+
+.siren-results .siren-proof-rail {
+  grid-column: auto;
+  grid-row: auto;
+  margin: 0 0 clamp(2.5rem, 4vw, 3.6rem);
+  border-block: 1px solid var(--line);
+}
+
+.siren-chart-head {
+  justify-content: flex-end;
+}
+
+.siren-result-story {
+  display: block;
+}
+
+.siren-result-story p {
+  max-width: 68ch;
+  font-family: var(--sans);
+}
+
+.siren-speed-proof {
+  margin-top: clamp(2.5rem, 4vw, 3.6rem);
+}
+
+.siren-speed-copy h3 {
+  margin-top: 0;
+  font-size: clamp(1.45rem, 2.4vw, 1.9rem);
+}
+
+.siren-method-steps h3 {
+  margin-top: 0;
+}
+
+@media (max-width: 980px) {
+  .siren-masthead-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .siren-hero-art {
+    grid-row: 2;
+  }
+}
+
+@media (max-width: 760px) {
+  .siren-nav-links a:nth-child(1),
+  .siren-nav-links a:nth-child(4) {
+    display: none;
+  }
+
+  .siren-nav-links a:nth-child(3) {
+    display: inline;
+  }
+
+  .siren-hero-copy h1 {
+    font-size: clamp(2.6rem, 14vw, 3.5rem);
+  }
+
+  .siren-proof-rail {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
 @media (prefers-reduced-motion: reduce) {
   .siren-hero-input i::after,
   .siren-hero-layer span.is-safety {
@@ -2354,5 +2537,87 @@
 
   .siren-proof strong {
     font-size: 1.5rem;
+  }
+}
+
+/* Final page-specific alignment with the approved SPIN page. */
+.siren-masthead {
+  padding: clamp(6.5rem, 9vw, 7.75rem) 0 clamp(3.25rem, 5vw, 4.5rem);
+}
+
+.siren-masthead-grid {
+  grid-template-columns: minmax(0, 1.1fr) minmax(22rem, 0.9fr);
+  gap: clamp(2.5rem, 5vw, 4.5rem);
+}
+
+.siren-hero-copy h1 {
+  margin-bottom: 0.85rem;
+  font-size: clamp(2.6rem, 4vw, 3.3rem);
+  line-height: 1;
+  letter-spacing: -0.045em;
+}
+
+.siren-hero-claim {
+  max-width: 35ch;
+  margin-bottom: 1.05rem;
+  font-size: clamp(1.3rem, 2vw, 1.7rem);
+  font-weight: 600;
+  line-height: 1.28;
+  letter-spacing: -0.018em;
+}
+
+.siren-hero-art {
+  min-height: clamp(22rem, 32vw, 27rem);
+}
+
+.siren-section {
+  padding-block: clamp(3.75rem, 6vw, 5.5rem);
+}
+
+.siren-section-head {
+  margin-bottom: clamp(1.8rem, 3vw, 2.6rem);
+}
+
+.siren-section-head h2 {
+  font-size: clamp(1.65rem, 2.8vw, 2.3rem);
+  font-weight: 600;
+  line-height: 1.18;
+  letter-spacing: -0.025em;
+}
+
+.siren-results .siren-proof-rail {
+  grid-column: auto;
+  grid-row: auto;
+  margin: 0 0 clamp(2.5rem, 4vw, 3.6rem);
+  border-block: 1px solid var(--line);
+}
+
+.siren-result-story {
+  display: block;
+}
+
+.siren-result-story p {
+  max-width: 68ch;
+  font-family: var(--sans);
+}
+
+.siren-speed-copy h3 {
+  margin-top: 0;
+  font-size: clamp(1.45rem, 2.4vw, 1.9rem);
+}
+
+@media (max-width: 980px) {
+  .siren-masthead-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+@media (max-width: 760px) {
+  .siren-hero-copy h1 {
+    font-size: clamp(2.6rem, 14vw, 3.5rem);
+  }
+
+  .siren-proof-rail {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
   }
 }

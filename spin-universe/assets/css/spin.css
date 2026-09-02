@@ -733,6 +733,10 @@
   text-align: left;
 }
 
+.spin-raw-results thead tr:nth-child(2) th {
+  text-align: right;
+}
+
 .spin-raw-results tbody td:nth-child(odd) {
   color: var(--indigo);
   font-weight: 700;
@@ -832,6 +836,11 @@
   font-family: var(--display);
   font-size: 22px;
   font-weight: 700;
+}
+
+#spinReadoutSvg .readout-input-label {
+  font-size: 13px;
+  font-weight: 600;
 }
 
 #spinReadoutSvg .readout-layer-line {
@@ -1792,7 +1801,7 @@
 
 .spin-masthead {
   min-height: 0;
-  padding: clamp(7.25rem, 11vw, 9rem) 0 0;
+  padding: clamp(6.5rem, 9vw, 7.75rem) 0 clamp(3.25rem, 5vw, 4.5rem);
   color: var(--ink);
   background: #e8ebec;
   overflow: hidden;
@@ -1803,9 +1812,9 @@
 }
 
 .spin-masthead-grid {
-  grid-template-columns: minmax(0, 0.88fr) minmax(25rem, 1.12fr);
+  grid-template-columns: minmax(0, 1.1fr) minmax(22rem, 0.9fr);
   align-items: center;
-  gap: clamp(2.5rem, 6vw, 5.5rem);
+  gap: clamp(2.5rem, 5vw, 4.5rem);
 }
 
 .spin-hero-copy .eyebrow {
@@ -1822,22 +1831,49 @@
 }
 
 .spin-hero-copy h1 {
-  margin-bottom: 1.15rem;
+  margin-bottom: 0.85rem;
   color: var(--ink);
-  font-size: clamp(4.2rem, 8vw, 6.5rem);
+  font-size: clamp(2.6rem, 4vw, 3.3rem);
   font-weight: 700;
-  line-height: 0.92;
-  letter-spacing: -0.055em;
+  line-height: 1;
+  letter-spacing: -0.045em;
 }
 
 .spin-hero-claim {
-  max-width: 21ch;
-  margin-bottom: 0.9rem;
+  max-width: 34ch;
+  margin-bottom: 1.05rem;
   color: var(--ink);
-  font-size: clamp(1.55rem, 2.65vw, 2.1rem);
-  font-weight: 650;
-  line-height: 1.2;
-  letter-spacing: -0.025em;
+  font-size: clamp(1.3rem, 2vw, 1.7rem);
+  font-weight: 600;
+  line-height: 1.28;
+  letter-spacing: -0.018em;
+}
+
+.spin-title-mark {
+  text-decoration-line: underline;
+  text-decoration-color: currentColor;
+  text-decoration-thickness: 0.075em;
+  text-underline-offset: 0.13em;
+}
+
+.spin-keywords {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.2rem 0;
+  margin: 0 0 1rem;
+  padding: 0;
+  color: var(--ink-3);
+  font-family: var(--sans);
+  font-size: 0.8rem;
+  font-weight: 500;
+  line-height: 1.6;
+  list-style: none;
+}
+
+.spin-keywords li + li::before {
+  content: "\00b7";
+  margin-inline: 0.55rem;
+  color: var(--line);
 }
 
 .spin-hero-deck {
@@ -1900,7 +1936,7 @@
 }
 
 .spin-hero-art {
-  min-height: clamp(25rem, 38vw, 31rem);
+  min-height: clamp(22rem, 32vw, 27rem);
   border-color: var(--line);
   border-radius: 2px;
   background: #fff;
@@ -1921,7 +1957,12 @@
 }
 
 .spin-hero-signal {
+  inset: 2.8rem 3rem;
   transform: none;
+}
+
+.spin-hero-art .spin-signal-row::before {
+  display: none;
 }
 
 .spin-signal-row {
@@ -1977,10 +2018,16 @@
   font-size: 0.82rem;
 }
 
+.spin-results .spin-proof-rail {
+  grid-column: auto;
+  grid-row: auto;
+  margin: 0 0 clamp(2.5rem, 4vw, 3.6rem);
+}
+
 /* Article rhythm */
 
 .spin-section {
-  padding-block: clamp(4.75rem, 8vw, 7rem);
+  padding-block: clamp(3.75rem, 6vw, 5.5rem);
 }
 
 .spin-page .section-label {
@@ -1998,16 +2045,16 @@
 
 .spin-section-head {
   align-items: start;
-  margin-bottom: clamp(2.5rem, 4vw, 3.6rem);
+  margin-bottom: clamp(1.8rem, 3vw, 2.6rem);
 }
 
 .spin-section-head h2,
 .spin-token-story h2 {
   color: var(--ink);
-  font-size: clamp(2.1rem, 4.2vw, 3.35rem);
-  font-weight: 650;
-  line-height: 1.12;
-  letter-spacing: -0.035em;
+  font-size: clamp(1.65rem, 2.8vw, 2.3rem);
+  font-weight: 600;
+  line-height: 1.18;
+  letter-spacing: -0.025em;
 }
 
 .spin-section-head p {
@@ -2016,6 +2063,24 @@
   color: var(--ink-2);
   font-size: 0.98rem;
   line-height: 1.7;
+}
+
+.spin-motivation {
+  border-bottom: 1px solid var(--line-soft);
+  background: #fff;
+}
+
+.spin-motivation .spin-section-head {
+  margin-bottom: 1.4rem;
+}
+
+.spin-motivation-copy {
+  max-width: 68ch;
+  margin: 0;
+  color: var(--ink-2);
+  font-family: var(--sans);
+  font-size: 1.03rem;
+  line-height: 1.78;
 }
 
 /* Results as a paper figure */
@@ -2033,6 +2098,7 @@
 }
 
 .spin-chart-head {
+  justify-content: flex-end;
   border-color: var(--line-soft);
 }
 
@@ -2080,6 +2146,7 @@
 }
 
 .spin-result-story {
+  display: block;
   border-color: var(--line-soft);
 }
 
@@ -2090,6 +2157,7 @@
 }
 
 .spin-result-story p {
+  max-width: 68ch;
   color: var(--ink-2);
   font-family: var(--sans);
   font-size: 1rem;
@@ -2234,8 +2302,9 @@
 }
 
 .spin-method-steps h3 {
+  margin-top: 0;
   color: var(--ink);
-  font-size: 1.25rem;
+  font-size: 1.08rem;
   font-weight: 650;
 }
 
@@ -2246,7 +2315,8 @@
 /* Interactive appendix */
 
 .spin-explorer {
-  background: #fff;
+  border-top: 1px solid var(--line-soft);
+  background: #f7f7f4;
 }
 
 .spin-www {
@@ -2261,6 +2331,8 @@
 }
 
 .spin-www-tabs button {
+  align-items: center;
+  min-height: 3.8rem;
   border-color: var(--line);
   background: #f1f0eb;
   color: var(--ink-3);
@@ -2277,7 +2349,7 @@
 }
 
 .spin-www-tabs b {
-  font-size: 1.1rem;
+  font-size: 1rem;
 }
 
 .spin-www-step {
@@ -2289,7 +2361,7 @@
 
 .spin-www-copy h3 {
   color: var(--ink);
-  font-size: clamp(1.65rem, 3vw, 2.3rem);
+  font-size: clamp(1.25rem, 2vw, 1.7rem);
   font-weight: 650;
 }
 
@@ -2406,17 +2478,31 @@
   }
 
   .spin-hero-art {
-    min-height: 27rem;
+    grid-row: 2;
+    min-height: 23rem;
   }
 }
 
 @media (max-width: 760px) {
+  .spin-nav-links a:nth-child(1),
+  .spin-nav-links a:nth-child(4) {
+    display: none;
+  }
+
+  .spin-nav-links a:nth-child(3) {
+    display: inline;
+  }
+
   .spin-masthead {
     padding-top: 6.75rem;
   }
 
   .spin-hero-copy h1 {
-    font-size: clamp(3.9rem, 20vw, 5.5rem);
+    font-size: clamp(2.55rem, 12vw, 3.2rem);
+  }
+
+  .spin-hero-signal {
+    inset: 2rem 1.5rem;
   }
 
   .spin-proof {

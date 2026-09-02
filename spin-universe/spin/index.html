@@ -11,13 +11,13 @@
 <meta property="og:description" content="A sparse cross-layer representation improves text classification in all 24 model-and-dataset comparisons, without updating the language-model backbone.">
 <meta property="og:url" content="https://difanj0713.github.io/spin-universe/spin/">
 <meta property="og:site_name" content="SPINiverse">
-<meta property="og:image" content="https://difanj0713.github.io/spin-universe/assets/img/social/spin.png?v=2">
+<meta property="og:image" content="https://difanj0713.github.io/spin-universe/assets/img/social/spin.png?v=3">
 <meta property="og:image:type" content="image/png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
 <meta property="og:image:alt" content="SPIN integrates salient internal neurons across layers and improves all 24 text-classification comparisons.">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://difanj0713.github.io/spin-universe/assets/img/social/spin.png?v=2">
+<meta name="twitter:image" content="https://difanj0713.github.io/spin-universe/assets/img/social/spin.png?v=3">
 <meta name="twitter:image:alt" content="SPIN integrates salient internal neurons across layers for text classification.">
 <meta name="citation_title" content="SPIN: Sparsifying and Integrating Internal Neurons in Large Language Models for Text Classification">
 <meta name="citation_author" content="Difan Jiao">
@@ -49,7 +49,7 @@
   "mainEntityOfPage": "https://difanj0713.github.io/spin-universe/spin/",
   "isPartOf": { "@id": "https://difanj0713.github.io/spin-universe/#collection" },
   "inLanguage": "en",
-  "image": "https://difanj0713.github.io/spin-universe/assets/img/social/spin.png?v=2",
+  "image": "https://difanj0713.github.io/spin-universe/assets/img/social/spin.png?v=3",
   "sameAs": "https://arxiv.org/abs/2311.15983",
   "datePublished": "2024-08",
   "identifier": {
@@ -63,7 +63,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600&amp;family=Poppins:wght@400;500;600;700&amp;family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&amp;display=swap">
 <link rel="stylesheet" href="../assets/css/site.css?v=14">
-<link rel="stylesheet" href="../assets/css/spin.css?v=6">
+<link rel="stylesheet" href="../assets/css/spin.css?v=10">
 <link rel="icon" href="/spin-universe/assets/img/favicon.svg" type="image/svg+xml">
 <link rel="icon" href="/spin-universe/assets/img/favicon-48x48.png" type="image/png" sizes="48x48">
 </head>
@@ -74,9 +74,10 @@
   <div class="shell spin-nav-inner">
     <a class="spin-nav-home" href="../"><span aria-hidden="true">&larr;</span> SPINiverse</a>
     <div class="spin-nav-links">
-      <a href="#results">Results</a>
+      <a href="#motivation">Motivation</a>
       <a href="#method">Method</a>
-      <a href="#explorer">Explorer</a>
+      <a href="#results">Results</a>
+      <a href="#analysis">Analysis</a>
     </div>
   </div>
 </nav>
@@ -84,10 +85,13 @@
 <header class="spin-masthead" id="top">
   <div class="shell spin-masthead-grid">
     <div class="spin-hero-copy" data-reveal>
-      <p class="eyebrow">Text classification &middot; <b>Findings of ACL 2024</b></p>
       <h1>SPIN</h1>
-      <p class="spin-hero-claim">Use the whole model, not just its last layer.</p>
-      <p class="spin-hero-deck"><b>SPIN</b> (<span class="spin-expansion"><b>SP</b>arsify</span> then <span class="spin-expansion"><b>IN</b>tegrate</span>) selects salient internal neurons layer by layer and integrates them into one representation for text classification.</p>
+      <p class="spin-hero-claim"><span class="spin-title-mark">SP</span>arsifying and <span class="spin-title-mark">IN</span>tegrating internal neurons for text classification</p>
+      <ul class="spin-keywords" aria-label="Keywords">
+        <li>Text classification</li>
+        <li>Large language models</li>
+        <li>Interpretability</li>
+      </ul>
       <p class="spin-authors"><b>Difan Jiao</b>* &middot; <b>Yilun Liu</b>* &middot; Zhenwei Tang &middot; Daniel Matter &middot; J&uuml;rgen Pfeffer &middot; Ashton Anderson</p>
       <div class="links spin-hero-links">
         <a class="chip chip-primary" href="https://arxiv.org/abs/2311.15983">
@@ -107,18 +111,69 @@
     </div>
 
     <div class="spin-hero-art" data-reveal aria-hidden="true">
-      <div class="spin-hero-art-top">
-        <span>frozen language model</span>
-        <span>layer-wise activations</span>
-      </div>
       <div id="spinHeroSignal" class="spin-hero-signal"></div>
-      <div class="spin-hero-readout">
-        <span>cross-layer readout</span>
-        <strong>SPIN</strong>
+    </div>
+
+  </div>
+</header>
+
+<main>
+
+<section class="light spin-section spin-motivation" id="motivation">
+  <div class="shell">
+    <div class="spin-section-head spin-section-head-single" data-reveal>
+      <h2>Motivation</h2>
+    </div>
+    <p class="spin-motivation-copy" data-reveal>When this study began in 2023, competitive text classifiers were typically task-specific encoders or language models fine-tuned separately for each task. We ask whether a frozen pretrained language model already contains useful classification information in its intermediate representations, and whether selecting and combining that information across layers is more effective than reading only the final hidden state.</p>
+  </div>
+</section>
+
+<section class="spin-section spin-method" id="method">
+  <div class="shell">
+    <div class="spin-section-head spin-section-head-dark spin-section-head-single" data-reveal>
+      <h2>Method: sparse neuron selection and cross-layer integration</h2>
+    </div>
+
+    <div class="spin-readout-demo" data-reveal>
+      <div class="spin-mode-switch" role="group" aria-label="Choose a classification representation">
+        <button type="button" data-readout-mode="base" aria-pressed="false">Final layer only</button>
+        <button type="button" data-readout-mode="spin" class="is-active" aria-pressed="true">SPIN</button>
+      </div>
+      <div class="spin-readout-board">
+        <svg id="spinReadoutSvg" viewBox="0 0 900 470" role="img" aria-labelledby="readoutTitle readoutDesc">
+          <title id="readoutTitle">Interactive comparison of a final-layer classifier and SPIN</title>
+          <desc id="readoutDesc">The final-layer baseline pools the terminal hidden state. SPIN selects salient neurons within each layer and concatenates their activations into a cross-layer representation.</desc>
+          <text class="spin-svg-fallback" x="450" y="235" text-anchor="middle">SPIN integrates selected neuron activations across the frozen model&rsquo;s layers.</text>
+        </svg>
       </div>
     </div>
 
-    <div class="spin-proof-rail" aria-label="SPIN headline results">
+    <div class="spin-method-steps">
+      <article data-reveal>
+        <h3>Layer-wise sparse probing</h3>
+        <p>SPIN fits an L1-regularized logistic-regression probe to each layer&rsquo;s pooled activations.</p>
+      </article>
+      <article data-reveal>
+        <h3>Salient neuron selection</h3>
+        <p>Neurons are ranked by absolute probe-weight magnitude, and the smallest set that reaches the cumulative contribution threshold is retained.</p>
+      </article>
+      <article data-reveal>
+        <h3>Cross-layer integration</h3>
+        <p>The selected activations are concatenated, and a final classification head is trained on the resulting representation.</p>
+      </article>
+    </div>
+
+  </div>
+</section>
+
+<section class="light spin-section spin-results" id="results">
+  <div class="shell">
+    <div class="spin-section-head" data-reveal>
+      <h2>Experiments and results</h2>
+      <p>We evaluate eight pretrained language models on IMDb, SST-2, and EDOS. For each model and dataset, SPIN is compared with a classification head trained on the final hidden state of the same frozen backbone.</p>
+    </div>
+
+    <div class="spin-proof-rail" aria-label="Summary of SPIN results">
       <div class="spin-proof" data-reveal>
         <strong>24 / 24</strong>
         <span>model &times; dataset improved</span>
@@ -136,24 +191,9 @@
         <span>inference speedup</span>
       </div>
     </div>
-  </div>
-</header>
-
-<main>
-
-<section class="light spin-section spin-results" id="results">
-  <div class="shell">
-    <p class="section-label">Benchmark results</p>
-    <div class="spin-section-head" data-reveal>
-      <h2>SPIN improved all 24 model&ndash;dataset comparisons.</h2>
-      <p>The experiments cover eight pretrained language models and three datasets. Each slope compares a classifier on the terminal hidden state with SPIN&rsquo;s cross-layer representation.</p>
-    </div>
 
     <div class="spin-result-card" data-reveal>
       <div class="spin-chart-head">
-        <div>
-          <p class="spin-chart-kicker">IMDb, SST-2, and EDOS</p>
-        </div>
         <div class="spin-chart-legend" aria-hidden="true">
           <span><i class="legend-base"></i> Final layer</span>
           <span><i class="legend-spin"></i> SPIN</span>
@@ -164,15 +204,14 @@
         <svg id="spinResultChart" class="spin-result-chart" viewBox="0 0 1080 470" role="group" aria-labelledby="resultChartTitle resultChartDesc">
           <title id="resultChartTitle">SPIN versus final-layer classification across 24 comparisons</title>
           <desc id="resultChartDesc">Three paired slope charts compare terminal-state classifiers with SPIN on IMDb, SST-2, and EDOS. SPIN improves all eight models on each dataset.</desc>
-          <text class="spin-svg-fallback" data-result-fallback x="540" y="235" text-anchor="middle">SPIN improved all 24 measured comparisons; the table below reports every value.</text>
+          <text class="spin-svg-fallback" data-result-fallback x="540" y="235" text-anchor="middle">Final-layer and SPIN results across eight models and three datasets.</text>
         </svg>
         <div id="spinChartTooltip" class="spin-chart-tooltip" role="status" aria-live="polite"></div>
       </div>
     </div>
 
     <div class="spin-result-story" data-reveal>
-      <h3>Context and comparison.</h3>
-      <p>In 2023, competitive text classification still commonly relied on task-specific encoders or separately fine-tuned models. SPIN asked whether a frozen general-purpose model&rsquo;s intermediate representations could close that gap. Its sparse cross-layer representation beat the terminal-state classifier in every pretrained comparison; the strongest result reached 99.91% of the published fine-tuned state of the art on IMDb, and applying SPIN after fine-tuning produced further gains.</p>
+      <p>SPIN&rsquo;s sparse cross-layer representation outperformed the terminal-state classifier in every pretrained comparison. The strongest result reached 99.91% of the published fine-tuned state of the art on IMDb, and applying SPIN after fine-tuning produced further gains.</p>
     </div>
 
     <details class="spin-raw-results">
@@ -199,76 +238,28 @@
   </div>
 </section>
 
-<section class="spin-section spin-method" id="method">
+<section class="light spin-section spin-explorer" id="analysis">
   <div class="shell">
-    <p class="section-label">Method</p>
-    <div class="spin-section-head spin-section-head-dark spin-section-head-single" data-reveal>
-      <h2>SPIN sparsifies salient neurons<br>and integrates them across layers.</h2>
-    </div>
-
-    <div class="spin-readout-demo" data-reveal>
-      <div class="spin-mode-switch" role="group" aria-label="Choose a model readout">
-        <button type="button" data-readout-mode="base" aria-pressed="false">Final layer only</button>
-        <button type="button" data-readout-mode="spin" class="is-active" aria-pressed="true">SPIN</button>
-      </div>
-      <div class="spin-readout-board">
-        <svg id="spinReadoutSvg" viewBox="0 0 900 470" role="img" aria-labelledby="readoutTitle readoutDesc">
-          <title id="readoutTitle">Interactive comparison of a final-layer classifier and SPIN</title>
-          <desc id="readoutDesc">The final-layer baseline pools the terminal hidden state. SPIN selects salient neurons within each layer and concatenates their activations into a cross-layer representation.</desc>
-          <text class="spin-svg-fallback" x="450" y="235" text-anchor="middle">SPIN integrates selected neuron activations across the frozen model&rsquo;s layers.</text>
-        </svg>
-      </div>
-      <div class="spin-readout-caption">
-        <p id="spinReadoutCaption"><b>Layer-wise probes identify salient neurons.</b> SPIN concatenates their activations and trains a classifier on the resulting cross-layer representation.</p>
-      </div>
-    </div>
-
-    <div class="spin-method-steps">
-      <article data-reveal>
-        <span>01</span>
-        <h3>Layer-wise sparse probing</h3>
-        <p>Fit an L1-regularized logistic-regression probe to each layer&rsquo;s pooled activations.</p>
-      </article>
-      <article data-reveal>
-        <span>02</span>
-        <h3>Salient neuron selection</h3>
-        <p>Rank neurons by absolute probe-weight magnitude and retain them up to the cumulative contribution threshold.</p>
-      </article>
-      <article data-reveal>
-        <span>03</span>
-        <h3>Cross-layer integration</h3>
-        <p>Concatenate the selected activations and train the final classification head.</p>
-      </article>
-    </div>
-
-  </div>
-</section>
-
-<section class="light spin-section spin-explorer" id="explorer">
-  <div class="shell">
-    <p class="section-label">Design choices</p>
-    <div class="spin-section-head" data-reveal>
-      <h2>Sparsification, pooling, and early exit.</h2>
-      <p>The explorer shows the cumulative-weight threshold &eta;, the three pooling strategies evaluated in the paper, and IMDb accuracy at different exit depths.</p>
+    <div class="spin-section-head spin-section-head-single" data-reveal>
+      <h2>What, which, and where?</h2>
     </div>
 
     <div class="spin-www" data-reveal>
-      <div class="spin-www-tabs" role="tablist" aria-label="SPIN design choices" hidden>
-        <button type="button" id="www-tab-what" role="tab" aria-selected="true" aria-controls="www-what" data-www-tab="what"><b>Sparsify</b><span>neuron selection</span></button>
-        <button type="button" id="www-tab-which" role="tab" aria-selected="false" aria-controls="www-which" data-www-tab="which"><b>Pool</b><span>token aggregation</span></button>
-        <button type="button" id="www-tab-where" role="tab" aria-selected="false" aria-controls="www-where" data-www-tab="where"><b>Exit</b><span>model depth</span></button>
+      <div class="spin-www-tabs" role="tablist" aria-label="What, which, and where analysis" hidden>
+        <button type="button" id="www-tab-what" role="tab" aria-selected="true" aria-controls="www-what" data-www-tab="what"><b>What</b></button>
+        <button type="button" id="www-tab-which" role="tab" aria-selected="false" aria-controls="www-which" data-www-tab="which"><b>Which</b></button>
+        <button type="button" id="www-tab-where" role="tab" aria-selected="false" aria-controls="www-where" data-www-tab="where"><b>Where</b></button>
       </div>
 
       <div class="spin-www-panels">
         <section class="spin-www-panel" id="www-what" role="tabpanel" aria-labelledby="www-tab-what" data-www-panel="what">
           <div class="spin-www-copy">
-            <p class="spin-www-step">01 &middot; Sparsification</p>
-            <h3>Neuron selection by cumulative probe weight</h3>
+            <h3>What does sparsification retain?</h3>
             <p>&eta; sets the cumulative share of normalized absolute probe-weight mass to retain. SPIN ranks neurons by this importance score and selects the smallest set that reaches the threshold.</p>
             <label class="spin-range-label" for="spinEta"><span>Cumulative importance threshold</span><output id="spinEtaValue">&eta; = 0.4</output></label>
             <input id="spinEta" class="spin-range" type="range" min="0" max="8" value="4" step="1" aria-describedby="spinEtaFact">
             <div class="spin-range-scale" aria-hidden="true"><span>&eta; &asymp; 0</span><span>&eta; = 0.8</span></div>
-            <p class="spin-fact" id="spinEtaFact">At &eta; = 0.4, the paper selects about 3% of neurons per layer. At &eta; = 0.8, selection remains below one quarter of the layer.</p>
+            <p class="spin-fact" id="spinEtaFact">At &eta; = 0.4, SPIN selects about 3% of neurons per layer. At &eta; = 0.8, selection remains below one quarter of the layer.</p>
           </div>
           <div class="spin-neuron-demo" aria-label="Illustration of selected features">
             <div class="spin-neuron-grid" id="spinNeuronGrid"></div>
@@ -278,8 +269,7 @@
 
         <section class="spin-www-panel" id="www-which" role="tabpanel" aria-labelledby="www-tab-which" data-www-panel="which">
           <div class="spin-www-copy">
-            <p class="spin-www-step">02 &middot; Pooling</p>
-            <h3>Sequence-level pooling</h3>
+            <h3>Which pooling function represents the sequence?</h3>
             <p>The paper compares a single-token embedding, feature-wise max pooling, and mean pooling over the sequence.</p>
             <div class="spin-pool-switch" role="group" aria-label="Choose a pooling view">
               <button type="button" data-pool="single" aria-pressed="false">One token</button>
@@ -297,9 +287,8 @@
 
         <section class="spin-www-panel" id="www-where" role="tabpanel" aria-labelledby="www-tab-where" data-www-panel="where">
           <div class="spin-www-copy">
-            <p class="spin-www-step">03 &middot; Early exit</p>
-            <h3>Readout performance across exit depths</h3>
-            <p>The selector reports the paper&rsquo;s IMDb accuracy at five fractions of model depth for each backbone.</p>
+            <h3>Where can layer integration stop?</h3>
+            <p>The plot reports IMDb accuracy after integrating the first 20%, 40%, 60%, 80%, or 100% of layers for each backbone.</p>
             <label class="spin-select-label" for="spinExitModel">Model</label>
             <select id="spinExitModel" class="spin-select">
               <option>DistilBERT</option><option>RoBERTa</option><option>GPT2</option><option>GPT2-M</option><option selected>GPT2-XL</option><option>Flan-T5-S</option><option>Flan-T5</option><option>Flan-T5-XL</option>
@@ -326,8 +315,7 @@
 <section class="spin-section spin-token-story">
   <div class="shell spin-token-grid">
     <div data-reveal>
-      <p class="section-label">Post-hoc analysis</p>
-      <h2>A sentence-level SPIN classifier can be evaluated token by token.</h2>
+      <h2>Token-level attribution</h2>
       <p>The classifier trained on complete reviews is applied at each token position to visualize how the cumulative sentiment decision changes across the sequence.</p>
     </div>
     <div class="spin-sentiment" data-reveal>
@@ -345,13 +333,13 @@
         <span class="phrase-bridge">and still</span>
         <span class="spin-phrase phrase-positive"><span class="spin-sr-only">Positive signal: </span>a monument in movie history</span>
       </div>
-      <p class="spin-sentiment-note">Qualitative reconstruction of the sentiment reversals discussed in Appendix C.4; color shows direction, not a synthetic score.</p>
+      <p class="spin-sentiment-note">Color shows direction, not a synthetic score.</p>
     </div>
   </div>
 </section>
 
 </main>
 
-<script type="module" src="../assets/js/spin.js?v=2"></script>
+<script type="module" src="../assets/js/spin.js?v=8"></script>
 </body>
 </html>
