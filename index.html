@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Difan Jiao - Personal Academic Website</title>
-    <link rel="stylesheet" href="css/style.css?v=2">
+    <link rel="stylesheet" href="css/style.css?v=3">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
 </head>
 <body>
@@ -38,8 +38,15 @@
                 <section id="welcome">
                     <h2>Welcome!</h2>
                     <p>
-                        Hi everyone! I'm a first-year PhD student at the Department of Computer Science of University of Toronto, where I am working with Prof. <a href="https://www.cs.toronto.edu/~ashton/">Ashton Anderson</a>. My research focus on the post training, safety, and mechanistic interpretability of Large Language Models and AI systems. In my daily life, I am deeply enthusiastic in the sports of Go, basketball, and tennis. Looking forward to connecting with you!
+                        Hi everyone! I'm a second-year PhD student in the Department of Computer Science at the University of Toronto, where I work with Prof. <a href="https://www.cs.toronto.edu/~ashton/">Ashton Anderson</a>. My research runs on two tracks: reading LLMs' internal representations to understand what they encode, and reinforcement learning with verifiable rewards to improve how they behave. Outside research, I enjoy Go, basketball, and tennis. Looking forward to connecting with you!
                     </p>
+                </section>
+
+                <section id="news">
+                    <h2>News <span aria-hidden="true">🎉</span></h2>
+                    <ul class="news-list">
+                        <li>We are excited to share <a href="spin-universe/" class="spiniverse-news-link">SPINiverse</a>, our research program on reading signals inside AI models across multiple tasks.</li>
+                    </ul>
                 </section>
 
                 <section id="publications">
@@ -92,6 +99,31 @@
                                 <div class="abstract-full" id="thinktwice-abstract" style="display: none;">
                                     We introduce ThinkTwice, a simple two-phase framework that jointly optimizes LLMs to solve reasoning problems and refine the answers, based on Group Relative Policy Optimization (GRPO). In each pair of training steps, ThinkTwice first optimizes the model on solving reasoning problems, then optimizes it on refining its own solutions to the same problems, using the same binary correctness reward in both phases without correctness signals or critique annotations. Across five mathematical reasoning benchmarks and two model families including Qwen3-4B and Olmo3-7B, ThinkTwice substantially improves both reasoning and refinement performance over competitive online policy optimization baselines. Specifically, on Qwen3-4B, ThinkTwice outperforms GRPO on AIME by 5 percentage points before refinement and by 11.5 points after one self-refinement step, measured by pass@4. Analysis of the training dynamics of ThinkTwice reveals an implicit rectify-then-fortify curriculum: refinement predominantly corrects errors early in training and naturally shifts toward preserving already-correct solutions as the model improves, yielding a more rectified reward signal. Our work establishes joint training of reasoning and self-refinement as a principled and effective methodology for RLVR.
                                     <a href="#" class="read-less" data-publication-id="thinktwice">Read less</a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="publication">
+                        <div class="publication-wrapper">
+                            <div class="publication-poster">
+                                <a href="https://arxiv.org/pdf/2606.28166" target="_blank" class="paper-thumbnail-link">
+                                    <img src="images/tandem-thumbnail.png" alt="Tandem Reinforcement Learning paper thumbnail" class="paper-thumbnail">
+                                </a>
+                            </div>
+                            <div class="publication-info">
+                                <h3>[Under Review] <a href="https://arxiv.org/pdf/2606.28166">Tandem Reinforcement Learning with Verifiable Rewards</a></h3>
+                                <p class="authors"><strong>Difan Jiao</strong>, Raghav Singhal, Robert West, Ashton Anderson</p>
+                                <p class="paper-links">
+                                    <a href="https://arxiv.org/abs/2606.28166" target="_blank" class="paper-link"><i class="fas fa-file-pdf"></i> Paper</a>
+                                </p>
+                                <p class="abstract-short">
+                                    Tandem Reinforcement Learning (TRL) trains a stronger model to reason in ways a frozen, weaker model can follow. The two models alternate while generating RLVR rollouts and receive a shared reward...
+                                    <a href="#" class="read-more" data-publication-id="tandem">Read more</a>
+                                </p>
+                                <div class="abstract-full" id="tandem-abstract" style="display: none;">
+                                    Reinforcement learning with verifiable rewards can strengthen a model while shifting its reasoning away from patterns that weaker agents or humans can readily follow. Tandem Reinforcement Learning trains a stronger senior together with a frozen, weaker junior: the models alternate stochastically while producing each rollout, share the final reward, and update only the senior using the standard GRPO objective. On competition mathematics with Qwen3-4B-Instruct, TRL matches vanilla GRPO in the senior model's solo reasoning performance while improving handoff robustness with the junior, reducing distributional drift from the junior, and producing reasoning the junior can use more effectively. These results extend tandem training to modern long-chain RLVR and suggest practical benefits for communication between models of different capabilities and for human-compatible reasoning.
+                                    <a href="#" class="read-less" data-publication-id="tandem">Read less</a>
                                 </div>
                             </div>
                         </div>

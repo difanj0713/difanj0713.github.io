@@ -72,7 +72,7 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600&amp;family=Poppins:wght@400;500;600;700&amp;family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&amp;display=swap">
 <link rel="stylesheet" href="../assets/css/site.css?v=14">
-<link rel="stylesheet" href="../assets/css/miner.css?v=6">
+<link rel="stylesheet" href="../assets/css/miner.css?v=7">
 <link rel="icon" href="/spin-universe/assets/img/favicon.svg" type="image/svg+xml">
 <link rel="icon" href="/spin-universe/assets/img/favicon-48x48.png" type="image/png" sizes="48x48">
 </head>
@@ -166,21 +166,22 @@
             <div aria-hidden="true"><span>more layers</span><span>stricter match</span></div>
           </div>
           <div class="miner-candidate-readout" aria-live="polite">
-            <strong id="minerCandidateRange">Layers 15&ndash;35 <small>(zero-indexed)</small></strong>
-            <span id="minerCandidateCount">21 of 36 layers selected</span>
+            <strong id="minerCandidateRange">Layers 15&ndash;36</strong>
+            <span id="minerCandidateCount">22 of 36 layers selected at CKA = 0.60</span>
           </div>
-          <p class="miner-lab-fact" id="minerCkaFact">The default normalized CKA cutoff is 0.60.</p>
+          <p class="miner-lab-fact" id="minerCkaFact">Markers show the measured fraction of Jina&rsquo;s 2,048 neurons retained at the default cutoff.</p>
         </div>
 
         <div class="miner-layer-stage">
           <div class="miner-depth-labels" aria-hidden="true"><span>early</span><span>model depth</span><span>final</span></div>
-          <div id="minerLayerStack" class="miner-layer-stack" role="img" aria-label="Jina zero-indexed layers 15 through 35 selected at a normalized CKA cutoff of 0.60">
-            <p class="miner-layer-fallback">At the default cutoff, Jina selects layers 15&ndash;35. Earlier candidates are less aligned; the last three selected layers are already aligned with the final retrieval space.</p>
+          <div id="minerLayerStack" class="miner-layer-stack" role="img" aria-label="Jina layers 15 through 36 meet a normalized CKA cutoff of 0.60">
+            <p class="miner-layer-fallback">At the default cutoff, Jina selects layers 15&ndash;36. Earlier candidates are less aligned; the last three selected layers are already aligned with the final retrieval space.</p>
           </div>
           <div class="miner-layer-key" aria-hidden="true">
-            <span><i class="key-off"></i> skip</span>
-            <span><i class="key-align"></i> less aligned</span>
-            <span><i class="key-weight"></i> aligned</span>
+            <span><i class="key-off"></i> below cutoff</span>
+            <span><i class="key-align"></i> NormProbe</span>
+            <span><i class="key-weight"></i> BaseProbe</span>
+            <span class="key-neurons" id="minerNeuronKey"><i></i> neurons retained</span>
           </div>
         </div>
       </div>
@@ -358,6 +359,6 @@
 
 </main>
 
-<script type="module" src="../assets/js/miner.js?v=3"></script>
+<script type="module" src="../assets/js/miner.js?v=4"></script>
 </body>
 </html>

@@ -205,6 +205,15 @@ p {
     color: #333;
 }
 
+.news-list .spiniverse-news-link {
+    color: #1670b7;
+    font-weight: 700;
+}
+
+.news-list .spiniverse-news-link:hover {
+    color: #0d568e;
+}
+
 /* Publications */
 .publication {
     margin-bottom: 30px;

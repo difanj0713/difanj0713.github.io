@@ -181,15 +181,71 @@ function initTradeoffChart() {
   draw();
 }
 
-/* Real layer-selection ranges from the paper's 0–35 analysis figures ------ */
+/* Measured layer similarity and neuron retention ------------------------- */
 
-const layerRanges = {
+const layerData = {
+  Jina: {
+    similarity: [
+      0.005, 0.000, 0.085, 0.112, 0.123, 0.095, 0.139, 0.175, 0.333,
+      0.327, 0.407, 0.529, 0.588, 0.589, 0.611, 0.603, 0.600, 0.599,
+      0.630, 0.624, 0.638, 0.652, 0.650, 0.638, 0.627, 0.639, 0.641,
+      0.763, 0.811, 0.806, 0.837, 0.885, 0.918, 0.967, 0.941, 1.000,
+    ],
+    dimension: 2048,
+    selection: {
+      15: { p: 0.2501, count: 324 }, 16: { p: 0.2571, count: 333 },
+      17: { p: 0.2500, count: 322 }, 18: { p: 0.2609, count: 337 },
+      19: { p: 0.2594, count: 328 }, 20: { p: 0.2998, count: 390 },
+      21: { p: 0.2799, count: 354 }, 22: { p: 0.3737, count: 504 },
+      23: { p: 0.3818, count: 514 }, 24: { p: 0.3961, count: 527 },
+      25: { p: 0.3912, count: 510 }, 26: { p: 0.3986, count: 524 },
+      27: { p: 0.4690, count: 679 }, 28: { p: 0.6142, count: 1012 },
+      29: { p: 0.6553, count: 1112 }, 30: { p: 0.6691, count: 1153 },
+      31: { p: 0.7164, count: 1286 }, 32: { p: 0.8528, count: 1636 },
+      33: { p: 0.9530, count: 1905 }, 34: { p: 0.7662, count: 957 },
+      35: { p: 0.7910, count: 979 }, 36: { p: 1.0000, count: 2048 },
+    },
+  },
+  Eager: {
+    similarity: [
+      0.00, 0.10, 0.13, 0.24, 0.37, 0.34, 0.39, 0.39, 0.47,
+      0.54, 0.54, 0.57, 0.56, 0.54, 0.53, 0.53, 0.54, 0.54,
+      0.61, 0.61, 0.66, 0.70, 0.76, 0.85, 0.93, 0.96, 0.96,
+      1.00, 1.00, 1.00, 0.99, 0.95, 0.92, 0.78, 0.71, 0.62,
+    ],
+    dimension: 2560,
+    selection: {
+      19: { p: 0.2500, count: 592 }, 20: { p: 0.3046, count: 729 },
+      21: { p: 0.3545, count: 853 }, 22: { p: 0.3645, count: 879 },
+      23: { p: 0.4495, count: 1102 }, 24: { p: 0.6123, count: 1527 },
+      25: { p: 0.7036, count: 1772 }, 26: { p: 0.7159, count: 1803 },
+      27: { p: 0.7518, count: 1899 }, 28: { p: 0.7509, count: 1898 },
+      29: { p: 0.7816, count: 1978 }, 30: { p: 0.8944, count: 2278 },
+      31: { p: 0.9110, count: 2323 }, 32: { p: 0.9561, count: 2443 },
+      33: { p: 1.0000, count: 2560 }, 34: { p: 0.7522, count: 1744 },
+      35: { p: 0.8138, count: 1949 }, 36: { p: 0.9048, count: 2289 },
+    },
+  },
+  MoCa: {
+    similarity: [
+      0.00, 0.01, 0.12, 0.20, 0.20, 0.17, 0.18, 0.21, 0.32,
+      0.34, 0.41, 0.51, 0.57, 0.56, 0.64, 0.63, 0.63, 0.63,
+      0.67, 0.66, 0.70, 0.70, 0.71, 0.78, 0.81, 0.79, 0.80,
+      0.92, 0.95, 0.97, 0.99, 1.00, 0.96, 0.83, 0.86, 0.83,
+    ],
+    dimension: null,
+    selection: null,
+  },
+};
+
+/* The paper selects the suffix beginning at the first qualifying layer. */
+const candidateStarts = {
   Jina: [12, 13, 15, 22, 28],
   Eager: [10, 12, 19, 21, 22],
   MoCa: [12, 13, 15, 19, 21],
 };
 
-const ckaCutoffs = ['0.50', '0.55', '0.60', '0.65', '0.70'];
+const ckaCutoffs = [0.50, 0.55, 0.60, 0.65, 0.70];
 
 function initLayerExplorer() {
   const stack = document.getElementById('minerLayerStack');
@@ -200,45 +256,74 @@ function initLayerExplorer() {
   const cutoffValue = document.getElementById('minerCkaValue');
   const range = document.getElementById('minerCandidateRange');
   const count = document.getElementById('minerCandidateCount');
-  if (!stack || !modelControls.length || !modelGroup || !cutoffControl || !cutoff || !cutoffValue || !range || !count) return;
+  const fact = document.getElementById('minerCkaFact');
+  const neuronKey = document.getElementById('minerNeuronKey');
+  if (!stack || !modelControls.length || !modelGroup || !cutoffControl || !cutoff || !cutoffValue || !range || !count || !fact || !neuronKey) return;
 
   let model = 'Jina';
   const layers = [];
   stack.replaceChildren();
 
-  for (let layerIndex = 0; layerIndex < 36; layerIndex += 1) {
-    const layer = document.createElement('span');
-    layer.className = 'miner-layer';
-    layer.dataset.label = `L${layerIndex}`;
-    if ([0, 5, 10, 15, 20, 25, 30, 35].includes(layerIndex)) layer.classList.add('has-label');
-    layer.style.setProperty('--layer-height', `${28 + ((layerIndex * 17 + 11) % 34)}%`);
-    stack.appendChild(layer);
-    layers.push(layer);
+  for (let layerNumber = 1; layerNumber <= 36; layerNumber += 1) {
+    const column = document.createElement('span');
+    const bar = document.createElement('span');
+    const marker = document.createElement('i');
+    column.className = 'miner-layer-column';
+    column.dataset.label = `L${layerNumber}`;
+    if ([1, 6, 12, 18, 24, 30, 36].includes(layerNumber)) column.classList.add('has-label');
+    bar.className = 'miner-layer';
+    marker.className = 'miner-neuron-marker';
+    marker.hidden = true;
+    column.append(bar, marker);
+    stack.appendChild(column);
+    layers.push({ column, bar, marker, layerNumber });
   }
 
   function update() {
     const cutoffIndex = Number(cutoff.value);
-    const start = layerRanges[model][cutoffIndex];
-    const end = 35;
-    const baseStart = 33;
+    const cutoffScore = ckaCutoffs[cutoffIndex];
+    const profile = layerData[model];
+    const start = candidateStarts[model][cutoffIndex];
+    const end = 36;
+    const baseStart = 34;
     const selectedCount = end - start + 1;
 
-    layers.forEach((layer, layerIndex) => {
-      const selected = layerIndex >= start;
-      const base = layerIndex >= baseStart;
-      layer.classList.toggle('is-realign', selected && !base);
-      layer.classList.toggle('is-reweight', selected && base);
-      layer.style.setProperty('--layer-height', selected
-        ? `${48 + ((layerIndex * 19 + cutoffIndex * 7) % 44)}%`
-        : `${23 + ((layerIndex * 11 + 5) % 24)}%`);
+    layers.forEach(({ column, bar, marker, layerNumber }, layerIndex) => {
+      const similarity = profile.similarity[layerIndex];
+      const selected = layerNumber >= start;
+      const base = layerNumber >= baseStart;
+      const retained = profile.selection?.[layerNumber];
+
+      bar.classList.toggle('is-realign', selected && !base);
+      bar.classList.toggle('is-reweight', selected && base);
+      bar.style.setProperty('--layer-height', `${Math.max(1.5, similarity * 100)}%`);
+
+      if (selected && retained) {
+        const retainedShare = retained.count / profile.dimension;
+        column.style.setProperty('--neuron-bottom', `${retainedShare * 100}%`);
+        marker.hidden = false;
+      } else {
+        marker.hidden = true;
+      }
+
+      const stage = selected ? (base ? 'BaseProbe candidate' : 'NormProbe candidate') : 'below cutoff';
+      const retentionDetail = retained
+        ? ` ${retained.count.toLocaleString()} of ${profile.dimension.toLocaleString()} neurons retained (${(retained.count / profile.dimension * 100).toFixed(1)}%; P_l=${retained.p.toFixed(4)}).`
+        : '';
+      column.title = `${model} layer ${layerNumber}: normalized CKA ${similarity.toFixed(3)}; ${stage}.${retentionDetail}`;
     });
 
-    cutoffValue.value = `CKA = ${ckaCutoffs[cutoffIndex]}`;
-    cutoffValue.textContent = `CKA = ${ckaCutoffs[cutoffIndex]}`;
-    range.innerHTML = `Layers ${start}–${end} <small>(zero-indexed)</small>`;
-    count.textContent = `${selectedCount} of 36 layers selected`;
-    stack.setAttribute('aria-label', `${model} zero-indexed layers ${start} through ${end} selected at a CKA cutoff of ${ckaCutoffs[cutoffIndex]}. Layers ${start} through 32 are realigned and layers 33 through 35 are reweighted.`);
-    cutoff.setAttribute('aria-valuetext', `CKA cutoff ${ckaCutoffs[cutoffIndex]}, ${model} zero-indexed layers ${start} through ${end} selected`);
+    const cutoffLabel = cutoffScore.toFixed(2);
+    cutoffValue.value = `CKA = ${cutoffLabel}`;
+    cutoffValue.textContent = `CKA = ${cutoffLabel}`;
+    range.textContent = `Layers ${start}–${end}`;
+    count.textContent = `${selectedCount} of 36 layers selected at CKA = ${cutoffLabel}`;
+    neuronKey.hidden = !profile.selection;
+    fact.textContent = profile.selection
+      ? `Markers show the measured share of ${profile.dimension.toLocaleString()} neurons retained by ${model} at the default cutoff.`
+      : `Bar heights show ${model}'s measured normalized CKA across all 36 layers.`;
+    stack.setAttribute('aria-label', `${model} measured normalized CKA by layer. Layers ${start} through ${end} are selected at a cutoff of ${cutoffLabel}; layers ${start} through 33 use NormProbe and layers 34 through 36 use BaseProbe.`);
+    cutoff.setAttribute('aria-valuetext', `CKA cutoff ${cutoffLabel}; ${model} layers ${start} through ${end} selected`);
 
     modelControls.forEach((control) => {
       const active = control.dataset.backbone === model;

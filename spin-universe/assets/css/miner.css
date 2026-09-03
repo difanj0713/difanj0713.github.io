@@ -2690,3 +2690,84 @@
     width: 7.5rem;
   }
 }
+
+/* Measured MINER layer profiles. Each column spans the full 0–1 scale: the
+   bar records normalized CKA, while the marker records count / hidden size. */
+.miner-layer-stack {
+  align-items: stretch;
+  background-image: linear-gradient(
+    to bottom,
+    transparent calc(50% - 0.5px),
+    rgba(80, 87, 80, 0.1) calc(50% - 0.5px),
+    rgba(80, 87, 80, 0.1) calc(50% + 0.5px),
+    transparent calc(50% + 0.5px)
+  );
+}
+
+.miner-layer-column {
+  --neuron-bottom: 0%;
+  position: relative;
+  min-width: 0;
+  height: 100%;
+  display: flex;
+  align-items: flex-end;
+  cursor: help;
+}
+
+.miner-layer-column::after {
+  content: attr(data-label);
+  position: absolute;
+  top: calc(100% + 0.55rem);
+  left: 50%;
+  transform: translateX(-50%);
+  color: var(--ink-3);
+  font-family: var(--mono);
+  font-size: 0.48rem;
+}
+
+.miner-layer-column:not(.has-label)::after {
+  content: "";
+}
+
+.miner-layer-column .miner-layer {
+  width: 100%;
+  min-height: 0.28rem;
+}
+
+.miner-layer-column .miner-layer::after {
+  content: none;
+}
+
+.miner-layer-column:hover .miner-layer {
+  filter: saturate(1.1) brightness(0.97);
+}
+
+.miner-neuron-marker {
+  position: absolute;
+  z-index: 2;
+  bottom: var(--neuron-bottom);
+  left: 50%;
+  width: 0.43rem;
+  height: 0.43rem;
+  border: 1.5px solid #fff;
+  border-radius: 50%;
+  background: #263631;
+  box-shadow: 0 0 0 1px rgba(38, 54, 49, 0.35);
+  transform: translate(-50%, 50%);
+  transition: bottom 320ms cubic-bezier(.2,.7,.2,1), opacity 180ms ease;
+}
+
+.miner-neuron-marker[hidden] {
+  display: none;
+}
+
+.miner-layer-key .key-neurons i {
+  border: 1px solid #fff;
+  border-radius: 50%;
+  background: #263631;
+  box-shadow: 0 0 0 1px rgba(38, 54, 49, 0.35);
+}
+
+.miner-layer-key [hidden] {
+  display: none;
+}
