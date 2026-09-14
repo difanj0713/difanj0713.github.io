@@ -166,6 +166,7 @@ body > header.layer {
   color: var(--ink);
 }
 
+#overview,
 #phenomenon,
 #stage,
 #papers {
@@ -1578,6 +1579,10 @@ h1.title {
 
 .home-enhanced #stage {
   height: 470vh;
+  /* Chrome's occlusion culling misplaces an opaque section that follows the
+     sticky pin and stops drawing the top of the fixed canvas as the stage
+     scrolls away. Paint containment keeps the canvas visible there. */
+  contain: paint;
 }
 
 .panel {
@@ -2235,5 +2240,494 @@ h1.title {
 
   .paper-hero {
     padding-block: 6.5rem 2.75rem;
+  }
+}
+
+/* ------------------------------------------------------ research overview */
+
+/* Two aligned views of the same layer stack. Crimson marks signals kept
+   across layers; indigo marks the final-layer readout for token generation. */
+
+.overview-section {
+  background: #f4f4f1;
+  border-bottom: 1px solid var(--line-soft);
+}
+
+.overview-demo {
+  scroll-margin-top: 5.5rem;
+  max-width: 64rem;
+  margin-inline: auto;
+  border: 1px solid var(--line);
+  border-radius: 2px;
+  background: #fff;
+}
+
+.overview-comparison + .overview-comparison {
+  border-top: 1px solid var(--line-soft);
+}
+
+.overview-bar {
+  display: grid;
+  grid-template-columns: 10rem minmax(0, 1fr);
+  align-items: start;
+  gap: 0.65rem 1.25rem;
+  padding: 1.2rem clamp(1rem, 2.4vw, 1.6rem) 0;
+}
+
+.overview-name {
+  margin: 0;
+  padding-left: 0.65rem;
+  border-left: 3px solid currentColor;
+  color: var(--crimson);
+  font-family: var(--sans);
+  font-size: 1rem;
+  font-weight: 600;
+  line-height: 1.5;
+  letter-spacing: -0.02em;
+}
+
+[data-overview-mode="llm"] .overview-name {
+  color: var(--indigo);
+}
+
+.overview-caption {
+  margin: 0;
+  color: var(--ink-2);
+  font-size: 1rem;
+  line-height: 1.5;
+  text-wrap: pretty;
+}
+
+.overview-board {
+  padding: 0.35rem clamp(0.75rem, 2.4vw, 1.6rem) 0.6rem;
+}
+
+.overview-svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+
+.overview-board.is-compact {
+  padding-top: 0.725rem;
+  padding-bottom: 0.225rem;
+}
+
+.overview-board.is-compact .overview-svg {
+  max-width: 25rem;
+  margin-inline: auto;
+}
+
+.overview-actions {
+  display: flex;
+  justify-content: flex-end;
+  padding: 0 clamp(1rem, 2.4vw, 1.6rem) 0.65rem;
+}
+
+.overview-actions:has([hidden]) {
+  display: none;
+}
+
+.overview-replay {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  min-height: 2rem;
+  padding: 0.2rem 0.4rem;
+  border: 0;
+  background: transparent;
+  color: var(--ink-3);
+  font-family: var(--sans);
+  font-size: 0.75rem;
+  cursor: pointer;
+}
+
+.overview-replay[hidden] {
+  display: none;
+}
+
+.overview-replay:hover {
+  color: var(--ink);
+}
+
+.overview-replay svg {
+  fill: none;
+  stroke: currentColor;
+  stroke-width: 1.5;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+}
+
+.overview-svg text {
+  font-family: var(--sans);
+}
+
+.overview-svg .overview-fallback {
+  fill: var(--ink-3);
+  font-size: 15px;
+}
+
+.overview-svg .ov-label {
+  fill: var(--ink-3);
+  font-family: var(--mono);
+  font-size: calc(14px * var(--ov-type, 1));
+  font-weight: 600;
+  letter-spacing: 0.12em;
+}
+
+.overview-svg .ov-box {
+  fill: #f8f8f5;
+  stroke: #c5c8c4;
+  stroke-width: 1;
+}
+
+.overview-svg .ov-divider {
+  stroke: #e4e5e1;
+  stroke-width: 1;
+}
+
+.overview-svg .ov-icon path {
+  fill: none;
+  stroke: var(--ink-2);
+  stroke-width: 1.6;
+  stroke-linecap: round;
+  stroke-linejoin: round;
+  vector-effect: non-scaling-stroke;
+}
+
+.overview-svg .ov-in-label {
+  fill: var(--ink);
+  font-size: calc(18px * var(--ov-type, 1));
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.overview-svg .ov-layer {
+  fill: #edede8;
+  stroke: #d0d2ce;
+  stroke-width: 1;
+}
+
+/* A faint blue trace records computation through the earlier LLM layers;
+   the stronger final layer identifies the output readout. */
+.overview-svg .ov-layer.is-computed {
+  fill: #eef1f8;
+  stroke: #cbd3e4;
+}
+
+.overview-svg .ov-neuron.is-computed {
+  fill: #dfe5f0;
+  stroke: #c2ccdf;
+}
+
+.overview-svg .ov-layer.is-final {
+  fill: #e8ebf6;
+  stroke: #8e9bc8;
+}
+
+.overview-svg .ov-neuron {
+  fill: #dfe2df;
+  stroke: #c3c7c4;
+  stroke-width: 1;
+}
+
+.overview-svg .ov-neuron.is-selected {
+  fill: var(--crimson);
+  stroke: #6f2a39;
+}
+
+.overview-svg .ov-flow {
+  fill: none;
+  stroke: #b2b8b8;
+  stroke-width: 1.5;
+}
+
+.overview-svg .ov-wire {
+  fill: none;
+  stroke: rgba(152, 59, 79, 0.5);
+  stroke-width: 1.5;
+}
+
+.overview-svg .ov-node {
+  fill: #f7ebee;
+  stroke: #c4919c;
+  stroke-width: 1;
+}
+
+.overview-svg .ov-out-box {
+  fill: #fcf6f7;
+  stroke: #d8b1ba;
+  stroke-width: 1;
+}
+
+.overview-svg .ov-out-box ~ .ov-divider {
+  stroke: #f0dde1;
+}
+
+.overview-svg .ov-out-caption {
+  fill: var(--ink-3);
+  font-size: calc(15px * var(--ov-type, 1));
+}
+
+.overview-svg .ov-out-value {
+  fill: #7e2e3f;
+  font-size: calc(19px * var(--ov-type, 1));
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+
+.overview-svg .ov-out-score {
+  font-size: calc(23px * var(--ov-type, 1));
+}
+
+.overview-svg .ov-vector-bar,
+.overview-svg .ov-flag {
+  fill: var(--crimson);
+}
+
+.overview-svg .ov-flag-text {
+  fill: #fff;
+  font-size: calc(14px * var(--ov-type, 1));
+  font-weight: 600;
+}
+
+.overview-svg .ov-token rect {
+  fill: #f0f2f9;
+  stroke: #9ea8cf;
+  stroke-width: 1;
+}
+
+.overview-svg .ov-token text {
+  fill: var(--ink);
+  font-family: var(--mono);
+  font-size: calc(17px * var(--ov-type, 1));
+  font-weight: 500;
+}
+
+.overview-svg.is-compact .ov-label {
+  font-size: 12px;
+  letter-spacing: 0.1em;
+}
+
+.overview-svg.is-compact .ov-in-label {
+  font-size: 16px;
+}
+
+.overview-svg.is-compact .ov-out-caption {
+  font-size: 13px;
+}
+
+.overview-svg.is-compact .ov-out-value {
+  font-size: 16px;
+}
+
+.overview-svg.is-compact .ov-out-score {
+  font-size: 19px;
+}
+
+.overview-svg.is-compact .ov-flag-text {
+  font-size: 12px;
+}
+
+.overview-svg.is-compact .ov-token text {
+  font-size: 16px;
+}
+
+/* One quick forward sweep leaves the SPIN signals in place, then all
+   wires converge together. The LLM shows one illustrative forward pass,
+   then reveals its text. Both finish together and hold their final states. */
+
+.overview-svg .ov-layer-sweep {
+  fill: #9ba8ad;
+  stroke: #7e8f97;
+  stroke-width: 1;
+  opacity: 0;
+  pointer-events: none;
+}
+
+[data-overview-mode="llm"] .ov-layer-sweep {
+  fill: #8498cf;
+  stroke: #6077b6;
+}
+
+.overview-svg .ov-neuron.is-readout {
+  fill: #788bbc;
+  stroke: #556b9f;
+}
+
+.overview-svg .ov-llm-flow {
+  stroke: #8e9bc8;
+}
+
+@keyframes ov-forward {
+  0%, 100% { opacity: 0; }
+  28%, 52% { opacity: 0.75; }
+}
+
+@keyframes ov-select {
+  from { fill: #dfe2df; stroke: #c3c7c4; }
+  to { fill: var(--crimson); stroke: #6f2a39; }
+}
+
+@keyframes ov-readout {
+  from { fill: #dfe2df; stroke: #c3c7c4; }
+  to { fill: #788bbc; stroke: #556b9f; }
+}
+
+@keyframes ov-computed-layer {
+  from { fill: #edede8; stroke: #d0d2ce; }
+  to { fill: #eef1f8; stroke: #cbd3e4; }
+}
+
+@keyframes ov-computed-neuron {
+  from { fill: #dfe2df; stroke: #c3c7c4; }
+  to { fill: #dfe5f0; stroke: #c2ccdf; }
+}
+
+@keyframes ov-final-layer {
+  from { fill: #edede8; stroke: #d0d2ce; }
+  to { fill: #e8ebf6; stroke: #8e9bc8; }
+}
+
+@keyframes ov-pop {
+  from { opacity: 0; transform: scale(0.65); }
+  to { opacity: 1; transform: none; }
+}
+
+@keyframes ov-draw {
+  from { stroke-dashoffset: 1; }
+  to { stroke-dashoffset: 0; }
+}
+
+@keyframes ov-fade {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes ov-slide {
+  from { opacity: 0; transform: translateX(-5px); }
+  to { opacity: 1; transform: none; }
+}
+
+.overview-svg.is-animated .ov-layer-sweep {
+  animation: ov-forward var(--span) ease both;
+  animation-delay: var(--at);
+}
+
+.overview-svg.is-animated .ov-neuron.is-selected {
+  animation: ov-select 120ms ease both;
+  animation-delay: var(--at);
+}
+
+.overview-svg.is-animated .ov-neuron.is-readout {
+  animation: ov-readout 120ms ease both;
+  animation-delay: var(--at);
+}
+
+.overview-svg.is-animated .ov-layer.is-computed {
+  animation: ov-computed-layer 160ms ease both;
+  animation-delay: var(--at);
+}
+
+.overview-svg.is-animated .ov-neuron.is-computed {
+  animation: ov-computed-neuron 120ms ease both;
+  animation-delay: var(--at);
+}
+
+.overview-svg.is-animated .ov-layer.is-final {
+  animation: ov-final-layer 140ms ease both;
+  animation-delay: var(--at);
+}
+
+.overview-svg.is-animated .ov-wire {
+  stroke-dasharray: 1;
+  animation: ov-draw 260ms ease-out both;
+  animation-delay: calc(var(--ov-forward-end) + 30ms);
+}
+
+.overview-svg.is-animated .ov-node {
+  transform-box: fill-box;
+  transform-origin: center;
+  animation: ov-pop 120ms ease-out both;
+  animation-delay: calc(var(--ov-forward-end) + 260ms);
+}
+
+.overview-svg.is-animated .ov-wire.ov-wire-out {
+  animation-duration: 100ms;
+  animation-delay: calc(var(--ov-forward-end) + 280ms);
+}
+
+.overview-svg.is-animated .ov-out-box,
+.overview-svg.is-animated .ov-out-divider {
+  animation: ov-fade 140ms ease both;
+  animation-delay: calc(var(--ov-forward-end) + 315ms);
+}
+
+.overview-svg.is-animated .ov-out-row {
+  animation: ov-fade 160ms ease both;
+  animation-delay: calc(var(--ov-forward-end) + 330ms);
+}
+
+.overview-svg.is-animated .ov-llm-flow {
+  stroke-dasharray: 1;
+  animation: ov-draw 70ms ease both;
+  animation-delay: var(--ov-forward-end);
+}
+
+.overview-svg.is-animated .ov-token {
+  animation: ov-slide 140ms ease both;
+  animation-delay: var(--at);
+}
+
+.overview-svg.is-armed * {
+  animation-play-state: paused !important;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .overview-svg * {
+    animation: none !important;
+  }
+
+  .overview-actions {
+    display: none;
+  }
+}
+
+@media (max-width: 720px) {
+  .overview-bar {
+    grid-template-columns: minmax(0, 1fr);
+  }
+
+  .overview-caption {
+    font-size: 0.95rem;
+  }
+}
+
+/* At tablet widths, two compact diagrams fit beside one another and retain
+   a shared input/model/output alignment without a long double-height card. */
+@media (min-width: 720px) and (max-width: 859px) {
+  .overview-demo {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+
+  .overview-comparison {
+    display: grid;
+    grid-template-rows: 1fr auto;
+    min-width: 0;
+  }
+
+  .overview-comparison + .overview-comparison {
+    border-top: 0;
+    border-left: 1px solid var(--line-soft);
+  }
+
+  .overview-bar {
+    grid-template-columns: minmax(0, 1fr);
+    align-content: start;
+  }
+
+  .overview-actions {
+    grid-column: 1 / -1;
   }
 }

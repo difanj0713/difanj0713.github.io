@@ -11,14 +11,14 @@
 <meta property="og:description" content="MINER improves dense visual document retrieval while retaining one vector per page: up to 4.5% relative average nDCG gain and, for Jina on ViDoRe V2, a 42.4× smaller index than late interaction.">
 <meta property="og:url" content="https://difanj0713.github.io/spin-universe/miner/">
 <meta property="og:site_name" content="SPINiverse">
-<meta property="og:image" content="https://difanj0713.github.io/spin-universe/assets/img/social/miner.png?v=4">
+<meta property="og:image" content="https://difanj0713.github.io/spin-universe/assets/img/social/miner.png?v=6">
 <meta property="og:image:type" content="image/png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="MINER uses one dense vector per page and 42.4 times less index storage than Jina late interaction in the ViDoRe V2 comparison.">
+<meta property="og:image:alt" content="MINER: Visual document retrieval from internal model representations, with one dense vector per page.">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://difanj0713.github.io/spin-universe/assets/img/social/miner.png?v=4">
-<meta name="twitter:image:alt" content="MINER: single-vector visual document retrieval from internal representations.">
+<meta name="twitter:image" content="https://difanj0713.github.io/spin-universe/assets/img/social/miner.png?v=6">
+<meta name="twitter:image:alt" content="MINER: Visual document retrieval from internal model representations, with one dense vector per page.">
 <meta name="citation_title" content="MINER: Mining Multimodal Internal Representation for Efficient Retrieval">
 <meta name="citation_author" content="Weien Li">
 <meta name="citation_author" content="Rui Song">
@@ -58,13 +58,18 @@
   "mainEntityOfPage": "https://difanj0713.github.io/spin-universe/miner/",
   "isPartOf": { "@id": "https://difanj0713.github.io/spin-universe/#collection" },
   "inLanguage": "en",
-  "image": "https://difanj0713.github.io/spin-universe/assets/img/social/miner.png?v=4",
+  "image": "https://difanj0713.github.io/spin-universe/assets/img/social/miner.png?v=6",
   "sameAs": "https://arxiv.org/abs/2605.06460",
   "datePublished": "2026-05-07",
   "identifier": {
     "@type": "PropertyValue",
     "propertyID": "arXiv",
     "value": "2605.06460"
+  },
+  "encoding": {
+    "@type": "MediaObject",
+    "encodingFormat": "application/pdf",
+    "contentUrl": "https://arxiv.org/pdf/2605.06460"
   }
 }
 </script>
@@ -73,8 +78,14 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600&amp;family=Poppins:wght@400;500;600;700&amp;family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&amp;display=swap">
 <link rel="stylesheet" href="../assets/css/site.css?v=14">
 <link rel="stylesheet" href="../assets/css/miner.css?v=7">
-<link rel="icon" href="/spin-universe/assets/img/favicon.svg" type="image/svg+xml">
-<link rel="icon" href="/spin-universe/assets/img/favicon-48x48.png" type="image/png" sizes="48x48">
+<meta name="twitter:title" content="MINER · Single-Vector Visual Document Retrieval from Internal Representations">
+<meta name="twitter:description" content="MINER improves dense visual document retrieval while retaining one vector per page: up to 4.5% relative average nDCG gain and, for Jina on ViDoRe V2, a 42.4× smaller index than late interaction.">
+<meta name="theme-color" content="#f7f7f4">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<link rel="icon" href="/spin-universe/assets/img/favicon-48x48.png?v=3" type="image/png" sizes="48x48">
+<link rel="icon" href="/spin-universe/assets/img/favicon-96x96.png?v=3" type="image/png" sizes="96x96">
+<link rel="icon" href="/spin-universe/assets/img/favicon.svg?v=3" type="image/svg+xml" sizes="any">
+<link rel="apple-touch-icon" href="/spin-universe/assets/img/apple-touch-icon.png?v=3" sizes="180x180">
 </head>
 
 <body class="miner-page">
@@ -136,7 +147,7 @@
     <div class="miner-section-head miner-section-head-single" data-reveal>
       <h2>Motivation</h2>
     </div>
-    <p class="miner-motivation-copy" data-reveal>Late-interaction retrievers preserve fine-grained signals but require many vectors per page. Dense retrievers store one vector, but typically rely on the final layer alone. MINER studies whether internal representations can improve that single-vector embedding without changing its dimensionality.</p>
+    <p class="miner-motivation-copy" data-reveal>Late-interaction retrievers preserve fine-grained signals but require many vectors per page. Dense retrievers store one vector and typically rely on the final layer. MINER tests whether internal representations can improve that single-vector embedding without changing its dimensionality.</p>
   </div>
 </section>
 
@@ -275,7 +286,7 @@
     </div>
 
     <div class="miner-result-story" data-reveal>
-      <p>MINER improves all three backbone averages on ViDoRe V2 and eight of nine averages across the complete evaluation. The gains come from better use of the corresponding retriever&rsquo;s internal representations, while the backbone remains frozen and the output remains a single dense vector.</p>
+      <p>MINER improves all three backbone averages on ViDoRe V2 and eight of nine averages across the complete evaluation. These gains reflect better use of each retriever&rsquo;s internal representations. The backbone remains frozen, and the output remains a single dense vector.</p>
     </div>
 
     <details class="miner-raw-results">
@@ -323,7 +334,7 @@
           <desc id="tradeoffDesc">MINER improves average nDCG at the same 22.24 megabyte index size as dense Jina. Late interaction scores higher but uses a 943.38 megabyte index.</desc>
           <text class="miner-svg-fallback" data-tradeoff-fallback x="530" y="220" text-anchor="middle">Dense Jina: 53.3 at 22.24 MB. MINER: 55.2 at 22.24 MB. Late interaction: 57.6 at 943.38 MB.</text>
         </svg>
-        <p id="minerTradeoffStatus" class="miner-sr-only" aria-live="polite">Showing retrieval quality against index size.</p>
+        <p id="minerTradeoffStatus" class="miner-sr-only" aria-live="polite">Retrieval quality versus index size.</p>
       </div>
       <div class="miner-chart-foot">
         <span><i class="legend-dense"></i> Dense Jina</span>

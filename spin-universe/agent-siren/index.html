@@ -11,14 +11,14 @@
 <meta property="og:description" content="Agent-SIREN combines salient dimensions across a frozen LLM's layers to detect harmful content and unsafe tool use in agent trajectories.">
 <meta property="og:url" content="https://difanj0713.github.io/spin-universe/agent-siren/">
 <meta property="og:site_name" content="SPINiverse">
-<meta property="og:image" content="https://difanj0713.github.io/spin-universe/assets/img/social/agent-siren.png?v=5">
+<meta property="og:image" content="https://difanj0713.github.io/spin-universe/assets/img/social/agent-siren.png?v=7">
 <meta property="og:image:type" content="image/png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="Agent-SIREN detects harmful agent trajectories from sparse cross-layer internal representations.">
+<meta property="og:image:alt" content="Agent-SIREN: Detecting harmful agent trajectories from internal representations.">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://difanj0713.github.io/spin-universe/assets/img/social/agent-siren.png?v=5">
-<meta name="twitter:image:alt" content="Agent-SIREN: detecting harmful agent trajectories from LLM internal representations.">
+<meta name="twitter:image" content="https://difanj0713.github.io/spin-universe/assets/img/social/agent-siren.png?v=7">
+<meta name="twitter:image:alt" content="Agent-SIREN: Detecting harmful agent trajectories from internal representations.">
 <meta name="citation_title" content="Detecting Harmful Agent Trajectories from LLM Internal Representations">
 <meta name="citation_author" content="Difan Jiao">
 <meta name="citation_author" content="Ashton Anderson">
@@ -37,7 +37,7 @@
   "mainEntityOfPage": "https://difanj0713.github.io/spin-universe/agent-siren/",
   "isPartOf": { "@id": "https://difanj0713.github.io/spin-universe/#collection" },
   "inLanguage": "en",
-  "image": "https://difanj0713.github.io/spin-universe/assets/img/social/agent-siren.png?v=5"
+  "image": "https://difanj0713.github.io/spin-universe/assets/img/social/agent-siren.png?v=7"
 }
 </script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -45,8 +45,14 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600&amp;family=Poppins:wght@400;500;600;700&amp;family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&amp;display=swap">
 <link rel="stylesheet" href="../assets/css/site.css?v=14">
 <link rel="stylesheet" href="../assets/css/agent-siren.css?v=7">
-<link rel="icon" href="/spin-universe/assets/img/favicon.svg" type="image/svg+xml">
-<link rel="icon" href="/spin-universe/assets/img/favicon-48x48.png" type="image/png" sizes="48x48">
+<meta name="twitter:title" content="Agent-SIREN · Detecting Harmful Agent Trajectories from Internal Representations">
+<meta name="twitter:description" content="Agent-SIREN combines salient dimensions across a frozen LLM&#x27;s layers to detect harmful content and unsafe tool use in agent trajectories.">
+<meta name="theme-color" content="#f7f7f4">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<link rel="icon" href="/spin-universe/assets/img/favicon-48x48.png?v=3" type="image/png" sizes="48x48">
+<link rel="icon" href="/spin-universe/assets/img/favicon-96x96.png?v=3" type="image/png" sizes="96x96">
+<link rel="icon" href="/spin-universe/assets/img/favicon.svg?v=3" type="image/svg+xml" sizes="any">
+<link rel="apple-touch-icon" href="/spin-universe/assets/img/apple-touch-icon.png?v=3" sizes="180x180">
 </head>
 
 <body class="agent-page">
@@ -158,7 +164,7 @@
   <div class="shell">
     <div class="agent-section-head agent-section-head-dark" data-reveal>
       <h2>Mechanistic findings</h2>
-      <p>Matched trajectory pairs isolate one form of risk at a time and compare what can be read inside a guard with what its generated verdict expresses.</p>
+      <p>Matched trajectory pairs isolate one risk at a time, comparing signals in the guard&rsquo;s internal states with the verdict it generates.</p>
     </div>
 
     <div class="agent-findings-grid" data-reveal>
@@ -327,7 +333,7 @@
   <div class="shell">
     <div class="agent-section-head agent-section-head-dark" data-reveal>
       <h2>Training and inference efficiency</h2>
-      <p>Agent-SIREN fits layer-wise probes and a small classification head without backpropagating through the backbone, and produces a verdict without token decoding.</p>
+      <p>Agent-SIREN fits layer-wise probes and a small classification head without backpropagating through the backbone. It produces a verdict without token decoding.</p>
     </div>
 
     <div class="agent-deployment-rail" data-reveal aria-label="Agent-SIREN efficiency measurements on Qwen3-4B">

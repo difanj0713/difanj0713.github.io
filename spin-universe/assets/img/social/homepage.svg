@@ -1,107 +1,68 @@
 <svg xmlns="http://www.w3.org/2000/svg" width="1200" height="630" viewBox="0 0 1200 630" role="img" aria-labelledby="title desc">
   <title id="title">SPINiverse</title>
-  <desc id="desc">SPINiverse is a research collection on internal model states for classification, safety, and retrieval.</desc>
+  <desc id="desc">SPINiverse · Research on Harnessing Model Internal States for classification, safety, and retrieval.</desc>
   <defs>
-    <radialGradient id="indigoGlow" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(985 248) rotate(132) scale(390 420)">
-      <stop stop-color="#7d8dff" stop-opacity=".22"/>
-      <stop offset="1" stop-color="#7d8dff" stop-opacity="0"/>
-    </radialGradient>
-    <radialGradient id="crimsonGlow" cx="0" cy="0" r="1" gradientUnits="userSpaceOnUse" gradientTransform="translate(880 575) rotate(-64) scale(280 420)">
-      <stop stop-color="#e0455f" stop-opacity=".15"/>
-      <stop offset="1" stop-color="#e0455f" stop-opacity="0"/>
-    </radialGradient>
-    <linearGradient id="signal" x1="850" y1="170" x2="1070" y2="475" gradientUnits="userSpaceOnUse">
-      <stop stop-color="#7d8dff"/>
-      <stop offset=".58" stop-color="#a774b0"/>
-      <stop offset="1" stop-color="#e0455f"/>
-    </linearGradient>
-    <filter id="softGlow" x="-100%" y="-100%" width="300%" height="300%">
-      <feGaussianBlur stdDeviation="7" result="blur"/>
-      <feMerge><feMergeNode in="blur"/><feMergeNode in="SourceGraphic"/></feMerge>
-    </filter>
-    <pattern id="grid" width="48" height="48" patternUnits="userSpaceOnUse">
-      <path d="M48 0H0V48" fill="none" stroke="#eef0f7" stroke-opacity=".035"/>
-    </pattern>
     <style>
-      @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600&amp;family=Overpass:wght@400;500;600&amp;family=Platypi:ital,wght@0,600;0,700;0,800;1,600&amp;display=swap');
-      .display { font-family: 'Platypi', Georgia, serif; }
-      .sans { font-family: 'Overpass', Arial, sans-serif; }
+      @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600&amp;family=Poppins:wght@500;600;700&amp;family=Source+Serif+4:opsz,wght@8..60,400;8..60,600&amp;display=swap');
+      .sans { font-family: 'Poppins', Arial, sans-serif; }
+      .serif { font-family: 'Source Serif 4', Georgia, serif; }
       .mono { font-family: 'IBM Plex Mono', monospace; }
     </style>
   </defs>
-
-  <rect width="1200" height="630" fill="#05070d"/>
-  <rect width="1200" height="630" fill="url(#indigoGlow)"/>
-  <rect width="1200" height="630" fill="url(#crimsonGlow)"/>
-  <rect x="760" width="440" height="630" fill="url(#grid)"/>
-  <rect x="28.5" y="28.5" width="1143" height="573" rx="8" fill="none" stroke="#eef0f7" stroke-opacity=".09"/>
-
-  <g transform="translate(72 65)">
-    <g aria-hidden="true">
-      <rect y="1" width="26" height="4" rx="2" fill="#e0455f"/>
-      <rect y="9" width="26" height="4" rx="2" fill="#7d8dff"/>
-      <rect y="17" width="17" height="4" rx="2" fill="#7d8dff" opacity=".58"/>
-      <rect y="25" width="9" height="4" rx="2" fill="#a9b1c7" opacity=".42"/>
-    </g>
-    <text x="43" y="17" class="mono" fill="#eef0f7" font-size="17" font-weight="600" letter-spacing="2.4">SPINiverse</text>
-    <text x="43" y="37" class="mono" fill="#6f7893" font-size="10.5" font-weight="500" letter-spacing="2.1">INTERNAL MODEL STATES · FOUR RESEARCH PROJECTS</text>
-  </g>
-
-  <g>
-    <text x="72" y="204" class="display" fill="#eef0f7" font-size="51" font-weight="700" letter-spacing="-2.2">
-      <tspan x="72" dy="0">Model mind-reading</tspan>
-    </text>
-    <line x1="72" y1="416" x2="116" y2="416" stroke="#e0455f" stroke-width="3"/>
-    <text x="136" y="410" class="sans" fill="#a9b1c7" font-size="20" font-weight="500">
-      <tspan x="136" dy="0">Research on internal model states for</tspan>
-      <tspan x="136" dy="29">classification, safety, and retrieval.</tspan>
-    </text>
-  </g>
-
+  <rect width="1200" height="630" fill="#f7f7f4"/>
+  <rect x="24.5" y="24.5" width="1151" height="581" fill="none" stroke="#d9d9d2"/>
+  <g transform="translate(64 57) scale(1.1)"><rect width="32" height="32" rx="5" fill="#f7f7f4"/>
+  <path d="M6 7v18M13 7v18M20 7v18" stroke="#a5afc8" stroke-width="3" stroke-linecap="round"/>
+  <path d="M6 11L26 16M13 21L26 16M20 11L26 16" fill="none" stroke="#983b4f" stroke-width="1.5"/>
+  <g fill="#983b4f"><circle cx="6" cy="11" r="2.5"/><circle cx="13" cy="21" r="2.5"/><circle cx="20" cy="11" r="2.5"/><circle cx="26" cy="16" r="2.8"/></g></g>
+  <text x="114" y="82" class="sans" fill="#983b4f" font-size="21" font-weight="600">SPINiverse</text>
+  <text x="1136" y="80" text-anchor="end" class="mono" fill="#666865" font-size="14" font-weight="500" letter-spacing="1.4">RESEARCH COLLECTION</text>
+  <path d="M64 115H1136" stroke="#d9d9d2"/>
+  <text x="60" y="232" class="sans" fill="#353535" font-size="78" font-weight="600" letter-spacing="-3">SPINiverse</text>
+  <text x="64" y="308" class="serif" fill="#353535" font-size="40">Research on Harnessing</text>
+  <text x="64" y="356" class="serif" fill="#353535" font-size="40">Model Internal States</text>
+  <text x="64" y="426" class="serif" fill="#585858" font-size="23">For classification, safety, and retrieval.</text>
   <g aria-hidden="true">
-    <text x="842" y="112" class="mono" fill="#6f7893" font-size="10" font-weight="600" letter-spacing="1.7">FROZEN MODEL</text>
-    <text x="1115" y="112" text-anchor="end" class="mono" fill="#6f7893" font-size="10" font-weight="600" letter-spacing="1.7">INTERNAL SIGNALS</text>
-
-    <g fill="#0a0e18" stroke="#eef0f7" stroke-opacity=".13">
-      <path d="M845 151H1088L1116 167 873 183Z"/>
-      <path d="M845 199H1088L1116 215 873 231Z"/>
-      <path d="M845 247H1088L1116 263 873 279Z"/>
-      <path d="M845 295H1088L1116 311 873 327Z"/>
-      <path d="M845 343H1088L1116 359 873 375Z"/>
-      <path d="M845 391H1088L1116 407 873 423Z"/>
-    </g>
-    <g fill="#7d8dff" opacity=".68">
-      <circle cx="890" cy="168" r="4"/><circle cx="974" cy="168" r="3"/><circle cx="1045" cy="168" r="5"/>
-      <circle cx="920" cy="216" r="3"/><circle cx="1016" cy="216" r="5"/>
-      <circle cx="885" cy="264" r="3"/><circle cx="960" cy="264" r="5"/><circle cx="1072" cy="264" r="3"/>
-      <circle cx="916" cy="312" r="5"/><circle cx="1037" cy="312" r="3"/>
-      <circle cx="873" cy="360" r="3"/><circle cx="982" cy="360" r="5"/><circle cx="1060" cy="360" r="3"/>
-      <circle cx="937" cy="408" r="3"/><circle cx="1021" cy="408" r="5"/>
-    </g>
-    <g fill="#e0455f" filter="url(#softGlow)">
-      <circle cx="1045" cy="168" r="4"/>
-      <circle cx="1016" cy="216" r="4"/>
-      <circle cx="960" cy="264" r="4"/>
-      <circle cx="916" cy="312" r="4"/>
-      <circle cx="982" cy="360" r="4"/>
-      <circle cx="1021" cy="408" r="4"/>
-    </g>
-    <path d="M1045 168C1042 212 1011 228 960 264S910 298 916 312 960 345 982 360 1004 390 1021 408" fill="none" stroke="url(#signal)" stroke-width="2.5" stroke-linecap="round" stroke-dasharray="3 7"/>
-    <path d="M918 448H1073" stroke="#eef0f7" stroke-opacity=".13"/>
-    <path d="M995 423V467" stroke="url(#signal)" stroke-width="2"/>
-    <circle cx="995" cy="476" r="6" fill="#e0455f" filter="url(#softGlow)"/>
-    <rect x="920" y="499" width="150" height="38" rx="19" fill="#eef0f7"/>
-    <text x="995" y="523" text-anchor="middle" class="mono" fill="#05070d" font-size="11" font-weight="600" letter-spacing="1.5">BETTER DECISION</text>
-  </g>
-
-  <g transform="translate(72 560)">
-    <text class="mono" fill="#6f7893" font-size="10.5" font-weight="500" letter-spacing="1.6">CLASSIFICATION</text>
-    <circle cx="126" cy="-3.5" r="2" fill="#e0455f"/>
-    <text x="142" class="mono" fill="#6f7893" font-size="10.5" font-weight="500" letter-spacing="1.6">SAFETY</text>
-    <circle cx="213" cy="-3.5" r="2" fill="#7d8dff"/>
-    <text x="229" class="mono" fill="#6f7893" font-size="10.5" font-weight="500" letter-spacing="1.6">RETRIEVAL</text>
-    <circle cx="318" cy="-3.5" r="2" fill="#e0455f"/>
-    <text x="334" class="mono" fill="#6f7893" font-size="10.5" font-weight="500" letter-spacing="1.6">AGENT MONITORING</text>
-  </g>
-  <text x="1128" y="560" text-anchor="end" class="mono" fill="#6f7893" font-size="10.5" font-weight="500" letter-spacing="1.2">SPINiverse</text>
+<path d="M816 380C1060 380 1068 296 1090 296" fill="none" stroke="#c4919c" stroke-width="1.8"/>
+<path d="M862 212C1060 212 1068 296 1090 296" fill="none" stroke="#c4919c" stroke-width="1.8"/>
+<path d="M908 324C1060 324 1068 296 1090 296" fill="none" stroke="#c4919c" stroke-width="1.8"/>
+<path d="M954 268C1060 268 1068 296 1090 296" fill="none" stroke="#c4919c" stroke-width="1.8"/>
+<path d="M954 380C1060 380 1068 296 1090 296" fill="none" stroke="#c4919c" stroke-width="1.8"/>
+<path d="M1000 212C1060 212 1068 296 1090 296" fill="none" stroke="#c4919c" stroke-width="1.8"/>
+<rect x="748" y="180" width="28" height="232" rx="3" fill="#edede8" stroke="#cdd0cb"/>
+<circle cx="762" cy="212" r="7.5" fill="#dfe2df" stroke="#c3c7c4"/>
+<circle cx="762" cy="268" r="7.5" fill="#dfe2df" stroke="#c3c7c4"/>
+<circle cx="762" cy="324" r="7.5" fill="#dfe2df" stroke="#c3c7c4"/>
+<circle cx="762" cy="380" r="7.5" fill="#dfe2df" stroke="#c3c7c4"/>
+<rect x="794" y="180" width="28" height="232" rx="3" fill="#edede8" stroke="#cdd0cb"/>
+<circle cx="808" cy="212" r="7.5" fill="#dfe2df" stroke="#c3c7c4"/>
+<circle cx="808" cy="268" r="7.5" fill="#dfe2df" stroke="#c3c7c4"/>
+<circle cx="808" cy="324" r="7.5" fill="#dfe2df" stroke="#c3c7c4"/>
+<circle cx="808" cy="380" r="7.5" fill="#983b4f" stroke="#7e2e3f"/>
+<rect x="840" y="180" width="28" height="232" rx="3" fill="#edede8" stroke="#cdd0cb"/>
+<circle cx="854" cy="212" r="7.5" fill="#983b4f" stroke="#7e2e3f"/>
+<circle cx="854" cy="268" r="7.5" fill="#dfe2df" stroke="#c3c7c4"/>
+<circle cx="854" cy="324" r="7.5" fill="#dfe2df" stroke="#c3c7c4"/>
+<circle cx="854" cy="380" r="7.5" fill="#dfe2df" stroke="#c3c7c4"/>
+<rect x="886" y="180" width="28" height="232" rx="3" fill="#edede8" stroke="#cdd0cb"/>
+<circle cx="900" cy="212" r="7.5" fill="#dfe2df" stroke="#c3c7c4"/>
+<circle cx="900" cy="268" r="7.5" fill="#dfe2df" stroke="#c3c7c4"/>
+<circle cx="900" cy="324" r="7.5" fill="#983b4f" stroke="#7e2e3f"/>
+<circle cx="900" cy="380" r="7.5" fill="#dfe2df" stroke="#c3c7c4"/>
+<rect x="932" y="180" width="28" height="232" rx="3" fill="#edede8" stroke="#cdd0cb"/>
+<circle cx="946" cy="212" r="7.5" fill="#dfe2df" stroke="#c3c7c4"/>
+<circle cx="946" cy="268" r="7.5" fill="#983b4f" stroke="#7e2e3f"/>
+<circle cx="946" cy="324" r="7.5" fill="#dfe2df" stroke="#c3c7c4"/>
+<circle cx="946" cy="380" r="7.5" fill="#983b4f" stroke="#7e2e3f"/>
+<rect x="978" y="180" width="28" height="232" rx="3" fill="#edede8" stroke="#cdd0cb"/>
+<circle cx="992" cy="212" r="7.5" fill="#983b4f" stroke="#7e2e3f"/>
+<circle cx="992" cy="268" r="7.5" fill="#dfe2df" stroke="#c3c7c4"/>
+<circle cx="992" cy="324" r="7.5" fill="#dfe2df" stroke="#c3c7c4"/>
+<circle cx="992" cy="380" r="7.5" fill="#dfe2df" stroke="#c3c7c4"/>
+<circle cx="1106" cy="296" r="16" fill="#f7ebee" stroke="#c4919c" stroke-width="1.5"/>
+<path d="M1122 296h22" stroke="#c4919c" stroke-width="1.8"/>
+</g>
+  <path d="M64 516H1136" stroke="#d9d9d2"/>
+  <text x="64" y="562" class="sans" fill="#585858" font-size="17" font-weight="500">SPIN  ·  SIREN  ·  MINER  ·  Agent-SIREN</text>
+  <text x="1136" y="562" text-anchor="end" class="mono" fill="#666865" font-size="14">INTERNAL REPRESENTATIONS</text>
 </svg>

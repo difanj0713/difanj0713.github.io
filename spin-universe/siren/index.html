@@ -11,14 +11,14 @@
 <meta property="og:description" content="A sparse cross-layer classifier achieves higher mean macro-F1 than backbone-matched Qwen3Guard and LlamaGuard3 models on all four backbones, with 250&times; fewer trainable parameters and more than 4&times; fewer inference FLOPs.">
 <meta property="og:url" content="https://difanj0713.github.io/spin-universe/siren/">
 <meta property="og:site_name" content="SPINiverse">
-<meta property="og:image" content="https://difanj0713.github.io/spin-universe/assets/img/social/siren.png?v=4">
+<meta property="og:image" content="https://difanj0713.github.io/spin-universe/assets/img/social/siren.png?v=6">
 <meta property="og:image:type" content="image/png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="SIREN aggregates sparse safety neurons across a frozen LLM for harmfulness detection.">
+<meta property="og:image:alt" content="SIREN: Detecting harmful content from internal model representations. ACL 2026.">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://difanj0713.github.io/spin-universe/assets/img/social/siren.png?v=4">
-<meta name="twitter:image:alt" content="SIREN detects harmful content from internal LLM representations.">
+<meta name="twitter:image" content="https://difanj0713.github.io/spin-universe/assets/img/social/siren.png?v=6">
+<meta name="twitter:image:alt" content="SIREN: Detecting harmful content from internal model representations. ACL 2026.">
 <meta name="citation_title" content="LLM Safety From Within: Detecting Harmful Content with Internal Representations">
 <meta name="citation_author" content="Difan Jiao">
 <meta name="citation_author" content="Yilun Liu">
@@ -51,13 +51,18 @@
   "mainEntityOfPage": "https://difanj0713.github.io/spin-universe/siren/",
   "isPartOf": { "@id": "https://difanj0713.github.io/spin-universe/#collection" },
   "inLanguage": "en",
-  "image": "https://difanj0713.github.io/spin-universe/assets/img/social/siren.png?v=4",
+  "image": "https://difanj0713.github.io/spin-universe/assets/img/social/siren.png?v=6",
   "sameAs": "https://arxiv.org/abs/2604.18519",
   "datePublished": "2026-07",
   "identifier": {
     "@type": "PropertyValue",
     "propertyID": "DOI",
     "value": "10.18653/v1/2026.acl-long.1844"
+  },
+  "encoding": {
+    "@type": "MediaObject",
+    "encodingFormat": "application/pdf",
+    "contentUrl": "https://aclanthology.org/2026.acl-long.1844.pdf"
   }
 }
 </script>
@@ -66,8 +71,14 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600&amp;family=Poppins:wght@400;500;600;700&amp;family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&amp;display=swap">
 <link rel="stylesheet" href="../assets/css/site.css?v=14">
 <link rel="stylesheet" href="../assets/css/siren.css?v=6">
-<link rel="icon" href="/spin-universe/assets/img/favicon.svg" type="image/svg+xml">
-<link rel="icon" href="/spin-universe/assets/img/favicon-48x48.png" type="image/png" sizes="48x48">
+<meta name="twitter:title" content="SIREN · Harmfulness Detection from Internal LLM Representations">
+<meta name="twitter:description" content="A sparse cross-layer classifier achieves higher mean macro-F1 than backbone-matched Qwen3Guard and LlamaGuard3 models on all four backbones, with 250× fewer trainable parameters and more than 4× fewer inference FLOPs.">
+<meta name="theme-color" content="#f7f7f4">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<link rel="icon" href="/spin-universe/assets/img/favicon-48x48.png?v=3" type="image/png" sizes="48x48">
+<link rel="icon" href="/spin-universe/assets/img/favicon-96x96.png?v=3" type="image/png" sizes="96x96">
+<link rel="icon" href="/spin-universe/assets/img/favicon.svg?v=3" type="image/svg+xml" sizes="any">
+<link rel="apple-touch-icon" href="/spin-universe/assets/img/apple-touch-icon.png?v=3" sizes="180x180">
 </head>
 
 <body class="siren-page">
@@ -135,7 +146,7 @@
     <div class="siren-section-head siren-section-head-single" data-reveal>
       <h2>Motivation</h2>
     </div>
-    <p class="siren-motivation-copy" data-reveal>Guard models are typically fine-tuned from general-purpose LLMs and generate safety verdicts from the terminal layer. We ask whether safety-relevant information distributed across intermediate layers can support a more accurate harmfulness detector while the underlying model remains frozen.</p>
+    <p class="siren-motivation-copy" data-reveal>Guard models are typically fine-tuned from general-purpose LLMs and generate safety verdicts from the terminal layer. SIREN tests whether safety-relevant information in intermediate layers can support a more accurate harmfulness detector while the underlying model remains frozen.</p>
   </div>
 </section>
 
@@ -220,7 +231,7 @@
     </div>
 
     <div class="siren-result-story" data-reveal>
-      <p>Each comparison uses the same base model architecture: the published guard is safety fine-tuned and generates a verdict, whereas SIREN fits a compact classifier over the frozen base model&rsquo;s internal representations. SIREN achieves the higher mean macro-F1 in every pair, with the largest gain on Llama-3.2-1B.</p>
+      <p>Each comparison uses the same base model architecture. The published guard is safety fine-tuned and generates a verdict; SIREN fits a compact classifier over the frozen base model&rsquo;s internal representations. SIREN has the higher mean macro-F1 in every pair, with the largest gain on Llama-3.2-1B.</p>
     </div>
 
     <details class="siren-raw-results">

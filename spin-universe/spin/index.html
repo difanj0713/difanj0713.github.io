@@ -11,14 +11,14 @@
 <meta property="og:description" content="A sparse cross-layer representation improves text classification in all 24 model-and-dataset comparisons, without updating the language-model backbone.">
 <meta property="og:url" content="https://difanj0713.github.io/spin-universe/spin/">
 <meta property="og:site_name" content="SPINiverse">
-<meta property="og:image" content="https://difanj0713.github.io/spin-universe/assets/img/social/spin.png?v=3">
+<meta property="og:image" content="https://difanj0713.github.io/spin-universe/assets/img/social/spin.png?v=5">
 <meta property="og:image:type" content="image/png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="SPIN integrates salient internal neurons across layers and improves all 24 text-classification comparisons.">
+<meta property="og:image:alt" content="SPIN: Sparsifying and integrating internal neurons for text classification. Findings of ACL 2024.">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:image" content="https://difanj0713.github.io/spin-universe/assets/img/social/spin.png?v=3">
-<meta name="twitter:image:alt" content="SPIN integrates salient internal neurons across layers for text classification.">
+<meta name="twitter:image" content="https://difanj0713.github.io/spin-universe/assets/img/social/spin.png?v=5">
+<meta name="twitter:image:alt" content="SPIN: Sparsifying and integrating internal neurons for text classification. Findings of ACL 2024.">
 <meta name="citation_title" content="SPIN: Sparsifying and Integrating Internal Neurons in Large Language Models for Text Classification">
 <meta name="citation_author" content="Difan Jiao">
 <meta name="citation_author" content="Yilun Liu">
@@ -49,13 +49,18 @@
   "mainEntityOfPage": "https://difanj0713.github.io/spin-universe/spin/",
   "isPartOf": { "@id": "https://difanj0713.github.io/spin-universe/#collection" },
   "inLanguage": "en",
-  "image": "https://difanj0713.github.io/spin-universe/assets/img/social/spin.png?v=3",
+  "image": "https://difanj0713.github.io/spin-universe/assets/img/social/spin.png?v=5",
   "sameAs": "https://arxiv.org/abs/2311.15983",
   "datePublished": "2024-08",
   "identifier": {
     "@type": "PropertyValue",
     "propertyID": "DOI",
     "value": "10.18653/v1/2024.findings-acl.277"
+  },
+  "encoding": {
+    "@type": "MediaObject",
+    "encodingFormat": "application/pdf",
+    "contentUrl": "https://aclanthology.org/2024.findings-acl.277.pdf"
   }
 }
 </script>
@@ -64,8 +69,14 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600&amp;family=Poppins:wght@400;500;600;700&amp;family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&amp;display=swap">
 <link rel="stylesheet" href="../assets/css/site.css?v=14">
 <link rel="stylesheet" href="../assets/css/spin.css?v=10">
-<link rel="icon" href="/spin-universe/assets/img/favicon.svg" type="image/svg+xml">
-<link rel="icon" href="/spin-universe/assets/img/favicon-48x48.png" type="image/png" sizes="48x48">
+<meta name="twitter:title" content="SPIN · Cross-Layer Internal Neurons for Text Classification">
+<meta name="twitter:description" content="A sparse cross-layer representation improves text classification in all 24 model-and-dataset comparisons, without updating the language-model backbone.">
+<meta name="theme-color" content="#f7f7f4">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<link rel="icon" href="/spin-universe/assets/img/favicon-48x48.png?v=3" type="image/png" sizes="48x48">
+<link rel="icon" href="/spin-universe/assets/img/favicon-96x96.png?v=3" type="image/png" sizes="96x96">
+<link rel="icon" href="/spin-universe/assets/img/favicon.svg?v=3" type="image/svg+xml" sizes="any">
+<link rel="apple-touch-icon" href="/spin-universe/assets/img/apple-touch-icon.png?v=3" sizes="180x180">
 </head>
 
 <body class="spin-page">
@@ -124,7 +135,7 @@
     <div class="spin-section-head spin-section-head-single" data-reveal>
       <h2>Motivation</h2>
     </div>
-    <p class="spin-motivation-copy" data-reveal>When this study began in 2023, competitive text classifiers were typically task-specific encoders or language models fine-tuned separately for each task. We ask whether a frozen pretrained language model already contains useful classification information in its intermediate representations, and whether selecting and combining that information across layers is more effective than reading only the final hidden state.</p>
+    <p class="spin-motivation-copy" data-reveal>When this study began in 2023, competitive text classifiers were typically task-specific encoders or language models fine-tuned separately for each task. We test whether a frozen pretrained language model contains useful classification information in its intermediate representations, then compare selecting and combining those signals across layers with reading only the final hidden state.</p>
   </div>
 </section>
 
@@ -211,7 +222,7 @@
     </div>
 
     <div class="spin-result-story" data-reveal>
-      <p>SPIN&rsquo;s sparse cross-layer representation outperformed the terminal-state classifier in every pretrained comparison. The strongest result reached 99.91% of the published fine-tuned state of the art on IMDb, and applying SPIN after fine-tuning produced further gains.</p>
+      <p>SPIN&rsquo;s sparse cross-layer representation outperformed the terminal-state classifier in every pretrained comparison. On IMDb, SPIN reached 99.91% of the published fine-tuned state of the art, and applying SPIN after fine-tuning produced further gains.</p>
     </div>
 
     <details class="spin-raw-results">
