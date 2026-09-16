@@ -123,6 +123,7 @@
 <link rel="icon" href="/spin-universe/assets/img/favicon-96x96.png?v=3" type="image/png" sizes="96x96">
 <link rel="icon" href="/spin-universe/assets/img/favicon.svg?v=3" type="image/svg+xml" sizes="any">
 <link rel="apple-touch-icon" href="/spin-universe/assets/img/apple-touch-icon.png?v=3" sizes="180x180">
+<link rel="stylesheet" href="assets/css/overview-study.css?v=9">
 </head>
 
 <body>
@@ -201,6 +202,24 @@
           Replay
         </button>
       </div>
+    </div>
+  </div>
+</section>
+
+<!-- Local comparison prototype; the original overview above is unchanged. -->
+<section class="layer light cost-study-section section" id="overview-study" aria-labelledby="combined-study-title">
+  <div class="shell">
+    <div class="cost-study-heading"><h2 id="combined-study-title">Static comparison</h2><span>Local review</span></div>
+    <div class="cost-study-demo" data-study="combined">
+      <div class="overview-comparison" data-overview-mode="spin">
+        <div class="overview-bar"><h3 class="overview-name">SPINiverse</h3><p class="overview-caption">SPINiverse selects signals across the layers and combines them into a label, score, or embedding.</p></div>
+        <div class="overview-board"><svg id="combined-spin" class="overview-svg" role="img" aria-labelledby="combined-spinTitle combined-spinDesc"><title id="combined-spinTitle">SPINiverse</title><desc id="combined-spinDesc">SPINiverse selects signals across the layers and combines them into a label, score, or embedding.</desc></svg></div>
+      </div>
+      <div class="overview-comparison" data-overview-mode="llm">
+        <div class="overview-bar"><h3 class="overview-name">LLM generation</h3><p class="overview-caption">An LLM computes through layers, then uses its final-layer representation to predict the next token.</p></div>
+        <div class="overview-board"><svg id="combined-llm" class="overview-svg" role="img" aria-labelledby="combined-llmTitle combined-llmDesc"><title id="combined-llmTitle">LLM generation</title><desc id="combined-llmDesc">An LLM computes through layers, then uses its final-layer representation to predict the next token.</desc></svg></div>
+      </div>
+      <div class="overview-actions study-footer"><div class="study-legend"><span class="study-legend-weight" aria-hidden="true"></span>Trainable parameters</div></div>
     </div>
   </div>
 </section>
@@ -382,5 +401,6 @@
 
 <script type="module" src="assets/js/site.js?v=11"></script>
 <script type="module" src="assets/js/overview.js?v=6"></script>
+<script type="module" src="assets/js/overview-study.js?v=11"></script>
 </body>
 </html>
