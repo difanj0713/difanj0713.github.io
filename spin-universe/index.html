@@ -4,11 +4,11 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Model Mind-Reading &middot; Research on Harnessing Model Internal States</title>
-<meta name="description" content="Model Mind-Reading is a research collection on recovering task-relevant information from internal model states for classification, content safety, visual document retrieval, agent safety, and efficient inference.">
+<meta name="description" content="Model Mind-Reading (formerly SPINiverse) brings together SPIN, SIREN, MINER, and Agent-SIREN: research on internal model signals for classification, safety, and retrieval.">
 <link rel="canonical" href="https://difanj0713.github.io/spin-universe/">
 <meta property="og:type" content="website">
 <meta property="og:title" content="Model Mind-Reading &middot; Research on Harnessing Model Internal States">
-<meta property="og:description" content="Research on task-relevant information in internal model states across classification, content safety, visual document retrieval, and agent safety.">
+<meta property="og:description" content="Model Mind-Reading (formerly SPINiverse) brings together SPIN, SIREN, MINER, and Agent-SIREN: research on internal model signals for classification, safety, and retrieval.">
 <meta property="og:url" content="https://difanj0713.github.io/spin-universe/">
 <meta property="og:site_name" content="Model Mind-Reading">
 <meta property="og:image" content="https://difanj0713.github.io/spin-universe/assets/img/social/homepage.png?v=8">
@@ -24,11 +24,23 @@
   "@context": "https://schema.org",
   "@graph": [
     {
+      "@type": "WebSite",
+      "@id": "https://difanj0713.github.io/spin-universe/#website",
+      "url": "https://difanj0713.github.io/spin-universe/",
+      "name": "Model Mind-Reading",
+      "alternateName": [
+        "SPINiverse",
+        "SPIN Universe"
+      ],
+      "description": "Model Mind-Reading (formerly SPINiverse) brings together SPIN, SIREN, MINER, and Agent-SIREN: research on internal model signals for classification, safety, and retrieval.",
+      "inLanguage": "en"
+    },
+    {
       "@type": "CollectionPage",
       "@id": "https://difanj0713.github.io/spin-universe/#collection",
       "url": "https://difanj0713.github.io/spin-universe/",
       "name": "Model Mind-Reading · Research on Harnessing Model Internal States",
-      "description": "Model Mind-Reading is a research collection on recovering task-relevant information from internal model states for classification, content safety, visual document retrieval, agent safety, and efficient inference.",
+      "description": "Model Mind-Reading (formerly SPINiverse) brings together SPIN, SIREN, MINER, and Agent-SIREN: research on internal model signals for classification, safety, and retrieval.",
       "inLanguage": "en",
       "primaryImageOfPage": {
         "@type": "ImageObject",
@@ -52,7 +64,10 @@
         {
           "@id": "https://difanj0713.github.io/spin-universe/agent-siren/#paper"
         }
-      ]
+      ],
+      "isPartOf": {
+        "@id": "https://difanj0713.github.io/spin-universe/#website"
+      }
     },
     {
       "@type": "ItemList",
@@ -104,7 +119,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600&amp;family=Poppins:wght@400;500;600;700&amp;family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&amp;display=swap">
-<link rel="stylesheet" href="assets/css/site.css?v=37">
+<link rel="stylesheet" href="assets/css/site.css?v=38">
 
 <script type="importmap">
 {
@@ -116,13 +131,15 @@
 }
 </script>
 <meta name="twitter:title" content="Model Mind-Reading · Research on Harnessing Model Internal States">
-<meta name="twitter:description" content="Research on task-relevant information in internal model states across classification, content safety, visual document retrieval, and agent safety.">
+<meta name="twitter:description" content="Model Mind-Reading (formerly SPINiverse) brings together SPIN, SIREN, MINER, and Agent-SIREN: research on internal model signals for classification, safety, and retrieval.">
+<meta name="application-name" content="Model Mind-Reading">
+<meta name="apple-mobile-web-app-title" content="Model Mind-Reading">
 <meta name="theme-color" content="#f7f7f4">
 <meta name="robots" content="index, follow, max-image-preview:large">
-<link rel="icon" href="/spin-universe/assets/img/favicon-48x48.png?v=3" type="image/png" sizes="48x48">
-<link rel="icon" href="/spin-universe/assets/img/favicon-96x96.png?v=3" type="image/png" sizes="96x96">
-<link rel="icon" href="/spin-universe/assets/img/favicon.svg?v=3" type="image/svg+xml" sizes="any">
-<link rel="apple-touch-icon" href="/spin-universe/assets/img/apple-touch-icon.png?v=3" sizes="180x180">
+<link rel="icon" href="/spin-universe/assets/img/favicon-48x48.png?v=4" type="image/png" sizes="48x48">
+<link rel="icon" href="/spin-universe/assets/img/favicon-96x96.png?v=4" type="image/png" sizes="96x96">
+<link rel="icon" href="/spin-universe/assets/img/favicon.svg?v=4" type="image/svg+xml" sizes="any">
+<link rel="apple-touch-icon" href="/spin-universe/assets/img/apple-touch-icon.png?v=4" sizes="180x180">
 <link rel="stylesheet" href="assets/css/overview-study.css?v=10">
 </head>
 
@@ -150,7 +167,7 @@
     <div class="shell">
      <div class="hero-copy">
       <p class="eyebrow collaboration"><span class="institution">University of Toronto</span><span class="collab-mark">&times;</span><span class="institution">McGill University</span><span class="collab-mark">&times;</span><span class="institution">LMU Munich</span></p>
-      <h1 class="title">Model Mind-Reading</h1>
+      <h1 class="title"><span class="title-line">Model</span> <span class="title-line">Mind-Reading</span></h1>
       <p class="lede">Research on using signals from within AI models<br><em class="lede-line">for classification, safety, and retrieval.</em></p>
       <div class="cta-row">
         <a class="btn btn-primary" href="#overview">Research overview</a>

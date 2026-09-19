@@ -313,7 +313,7 @@ body > header.layer {
 }
 
 h1.title {
-  /* Let the longer project name wrap on narrow screens. */
+  /* Keep the project name on two deliberate lines. */
   white-space: normal;
   max-width: none;
   font-family: var(--display);
@@ -322,6 +322,11 @@ h1.title {
   letter-spacing: -0.045em;
   font-weight: 700;
   margin: 0 0 0.75rem;
+}
+
+h1.title .title-line {
+  display: block;
+  white-space: nowrap;
 }
 
 .hero-promise {
