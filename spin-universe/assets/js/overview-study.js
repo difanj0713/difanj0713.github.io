@@ -1,4 +1,4 @@
-/* Local alternative. Independent snapshot of the original drawing primitives. */
+/* Research overview: the original Slack GIF timeline, played once with replay. */
 const SVG_NS = 'http://www.w3.org/2000/svg';
 const motionPreference = window.matchMedia('(prefers-reduced-motion: reduce)');
 
@@ -38,7 +38,7 @@ const OUTPUT_END = FIRST_PASS_END + 490;
 const DECODE_STARTS = [1210, 2030];
 const TOKEN_TIMES = [830, 1910, 2730, 2950];
 const TITLES = {
-  spin: 'SPINiverse: combining signals across layers',
+  spin: 'Model Mind-Reading: combining signals across layers',
   llm: 'LLM generation: predicting tokens from the final layer',
 };
 const DESCRIPTIONS = {
@@ -341,7 +341,7 @@ function drawCompact(svg, mode) {
 
 
 // The combined view marks trainable parameter regions using solid fills.
-// The original overview remains an independent comparison above this one.
+// The same swatches identify trainable parameters in both model rows.
 function marker(svg, name, color) {
   let defs = svg.querySelector('defs');
   if (!defs) { defs = svgElement('defs'); svg.prepend(defs); }
@@ -395,6 +395,15 @@ function passage(svg, mode, compact) {
     addText(svg,552,246,'study-auto-caption','Autoregressive','middle');
     svg.setAttribute('viewBox','0 0 1000 266');
   }
+  DECODE_STARTS.forEach(at => {
+    const p=svgElement('path',{d,pathLength:1,class:'study-loop-pulse'});
+    p.style.setProperty('--at',`${at-320}ms`);svg.append(p);
+  });
+  const sweeps=[...svg.querySelectorAll('.ov-layer-sweep')];
+  DECODE_STARTS.forEach(at=>sweeps.forEach((sweep,i)=>{
+    const repeat=sweep.cloneNode(true); repeat.style.setProperty('--at',`${at+i*100}ms`);
+    svg.insertBefore(repeat,sweep.nextSibling);
+  }));
 }
 
 // One attached swatch has the same meaning in both rows: a trainable
@@ -458,26 +467,52 @@ function markTrainableParameters(svg,mode,compact) {
 }
 
 function initStudy(demo) {
+  const replay=demo.querySelector('.study-replay');
   const panels=[...demo.querySelectorAll('.overview-comparison')].map(panel=>({
     svg:panel.querySelector('.overview-svg'),board:panel.querySelector('.overview-board'),
-    mode:panel.dataset.overviewMode,compact:null,
+    mode:panel.dataset.overviewMode,played:false,compact:null,
   }));
-  function draw(panel){
+  let observer;
+  const hasMotion=()=>!motionPreference.matches&&'IntersectionObserver' in window;
+  function draw(panel,animate,armed){
     const {svg,mode}=panel;
     panel.compact=panel.board.clientWidth<COMPACT_BELOW;
     const compact=panel.compact;
     const desc=DESCRIPTIONS[mode]+(mode==='spin'
       ?' Each selected dark red activation has an adjacent pale red square marking its trainable readout coefficient. Unselected activations have no square. The backbone stays frozen; the pale red aggregation head is trainable. These squares depict selected readout parameters, not an exhaustive inventory of parameters used during probe fitting.'
-      :' Every displayed activation has an adjacent pale blue parameter square. One pale blue enclosure spans the whole backbone and output head, showing that the entire model is trainable in the full-model fine-tuning comparison. Colored areas and marker counts are schematic, not measured cost or parameter ratios.');
+      :' Every displayed activation has an adjacent pale blue parameter square. One pale blue enclosure spans the whole backbone and output head, showing that the entire model is trainable in the full-model fine-tuning comparison. Animation timing and colored areas are schematic, not measured cost or parameter ratios.');
     svg.replaceChildren(svgElement('title',{id:`${svg.id}Title`},TITLES[mode]),svgElement('desc',{id:`${svg.id}Desc`},desc));
     svg.classList.toggle('is-compact',compact);panel.board.classList.toggle('is-compact',compact);
+    svg.classList.toggle('is-animated',animate);svg.classList.toggle('is-armed',armed);
+    svg.style.setProperty('--ov-forward-end',`${FIRST_PASS_END}ms`);
     (compact?drawCompact:drawWide)(svg,mode);
     passage(svg,mode,compact);
     markTrainableParameters(svg,mode,compact);
   }
-  panels.forEach(draw);
+  function setup(reset=false){
+    observer?.disconnect();
+    const motion=hasMotion();replay.hidden=!motion;
+    if(motion) observer=new IntersectionObserver(entries=>entries.forEach(entry=>{
+      if(!entry.isIntersecting||entry.intersectionRatio<.35)return;
+      const p=panels.find(p=>p.svg===entry.target);
+      const ready=p.compact?[p]:panels;
+      ready.forEach(panel=>{
+        panel.played=true;panel.svg.classList.remove('is-armed');observer.unobserve(panel.svg);
+      });
+    }),{threshold:.35});
+    panels.forEach(p=>{
+      if(reset)p.played=false;
+      draw(p,motion&&!p.played,motion&&!p.played);
+      if(motion&&!p.played)observer.observe(p.svg);
+    });
+  }
+  replay.addEventListener('click',()=>{
+    const fits=demo.getBoundingClientRect().height<innerHeight-110;
+    demo.scrollIntoView({block:fits?'center':'start',behavior:'instant'});setup(true);
+  });
   new ResizeObserver(()=>panels.forEach(p=>{
-    if(p.compact!==(p.board.clientWidth<COMPACT_BELOW))draw(p);
+    if(p.compact!==(p.board.clientWidth<COMPACT_BELOW))draw(p,hasMotion()&&!p.played,hasMotion()&&!p.played);
   })).observe(demo);
+  motionPreference.addEventListener('change',()=>setup());setup();
 }
 document.querySelectorAll('.cost-study-demo').forEach(initStudy);

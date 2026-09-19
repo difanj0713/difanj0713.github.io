@@ -1,9 +1,6 @@
-/* Local combined alternative; no changes to the original overview. */
-.cost-study-section { background:#f4f4f1; padding-top:2rem; scroll-margin-top:5rem; }
-.cost-study-heading { max-width:64rem; margin:0 auto 1rem; display:flex; align-items:baseline; justify-content:space-between; gap:1rem; }
-.cost-study-heading h2 { font:500 1rem var(--sans); margin:0; color:var(--ink-2); }
-.cost-study-heading > span { font:.7rem var(--mono); color:var(--ink-3); }
+/* Combined inference and training overview. */
 .cost-study-demo { --study-rose:#f0d9e0; --study-blue:#dce1f0; max-width:64rem; margin:auto; border:1px solid var(--line); background:#fff; scroll-margin-top:5.5rem; }
+.cost-study-demo .overview-name span { white-space:nowrap; }
 .cost-study-demo .overview-comparison { display:block; }
 .cost-study-demo .overview-comparison + .overview-comparison { border-left:0; border-top:1px solid var(--line-soft); }
 .cost-study-demo .study-footer { display:flex; align-items:center; justify-content:flex-end; flex-wrap:wrap; gap:.4rem 1.25rem; padding-top:.35rem; }
@@ -25,6 +22,13 @@
 .cost-study-demo .study-trainable-region { fill:var(--study-blue); fill-opacity:.22; stroke:#c1cce1; stroke-width:.8; pointer-events:none; }
 .cost-study-demo .study-tag-link { stroke:#b5c0d8; stroke-width:.85; }
 .cost-study-demo .study-parameter-tag-spin .study-tag-link { stroke:#c89ba6; }
+.cost-study-demo .is-animated .ov-layer.study-trainable-layer { animation:study-layer-computed 160ms ease both; animation-delay:var(--at); }
+.cost-study-demo .is-animated .study-parameter-tag { animation:ov-fade 160ms ease both; animation-delay:var(--at); }
+.cost-study-demo .is-animated .study-loop-pulse { animation:study-return 320ms linear both; animation-delay:var(--at); }
+.cost-study-demo .is-animated .study-loop,.cost-study-demo .is-animated .study-auto-caption,.cost-study-demo .is-animated .study-llm-count { animation:ov-fade 180ms both; animation-delay:870ms; }
+.cost-study-demo .is-animated .study-single { animation:ov-fade 180ms both; animation-delay:1080ms; }
+@keyframes study-return { 0%{opacity:0;stroke-dashoffset:.065}10%,85%{opacity:1}100%{opacity:0;stroke-dashoffset:-1} }
+@keyframes study-layer-computed { from{fill:#edede8;stroke:#d0d2ce}to{fill:#eff2f8;stroke:#bbc7df} }
 @media (max-width:640px) {
  .cost-study-demo .study-auto-caption,.cost-study-demo .study-pass-caption { font-size:12px; }
 }

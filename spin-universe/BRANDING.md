@@ -1,10 +1,10 @@
-# SPINiverse brand specification
+# Model Mind-Reading brand specification
 
-This is the site-wide source of truth for SPINiverse positioning, voice, and visual design. For detailed paper-page structure and result presentation, also see [EDITORIAL_GUIDE.md](EDITORIAL_GUIDE.md).
+This is the site-wide source of truth for Model Mind-Reading positioning, voice, and visual design. For detailed paper-page structure and result presentation, also see [EDITORIAL_GUIDE.md](EDITORIAL_GUIDE.md).
 
 ## North star
 
-SPINiverse is an academic research collection presented with public-facing clarity. It should be memorable enough to invite a broad technical audience in, and precise enough that collaborators and researchers trust what they find.
+Model Mind-Reading is an academic research collection presented with public-facing clarity. It should be memorable enough to invite a broad technical audience in, and precise enough that collaborators and researchers trust what they find.
 
 The central idea is operational, not metaphysical:
 

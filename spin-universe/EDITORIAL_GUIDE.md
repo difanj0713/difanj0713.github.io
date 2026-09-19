@@ -1,4 +1,4 @@
-# SPINiverse paper-page guide
+# Model Mind-Reading paper-page guide
 
 These are the reusable decisions for SPIN, SIREN, MINER, and Agent-SIREN.
 

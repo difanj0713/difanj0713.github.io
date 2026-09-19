@@ -1,4 +1,4 @@
-/* SPINiverse */
+/* Model Mind-Reading */
 
 :root {
   --bg: #f7f7f4;
@@ -313,8 +313,8 @@ body > header.layer {
 }
 
 h1.title {
-  /* Keep the compact wordmark on one line. */
-  white-space: nowrap;
+  /* Let the longer project name wrap on narrow screens. */
+  white-space: normal;
   max-width: none;
   font-family: var(--display);
   font-size: clamp(2rem, 5.2vw, 4.5rem);
@@ -1270,7 +1270,7 @@ h1.title {
 h1.title {
   margin-bottom: 0.85rem;
   font-family: var(--display);
-  font-size: clamp(3rem, 6.2vw, 5rem);
+  font-size: clamp(2.1rem, 4.7vw, 3.7rem);
   font-weight: 500;
   line-height: 1.02;
   letter-spacing: -0.055em;
