@@ -5,7 +5,7 @@ const motionPreference = window.matchMedia('(prefers-reduced-motion: reduce)');
 /* Below this board width the figure is drawn top to bottom. */
 const COMPACT_BELOW = 720;
 
-/* One input and one output per project: SPIN, SIREN, MINER, Agent-SIREN. */
+/* One input and one output per project: SPIN, SIREN, MINER, TACIT. */
 const DOMAINS = [
   { input: 'Review', icon: 'text', caption: 'Class', output: { kind: 'label', value: 'Positive' } },
   { input: 'Prompt', icon: 'chat', caption: 'Harm score', output: { kind: 'score', value: '0.87' } },

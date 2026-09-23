@@ -1,6 +1,6 @@
 # Model Mind-Reading paper-page guide
 
-These are the reusable decisions for SPIN, SIREN, MINER, and Agent-SIREN.
+These are the reusable decisions for SPIN, SIREN, MINER, and TACIT.
 
 For site-wide positioning, voice, and visual identity, see [BRANDING.md](BRANDING.md).
 

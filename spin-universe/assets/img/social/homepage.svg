@@ -63,6 +63,6 @@
 <path d="M1122 296h22" stroke="#c4919c" stroke-width="1.8"/>
 </g>
   <path d="M64 516H1136" stroke="#d9d9d2"/>
-  <text x="64" y="562" class="sans" fill="#585858" font-size="17" font-weight="500">SPIN  ·  SIREN  ·  MINER  ·  Agent-SIREN</text>
+  <text x="64" y="562" class="sans" fill="#585858" font-size="17" font-weight="500">SPIN  ·  SIREN  ·  MINER  ·  TACIT</text>
   <text x="1136" y="562" text-anchor="end" class="mono" fill="#666865" font-size="14">INTERNAL REPRESENTATIONS</text>
 </svg>

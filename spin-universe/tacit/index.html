@@ -1,0 +1,278 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>TACIT &middot; Detecting Harmful Agent Trajectories from LLM Internal States</title>
+<meta name="description" content="TACIT detects harmful agent trajectories from a frozen LLM's internal states in one forward pass, without decoding a textual verdict.">
+<link rel="canonical" href="https://difanj0713.github.io/spin-universe/tacit/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="TACIT &middot; Detecting Harmful Agent Trajectories from LLM Internal States">
+<meta property="og:description" content="TACIT reads harmful content and unsafe tool use from internal states with lightweight probes, ensembles, and multi-layer readouts.">
+<meta property="og:url" content="https://difanj0713.github.io/spin-universe/tacit/">
+<meta property="og:site_name" content="Model Mind-Reading">
+<meta property="og:image" content="https://difanj0713.github.io/spin-universe/assets/img/social/tacit.png?v=1">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="TACIT reads agent-trajectory safety from LLM internal states in one forward pass.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="TACIT · Detecting Harmful Agent Trajectories from LLM Internal States">
+<meta name="twitter:description" content="One forward pass, three lightweight readouts, and no textual verdict to decode.">
+<meta name="twitter:image" content="https://difanj0713.github.io/spin-universe/assets/img/social/tacit.png?v=1">
+<meta name="twitter:image:alt" content="TACIT reads agent-trajectory safety from LLM internal states in one forward pass.">
+<meta name="citation_title" content="TACIT: Detecting Harmful Agent Trajectories from LLM Internal States">
+<meta name="citation_author" content="Difan Jiao">
+<meta name="citation_author" content="Ashton Anderson">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ScholarlyArticle",
+  "@id": "https://difanj0713.github.io/spin-universe/tacit/#paper",
+  "headline": "TACIT: Detecting Harmful Agent Trajectories from LLM Internal States",
+  "description": "TACIT detects harmful agent trajectories from a frozen LLM's internal states in one forward pass, without decoding a textual verdict.",
+  "author": [
+    { "@type": "Person", "name": "Difan Jiao" },
+    { "@type": "Person", "name": "Ashton Anderson" }
+  ],
+  "url": "https://difanj0713.github.io/spin-universe/tacit/",
+  "mainEntityOfPage": "https://difanj0713.github.io/spin-universe/tacit/",
+  "isPartOf": { "@id": "https://difanj0713.github.io/spin-universe/#collection", "name": "Model Mind-Reading", "url": "https://difanj0713.github.io/spin-universe/" },
+  "inLanguage": "en",
+  "image": "https://difanj0713.github.io/spin-universe/assets/img/social/tacit.png?v=1"
+}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600&amp;family=Poppins:wght@400;500;600;700&amp;family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600&amp;display=swap">
+<link rel="stylesheet" href="../assets/css/site.css?v=14">
+<link rel="stylesheet" href="../assets/css/tacit.css?v=1">
+<meta name="application-name" content="Model Mind-Reading">
+<meta name="apple-mobile-web-app-title" content="Model Mind-Reading">
+<meta name="theme-color" content="#f7f7f4">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<link rel="icon" href="/spin-universe/assets/img/favicon-48x48.png?v=4" type="image/png" sizes="48x48">
+<link rel="icon" href="/spin-universe/assets/img/favicon-96x96.png?v=4" type="image/png" sizes="96x96">
+<link rel="icon" href="/spin-universe/assets/img/favicon.svg?v=4" type="image/svg+xml" sizes="any">
+<link rel="apple-touch-icon" href="/spin-universe/assets/img/apple-touch-icon.png?v=4" sizes="180x180">
+</head>
+
+<body class="tacit-page">
+<nav class="tacit-nav" aria-label="TACIT page navigation">
+  <div class="shell tacit-nav-inner">
+    <a class="tacit-nav-home" href="../"><span aria-hidden="true">&larr;</span> Model Mind-Reading</a>
+    <div class="tacit-nav-links">
+      <a href="#findings">Findings</a>
+      <a href="#method">Method</a>
+      <a href="#results">Results</a>
+      <a href="#efficiency">Efficiency</a>
+    </div>
+  </div>
+</nav>
+
+<header class="tacit-masthead" id="top">
+  <div class="shell tacit-hero">
+    <div class="tacit-hero-copy" data-reveal>
+      <p class="tacit-kicker">Agent trajectory safety from internal states</p>
+      <h1>TACIT</h1>
+      <p class="tacit-expansion"><b>T</b>rajectory s<b>A</b>fety <b>C</b>lassifier from <b>I</b>nternal s<b>T</b>ates</p>
+      <p class="tacit-hero-claim">Detecting harmful agent trajectories from LLM internal states</p>
+      <p class="tacit-hero-summary">TACIT runs a complete trajectory through a frozen LLM once, then scores its safety from the resulting internal states. It returns an unsafe probability without decoding a textual verdict or accessing the monitored agent&rsquo;s weights.</p>
+      <p class="tacit-authors"><b>Difan Jiao</b> &middot; Ashton Anderson</p>
+      <div class="tacit-hero-links">
+        <a class="chip tacit-chip-primary" href="#results">See the results</a>
+        <span class="chip tacit-chip-status">Paper under review</span>
+      </div>
+    </div>
+    <dl class="tacit-hero-facts" data-reveal>
+      <div><dt>Input</dt><dd>Full agent trajectory</dd></div>
+      <div><dt>Backbone</dt><dd>Frozen LLM</dd></div>
+      <div><dt>Inference</dt><dd>One forward pass</dd></div>
+      <div><dt>Output</dt><dd>Unsafe probability</dd></div>
+    </dl>
+  </div>
+</header>
+
+<main>
+<section class="tacit-section tacit-teaser-section" aria-labelledby="teaser-title">
+  <div class="tacit-wide-shell">
+    <h2 class="visually-hidden" id="teaser-title">TACIT overview</h2>
+    <figure class="tacit-paper-figure tacit-teaser" data-reveal>
+      <img src="../assets/img/tacit/teaser.svg" alt="TACIT overview. Harmful content and unsafe tool use are two forms of trajectory risk. TACIT reads a full trajectory from a frozen LLM in one forward pass using a Probe, Ensemble, or Multi-layer readout. On six benchmarks, Multi-layer TACIT reaches 86.2 mean macro-F1, compared with 60.5 for AgentDoG, 45.2 for LlamaGuard3, and 33.6 for Qwen3Guard.">
+      <figcaption>The 86.2 result uses the Multi-layer readout. The 2.6K-parameter and 6&times; training figures refer to Probe, the smallest TACIT configuration.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section class="tacit-section tacit-findings" id="findings">
+  <div class="shell">
+    <div class="tacit-section-head tacit-section-head-dark" data-reveal>
+      <p class="tacit-section-kicker">Mechanistic analysis</p>
+      <h2>The verdict misses a usable safety signal</h2>
+      <p>Matched trajectory pairs isolate harmful content and unsafe tool use. They let us compare the evidence inside a model with the verdict it generates.</p>
+    </div>
+    <figure class="tacit-analysis-figure" data-reveal>
+      <img src="../assets/img/tacit/internal-readouts.webp" width="2152" height="810" alt="Rank accuracy across model depth for unsafe tool use and harmful content. Unsafe tool use becomes highly readable in intermediate layers while all three generated guard outputs remain around chance. Harmful content remains readable internally and in the output.">
+      <figcaption>Guard outputs rank harmful-content pairs above 0.70, while their unsafe-tool-use rankings stay at or below chance. Internal readouts reach 0.94 in guard models and 0.98 in the corresponding general-purpose backbones.</figcaption>
+    </figure>
+    <div class="tacit-finding-grid">
+      <article class="tacit-finding-card" data-reveal>
+        <span class="tacit-finding-number">0.98</span>
+        <h3>Unsafe tool use is readable inside the model</h3>
+        <p>The signal peaks in intermediate layers and declines toward the final layer. The generated verdict does not preserve the full distinction.</p>
+      </article>
+      <article class="tacit-finding-card" data-reveal>
+        <span class="tacit-finding-number">&asymp; 0</span>
+        <h3>The two forms follow different internal directions</h3>
+        <p>Same-risk split halves reach 0.81 similarity in Qwen and 0.87 in Llama. Cross-risk directions remain close to orthogonal through most layers.</p>
+      </article>
+    </div>
+    <figure class="tacit-analysis-figure tacit-analysis-secondary" data-reveal>
+      <img src="../assets/img/tacit/risk-directions.webp" width="2163" height="792" alt="Direction similarity and cross-risk ranking results. Same-risk directions are stable, cross-risk directions are near orthogonal, and applying one risk direction to the other lowers rank accuracy.">
+      <figcaption>A direction fitted to one risk transfers less accurately to the other. A trajectory-safety readout needs training data that covers both forms of evidence.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section class="tacit-section tacit-method" id="method">
+  <div class="shell">
+    <div class="tacit-section-head" data-reveal>
+      <p class="tacit-section-kicker">Method</p>
+      <h2>One forward pass, three readouts</h2>
+      <p>TACIT preserves the system prompt, tool schemas, message roles, and turn order when it renders a trajectory with the backbone&rsquo;s chat template.</p>
+    </div>
+    <ol class="tacit-pipeline" data-reveal>
+      <li><span>01</span><div><h3>Render the trajectory</h3><p>The complete interaction is formatted as the backbone expects it.</p></div></li>
+      <li><span>02</span><div><h3>Read internal states</h3><p>A frozen backbone runs once. Each layer is pooled by its last token or mean activation.</p></div></li>
+      <li><span>03</span><div><h3>Fit the readout</h3><p>Validation folds inside the training pool select the Probe layer and pooling rule, along with each readout&rsquo;s settings.</p></div></li>
+    </ol>
+    <div class="tacit-readout-grid">
+      <article data-reveal>
+        <div class="tacit-readout-icon tacit-probe-icon" aria-hidden="true"><i></i><b></b></div>
+        <p class="tacit-readout-label">Smallest</p>
+        <h3>Probe</h3>
+        <p>An L2-regularized logistic regression reads standardized activations from one validation-selected layer.</p>
+      </article>
+      <article data-reveal>
+        <div class="tacit-readout-icon tacit-ensemble-icon" aria-hidden="true"><i></i><i></i><i></i><b></b></div>
+        <p class="tacit-readout-label">Several probes</p>
+        <h3>Ensemble</h3>
+        <p>Several fitted probes contribute predictions, which are averaged into one trajectory score.</p>
+      </article>
+      <article data-reveal>
+        <div class="tacit-readout-icon tacit-multilayer-icon" aria-hidden="true"><i></i><i></i><i></i><b></b></div>
+        <p class="tacit-readout-label">Best mean F1</p>
+        <h3>Multi-layer</h3>
+        <p>Salient coordinates from multiple layers are selected and integrated by a compact classifier.</p>
+      </article>
+    </div>
+    <p class="tacit-method-note" data-reveal>All three use class and benchmark weighting. The backbone remains frozen throughout training.</p>
+  </div>
+</section>
+
+<section class="tacit-section tacit-results" id="results">
+  <div class="shell">
+    <div class="tacit-section-head" data-reveal>
+      <p class="tacit-section-kicker">Evaluation</p>
+      <h2>One configuration across six benchmarks</h2>
+      <p>The training portions of all six datasets form one pool. Validation folds within that pool select each readout&rsquo;s configuration, and each held-out test portion is scored once.</p>
+    </div>
+    <div class="tacit-proof-rail" aria-label="Summary of TACIT results">
+      <div data-reveal><strong>86.2</strong><span>Qwen Multi-layer mean macro-F1</span></div>
+      <div data-reveal><strong>60.5</strong><span>best evaluated guard mean macro-F1</span></div>
+      <div data-reveal><strong>6 / 6</strong><span>benchmarks where the Qwen Probe beats every evaluated guard</span></div>
+      <div data-reveal><strong>76.9</strong><span>AgentDojo F1, versus 37.7 for the best evaluated guard</span></div>
+    </div>
+    <div class="tacit-comparison" data-reveal role="img" aria-label="Mean macro-F1 across six benchmarks: Qwen3Guard 33.6, LlamaGuard3 45.2, AgentDoG 60.5, and TACIT Multi-layer on Qwen3-4B 86.2.">
+      <div class="tacit-comparison-axis" aria-hidden="true"><span>0</span><span>50</span><span>100</span></div>
+      <div class="tacit-bar-row"><span>Qwen3Guard</span><div><i style="--score:33.6%"></i></div><strong>33.6</strong></div>
+      <div class="tacit-bar-row"><span>LlamaGuard3</span><div><i style="--score:45.2%"></i></div><strong>45.2</strong></div>
+      <div class="tacit-bar-row"><span>AgentDoG</span><div><i style="--score:60.5%"></i></div><strong>60.5</strong></div>
+      <div class="tacit-bar-row is-tacit"><span>TACIT</span><div><i style="--score:86.2%"></i></div><strong>86.2</strong></div>
+    </div>
+    <details class="tacit-results-table" data-reveal>
+      <summary>View all benchmark results</summary>
+      <div class="tacit-table-scroll">
+        <table>
+          <caption>Macro-F1 on held-out test data (%)</caption>
+          <thead><tr><th>System</th><th>R-Judge</th><th>TraceSafe</th><th>ATBench</th><th>ASSEBench</th><th>OAS</th><th>AgentDojo</th><th>Mean</th></tr></thead>
+          <tbody>
+            <tr><th>Qwen3Guard-4B</th><td>32.2</td><td>34.7</td><td>36.8</td><td>43.6</td><td>38.2</td><td>15.8</td><td>33.6</td></tr>
+            <tr><th>LlamaGuard3-8B</th><td>66.3</td><td>48.6</td><td>38.9</td><td>60.6</td><td>35.9</td><td>21.1</td><td>45.2</td></tr>
+            <tr><th>AgentDoG-4B</th><td>92.7</td><td>44.7</td><td>63.3</td><td>81.4</td><td>43.3</td><td>37.7</td><td>60.5</td></tr>
+            <tr class="tacit-table-group"><th colspan="8">TACIT &middot; Qwen3-4B</th></tr>
+            <tr class="tacit-table-highlight"><th>Probe</th><td>95.0</td><td>77.5</td><td>93.5</td><td>85.2</td><td>67.9</td><td>65.1</td><td>80.7</td></tr>
+            <tr class="tacit-table-highlight"><th>Ensemble</th><td>97.0</td><td>88.7</td><td>95.0</td><td>88.5</td><td>72.0</td><td>71.0</td><td>85.4</td></tr>
+            <tr class="tacit-table-highlight"><th>Multi-layer</th><td>97.0</td><td>86.5</td><td>94.5</td><td>89.8</td><td>72.7</td><td>76.9</td><td><b>86.2</b></td></tr>
+            <tr class="tacit-table-group"><th colspan="8">TACIT &middot; Llama3.1-8B</th></tr>
+            <tr class="tacit-table-highlight"><th>Probe</th><td>98.0</td><td>78.6</td><td>90.0</td><td>88.0</td><td>69.0</td><td>66.6</td><td>81.7</td></tr>
+            <tr class="tacit-table-highlight"><th>Ensemble</th><td>97.0</td><td>90.1</td><td>93.5</td><td>88.7</td><td>72.7</td><td>68.8</td><td>85.1</td></tr>
+            <tr class="tacit-table-highlight"><th>Multi-layer</th><td>97.0</td><td>89.6</td><td>95.0</td><td>88.5</td><td>69.8</td><td>72.2</td><td>85.4</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </details>
+    <div class="tacit-sft" data-reveal>
+      <div class="tacit-sft-copy">
+        <p class="tacit-section-kicker">Matched-data comparison</p>
+        <h3>Internal readouts complement full fine-tuning</h3>
+        <p>Frozen Multi-layer readouts perform on par with full SFT. Applying the readout after fine-tuning raises Qwen3-4B from 84.2 to 86.5 and Llama3.1-8B from 85.8 to 87.0.</p>
+      </div>
+      <div class="tacit-sft-table" aria-label="Mean macro-F1 for frozen TACIT, full supervised fine-tuning, and supervised fine-tuning with TACIT">
+        <div class="tacit-sft-head"><span></span><span>Frozen TACIT</span><span>Full SFT</span><span>SFT + TACIT</span></div>
+        <div><strong>Qwen3-4B</strong><span>86.2</span><span>84.2</span><b>86.5</b></div>
+        <div><strong>Llama3.1-8B</strong><span>85.4</span><span>85.8</span><b>87.0</b></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="tacit-section tacit-efficiency" id="efficiency">
+  <div class="shell">
+    <div class="tacit-section-head" data-reveal>
+      <p class="tacit-section-kicker">Efficiency</p>
+      <h2>A small head on a frozen backbone</h2>
+      <p>TACIT fits its readout without backpropagating through the LLM. At inference, the backbone runs once and the head adds less than one millisecond.</p>
+    </div>
+    <div class="tacit-efficiency-grid">
+      <article data-reveal>
+        <p class="tacit-metric-name">Trainable parameters</p>
+        <strong>2,561</strong>
+        <p>for the Qwen Probe, versus 4.0B for full SFT</p>
+        <dl><div><dt>Ensemble</dt><dd>67K</dd></div><div><dt>One Multi-layer aggregate</dt><dd>3M</dd></div></dl>
+      </article>
+      <article data-reveal>
+        <p class="tacit-metric-name">Training time</p>
+        <strong>0.36 h</strong>
+        <p>for Probe, versus 2.11 GPU-hours for full SFT</p>
+        <dl><div><dt>Ensemble</dt><dd>0.42 h</dd></div><div><dt>Multi-layer</dt><dd>0.69 h</dd></div></dl>
+      </article>
+      <article data-reveal>
+        <p class="tacit-metric-name">Detection latency</p>
+        <strong>40 ms</strong>
+        <p>with zero decoded tokens</p>
+        <dl><div><dt>AgentDoG</dt><dd>53 ms</dd></div><div><dt>Qwen3Guard</dt><dd>215 ms</dd></div></dl>
+      </article>
+    </div>
+    <div class="tacit-secondary-findings">
+      <figure data-reveal>
+        <img src="../assets/img/tacit/layer-profile.webp" width="799" height="513" alt="Qwen Probe macro-F1 by layer. Performance peaks at 83.7 at layer 24, compared with 80.5 at the final layer. Multi-layer TACIT reaches 86.2 and full supervised fine-tuning reaches 84.2.">
+        <figcaption><b>Layer profile.</b> The post hoc Probe peaks at 83.7 at layer 24, compared with 80.5 at the final layer.</figcaption>
+      </figure>
+      <figure data-reveal>
+        <img src="../assets/img/tacit/two-forms.webp" width="705" height="375" alt="Dimensions selected for unsafe tool use explain little of the harmful-content logit difference, and dimensions selected for harmful content explain little of the unsafe-tool-use logit difference.">
+        <figcaption><b>Different coordinates.</b> The dimensions that carry half of one risk&rsquo;s logit difference explain only 11% or 1% of the other.</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<footer class="tacit-footer">
+  <div class="shell">
+    <div><strong>TACIT</strong><span>Trajectory sAfety Classifier from Internal sTates</span></div>
+    <a href="../">Model Mind-Reading &rarr;</a>
+  </div>
+</footer>
+</main>
+</body>
+</html>
