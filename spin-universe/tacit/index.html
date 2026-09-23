@@ -97,7 +97,7 @@
   <div class="shell">
     <div class="agent-section-head" data-reveal>
       <h2>Harmful content and unsafe tool use</h2>
-      <p>Agent trajectories can be unsafe because of what they say or do, and because an action is inconsistent with its authorization, tool schema, or preceding context.</p>
+      <p>An agent trajectory can be unsafe because it contains harmful content or because a tool call conflicts with its authorization, schema, or preceding context.</p>
     </div>
 
     <div class="agent-evidence-grid" data-reveal>
@@ -144,7 +144,7 @@
   <div class="shell">
     <div class="agent-section-head agent-section-head-dark" data-reveal>
       <h2>Mechanistic findings</h2>
-      <p>Matched trajectory pairs isolate one risk at a time, comparing signals in the guard&rsquo;s internal states with the verdict it generates.</p>
+      <p>We use matched trajectory pairs to isolate each risk, then compare the guard&rsquo;s output with what remains readable in its internal states.</p>
     </div>
 
     <div class="agent-findings-grid" data-reveal>
@@ -175,7 +175,7 @@
     <div class="agent-section-head agent-section-head-single" data-reveal>
       <h2>Method: trajectory safety from internal states</h2>
     </div>
-    <p class="agent-method-intro" data-reveal>TACIT renders the complete trajectory with a frozen LLM's chat template, preserves the system prompt, tool schemas, message roles, and turn order, and reads the resulting hidden states in one forward pass.</p>
+    <p class="agent-method-intro" data-reveal>TACIT renders the full trajectory with a frozen LLM's chat template, including the system prompt, tool schemas, message roles, and turn order. One forward pass provides the hidden states for the readout.</p>
 
     <div class="agent-method-figure" data-reveal role="img" aria-label="A complete agent trajectory passes once through a frozen LLM. A lightweight readout produces an unsafe probability without decoding tokens.">
       <div class="agent-method-trajectory"><i></i><i></i><i></i><i></i></div>
@@ -196,11 +196,11 @@
       </article>
       <article data-reveal>
         <h3>Ensemble</h3>
-        <p>Several fitted probes are combined into one trajectory-level safety score.</p>
+        <p>The ensemble combines several fitted probes into one trajectory-level safety score.</p>
       </article>
       <article data-reveal>
         <h3>Multi-layer</h3>
-        <p>Salient dimensions are selected across layers and integrated by a lightweight classifier.</p>
+        <p>The multi-layer readout selects salient dimensions across layers and integrates them with a lightweight classifier.</p>
       </article>
     </div>
   </div>
@@ -210,7 +210,7 @@
   <div class="shell">
     <div class="agent-section-head" data-reveal>
       <h2>Experiments and results</h2>
-      <p>TACIT is trained on the pooled training portions of six trajectory-safety benchmarks. Validation folds select one configuration, and each system is evaluated once on the held-out test portions.</p>
+      <p>We train TACIT on the pooled training portions of six trajectory-safety benchmarks, select the readout on validation folds, and evaluate once on the held-out test portions.</p>
     </div>
 
     <div class="agent-proof-rail" aria-label="Summary of TACIT results">
@@ -241,7 +241,7 @@
     </div>
 
     <div class="agent-result-story" data-reveal>
-      <p>The plain TACIT probe scores above every evaluated guard on all six benchmarks. The Multi-layer readout reaches 86.2 mean macro-F1 on Qwen3-4B, compared with 60.5 for AgentDoG, and reaches 76.9 on AgentDojo, where the strongest evaluated guard reaches 37.7.</p>
+      <p>Even the plain TACIT probe scores above every evaluated guard on all six benchmarks. The Multi-layer readout reaches 86.2 mean macro-F1 on Qwen3-4B, compared with 60.5 for AgentDoG. On AgentDojo, it reaches 76.9; the strongest evaluated guard reaches 37.7.</p>
     </div>
 
     <div class="agent-compound" data-reveal>
@@ -318,7 +318,7 @@
   <div class="shell">
     <div class="agent-section-head agent-section-head-dark" data-reveal>
       <h2>Training and inference efficiency</h2>
-      <p>TACIT fits lightweight readouts on saved activations without backpropagating through the backbone. At inference time, it produces a verdict from one forward pass and decodes no tokens.</p>
+      <p>TACIT fits small readouts on saved activations, so no gradient passes through the backbone. At inference, one forward pass produces the verdict without decoding tokens.</p>
     </div>
 
     <div class="agent-deployment-rail" data-reveal aria-label="TACIT efficiency measurements on Qwen3-4B">
@@ -337,10 +337,10 @@
     <div class="agent-exit-demo" data-reveal>
       <div class="agent-exit-copy">
         <h3>Performance by layer</h3>
-        <p>The probe rises quickly through the early layers, peaks in the middle of the model, and remains competitive through the final layer. The Multi-layer readout integrates useful signals across the stack.</p>
+        <p>Validation macro-F1 peaks at 80.9 at layer 22 and falls to 79.1 at the final layer. Stopping at layer 22 skips 14 of 36 layers; the truncated Multi-layer readout retains 85.3 macro-F1, compared with 86.2 at full depth.</p>
       </div>
       <div class="agent-exit-visual agent-paper-figure agent-layer-figure">
-        <img src="../assets/img/tacit/layer-profile.webp" alt="Probe macro-F1 by layer, compared with TACIT Multi-layer and full safety fine-tuning.">
+        <img src="../assets/img/tacit/layer-profile.webp?v=2" alt="Validation macro-F1 by layer, compared with TACIT Multi-layer and full safety fine-tuning.">
       </div>
     </div>
   </div>
