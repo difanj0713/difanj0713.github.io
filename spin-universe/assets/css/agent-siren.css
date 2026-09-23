@@ -4421,6 +4421,8 @@
 .agent-hero-art.agent-paper-figure {
   min-height: 0;
   display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  gap: 0;
   place-items: center;
   padding: 0.75rem;
   border: 1px solid var(--line);
