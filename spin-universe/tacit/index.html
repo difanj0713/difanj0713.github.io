@@ -3,25 +3,25 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>TACIT &middot; Detecting Harmful Agent Trajectories from LLM Internal States</title>
+<title>Agent Safety From Within: Detecting Harmful Agent Trajectories from LLM Internal States</title>
 <meta name="description" content="TACIT reads a frozen LLM's internal states to detect harmful content and unsafe tool use in agent trajectories.">
 <link rel="canonical" href="https://difanj0713.github.io/spin-universe/tacit/">
 <meta property="og:type" content="article">
-<meta property="og:title" content="TACIT &middot; Detecting Harmful Agent Trajectories from LLM Internal States">
+<meta property="og:title" content="Agent Safety From Within: Detecting Harmful Agent Trajectories from LLM Internal States">
 <meta property="og:description" content="TACIT reads a frozen LLM's internal states to detect harmful content and unsafe tool use in agent trajectories.">
 <meta property="og:url" content="https://difanj0713.github.io/spin-universe/tacit/">
-<meta property="og:site_name" content="Model Mind-Reading">
+<meta property="og:site_name" content="Readout">
 <meta property="og:image" content="https://difanj0713.github.io/spin-universe/assets/img/social/tacit.png?v=10">
 <meta property="og:image:type" content="image/png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
-<meta property="og:image:alt" content="TACIT: Detecting harmful agent trajectories from LLM internal states.">
+<meta property="og:image:alt" content="Agent Safety From Within: TACIT reads internal states to detect harmful agent trajectories.">
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:title" content="TACIT · Detecting Harmful Agent Trajectories from LLM Internal States">
+<meta name="twitter:title" content="Agent Safety From Within: Detecting Harmful Agent Trajectories from LLM Internal States">
 <meta name="twitter:description" content="TACIT reads a frozen LLM's internal states to detect harmful content and unsafe tool use in agent trajectories.">
 <meta name="twitter:image" content="https://difanj0713.github.io/spin-universe/assets/img/social/tacit.png?v=10">
-<meta name="twitter:image:alt" content="TACIT: Detecting harmful agent trajectories from LLM internal states.">
-<meta name="citation_title" content="TACIT: Detecting Harmful Agent Trajectories from LLM Internal States">
+<meta name="twitter:image:alt" content="Agent Safety From Within: TACIT reads internal states to detect harmful agent trajectories.">
+<meta name="citation_title" content="Agent Safety From Within: Detecting Harmful Agent Trajectories from LLM Internal States">
 <meta name="citation_author" content="Difan Jiao">
 <meta name="citation_author" content="Ashton Anderson">
 <script type="application/ld+json">
@@ -29,7 +29,7 @@
   "@context": "https://schema.org",
   "@type": "ScholarlyArticle",
   "@id": "https://difanj0713.github.io/spin-universe/tacit/#paper",
-  "headline": "TACIT: Detecting Harmful Agent Trajectories from LLM Internal States",
+  "headline": "Agent Safety From Within: Detecting Harmful Agent Trajectories from LLM Internal States",
   "description": "TACIT reads a frozen LLM's internal states to detect harmful content and unsafe tool use in agent trajectories.",
   "author": [
     { "@type": "Person", "name": "Difan Jiao" },
@@ -37,7 +37,7 @@
   ],
   "url": "https://difanj0713.github.io/spin-universe/tacit/",
   "mainEntityOfPage": "https://difanj0713.github.io/spin-universe/tacit/",
-  "isPartOf": { "@id": "https://difanj0713.github.io/spin-universe/#collection", "name": "Model Mind-Reading", "url": "https://difanj0713.github.io/spin-universe/" },
+  "isPartOf": { "@id": "https://difanj0713.github.io/spin-universe/#collection", "name": "Readout", "url": "https://difanj0713.github.io/spin-universe/" },
   "inLanguage": "en",
   "image": "https://difanj0713.github.io/spin-universe/assets/img/social/tacit.png?v=10"
 }
@@ -47,8 +47,8 @@
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600&amp;family=Poppins:wght@400;500;600;700&amp;family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&amp;display=swap">
 <link rel="stylesheet" href="../assets/css/site.css?v=14">
 <link rel="stylesheet" href="../assets/css/agent-siren.css?v=9">
-<meta name="application-name" content="Model Mind-Reading">
-<meta name="apple-mobile-web-app-title" content="Model Mind-Reading">
+<meta name="application-name" content="Readout">
+<meta name="apple-mobile-web-app-title" content="Readout">
 <meta name="theme-color" content="#f7f7f4">
 <meta name="robots" content="index, follow, max-image-preview:large">
 <link rel="icon" href="/spin-universe/assets/img/favicon-48x48.png?v=4" type="image/png" sizes="48x48">
@@ -61,7 +61,7 @@
 
 <nav class="agent-nav" aria-label="TACIT page navigation">
   <div class="shell agent-nav-inner">
-    <a class="agent-nav-home" href="../"><span aria-hidden="true">&larr;</span> Model Mind-Reading</a>
+    <a class="agent-nav-home" href="../"><span aria-hidden="true">&larr;</span> Readout</a>
     <div class="agent-nav-links">
       <a href="#motivation">Motivation</a>
       <a href="#findings">Findings</a>
@@ -76,7 +76,7 @@
   <div class="shell agent-masthead-grid">
     <div class="agent-hero-copy" data-reveal>
       <h1>TACIT</h1>
-      <p class="agent-hero-claim">Detecting harmful agent trajectories from LLM internal states</p>
+      <p class="agent-hero-claim">Agent Safety From Within: Detecting Harmful Agent Trajectories from LLM Internal States</p>
       <ul class="agent-keywords" aria-label="Keywords">
         <li>Agent safety</li>
         <li>Guard models</li>
@@ -175,7 +175,7 @@
     <div class="agent-section-head agent-section-head-single" data-reveal>
       <h2>Method: trajectory safety from internal states</h2>
     </div>
-    <p class="agent-method-intro" data-reveal>TACIT renders the full trajectory with a frozen LLM's chat template, including the system prompt, tool schemas, message roles, and turn order. One forward pass provides the hidden states for the readout.</p>
+    <p class="agent-method-intro" data-reveal>TACIT (Trajectory Assessment by Classifying Internal Transformer states) renders the full trajectory with a frozen LLM's chat template, including the system prompt, tool schemas, message roles, and turn order. One forward pass provides the hidden states for the readout.</p>
 
     <div class="agent-method-figure" data-reveal role="img" aria-label="A complete agent trajectory passes once through a frozen LLM. A lightweight readout produces an unsafe probability without decoding tokens.">
       <div class="agent-method-trajectory"><i></i><i></i><i></i><i></i></div>

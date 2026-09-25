@@ -38,7 +38,7 @@ const OUTPUT_END = FIRST_PASS_END + 490;
 const DECODE_STARTS = [1210, 2030];
 const TOKEN_TIMES = [830, 1910, 2730, 2950];
 const TITLES = {
-  spin: 'Model Mind-Reading: combining signals across layers',
+  spin: 'Readout: combining signals across layers',
   llm: 'LLM generation: predicting tokens from the final layer',
 };
 const DESCRIPTIONS = {

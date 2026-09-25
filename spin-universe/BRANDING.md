@@ -1,10 +1,10 @@
-# Model Mind-Reading brand specification
+# Readout brand specification
 
-This is the site-wide source of truth for Model Mind-Reading positioning, voice, and visual design. For detailed paper-page structure and result presentation, also see [EDITORIAL_GUIDE.md](EDITORIAL_GUIDE.md).
+This is the site-wide source of truth for Readout positioning, voice, and visual design. For detailed paper-page structure and result presentation, also see [EDITORIAL_GUIDE.md](EDITORIAL_GUIDE.md).
 
 ## North star
 
-Model Mind-Reading is an academic research collection presented with public-facing clarity. It should be memorable enough to invite a broad technical audience in, and precise enough that collaborators and researchers trust what they find.
+Readout is an academic research collection presented with public-facing clarity. It should be memorable enough to invite a broad technical audience in, and precise enough that collaborators and researchers trust what they find.
 
 The central idea is operational, not metaphysical:
 
@@ -12,7 +12,7 @@ The central idea is operational, not metaphysical:
 - Small task-specific methods can measure and use those states.
 - Their value is established through classification, safety, and retrieval results.
 
-`Model mind-reading` is the public hook. It is a metaphor for measuring internal representations, not a claim about consciousness, thought, or complete mechanistic understanding. The surrounding copy must make that distinction evident without adding defensive disclaimers.
+`Readout` is the program name, with the line `Readout, not rollout.` on the homepage. `Model mind-reading` is the research premise: using internal representations for practical decisions. It is a metaphor for measuring internal representations, not a claim about consciousness, thought, or complete mechanistic understanding. The surrounding copy must make that distinction evident without adding defensive disclaimers.
 
 ## Audience
 
@@ -96,7 +96,7 @@ Analogies should clarify measurement, not imply biological equivalence.
 - Electroencephalography (EEG) is an instrumentation analogy: internal electrical activity becomes a measurable, useful signal. It is not described as literal thought-reading.
 - SPIN and related methods are closer to training, calibrating, and validating a task-specific instrument than to discovering a model's complete reasoning process.
 - Do not call model evaluation a `clinical trial` on the site. Use the analogy to guide the story, then describe the actual experiment.
-- `Model mind-reading` may remain as the memorable brand phrase because the technical copy immediately operationalizes it.
+- `Model mind-reading` describes the research premise because the technical copy immediately operationalizes it.
 
 ## Historical material and quotations
 
