@@ -32,9 +32,9 @@
   }
 
   const resultSystems = [
-    { key: 'qwen', label: 'Qwen3Guard-4B', values: [0.322, 0.347, 0.368, 0.436, 0.382, 0.158], mean: 0.336 },
-    { key: 'llama', label: 'LlamaGuard3-8B', values: [0.663, 0.486, 0.389, 0.606, 0.359, 0.211], mean: 0.452 },
-    { key: 'dog', label: 'AgentDoG-4B', values: [0.927, 0.447, 0.633, 0.814, 0.433, 0.377], mean: 0.605 },
+    { key: 'qwen', label: 'Qwen3Guard-4B', values: [0.322, 0.347, 0.368, 0.436, 0.382, 0.449], mean: 0.384 },
+    { key: 'llama', label: 'LlamaGuard3-8B', values: [0.663, 0.486, 0.389, 0.606, 0.359, 0.625], mean: 0.522 },
+    { key: 'dog', label: 'AgentDoG-4B', values: [0.927, 0.447, 0.633, 0.814, 0.433, 0.482], mean: 0.623 },
     { key: 'agent-llama', label: 'TACIT · Llama-3.1-8B · Multi-layer', values: [0.970, 0.896, 0.950, 0.885, 0.698, 0.722], mean: 0.854 },
     { key: 'agent', label: 'TACIT · Qwen3-4B · Multi-layer', values: [0.970, 0.865, 0.945, 0.898, 0.727, 0.769], mean: 0.862 },
   ];

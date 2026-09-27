@@ -11,7 +11,7 @@
 <meta property="og:description" content="TACIT reads a frozen LLM's internal states to detect harmful content and unsafe tool use in agent trajectories.">
 <meta property="og:url" content="https://difanj0713.github.io/spin-universe/tacit/">
 <meta property="og:site_name" content="Readout">
-<meta property="og:image" content="https://difanj0713.github.io/spin-universe/assets/img/social/tacit.png?v=10">
+<meta property="og:image" content="https://difanj0713.github.io/spin-universe/assets/img/social/tacit.png?v=11">
 <meta property="og:image:type" content="image/png">
 <meta property="og:image:width" content="1200">
 <meta property="og:image:height" content="630">
@@ -19,7 +19,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:title" content="Agent Safety From Within: Detecting Harmful Trajectories from LLM Internal States">
 <meta name="twitter:description" content="TACIT reads a frozen LLM's internal states to detect harmful content and unsafe tool use in agent trajectories.">
-<meta name="twitter:image" content="https://difanj0713.github.io/spin-universe/assets/img/social/tacit.png?v=10">
+<meta name="twitter:image" content="https://difanj0713.github.io/spin-universe/assets/img/social/tacit.png?v=11">
 <meta name="twitter:image:alt" content="Agent Safety From Within: TACIT reads internal states to detect harmful agent trajectories.">
 <meta name="citation_title" content="Agent Safety From Within: Detecting Harmful Trajectories from LLM Internal States">
 <meta name="citation_author" content="Difan Jiao">
@@ -39,7 +39,7 @@
   "mainEntityOfPage": "https://difanj0713.github.io/spin-universe/tacit/",
   "isPartOf": { "@id": "https://difanj0713.github.io/spin-universe/#collection", "name": "Readout", "url": "https://difanj0713.github.io/spin-universe/" },
   "inLanguage": "en",
-  "image": "https://difanj0713.github.io/spin-universe/assets/img/social/tacit.png?v=10"
+  "image": "https://difanj0713.github.io/spin-universe/assets/img/social/tacit.png?v=11"
 }
 </script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -86,7 +86,7 @@
     </div>
 
     <figure class="agent-hero-art agent-paper-figure" data-reveal>
-      <img src="../assets/img/tacit/teaser.svg" alt="TACIT overview: two forms of trajectory risk, internal-state readouts, performance, and efficiency.">
+      <img src="../assets/img/tacit/teaser.svg?v=2" alt="TACIT overview: two forms of trajectory risk, internal-state readouts, performance, and efficiency.">
     </figure>
   </div>
 </header>
@@ -192,7 +192,7 @@
     <div class="agent-method-steps">
       <article data-reveal>
         <h3>Probe</h3>
-        <p>Validation selects a layer, pooling choice, and L2-regularized logistic probe.</p>
+        <p>Validation selects a layer, pooling choice, and L2-regularized logistic probe. The selected probes concatenate the last-token and mean-pooled states.</p>
       </article>
       <article data-reveal>
         <h3>Ensemble</h3>
@@ -215,7 +215,7 @@
 
     <div class="agent-proof-rail" aria-label="Summary of TACIT results">
       <div class="agent-proof" data-reveal><strong>86.2</strong><span>best mean macro-F1</span></div>
-      <div class="agent-proof" data-reveal><strong>+25.7</strong><span>over the strongest evaluated guard</span></div>
+      <div class="agent-proof" data-reveal><strong>+23.9</strong><span>over the strongest evaluated guard</span></div>
       <div class="agent-proof" data-reveal><strong>6 / 6</strong><span>benchmarks where the plain probe leads</span></div>
       <div class="agent-proof" data-reveal><strong>87.0</strong><span>after fine-tuning + TACIT</span></div>
     </div>
@@ -241,7 +241,32 @@
     </div>
 
     <div class="agent-result-story" data-reveal>
-      <p>Even the plain TACIT probe scores above every evaluated guard on all six benchmarks. The Multi-layer readout reaches 86.2 mean macro-F1 on Qwen3-4B, compared with 60.5 for AgentDoG. On AgentDojo, it reaches 76.9; the strongest evaluated guard reaches 37.7.</p>
+      <p>Even the plain TACIT probe scores above every evaluated guard on all six benchmarks. The Multi-layer readout reaches 86.2 mean macro-F1 on Qwen3-4B, compared with 62.3 for AgentDoG. On AgentDojo, it reaches 76.9; the strongest evaluated guard reaches 62.5.</p>
+    </div>
+
+    <div class="agent-compound" data-reveal>
+      <div class="agent-compound-copy">
+        <h3>Generalization to unseen benchmarks</h3>
+        <p>In leave-one-benchmark-out (LOBO) evaluation, TACIT trains on five benchmarks and is tested on all trajectories of the sixth. The Multi-layer readout reaches 65.7 mean macro-F1 on Qwen and 63.5 on Llama, both above the strongest evaluated guard, AgentDoG, at 61.1.</p>
+      </div>
+      <div class="agent-compound-rows" aria-label="LOBO mean macro-F1 for the three TACIT readouts; AgentDoG scores 61.1">
+        <div class="agent-compound-row">
+          <span class="agent-compound-model">Qwen3-4B</span>
+          <div><span>Probe</span><strong>62.6</strong></div>
+          <i aria-hidden="true"></i>
+          <div><span>Ensemble</span><strong>63.3</strong></div>
+          <i aria-hidden="true"></i>
+          <div class="is-best"><span>Multi-layer</span><strong>65.7</strong></div>
+        </div>
+        <div class="agent-compound-row">
+          <span class="agent-compound-model">Llama-3.1-8B</span>
+          <div><span>Probe</span><strong>58.3</strong></div>
+          <i aria-hidden="true"></i>
+          <div><span>Ensemble</span><strong>62.2</strong></div>
+          <i aria-hidden="true"></i>
+          <div class="is-best"><span>Multi-layer</span><strong>63.5</strong></div>
+        </div>
+      </div>
     </div>
 
     <div class="agent-compound" data-reveal>
@@ -277,15 +302,36 @@
           <table>
             <thead><tr><th>System</th><th>R-Judge</th><th>TraceSafe</th><th>ATBench</th><th>ASSEBench</th><th>OAS</th><th>AgentDojo</th><th>Mean</th></tr></thead>
             <tbody>
-              <tr><th>Qwen3Guard-4B</th><td>32.2</td><td>34.7</td><td>36.8</td><td>43.6</td><td>38.2</td><td>15.8</td><td>33.6</td></tr>
-              <tr><th>LlamaGuard3-8B</th><td>66.3</td><td>48.6</td><td>38.9</td><td>60.6</td><td>35.9</td><td>21.1</td><td>45.2</td></tr>
-              <tr><th>AgentDoG-4B</th><td>92.7</td><td>44.7</td><td>63.3</td><td>81.4</td><td>43.3</td><td>37.7</td><td>60.5</td></tr>
+              <tr><th>Qwen3Guard-4B</th><td>32.2</td><td>34.7</td><td>36.8</td><td>43.6</td><td>38.2</td><td>44.9</td><td>38.4</td></tr>
+              <tr><th>LlamaGuard3-8B</th><td>66.3</td><td>48.6</td><td>38.9</td><td>60.6</td><td>35.9</td><td>62.5</td><td>52.2</td></tr>
+              <tr><th>AgentDoG-4B</th><td>92.7</td><td>44.7</td><td>63.3</td><td>81.4</td><td>43.3</td><td>48.2</td><td>62.3</td></tr>
               <tr class="agent-table-highlight"><th>TACIT &middot; Qwen &middot; Probe</th><td>95.0</td><td>77.5</td><td>93.5</td><td>85.2</td><td>67.9</td><td>65.1</td><td>80.7</td></tr>
               <tr class="agent-table-highlight"><th>TACIT &middot; Qwen &middot; Ensemble</th><td>97.0</td><td>88.7</td><td>95.0</td><td>88.5</td><td>72.0</td><td>71.0</td><td>85.4</td></tr>
               <tr class="agent-table-highlight"><th>TACIT &middot; Qwen &middot; Multi-layer</th><td><b>97.0</b></td><td>86.5</td><td>94.5</td><td><b>89.8</b></td><td><b>72.7</b></td><td><b>76.9</b></td><td><b>86.2</b></td></tr>
-              <tr class="agent-table-highlight"><th>TACIT &middot; Llama &middot; Probe</th><td>98.0</td><td>78.6</td><td>90.0</td><td>88.0</td><td>69.0</td><td>66.6</td><td>81.7</td></tr>
+              <tr class="agent-table-highlight"><th>TACIT &middot; Llama &middot; Probe</th><td>98.0</td><td>79.7</td><td>89.5</td><td>88.1</td><td>67.5</td><td>66.6</td><td>81.6</td></tr>
               <tr class="agent-table-highlight"><th>TACIT &middot; Llama &middot; Ensemble</th><td>97.0</td><td>90.1</td><td>93.5</td><td>88.7</td><td>72.7</td><td>68.8</td><td>85.1</td></tr>
               <tr class="agent-table-highlight"><th>TACIT &middot; Llama &middot; Multi-layer</th><td><b>97.0</b></td><td><b>89.6</b></td><td><b>95.0</b></td><td>88.5</td><td>69.8</td><td>72.2</td><td><b>85.4</b></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+
+      <div class="agent-table-group">
+        <h3>Leave-one-benchmark-out generalization</h3>
+        <p>Each benchmark is excluded from TACIT training and validation, then evaluated in full. Released guard checkpoints are scored on the same trajectories. Values are macro-F1 (%).</p>
+        <div class="agent-table-scroll">
+          <table>
+            <thead><tr><th>System</th><th>R-Judge</th><th>TraceSafe</th><th>ATBench</th><th>ASSEBench</th><th>OAS</th><th>AgentDojo</th><th>Mean</th></tr></thead>
+            <tbody>
+              <tr><th>Qwen3Guard-4B</th><td>43.5</td><td>34.6</td><td>36.3</td><td>45.1</td><td>39.5</td><td>45.9</td><td>40.8</td></tr>
+              <tr><th>LlamaGuard3-8B</th><td>64.8</td><td>48.2</td><td>39.8</td><td>61.7</td><td>41.6</td><td>54.8</td><td>51.8</td></tr>
+              <tr><th>AgentDoG-4B</th><td>91.7</td><td>43.3</td><td>61.3</td><td>79.4</td><td>49.3</td><td>41.5</td><td>61.1</td></tr>
+              <tr class="agent-table-highlight"><th>TACIT &middot; Qwen &middot; Probe</th><td>85.4</td><td>41.7</td><td>59.8</td><td>73.5</td><td>56.2</td><td>58.8</td><td>62.6</td></tr>
+              <tr class="agent-table-highlight"><th>TACIT &middot; Qwen &middot; Ensemble</th><td>90.1</td><td>48.3</td><td>60.4</td><td>72.9</td><td>55.8</td><td>52.1</td><td>63.3</td></tr>
+              <tr class="agent-table-highlight"><th>TACIT &middot; Qwen &middot; Multi-layer</th><td>89.4</td><td>48.3</td><td>58.7</td><td>84.3</td><td>57.3</td><td>56.2</td><td>65.7</td></tr>
+              <tr class="agent-table-highlight"><th>TACIT &middot; Llama &middot; Probe</th><td>89.1</td><td>51.0</td><td>45.1</td><td>71.7</td><td>47.5</td><td>45.5</td><td>58.3</td></tr>
+              <tr class="agent-table-highlight"><th>TACIT &middot; Llama &middot; Ensemble</th><td>90.7</td><td>48.1</td><td>58.5</td><td>72.2</td><td>58.9</td><td>44.8</td><td>62.2</td></tr>
+              <tr class="agent-table-highlight"><th>TACIT &middot; Llama &middot; Multi-layer</th><td>91.4</td><td>49.8</td><td>59.0</td><td>74.0</td><td>60.5</td><td>46.3</td><td>63.5</td></tr>
             </tbody>
           </table>
         </div>
@@ -303,7 +349,7 @@
               <tr class="agent-table-highlight"><td>+ Ensemble</td><td>96.7</td><td>91.8</td><td>94.2</td><td>89.6</td><td>72.5</td><td>73.8</td><td>86.4</td></tr>
               <tr class="agent-table-highlight"><td>+ Multi-layer</td><td>96.7</td><td>92.6</td><td>94.1</td><td>89.6</td><td>69.8</td><td>75.9</td><td><b>86.5</b></td></tr>
               <tr><th rowspan="4">Llama-3.1-8B</th><td>SFT</td><td>96.5</td><td>95.0</td><td>94.1</td><td>89.8</td><td>61.4</td><td>78.2</td><td>85.8</td></tr>
-              <tr class="agent-table-highlight"><td>+ Probe</td><td>96.2</td><td>93.7</td><td>94.6</td><td>89.0</td><td>64.9</td><td>78.9</td><td>86.2</td></tr>
+              <tr class="agent-table-highlight"><td>+ Probe</td><td>95.8</td><td>94.6</td><td>94.2</td><td>88.5</td><td>64.3</td><td>74.7</td><td>85.4</td></tr>
               <tr class="agent-table-highlight"><td>+ Ensemble</td><td>96.0</td><td>94.9</td><td>95.2</td><td>89.3</td><td>65.7</td><td>77.3</td><td>86.4</td></tr>
               <tr class="agent-table-highlight"><td>+ Multi-layer</td><td>97.0</td><td>95.1</td><td>94.4</td><td>88.7</td><td>66.0</td><td>80.6</td><td><b>87.0</b></td></tr>
             </tbody>
@@ -322,25 +368,25 @@
     </div>
 
     <div class="agent-deployment-rail" data-reveal aria-label="TACIT efficiency measurements on Qwen3-4B">
-      <article><strong>2,561</strong><span>parameters in one probe</span></article>
-      <article><strong>0.36</strong><span>GPU-hours to train the probe</span></article>
+      <article><strong>5,121</strong><span>parameters in one probe</span></article>
+      <article><strong>0.36</strong><span>hours to train the probe</span></article>
       <article><strong>40 ms</strong><span>detection latency</span></article>
       <article><strong>0</strong><span>decoded tokens</span></article>
     </div>
 
     <div class="agent-efficiency-comparison" data-reveal>
-      <article><h3>Trainable parameters</h3><p>A Qwen3-4B probe has 2,561 parameters, compared with 4.0 billion for full fine-tuning. The Ensemble uses 67K, and one Multi-layer aggregate uses about 3M.</p></article>
-      <article><h3>Training time</h3><p>The Probe takes 0.36 GPU-hours, the Ensemble 0.42, and the Multi-layer readout 0.69, compared with 2.11 for full fine-tuning.</p></article>
+      <article><h3>Trainable parameters</h3><p>A Qwen3-4B probe has 5,121 parameters, compared with 4.0 billion for full fine-tuning. The Ensemble uses 56K, and one Multi-layer aggregate uses about 3M.</p></article>
+      <article><h3>Training time</h3><p>The Probe takes 0.36 hours, the Ensemble 0.42, and the Multi-layer readout 0.69, compared with 2.11 for full fine-tuning.</p></article>
       <article><h3>Detection latency</h3><p>TACIT takes 40 ms per trajectory, compared with 53 ms for AgentDoG and 215 ms for Qwen3Guard.</p></article>
     </div>
 
     <div class="agent-exit-demo" data-reveal>
       <div class="agent-exit-copy">
         <h3>Performance by layer</h3>
-        <p>Validation macro-F1 peaks at 80.9 at layer 22 and falls to 79.1 at the final layer. Stopping at layer 22 skips 14 of 36 layers; the truncated Multi-layer readout retains 85.3 macro-F1, compared with 86.2 at full depth.</p>
+        <p>Validation macro-F1 peaks at 80.9 at layer 22 and falls to 79.0 at the final layer. Stopping at layer 22 skips 14 of 36 layers; the truncated Multi-layer readout retains 85.3 macro-F1, compared with 86.2 at full depth.</p>
       </div>
       <div class="agent-exit-visual agent-paper-figure agent-layer-figure">
-        <img src="../assets/img/tacit/layer-profile.webp?v=2" alt="Validation macro-F1 by layer, compared with TACIT Multi-layer and full safety fine-tuning.">
+        <img src="../assets/img/tacit/layer-profile.webp?v=3" alt="Validation macro-F1 by layer, compared with TACIT Multi-layer and full safety fine-tuning.">
       </div>
     </div>
   </div>
@@ -348,6 +394,6 @@
 
 </main>
 
-<script src="../assets/js/agent-siren.js?v=5"></script>
+<script src="../assets/js/agent-siren.js?v=6"></script>
 </body>
 </html>
