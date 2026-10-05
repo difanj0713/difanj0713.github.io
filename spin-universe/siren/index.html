@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>SIREN &middot; Harmfulness Detection from Internal LLM Representations</title>
+<meta name="description" content="SIREN identifies sparse safety neurons across a frozen LLM and achieves higher mean macro-F1 than backbone-matched Qwen3Guard and LlamaGuard3 models on all four backbones.">
+<link rel="canonical" href="https://difanj0713.github.io/spin-universe/siren/">
+<meta property="og:type" content="article">
+<meta property="og:title" content="SIREN &middot; Harmfulness Detection from Internal LLM Representations">
+<meta property="og:description" content="A sparse cross-layer classifier achieves higher mean macro-F1 than backbone-matched Qwen3Guard and LlamaGuard3 models on all four backbones, with 250&times; fewer trainable parameters and more than 4&times; fewer inference FLOPs.">
+<meta property="og:url" content="https://difanj0713.github.io/spin-universe/siren/">
+<meta property="og:site_name" content="Readout">
+<meta property="og:image" content="https://difanj0713.github.io/spin-universe/assets/img/social/siren.png?v=11">
+<meta property="og:image:type" content="image/png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="SIREN: Detecting harmful content from internal model representations. ACL 2026.">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:image" content="https://difanj0713.github.io/spin-universe/assets/img/social/siren.png?v=11">
+<meta name="twitter:image:alt" content="SIREN: Detecting harmful content from internal model representations. ACL 2026.">
+<meta name="citation_title" content="LLM Safety From Within: Detecting Harmful Content with Internal Representations">
+<meta name="citation_author" content="Difan Jiao">
+<meta name="citation_author" content="Yilun Liu">
+<meta name="citation_author" content="Ye Yuan">
+<meta name="citation_author" content="Zhenwei Tang">
+<meta name="citation_author" content="Linfeng Du">
+<meta name="citation_author" content="Haolun Wu">
+<meta name="citation_author" content="Ashton Anderson">
+<meta name="citation_conference_title" content="Proceedings of the 64th Annual Meeting of the Association for Computational Linguistics (Volume 1: Long Papers)">
+<meta name="citation_publication_date" content="2026/07">
+<meta name="citation_pdf_url" content="https://aclanthology.org/2026.acl-long.1844.pdf">
+<meta name="citation_doi" content="10.18653/v1/2026.acl-long.1844">
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "ScholarlyArticle",
+  "@id": "https://difanj0713.github.io/spin-universe/siren/#paper",
+  "headline": "LLM Safety From Within: Detecting Harmful Content with Internal Representations",
+  "description": "SIREN identifies sparse safety neurons across a frozen LLM and achieves higher mean macro-F1 than backbone-matched Qwen3Guard and LlamaGuard3 models on all four backbones.",
+  "author": [
+    { "@type": "Person", "name": "Difan Jiao" },
+    { "@type": "Person", "name": "Yilun Liu" },
+    { "@type": "Person", "name": "Ye Yuan" },
+    { "@type": "Person", "name": "Zhenwei Tang" },
+    { "@type": "Person", "name": "Linfeng Du" },
+    { "@type": "Person", "name": "Haolun Wu" },
+    { "@type": "Person", "name": "Ashton Anderson" }
+  ],
+  "url": "https://difanj0713.github.io/spin-universe/siren/",
+  "mainEntityOfPage": "https://difanj0713.github.io/spin-universe/siren/",
+  "isPartOf": { "@id": "https://difanj0713.github.io/spin-universe/#collection", "name": "Readout", "url": "https://difanj0713.github.io/spin-universe/" },
+  "inLanguage": "en",
+  "image": "https://difanj0713.github.io/spin-universe/assets/img/social/siren.png?v=11",
+  "sameAs": "https://arxiv.org/abs/2604.18519",
+  "datePublished": "2026-07",
+  "identifier": {
+    "@type": "PropertyValue",
+    "propertyID": "DOI",
+    "value": "10.18653/v1/2026.acl-long.1844"
+  },
+  "encoding": {
+    "@type": "MediaObject",
+    "encodingFormat": "application/pdf",
+    "contentUrl": "https://aclanthology.org/2026.acl-long.1844.pdf"
+  }
+}
+</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600&amp;family=Poppins:wght@400;500;600;700&amp;family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&amp;display=swap">
+<link rel="stylesheet" href="../assets/css/site.css?v=14">
+<link rel="stylesheet" href="../assets/css/siren.css?v=6">
+<meta name="twitter:title" content="SIREN · Harmfulness Detection from Internal LLM Representations">
+<meta name="twitter:description" content="A sparse cross-layer classifier achieves higher mean macro-F1 than backbone-matched Qwen3Guard and LlamaGuard3 models on all four backbones, with 250× fewer trainable parameters and more than 4× fewer inference FLOPs.">
+<meta name="application-name" content="Readout">
+<meta name="apple-mobile-web-app-title" content="Readout">
+<meta name="theme-color" content="#f7f7f4">
+<meta name="robots" content="index, follow, max-image-preview:large">
+<link rel="icon" href="/spin-universe/assets/img/favicon-48x48.png?v=4" type="image/png" sizes="48x48">
+<link rel="icon" href="/spin-universe/assets/img/favicon-96x96.png?v=4" type="image/png" sizes="96x96">
+<link rel="icon" href="/spin-universe/assets/img/favicon.svg?v=4" type="image/svg+xml" sizes="any">
+<link rel="apple-touch-icon" href="/spin-universe/assets/img/apple-touch-icon.png?v=4" sizes="180x180">
+</head>
+
+<body class="siren-page">
+
+<nav class="siren-nav" aria-label="SIREN page navigation">
+  <div class="shell siren-nav-inner">
+    <a class="siren-nav-home" href="../"><span aria-hidden="true">&larr;</span> Readout</a>
+    <div class="siren-nav-links">
+      <a href="#motivation">Motivation</a>
+      <a href="#method">Method</a>
+      <a href="#results">Results</a>
+      <a href="#streaming">Streaming</a>
+    </div>
+  </div>
+</nav>
+
+<header class="siren-masthead" id="top">
+  <div class="shell siren-masthead-grid">
+    <div class="siren-hero-copy" data-reveal>
+      <h1>SIREN</h1>
+      <p class="siren-hero-claim">LLM safety from within: detecting harmful content with internal representations</p>
+      <ul class="siren-keywords" aria-label="Keywords">
+        <li>Content safety</li>
+        <li>Large language models</li>
+        <li>Internal representations</li>
+      </ul>
+      <p class="siren-authors"><b>Difan Jiao</b> &middot; Yilun Liu &middot; Ye Yuan &middot; Zhenwei Tang &middot; Linfeng Du &middot; Haolun Wu &middot; Ashton Anderson</p>
+      <div class="links siren-hero-links">
+        <a class="chip siren-chip-primary" href="https://arxiv.org/abs/2604.18519">
+          <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false"><path fill="currentColor" d="M3.842 0a1.004 1.004 0 0 0-.922.608c-.154.369-.044.627.294 1.111l6.918 8.36-1.022 1.106a1.039 1.039 0 0 0 .003 1.422l1.229 1.314-5.439 6.444c-.28.299-.454.823-.297 1.199a1.025 1.025 0 0 0 .959.635.913.913 0 0 0 .689-.341l5.783-6.126 7.49 8.005a.853.853 0 0 0 .683.26.958.958 0 0 0 .878-.614c.158-.377-.017-.75-.306-1.141l-7.052-8.342 1.063-1.13a.963.963 0 0 0 .009-1.316L4.634.464S4.26.01 3.866 0h-.024Zm14.341 1.842a.877.877 0 0 0-.655.242l-5.696 6.158 1.694 1.832 5.309-6.514c.325-.433.479-.66.325-1.029a1.12 1.12 0 0 0-.977-.689Z"/></svg>
+          Read the paper
+        </a>
+        <a class="chip" href="https://github.com/CSSLab/SIREN">
+          <svg viewBox="0 0 16 16" aria-hidden="true" focusable="false"><path fill="currentColor" d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82A7.7 7.7 0 0 1 8 3.59c.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0 0 16 8c0-4.42-3.58-8-8-8Z"/></svg>
+          Code
+        </a>
+        <a class="chip" href="https://huggingface.co/UofTCSSLab">
+          <span class="siren-hf-mark" aria-hidden="true">HF</span>Models
+        </a>
+        <a class="chip" href="https://pypi.org/project/llm-siren/">
+          <span class="siren-terminal-mark" aria-hidden="true">&gt;_</span>Install
+        </a>
+        <a class="chip" href="../SIREN_Poster.pdf"><span class="siren-pdf-mark" aria-hidden="true">PDF</span>Poster</a>
+      </div>
+    </div>
+
+    <div class="siren-hero-art" data-reveal aria-hidden="true">
+      <div class="siren-hero-input">
+        <i></i>
+      </div>
+      <div class="siren-hero-layers" id="sirenHeroLayers"></div>
+      <div class="siren-hero-wire"></div>
+      <div class="siren-hero-score">
+        <strong>0.87</strong>
+        <i><b></b></i>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main>
+
+<section class="light siren-section siren-motivation" id="motivation">
+  <div class="shell">
+    <div class="siren-section-head siren-section-head-single" data-reveal>
+      <h2>Motivation</h2>
+    </div>
+    <p class="siren-motivation-copy" data-reveal>Guard models are typically fine-tuned from general-purpose LLMs and generate safety verdicts from the terminal layer. SIREN tests whether safety-relevant information in intermediate layers can support a more accurate harmfulness detector while the underlying model remains frozen.</p>
+  </div>
+</section>
+
+<section class="siren-section siren-method" id="method">
+  <div class="shell">
+    <div class="siren-section-head siren-section-head-dark siren-section-head-single" data-reveal>
+      <h2>Method: safety neuron identification and adaptive aggregation</h2>
+    </div>
+    <p class="siren-method-intro" data-reveal><b>SIREN</b> (<span class="siren-expansion"><b>S</b>afeguard with <b>I</b>nternal <b>RE</b>presentatio<b>N</b></span>) selects task-relevant coordinates within each layer and combines them according to layer-wise validation performance.</p>
+
+    <div class="siren-readout-demo" data-reveal>
+      <div class="siren-mode-switch" role="group" aria-label="Choose a safety classification method">
+        <button type="button" data-safety-mode="guard" aria-pressed="false">Generative guard</button>
+        <button type="button" data-safety-mode="siren" class="is-active" aria-pressed="true">SIREN</button>
+      </div>
+      <div class="siren-readout-board">
+        <svg id="sirenReadoutSvg" viewBox="0 0 980 500" role="img" aria-labelledby="sirenReadoutTitle sirenReadoutDesc">
+          <title id="sirenReadoutTitle">Interactive comparison of a generative guard and SIREN</title>
+          <desc id="sirenReadoutDesc">A generative guard decodes a safety verdict from its terminal layer. SIREN selects sparse safety neurons within each layer and aggregates them into a continuous harmfulness score.</desc>
+          <text class="siren-svg-fallback" x="490" y="250" text-anchor="middle">SIREN aggregates selected safety-neuron activations across a frozen model.</text>
+        </svg>
+      </div>
+    </div>
+
+    <div class="siren-method-steps">
+      <article data-reveal>
+        <h3>Layer-wise linear probing</h3>
+        <p>Token-level activations are mean-pooled, and an L1-regularized harmful-versus-safe probe is fit at each layer.</p>
+      </article>
+      <article data-reveal>
+        <h3>Safety neuron selection</h3>
+        <p>Coordinates are ranked by probe-weight magnitude, and the smallest set that reaches the cumulative threshold is retained.</p>
+      </article>
+      <article data-reveal>
+        <h3>Adaptive neuron aggregation</h3>
+        <p>Selected activations are weighted by each layer&rsquo;s validation F1, concatenated, and passed to an MLP classifier.</p>
+      </article>
+    </div>
+  </div>
+</section>
+
+<section class="light siren-section siren-results" id="results">
+  <div class="shell">
+    <div class="siren-section-head" data-reveal>
+      <h2>Experiments and results</h2>
+      <p>We compare SIREN with Qwen3Guard and LlamaGuard3 models built from the corresponding Qwen and Llama backbones. Values are mean macro-F1 over seven prompt- and response-level safety benchmarks.</p>
+    </div>
+
+    <div class="siren-proof-rail" aria-label="Summary of SIREN results">
+      <div class="siren-proof" data-reveal>
+        <strong>4 / 4</strong>
+        <span>higher mean F1 in all four backbone pairs</span>
+      </div>
+      <div class="siren-proof" data-reveal>
+        <strong>+15.0</strong>
+        <span>largest macro-F1 point gain</span>
+      </div>
+      <div class="siren-proof" data-reveal>
+        <strong>250&times;</strong>
+        <span>fewer trainable parameters on 4B</span>
+      </div>
+      <div class="siren-proof" data-reveal>
+        <strong>&gt;4&times;</strong>
+        <span>fewer inference FLOPs</span>
+      </div>
+    </div>
+
+    <div class="siren-result-card" data-reveal>
+      <div class="siren-chart-head">
+        <div class="siren-chart-legend" aria-hidden="true">
+          <span><i class="legend-guard"></i> Safety-tuned guard</span>
+          <span><i class="legend-siren"></i> SIREN</span>
+        </div>
+      </div>
+      <div class="siren-result-chart-wrap">
+        <svg id="sirenResultChart" class="siren-result-chart" viewBox="0 0 1000 410" role="img" aria-labelledby="sirenResultTitle sirenResultDesc">
+          <title id="sirenResultTitle">Average harmfulness detection performance for SIREN and backbone-matched guard models</title>
+          <desc id="sirenResultDesc">SIREN scores 85.6, 85.7, 86.7, and 86.3 mean macro-F1 across four backbones, exceeding each corresponding safety-tuned guard.</desc>
+          <text class="siren-svg-fallback" data-result-fallback x="500" y="205" text-anchor="middle">SIREN improves mean macro-F1 in all four backbone-matched comparisons.</text>
+        </svg>
+      </div>
+    </div>
+
+    <div class="siren-result-story" data-reveal>
+      <p>Each comparison uses the same base model architecture. The published guard is safety fine-tuned and generates a verdict; SIREN fits a compact classifier over the frozen base model&rsquo;s internal representations. SIREN has the higher mean macro-F1 in every pair, with the largest gain on Llama-3.2-1B.</p>
+    </div>
+
+    <details class="siren-raw-results">
+      <summary>View full benchmark table</summary>
+      <div class="siren-table-scroll">
+        <table>
+          <thead>
+            <tr><th>Backbone</th><th>Method</th><th>ToxiC</th><th>OpenAI Mod</th><th>Aegis</th><th>Aegis 2.0</th><th>WildGuard</th><th>SafeRLHF</th><th>BeaverTails</th><th>Avg.</th></tr>
+          </thead>
+          <tbody>
+            <tr class="is-siren"><th rowspan="2">Qwen3-0.6B</th><th>SIREN</th><td>81.6</td><td>91.3</td><td>82.4</td><td>82.1</td><td>86.5</td><td>91.6</td><td>83.5</td><td>85.6</td></tr>
+            <tr><th>Guard</th><td>82.0</td><td>75.9</td><td>78.8</td><td>82.0</td><td>89.1</td><td>86.9</td><td>77.1</td><td>81.7</td></tr>
+            <tr class="is-siren"><th rowspan="2">Llama3.2-1B</th><th>SIREN</th><td>80.0</td><td>92.9</td><td>82.1</td><td>82.7</td><td>86.5</td><td>92.0</td><td>83.7</td><td>85.7</td></tr>
+            <tr><th>Guard</th><td>63.3</td><td>67.5</td><td>59.5</td><td>72.6</td><td>78.6</td><td>83.3</td><td>70.0</td><td>70.7</td></tr>
+            <tr class="is-siren"><th rowspan="2">Qwen3-4B</th><th>SIREN</th><td>83.5</td><td>91.2</td><td>82.9</td><td>83.4</td><td>88.3</td><td>93.2</td><td>84.3</td><td>86.7</td></tr>
+            <tr><th>Guard</th><td>84.9</td><td>78.3</td><td>78.2</td><td>82.5</td><td>90.6</td><td>89.2</td><td>80.1</td><td>83.4</td></tr>
+            <tr class="is-siren"><th rowspan="2">Llama3.1-8B</th><th>SIREN</th><td>83.1</td><td>92.0</td><td>82.9</td><td>82.9</td><td>86.7</td><td>92.5</td><td>83.8</td><td>86.3</td></tr>
+            <tr><th>Guard</th><td>72.2</td><td>85.3</td><td>67.1</td><td>78.0</td><td>81.3</td><td>86.2</td><td>68.8</td><td>77.0</td></tr>
+          </tbody>
+        </table>
+      </div>
+    </details>
+
+    <div class="siren-speed-proof" data-reveal>
+      <div class="siren-speed-copy">
+        <h3>Inference cost</h3>
+        <p>Generative guards process the input and then decode a verdict token by token. SIREN uses one forward pass through the frozen base model, followed by its lightweight classifier.</p>
+      </div>
+
+      <div class="siren-flops-chart" role="img" aria-label="Paper Figure 6 inference FLOPs. Qwen3 0.6B: SIREN 155 billion versus guard 785 billion. Llama 3.2 1B: SIREN 257 billion versus guard 1.31 trillion. Qwen3 4B: SIREN 1.03 trillion versus guard 5.22 trillion. Llama 3.1 8B: SIREN 2.05 trillion versus guard 10.4 trillion.">
+        <div class="siren-flops-legend" aria-hidden="true"><span><i></i>SIREN &middot; direct score</span><span><i></i>Guard &middot; decoded verdict</span></div>
+        <div class="siren-flops-row">
+          <span class="siren-flops-model">Qwen3 <small>0.6B</small></span>
+          <div><span>SIREN</span><i><b style="--flops-width:19.7%"></b></i><strong>155B</strong></div>
+          <div class="is-guard"><span>Guard</span><i><b style="--flops-width:100%"></b></i><strong>785B</strong></div>
+        </div>
+        <div class="siren-flops-row">
+          <span class="siren-flops-model">Llama3.2 <small>1B</small></span>
+          <div><span>SIREN</span><i><b style="--flops-width:19.7%"></b></i><strong>257B</strong></div>
+          <div class="is-guard"><span>Guard</span><i><b style="--flops-width:100%"></b></i><strong>1.31T</strong></div>
+        </div>
+        <div class="siren-flops-row">
+          <span class="siren-flops-model">Qwen3 <small>4B</small></span>
+          <div><span>SIREN</span><i><b style="--flops-width:19.7%"></b></i><strong>1.03T</strong></div>
+          <div class="is-guard"><span>Guard</span><i><b style="--flops-width:100%"></b></i><strong>5.22T</strong></div>
+        </div>
+        <div class="siren-flops-row">
+          <span class="siren-flops-model">Llama3.1 <small>8B</small></span>
+          <div><span>SIREN</span><i><b style="--flops-width:19.7%"></b></i><strong>2.05T</strong></div>
+          <div class="is-guard"><span>Guard</span><i><b style="--flops-width:100%"></b></i><strong>10.4T</strong></div>
+        </div>
+        <p class="siren-flops-note">FLOPs per sample &middot; 128-token input &middot; four-token guard verdict &middot; each pair normalized to its matched guard</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="light siren-section siren-streaming" id="streaming">
+  <div class="shell">
+    <div class="siren-section-head" data-reveal>
+      <h2>Generalization and streaming detection</h2>
+      <p>We evaluate SIREN on unseen reasoning traces and apply the same complete-sequence classifier to every prefix of a response, without streaming-specific training.</p>
+    </div>
+
+    <div class="siren-stream-grid">
+      <div class="siren-stream-proof" data-reveal>
+        <article>
+          <strong>+11.2</strong>
+          <span>average F1 gain on unseen Think traces<br>for the 8B models</span>
+        </article>
+        <article>
+          <strong>Higher detection rate</strong>
+          <span>than Qwen3Guard-Stream at every reported latency</span>
+        </article>
+        <article>
+          <strong>0</strong>
+          <span>additional training for streaming evaluation</span>
+        </article>
+      </div>
+
+      <div class="siren-stream-demo" data-reveal>
+        <div class="siren-stream-head">
+          <p>Response prefix</p>
+        </div>
+        <div class="siren-stream-text" id="sirenStreamText" aria-label="Illustrative response prefix">
+          <span>Let&rsquo;s</span><span>inspect</span><span>the</span><span>request.</span><span>It</span><span>asks</span><span>for</span><span>restricted</span><span>instructions.</span><span>I</span><span>will</span><span>provide</span><span>them.</span>
+        </div>
+        <div class="siren-stream-controls">
+          <label for="sirenPrefixRange"><span>Prefix received</span><output id="sirenPrefixValue">9 / 13 tokens</output></label>
+          <input id="sirenPrefixRange" type="range" min="1" max="13" value="9" step="1" hidden>
+        </div>
+        <div class="siren-score-panel" aria-live="polite">
+          <div class="siren-score-meta">
+            <span>SIREN score</span>
+            <strong id="sirenStreamScore">0.62</strong>
+          </div>
+          <div class="siren-score-track" aria-hidden="true">
+            <i class="siren-score-threshold"><span>flag</span></i>
+            <b id="sirenScoreFill"></b>
+          </div>
+          <p id="sirenStreamStatus">Harmful signal detected in the current prefix.</p>
+        </div>
+        <p class="siren-schematic-note">Illustrative example; scores are not a measured trace.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<script type="module" src="../assets/js/siren.js?v=4"></script>
+</body>
+</html>
