@@ -1,0 +1,103 @@
+/* Shared reading layout. ar5iv supplies LaTeXML's math/table semantics. */
+:root {
+  color-scheme: light;
+  --main-width: 740px;
+  --main-width-margin: 780px;
+  --headings-font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --text-font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --background-color: #fff;
+  --text-color: #252525;
+  --link-text-color: #365e73;
+  --line-height-prose: 1.7;
+}
+html { scroll-padding-top: 24px; }
+body { margin: 0; background: #fff; color: #252525; font: 17px/1.7 var(--text-font-family); }
+*, *::before, *::after { box-sizing: border-box; }
+a { color: #365e73; text-decoration-thickness: 1px; text-underline-offset: 3px; }
+a:hover { color: #152f3c; }
+:focus-visible { outline: 2px solid #365e73; outline-offset: 4px; }
+.skip-link { position: absolute; top: -100px; left: 20px; background: #fff; padding: 10px; z-index: 10; }
+.skip-link:focus { top: 10px; }
+.paper-header, .paper-frontmatter, article.ltx_document, .paper-footer { width: calc(100% - 48px); max-width: 740px; margin-inline: auto; }
+.paper-header { padding: 65px 0 27px; border-bottom: 1px solid #ddd; }
+.paper-header .paper-title { font: 650 46px/1.13 var(--headings-font-family); letter-spacing: -1.4px; text-align: left; margin: 0 0 30px; padding: 0; }
+.paper-meta { display: flex; gap: 25px; align-items: baseline; color: #666; font-size: 14px; line-height: 1.65; }
+.paper-meta p { margin: 0; flex: 1; }
+.paper-meta time { white-space: nowrap; }
+.paper-links { display: flex; gap: 22px; margin-top: 20px; font-size: 14px; }
+.paper-frontmatter { display: flex; flex-wrap: wrap; gap: 12px 25px; margin-top: 16px; margin-bottom: 35px; font-size: 14px; color: #666; }
+details > summary { cursor: pointer; }
+.paper-frontmatter details[open] { flex-basis: 100%; }
+.paper-frontmatter .ltx_authors { margin: 20px 0; gap: 20px; text-align: left; justify-content: flex-start; align-items: flex-start; }
+.paper-frontmatter .ltx_creator { flex: 1 1 200px; align-items: flex-start; justify-content: flex-start; text-align: left; min-width: 0; }
+.paper-frontmatter .ltx_personname { min-width: 0; font-size: 14px; font-weight: 600; }
+.paper-frontmatter .ltx_role_affiliation, .paper-frontmatter .ltx_role_email { font-size: 12px; overflow-wrap: anywhere; }
+.paper-contents ol { padding-left: 24px; columns: 2; column-gap: 30px; }
+.paper-contents li { break-inside: avoid; padding: 3px 0; }
+article.ltx_document { padding: 0; font-size: 17px; line-height: 1.7; font-weight: 400; }
+.ltx_para, .ltx_p, .ltx_abstract .ltx_p, .ltx_acknowledgements { font-family: var(--text-font-family); font-size: inherit; line-height: 1.7; text-align: left; hyphens: none; }
+.ltx_p { margin: 0 0 1.2em; text-indent: 0 !important; }
+.ltx_para { margin: 0 0 1.2em; }
+.ltx_para .ltx_para { margin-bottom: .7em; }
+.ltx_abstract { margin: 0 0 42px; padding: 0; font-style: italic; color: #444; }
+.ltx_title_abstract { font-size: 14px; line-height: 1.5; font-weight: 600; font-style: normal; margin: 0 0 14px; }
+.ltx_title { font-family: var(--headings-font-family); color: #222; text-align: left; }
+h2.ltx_title { font-size: 28px; line-height: 1.25; font-weight: 650; letter-spacing: -.4px; margin: 52px 0 22px; padding: 0; }
+h3.ltx_title { font-size: 22px; line-height: 1.35; font-weight: 600; margin: 34px 0 16px; padding: 0; }
+h4.ltx_title, h5.ltx_title, h6.ltx_title { font-size: 18px; line-height: 1.45; margin: 24px 0 12px; padding: 0; }
+.ltx_title .ltx_tag { margin-right: .45em; }
+.ltx_title_paragraph { display: inline; font-size: 17px; font-weight: 600; }
+section { overflow: visible; }
+.ltx_figure, .ltx_table { margin: 36px 0; padding: 0; max-width: 100%; }
+.ltx_figure img.ltx_graphics { display: block; width: auto; max-width: 100%; height: auto; margin-inline: auto; box-shadow: none; border: 0; }
+.ltx_figure > img.ltx_graphics, .ltx_figure > .ltx_flex_figure > img.ltx_graphics { width: 100%; }
+.ltx_figure img.ltx_graphics:hover { transform: none; box-shadow: none; }
+svg.ltx_picture { max-width: 100%; height: auto; }
+.ltx_caption { display: block; font: 14px/1.6 var(--text-font-family); color: #666; margin: 14px 0 0; text-align: left; }
+.ltx_caption .ltx_tag { color: #444; font-weight: 600; }
+.ltx_caption .ltx_p { font-size: inherit; line-height: inherit; }
+.paper-table-scroll { width: 100%; max-width: 100%; overflow-x: auto; margin: 18px 0; overscroll-behavior-x: contain; }
+.paper-table-scroll > table { margin: 0 auto; }
+.ltx_table table { font-size: 15px; line-height: 1.5; }
+.ltx_table .ltx_td > .ltx_inline-block { width: auto !important; }
+.ltx_table .ltx_p { margin: 0; }
+.ltx_table .ltx_td .ltx_p:has(> math:first-child) { white-space: nowrap; }
+.ltx_tabular td, .ltx_tabular th { padding: 5px 7px; }
+.ltx_equation { width: 100%; }
+.ltx_equation td { padding: 5px 2px; }
+math { font-family: "STIX Two Math", "Cambria Math", math; max-width: 100%; overflow-x: auto; }
+math[display="block"] { margin: 8px 0; }
+.ltx_biblist { padding-left: 0; list-style: none; }
+.ltx_bibitem { font-size: 14px; line-height: 1.65; margin: 0 0 16px; overflow-wrap: anywhere; }
+.ltx_bibblock { display: block; }
+.ltx_bibitem > .ltx_tag { font-weight: 600; }
+.ltx_note { position: relative; display: inline; }
+.ltx_note > .ltx_note_mark { cursor: pointer; color: #365e73; font-size: .75em; padding: 0 2px; }
+.ltx_note > .ltx_note_outer { display: none !important; }
+.ltx_note.is-open > .ltx_note_outer { display: block !important; position: static !important; opacity: 1 !important; width: auto !important; max-width: 100% !important; margin: 12px 0 !important; padding: 12px 16px !important; border: 0 !important; border-left: 2px solid #b3c2c9 !important; background: #f5f7f8 !important; font: 14px/1.6 var(--text-font-family); text-align: left; }
+.ltx_note.is-open > .ltx_note_outer > .ltx_note_content { position: static !important; display: inline !important; width: auto !important; max-width: none !important; margin: 0 !important; padding: 0 !important; border: 0 !important; background: transparent !important; font: inherit; }
+.ltx_pagination { display: none; }
+.paper-footer { border-top: 1px solid #ddd; padding: 25px 0 60px; margin-top: 60px; font-size: 13px; color: #777; }
+.paper-footer p { margin-top: 16px; }
+@media (min-width: 1100px) {
+  article > figure, .ltx_section > figure, .ltx_appendix > figure { width: calc(100% + 160px); max-width: none; margin-left: -80px; }
+}
+@media (max-width: 650px) {
+  .paper-header { padding-top: 32px; }
+  .paper-header .paper-title { font-size: 33px; letter-spacing: -.8px; }
+  .paper-meta { flex-direction: column; gap: 10px; }
+  article.ltx_document { font-size: 16px; }
+  .paper-contents ol { columns: 1; }
+  h2.ltx_title { font-size: 25px; }
+  h3.ltx_title { font-size: 21px; }
+  .ltx_flex_figure { max-width: 100%; }
+  .ltx_p, .ltx_minipage, .ltx_parbox, .ltx_framed { max-width: 100%; min-width: 0; }
+  .ltx_listing, pre { max-width: 100%; overflow-x: auto; }
+}
+@media print {
+  .paper-frontmatter, .paper-footer, .skip-link { display: none; }
+  .paper-header { padding-top: 0; }
+  article > figure, .ltx_section > figure, .ltx_appendix > figure { width: 100%; margin-left: 0; }
+  .paper-table-scroll { overflow: visible; }
+  .ltx_note > .ltx_note_outer { display: inline !important; position: static !important; }
+}

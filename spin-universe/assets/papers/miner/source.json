@@ -1,0 +1,26 @@
+{
+  "source": "https://arxiv.org/html/2605.06460v1",
+  "sha256": "8ee816d6280e2ded9f2c7412e19fea6f6b0297d1482a301c94c56bb2c5b4987c",
+  "elements": {
+    "figure": 22,
+    "math": 713,
+    ".ltx_note": 6,
+    "figcaption": 22
+  },
+  "assets": {
+    "https://arxiv.org/html/2605.06460v1/jina_ar_n_shared_layer15_35.svg": "../assets/papers/miner/d49e7d73c7-jina_ar_n_shared_layer15_35.svg",
+    "https://arxiv.org/html/2605.06460v1/MINER_arch_v4.png": "../assets/papers/miner/a0ea4a3f7b-MINER_arch_v4.png",
+    "https://arxiv.org/html/2605.06460v1/jina_ndcg5_response_time_storage_combined_v2.svg": "../assets/papers/miner/561468db73-jina_ndcg5_response_time_storage_combined_v2.svg",
+    "https://arxiv.org/html/2605.06460v1/sensitivity_check_jina_percent_change_panel_narrow.svg": "../assets/papers/miner/3b7f865011-sensitivity_check_jina_percent_change_panel_narrow.svg",
+    "https://arxiv.org/html/2605.06460v1/eager_ar_n_shared_layer19_35.svg": "../assets/papers/miner/2601f8ec40-eager_ar_n_shared_layer19_35.svg",
+    "https://arxiv.org/html/2605.06460v1/moca_ar_n_shared_layer15_35.svg": "../assets/papers/miner/30c1150b7d-moca_ar_n_shared_layer15_35.svg",
+    "https://arxiv.org/html/2605.06460v1/jina_plot1_nonprobing_vs_probing.svg": "../assets/papers/miner/747517d878-jina_plot1_nonprobing_vs_probing.svg",
+    "https://arxiv.org/html/2605.06460v1/eager_plot1_nonprobing_vs_probing.svg": "../assets/papers/miner/aedbb0c64b-eager_plot1_nonprobing_vs_probing.svg",
+    "https://arxiv.org/html/2605.06460v1/moca_plot1_nonprobing_vs_probing.svg": "../assets/papers/miner/24478b90ac-moca_plot1_nonprobing_vs_probing.svg",
+    "https://arxiv.org/html/2605.06460v1/jina_neuron_selection_percent.svg": "../assets/papers/miner/b676973942-jina_neuron_selection_percent.svg",
+    "https://arxiv.org/html/2605.06460v1/eager_neuron_selection_percent.svg": "../assets/papers/miner/16205029ab-eager_neuron_selection_percent.svg",
+    "https://arxiv.org/html/2605.06460v1/moca_neuron_selection_percent.svg": "../assets/papers/miner/10965f8c50-moca_neuron_selection_percent.svg",
+    "https://arxiv.org/html/2605.06460v1/sensitivity_check_eager_percent_change_panel_narrow.svg": "../assets/papers/miner/091727396d-sensitivity_check_eager_percent_change_panel_narrow.svg",
+    "https://arxiv.org/html/2605.06460v1/sensitivity_check_moca_percent_change_panel_narrow.svg": "../assets/papers/miner/c9e5d13498-sensitivity_check_moca_percent_change_panel_narrow.svg"
+  }
+}

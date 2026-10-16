@@ -1,0 +1,22 @@
+{
+  "source": "https://arxiv.org/html/2609.33039v1",
+  "sha256": "e4cc32fdd1ebedbdadb37cf9d97cf7113de97e05f98a8a9c2b65c2b45a819f07",
+  "elements": {
+    "figure": 22,
+    "math": 303,
+    ".ltx_note": 5,
+    "figcaption": 20
+  },
+  "assets": {
+    "https://arxiv.org/html/2609.33039v1/siren-agent-teaser.svg": "../assets/papers/tacit/2828aa5369-siren-agent-teaser.svg",
+    "https://arxiv.org/html/2609.33039v1/sec31_main.svg": "../assets/papers/tacit/efee2f06c5-sec31_main.svg",
+    "https://arxiv.org/html/2609.33039v1/mech_axes.svg": "../assets/papers/tacit/fcf611081f-mech_axes.svg",
+    "https://arxiv.org/html/2609.33039v1/efficiency_v4f.svg": "../assets/papers/tacit/ea77a40306-efficiency_v4f.svg",
+    "https://arxiv.org/html/2609.33039v1/layer_profile_v4f.svg": "../assets/papers/tacit/396159417c-layer_profile_v4f.svg",
+    "https://arxiv.org/html/2609.33039v1/two_forms_v4f.svg": "../assets/papers/tacit/ee40a2cf2b-two_forms_v4f.svg",
+    "https://arxiv.org/html/2609.33039v1/sec31_alignment.svg": "../assets/papers/tacit/c453b1b2f8-sec31_alignment.svg",
+    "https://arxiv.org/html/2609.33039v1/atbench_residual_guards.svg": "../assets/papers/tacit/53739a2c32-atbench_residual_guards.svg",
+    "https://arxiv.org/html/2609.33039v1/policy_consistency.svg": "../assets/papers/tacit/9861482e0f-policy_consistency.svg",
+    "https://arxiv.org/html/2609.33039v1/eta_ablation_v4f.svg": "../assets/papers/tacit/7552ae8cdf-eta_ablation_v4f.svg"
+  }
+}

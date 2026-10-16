@@ -547,7 +547,9 @@ h1.title .title-line {
 
 .home-enhanced .panels {
   position: absolute;
-  inset: 0;
+  inset: 9rem 0 6rem;
+  overflow: hidden;
+  mask-image: linear-gradient(to bottom, transparent, #000 3rem, #000 calc(100% - 3rem), transparent);
 }
 
 .home-enhanced .panels-shell {
@@ -562,8 +564,8 @@ h1.title .title-line {
   top: 50%;
   left: var(--gut);
   opacity: 0;
-  /* JS animates --rise only, so the centring offset survives. */
-  transform: translateY(calc(-50% + var(--rise, 14px)));
+  /* All six panels move together along the visualization's existing timeline. */
+  transform: translateY(calc(-50% + var(--panel-offset, 0px)));
   will-change: opacity, transform;
 }
 
@@ -1570,7 +1572,18 @@ h1.title {
   inset: 0 0 auto;
   padding-top: clamp(5.25rem, 8vh, 6.25rem);
   pointer-events: none;
+  display: flex;
+  align-items: baseline;
+  gap: 1.25rem;
 }
+
+.stage-progress {
+  display: none;
+  color: var(--ink-3);
+  font: 500 .75rem var(--mono);
+  font-variant-numeric: tabular-nums;
+}
+.home-enhanced .stage-progress { display: inline; }
 
 .stage-label {
   margin: 0;

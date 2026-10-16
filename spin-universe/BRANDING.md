@@ -181,11 +181,11 @@ Use crimson for a deliberate editorial or archival moment, not as a generic high
 
 ## Working locally
 
-Preview from the repository root:
+From a checkout named `spin-universe`, serve its parent directory to preserve the live URL path:
 
 ```bash
-cd /ada1/projects/chess/maia_interp/difanj0713.github.io
-python3 -m http.server 8080
+cd spin-universe
+python3 -m http.server 8080 --bind 127.0.0.1 --directory ..
 ```
 
 Open `http://localhost:8080/spin-universe/`.

@@ -120,7 +120,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@500;600&amp;family=Poppins:wght@400;500;600;700&amp;family=Source+Serif+4:ital,opsz,wght@0,8..60,400;0,8..60,600;1,8..60,400&amp;display=swap">
-<link rel="stylesheet" href="assets/css/site.css?v=38">
+<link rel="stylesheet" href="assets/css/site.css?v=39">
 
 <script type="importmap">
 {
@@ -141,7 +141,7 @@
 <link rel="icon" href="/spin-universe/assets/img/favicon-96x96.png?v=4" type="image/png" sizes="96x96">
 <link rel="icon" href="/spin-universe/assets/img/favicon.svg?v=4" type="image/svg+xml" sizes="any">
 <link rel="apple-touch-icon" href="/spin-universe/assets/img/apple-touch-icon.png?v=4" sizes="180x180">
-<link rel="stylesheet" href="assets/css/overview-study.css?v=10">
+<link rel="stylesheet" href="assets/css/overview-study.css?v=11">
 </head>
 
 <body>
@@ -163,9 +163,8 @@
     </div>
   </nav>
 
-  <section class="hero">
-    <div class="viz-drag-zone hero-viz-drag-zone" data-viz-drag aria-hidden="true"></div>
-    <div class="shell">
+  <section class="hero hero-with-overview">
+    <div class="shell hero-layout">
      <div class="hero-copy">
       <p class="eyebrow collaboration"><span class="institution">University of Toronto</span><span class="collab-mark">&times;</span><span class="institution">McGill University</span><span class="collab-mark">&times;</span><span class="institution">LMU Munich</span></p>
       <h1 class="title"><span class="title-line">Readout</span></h1>
@@ -177,29 +176,25 @@
         <a class="btn btn-ghost" href="#stage">Visualization</a>
       </div>
      </div>
+     <div class="hero-overview" id="overview" aria-labelledby="overview-title">
+      <h2 id="overview-title" class="visually-hidden">Research overview</h2>
+      <div class="cost-study-demo" data-study="combined" data-compact-below="520">
+        <div class="overview-comparison" data-overview-mode="spin">
+          <div class="overview-bar"><h3 class="overview-name">Readout</h3><p class="overview-caption">Combine signals across layers into a label, score, or embedding.</p></div>
+          <div class="overview-board"><svg id="combined-spin" class="overview-svg" role="img" aria-labelledby="combined-spinTitle combined-spinDesc"><title id="combined-spinTitle">Readout</title><desc id="combined-spinDesc">Readout selects signals across the layers and combines them into a label, score, or embedding.</desc></svg></div>
+        </div>
+        <div class="overview-comparison" data-overview-mode="llm">
+          <div class="overview-bar"><h3 class="overview-name">LLM generation</h3><p class="overview-caption">Generate a response one token at a time.</p></div>
+          <div class="overview-board"><svg id="combined-llm" class="overview-svg" role="img" aria-labelledby="combined-llmTitle combined-llmDesc"><title id="combined-llmTitle">LLM generation</title><desc id="combined-llmDesc">An LLM computes through layers, then uses its final-layer representation to predict the next token.</desc></svg></div>
+        </div>
+        <div class="overview-actions study-footer"><div class="study-legend"><span class="study-legend-weight" aria-hidden="true"></span>Trainable parameters</div><button class="overview-replay study-replay" type="button" aria-label="Replay both model animations" hidden><svg viewBox="0 0 20 20" width="16" height="16" aria-hidden="true"><path d="M4.5 6.5A6 6 0 1 1 4 13M4.5 2.5v4h4"/></svg>Replay</button></div>
+      </div>
+     </div>
     </div>
   </section>
 </header>
 
 <main>
-
-<!-- ========================================================== overview -->
-<section class="layer light overview-section section" id="overview" aria-labelledby="overview-title">
-  <div class="shell">
-    <h2 id="overview-title" class="visually-hidden">Research overview</h2>
-    <div class="cost-study-demo" data-study="combined">
-      <div class="overview-comparison" data-overview-mode="spin">
-        <div class="overview-bar"><h3 class="overview-name">Readout</h3><p class="overview-caption">Readout selects signals across the layers and combines them into a label, score, or embedding.</p></div>
-        <div class="overview-board"><svg id="combined-spin" class="overview-svg" role="img" aria-labelledby="combined-spinTitle combined-spinDesc"><title id="combined-spinTitle">Readout</title><desc id="combined-spinDesc">Readout selects signals across the layers and combines them into a label, score, or embedding.</desc></svg></div>
-      </div>
-      <div class="overview-comparison" data-overview-mode="llm">
-        <div class="overview-bar"><h3 class="overview-name">LLM generation</h3><p class="overview-caption">An LLM computes through layers, then uses its final-layer representation to predict the next token.</p></div>
-        <div class="overview-board"><svg id="combined-llm" class="overview-svg" role="img" aria-labelledby="combined-llmTitle combined-llmDesc"><title id="combined-llmTitle">LLM generation</title><desc id="combined-llmDesc">An LLM computes through layers, then uses its final-layer representation to predict the next token.</desc></svg></div>
-      </div>
-      <div class="overview-actions study-footer"><div class="study-legend"><span class="study-legend-weight" aria-hidden="true"></span>Trainable parameters</div><button class="overview-replay study-replay" type="button" aria-label="Replay both model animations" hidden><svg viewBox="0 0 20 20" width="16" height="16" aria-hidden="true"><path d="M4.5 6.5A6 6 0 1 1 4 13M4.5 2.5v4h4"/></svg>Replay</button></div>
-    </div>
-  </div>
-</section>
 
 <!-- ============================================================ papers -->
 <section class="layer light papers-section section" id="papers">
@@ -269,6 +264,7 @@
   <div class="pin">
     <div class="shell stage-label-wrap">
       <h2 id="stage-title" class="stage-label">Readout visualization</h2>
+      <span class="stage-progress" data-stage-step aria-label="Step 1 of 6">01 / 06</span>
     </div>
     <div class="viz-drag-zone stage-viz-drag-zone" data-viz-drag aria-hidden="true"></div>
     <div class="panels">
@@ -376,7 +372,7 @@
 
 </main>
 
-<script type="module" src="assets/js/site.js?v=11"></script>
-<script type="module" src="assets/js/overview-study.js?v=13"></script>
+<script type="module" src="assets/js/site.js?v=13"></script>
+<script type="module" src="assets/js/overview-study.js?v=14"></script>
 </body>
 </html>

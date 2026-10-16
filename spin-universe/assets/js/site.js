@@ -15,6 +15,12 @@ const panels = Array.from(document.querySelectorAll('.panel')).map((el) => ({
   from: parseFloat(el.dataset.from),
   to: parseFloat(el.dataset.to),
 }));
+const stepCounter = document.querySelector('[data-stage-step]');
+const panelAnchors = panels.map((panel, index) => (
+  index === 0 ? 0 : index === panels.length - 1 ? 1 : (panel.from + panel.to) / 2
+));
+let panelCenters = [];
+let currentStep = -1;
 
 const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 const compact = window.matchMedia('(max-width: 820px)').matches;
@@ -22,12 +28,24 @@ const compact = window.matchMedia('(max-width: 820px)').matches;
 let universe = null;
 let ticking = false;
 
-function panelOpacity(p, from, to) {
-  const fade = 0.035;
-  if (p < from - fade || p > to + fade) return 0;
-  const rise = clamp01((p - (from - fade)) / fade);
-  const fall = 1 - clamp01((p - to) / fade);
-  return Math.min(rise, fall);
+function measurePanels() {
+  const gap = Math.min(64, Math.max(32, window.innerHeight * 0.06));
+  panelCenters = panels.map(() => 0);
+  for (let index = 1; index < panels.length; index += 1) {
+    panelCenters[index] = panelCenters[index - 1]
+      + (panels[index - 1].el.offsetHeight + panels[index].el.offsetHeight) / 2 + gap;
+  }
+}
+
+function panelOffset(progress) {
+  for (let index = 1; index < panelAnchors.length; index += 1) {
+    if (progress <= panelAnchors[index]) {
+      const t = (progress - panelAnchors[index - 1])
+        / (panelAnchors[index] - panelAnchors[index - 1]);
+      return panelCenters[index - 1] + t * (panelCenters[index] - panelCenters[index - 1]);
+    }
+  }
+  return panelCenters.at(-1) || 0;
 }
 
 function update() {
@@ -38,19 +56,36 @@ function update() {
   const travel = stage.offsetHeight - window.innerHeight;
   const p = travel > 0 ? clamp01(-rect.top / travel) : 0;
 
-  for (const panel of panels) {
-    const o = panelOpacity(p, panel.from, panel.to);
-    panel.el.style.opacity = o.toFixed(3);
-    // Only the offset, never the whole transform: the panel is centred in CSS.
-    panel.el.style.setProperty('--rise', `${((1 - o) * 14).toFixed(1)}px`);
+  const offset = panelOffset(p);
+  const active = panels.findIndex((panel, index) => (
+    index === panels.length - 1 || p < (panel.to + panels[index + 1].from) / 2
+  ));
+  panels.forEach((panel, index) => {
+    const distance = panelCenters[index] - offset;
+    const spacing = index === 0
+      ? panelCenters[1] || 1 : panelCenters[index] - panelCenters[index - 1];
+    const opacity = 0.32 + 0.68 * Math.max(0, 1 - Math.abs(distance) / spacing);
+    panel.el.style.setProperty('--panel-offset', `${distance.toFixed(1)}px`);
+    panel.el.style.opacity = Math.max(index === active ? 0.9 : 0.32, opacity).toFixed(3);
+  });
+  if (active !== currentStep) {
+    currentStep = active;
+    panels.forEach((panel, index) => {
+      panel.el.classList.toggle('is-current', index === active);
+      if (index === active) panel.el.setAttribute('aria-current', 'step');
+      else panel.el.removeAttribute('aria-current');
+    });
+    if (stepCounter) {
+      stepCounter.textContent = `${String(active + 1).padStart(2, '0')} / ${String(panels.length).padStart(2, '0')}`;
+      stepCounter.setAttribute('aria-label', `Step ${active + 1} of ${panels.length}`);
+    }
   }
 
   if (universe) {
     universe.setProgress(p);
     // Only draw while the canvas can actually be seen.
     const onscreen = rect.top < window.innerHeight && rect.bottom > 0;
-    const heroOnscreen = window.scrollY < window.innerHeight * 1.2;
-    universe.setVisible(onscreen || heroOnscreen);
+    universe.setVisible(onscreen);
   }
 }
 
@@ -63,8 +98,11 @@ function requestUpdate() {
 window.addEventListener('scroll', requestUpdate, { passive: true });
 window.addEventListener('resize', () => {
   if (universe) universe.resize();
+  measurePanels();
   requestUpdate();
 });
+measurePanels();
+document.fonts?.ready.then(() => { measurePanels(); requestUpdate(); });
 update();
 
 /* Build the contact address only after a deliberate click. This keeps the

@@ -468,6 +468,7 @@ function markTrainableParameters(svg,mode,compact) {
 
 function initStudy(demo) {
   const replay=demo.querySelector('.study-replay');
+  const compactBelow=Number(demo.dataset.compactBelow)||COMPACT_BELOW;
   const panels=[...demo.querySelectorAll('.overview-comparison')].map(panel=>({
     svg:panel.querySelector('.overview-svg'),board:panel.querySelector('.overview-board'),
     mode:panel.dataset.overviewMode,played:false,compact:null,
@@ -476,7 +477,7 @@ function initStudy(demo) {
   const hasMotion=()=>!motionPreference.matches&&'IntersectionObserver' in window;
   function draw(panel,animate,armed){
     const {svg,mode}=panel;
-    panel.compact=panel.board.clientWidth<COMPACT_BELOW;
+    panel.compact=panel.board.clientWidth<compactBelow;
     const compact=panel.compact;
     const desc=DESCRIPTIONS[mode]+(mode==='spin'
       ?' Each selected dark red activation has an adjacent pale red square marking its trainable readout coefficient. Unselected activations have no square. The backbone stays frozen; the pale red aggregation head is trainable. These squares depict selected readout parameters, not an exhaustive inventory of parameters used during probe fitting.'
@@ -511,7 +512,7 @@ function initStudy(demo) {
     demo.scrollIntoView({block:fits?'center':'start',behavior:'instant'});setup(true);
   });
   new ResizeObserver(()=>panels.forEach(p=>{
-    if(p.compact!==(p.board.clientWidth<COMPACT_BELOW))draw(p,hasMotion()&&!p.played,hasMotion()&&!p.played);
+    if(p.compact!==(p.board.clientWidth<compactBelow))draw(p,hasMotion()&&!p.played,hasMotion()&&!p.played);
   })).observe(demo);
   motionPreference.addEventListener('change',()=>setup());setup();
 }

@@ -1,0 +1,21 @@
+{
+  "source": "https://arxiv.org/html/2311.15983v2",
+  "sha256": "fd38f145d7cb7be77b8f821530815b19b5ee0210f7ea9230d0a017736cd1fbae",
+  "elements": {
+    "figure": 23,
+    "math": 111,
+    ".ltx_note": 4,
+    "figcaption": 23
+  },
+  "assets": {
+    "https://arxiv.org/html/2311.15983v2/arch.svg": "../assets/papers/spin/43c7f1a428-arch.svg",
+    "https://arxiv.org/html/2311.15983v2/FLOs_comparison.svg": "../assets/papers/spin/e1689ce3ad-FLOs_comparison.svg",
+    "https://arxiv.org/html/2311.15983v2/img/gpt2xl_interp.png": "../assets/papers/spin/909043de03-gpt2xl_interp.png",
+    "https://arxiv.org/html/2311.15983v2/hyperparam_sensitivity.svg": "../assets/papers/spin/96bb1fb98d-hyperparam_sensitivity.svg",
+    "https://arxiv.org/html/2311.15983v2/param_comparison.svg": "../assets/papers/spin/210d2ba243-param_comparison.svg",
+    "https://arxiv.org/html/2311.15983v2/post_hoc_interp_Base.png": "../assets/papers/spin/8f28dfb11a-post_hoc_interp_Base.png",
+    "https://arxiv.org/html/2311.15983v2/post_hoc_interp_SPIN.png": "../assets/papers/spin/fa7364ace6-post_hoc_interp_SPIN.png",
+    "https://arxiv.org/html/2311.15983v2/GPT2XL_frozen.png": "../assets/papers/spin/771d811697-GPT2XL_frozen.png",
+    "https://arxiv.org/html/2311.15983v2/GPT2XL_finetuned.png": "../assets/papers/spin/0c5b78196a-GPT2XL_finetuned.png"
+  }
+}

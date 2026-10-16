@@ -1,0 +1,23 @@
+{
+  "source": "https://arxiv.org/html/2604.18519v1",
+  "sha256": "a53af3f5d7d34b04ad104478dcdb9736b432c934dcafe1b8b26319b6b5681b4c",
+  "elements": {
+    "figure": 16,
+    "math": 87,
+    ".ltx_note": 5,
+    "figcaption": 16
+  },
+  "assets": {
+    "https://arxiv.org/html/2604.18519v1/SIREN.svg": "../assets/papers/siren/aca6e5c1a4-SIREN.svg",
+    "https://arxiv.org/html/2604.18519v1/combined_pr_curves.png": "../assets/papers/siren/f4aa5df66c-combined_pr_curves.png",
+    "https://arxiv.org/html/2604.18519v1/streaming_detection_comparison.svg": "../assets/papers/siren/751ee9ef1e-streaming_detection_comparison.svg",
+    "https://arxiv.org/html/2604.18519v1/combined_gen_comparison.png": "../assets/papers/siren/0ae3d3e26f-combined_gen_comparison.png",
+    "https://arxiv.org/html/2604.18519v1/params_comparison.svg": "../assets/papers/siren/1370e010aa-params_comparison.svg",
+    "https://arxiv.org/html/2604.18519v1/flops_comparison.svg": "../assets/papers/siren/32d8d13ed3-flops_comparison.svg",
+    "https://arxiv.org/html/2604.18519v1/qwen3_4b_layerwise_probes.svg": "../assets/papers/siren/22c9ee5c9c-qwen3_4b_layerwise_probes.svg",
+    "https://arxiv.org/html/2604.18519v1/streaming_per_token_visualization.png": "../assets/papers/siren/755e69639b-streaming_per_token_visualization.png",
+    "https://arxiv.org/html/2604.18519v1/safe_token_cloud.png": "../assets/papers/siren/ad52d913a8-safe_token_cloud.png",
+    "https://arxiv.org/html/2604.18519v1/harmful_token_cloud.png": "../assets/papers/siren/78a43b02cd-harmful_token_cloud.png",
+    "https://arxiv.org/html/2604.18519v1/radar_full.png": "../assets/papers/siren/43800a7435-radar_full.png"
+  }
+}
