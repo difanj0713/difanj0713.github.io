@@ -1,0 +1,212 @@
+/* SPIN's result-led article. Other research pages keep their existing layout. */
+.spin-article {
+  --article-width: 736px;
+  --note-width: 208px;
+  --note-gap: 40px;
+  --spin-paper: #faf9f5;
+  --spin-ink: #292823;
+  --spin-muted: #68675f;
+  --spin-accent: #42686b;
+  background: var(--spin-paper);
+  color: var(--spin-ink);
+  font-family: "Source Serif 4", Georgia, serif;
+  font-size: 19px;
+  line-height: 1.68;
+}
+.spin-article [hidden] { display: none !important; }
+.spin-article a { color: var(--spin-accent); }
+.spin-article .readout-nav { border-bottom: 1px solid #e4e2d9; }
+.spin-opening { padding: 54px 0 44px; }
+.opening-column { width: calc(100% - 48px); max-width: var(--article-width); margin-inline: auto; }
+.publication {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0 12px;
+  margin: 0 0 23px;
+  color: var(--spin-muted);
+  font: 14px/1.5 var(--article-font);
+}
+.spin-opening h1 {
+  max-width: 850px;
+  margin: 0 0 30px;
+  font-size: clamp(38px, 4.5vw, 62px);
+  font-weight: 500;
+  line-height: 1.08;
+  letter-spacing: -1.6px;
+  text-wrap: balance;
+}
+.opening-lede { margin: 0; font-size: 25px; line-height: 1.5; letter-spacing: -.25px; }
+.spin-article .research-byline { padding-top: 25px; color: var(--spin-muted); font: 13px/1.65 var(--article-font); }
+.spin-article .research-links { gap: 12px 28px; padding-top: 17px; font: 14px/1.5 var(--article-font); }
+.spin-article .research-links a { text-decoration-color: #a6b4ad; }
+.spin-article .research-article { padding-bottom: 80px; }
+.spin-article .research-article > .opening-method { padding-top: 20px; border-top: 1px solid #d9d7cd; }
+.spin-article .research-article p { margin-bottom: 23px; }
+.headline-findings { margin: 30px 0 52px; padding-left: 23px; }
+.headline-findings li { padding-left: 9px; margin-bottom: 21px; }
+.headline-findings li::marker { color: #7b7d70; font-size: .75em; }
+.headline-findings strong { font-weight: 600; }
+.headline-findings p { margin: 0; }
+/* Notes stay next to the relevant passage on wide screens and follow it on
+   narrow screens. Native anchor links also work without JavaScript. */
+.annotated-block { position: relative; margin-bottom: 23px; }
+.spin-article .research-article .annotated-block > p { margin-bottom: 0; }
+.note-ref { margin-left: 2px; font-size: .65em; line-height: 0; }
+.note-ref a { padding-inline: 2px; color: #84694f; text-decoration: none; scroll-margin-top: 80px; }
+.sidenote {
+  margin-top: 16px;
+  padding-left: 16px;
+  border-left: 1px solid #d9d2c6;
+  color: #746958;
+  font-size: 15px;
+  line-height: 1.55;
+  scroll-margin-top: 48px;
+  overflow-wrap: break-word;
+}
+.spin-article .research-article .sidenote p { margin: 0; }
+.sidenote .note-number { margin-right: 5px; color: #84694f; text-decoration: none; }
+.sidenote a { text-decoration-thickness: 1px; text-decoration-color: #bdc6bd; }
+.spin-article .research-article h2 {
+  margin-top: 64px;
+  margin-bottom: 23px;
+  font: 600 30px/1.24 var(--article-font);
+  letter-spacing: -.7px;
+}
+.spin-article .research-article h3 { font-family: var(--article-font); }
+.spin-article .research-article figure { margin-block: 32px; }
+.spin-article .research-article .figure-wide { width: 100%; max-width: 100%; margin-inline: 0; }
+.spin-article .research-article figcaption,
+.spin-article .research-article .table-note {
+  color: var(--spin-muted);
+  font: 13px/1.6 var(--article-font);
+}
+.spin-article .research-article table { font-family: var(--article-font); background: transparent; }
+.spin-article .research-article .spin-score { color: var(--spin-accent); }
+.spin-article .research-article tfoot th { white-space: normal; }
+.spin-article .research-article .subfigure-label { font: 13px/1.5 var(--article-font); }
+.spin-article .research-article .chart-title { margin: 0 0 12px; font: 600 15px/1.4 var(--article-font); }
+.spin-article .training-pair { gap: 32px; align-items: start; }
+.spin-article .training-pair .subfigure { min-width: 0; }
+.spin-article #tokens-figure { padding: 20px; background: #fff; }
+.spin-article #method-figure { padding: 22px; background: #fff; }
+.result-details { margin: 26px 0; border-block: 1px solid #d9d7cd; font-size: 17px; }
+.result-details + p { margin-top: 26px; }
+.result-details summary { padding: 16px 4px; cursor: pointer; font: 500 15px/1.5 var(--article-font); }
+.result-details summary::marker { color: var(--spin-accent); }
+.result-details summary:hover { color: var(--spin-accent); }
+.result-details[open] { padding-bottom: 12px; }
+.result-details[open] summary { margin-bottom: 10px; }
+.spin-article .result-details .figure-wide { width: 100%; margin-inline: 0; }
+.spin-article .result-details .table-pair { gap: 20px; }
+.spin-article .result-details .table-pair table { font-size: 12px; }
+.spin-article .result-details .table-pair th,
+.spin-article .result-details .table-pair td { padding-inline: 5px; }
+
+/* Paired scores on labeled, focused axes. Points encode position; the right
+   column reports the gain independently of the selected score range. */
+.spin-article .benchmark-figure { padding: 24px 28px 20px; background: #f0efe7; }
+.benchmark-toolbar { display: flex; align-items: center; justify-content: space-between; flex-wrap: wrap; gap: 15px 24px; }
+.benchmark-tabs { display: flex; gap: 6px; }
+.benchmark-tabs button {
+  padding: 9px 15px;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  background: transparent;
+  color: #63645c;
+  font: 500 14px/1.2 var(--article-font);
+  cursor: pointer;
+}
+.benchmark-tabs button:hover { background: #e5e5db; color: #252b28; }
+.benchmark-tabs button[aria-selected="true"] { background: #fff; border-color: #d4d6ca; color: #253b39; }
+.chart-legend { display: flex; align-items: center; gap: 18px; color: #55584f; font: 12px/1.5 var(--article-font); }
+.chart-legend span { display: flex; align-items: center; gap: 7px; }
+.chart-legend i { display: inline-block; width: 10px; height: 10px; border-radius: 50%; }
+.legend-base { border: 2px solid #828776; background: #f0efe7; }
+.legend-spin { border: 2px solid var(--spin-accent); background: var(--spin-accent); }
+.chart-sr-only { position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip-path: inset(50%); white-space: nowrap; border: 0; }
+.benchmark-highlight { padding: 26px 0 22px; border-bottom: 1px solid #d7d9ce; }
+.spin-article .research-article .benchmark-takeaway { margin: 0; color: var(--spin-accent); font: 500 27px/1.3 var(--article-font); letter-spacing: -.6px; text-wrap: balance; }
+.benchmark-takeaway strong { font-size: 40px; font-weight: 650; letter-spacing: -1.3px; }
+.comparison-head, .score-row { display: grid; grid-template-columns: 110px minmax(0, 1fr) 104px; align-items: center; gap: 16px; }
+.comparison-head { padding: 19px 0 10px; color: var(--spin-muted); font: 12px/1.4 var(--article-font); }
+.comparison-head > :last-child { text-align: right; }
+.score-row { min-height: 64px; border-bottom: 1px solid #e0e1d7; }
+.score-row.is-highlight { background: #e5e9df; }
+.score-model { white-space: nowrap; font: 13px/1.4 var(--article-font); }
+.is-highlight .score-model { font-weight: 600; }
+.score-track {
+  position: relative;
+  height: 58px;
+  border-inline: 1px solid #d9dbcf;
+  background-image: linear-gradient(to right, #d9dbcf 1px, transparent 1px);
+  background-size: var(--grid-step) 100%;
+}
+.score-connector { position: absolute; left: var(--base-pos); width: calc(var(--spin-pos) - var(--base-pos)); top: 27.5px; height: 3px; background: #789b99; }
+.score-point { position: absolute; top: 29px; width: 10px; height: 10px; border-radius: 50%; transform: translate(-50%, -50%); }
+.score-point.base { left: var(--base-pos); border: 2px solid #828776; background: #f0efe7; }
+.score-point.spin { left: var(--spin-pos); border: 2px solid var(--spin-accent); background: var(--spin-accent); }
+.point-value { position: absolute; left: 50%; transform: translateX(-50%); white-space: nowrap; font: 12px/16px var(--article-font); font-variant-numeric: tabular-nums; }
+.base .point-value { top: -24px; color: #666b5f; }
+.spin .point-value { top: 11px; color: #294f51; font-weight: 600; }
+.score-gain { text-align: right; font-family: var(--article-font); font-variant-numeric: tabular-nums; }
+.score-gain strong { display: block; color: var(--spin-accent); font-size: 19px; font-weight: 600; line-height: 1.2; }
+.score-gain small { display: block; margin-top: 3px; color: var(--spin-muted); font-size: 11px; line-height: 1.4; }
+.score-axis { position: relative; height: 22px; margin: 8px 120px 0 126px; color: var(--spin-muted); font: 11px/1.4 var(--article-font); font-variant-numeric: tabular-nums; }
+.score-axis span { position: absolute; transform: translateX(-50%); }
+
+@media (min-width: 1120px) {
+  .spin-article .opening-column,
+  .spin-article .research-article {
+    margin-left: calc((100% - var(--article-width) - var(--note-gap) - var(--note-width)) / 2);
+    margin-right: 0;
+  }
+  .sidenote {
+    position: absolute;
+    top: .2em;
+    left: calc(100% + var(--note-gap));
+    width: var(--note-width);
+    margin: 0;
+    padding: 0;
+    border: 0;
+    font-size: 16px;
+  }
+}
+@media (max-width: 650px) {
+  .spin-article { font-size: 17px; line-height: 1.65; }
+  .spin-opening { padding: 30px 0 31px; }
+  .publication { font-size: 12px; gap: 0 9px; margin-bottom: 19px; }
+  .spin-opening h1 { font-size: clamp(34px, 8.5vw, 46px); line-height: 1.1; letter-spacing: -.8px; margin-bottom: 24px; }
+  .opening-lede { font-size: 21px; line-height: 1.5; letter-spacing: -.15px; }
+  .spin-article .research-byline { padding-top: 20px; font-size: 12px; }
+  .spin-article .research-links { gap: 10px 21px; font-size: 13px; }
+  .headline-findings { padding-left: 17px; margin-bottom: 40px; }
+  .headline-findings li { padding-left: 4px; }
+  .spin-article .research-article h2 { font-size: 26px; margin-top: 48px; }
+  .spin-article .benchmark-figure { padding: 17px 14px; }
+  .benchmark-toolbar { gap: 12px; }
+  .benchmark-tabs button { padding: 8px 13px; font-size: 13px; }
+  .chart-legend { font-size: 11px; gap: 15px; }
+  .benchmark-highlight { padding: 22px 0 18px; }
+  .spin-article .research-article .benchmark-takeaway { font-size: 23px; }
+  .benchmark-takeaway strong { font-size: 34px; }
+  .comparison-head { display: flex; justify-content: space-between; gap: 10px; padding-top: 16px; font-size: 11px; }
+  .comparison-head > :first-child { display: none; }
+  .score-row { grid-template-columns: minmax(0, 1fr) auto; grid-template-rows: auto 58px; gap: 4px 12px; padding: 10px 0; }
+  .score-track { grid-column: 1 / -1; grid-row: 2; }
+  .score-gain { display: flex; align-items: baseline; justify-content: end; gap: 8px; grid-column: 2; grid-row: 1; }
+  .score-gain strong { font-size: 16px; }
+  .score-gain small { margin: 0; font-size: 10px; }
+  .score-axis { margin-inline: 0; }
+  .point-value { font-size: 11px; }
+  .spin-article .research-article figcaption { font-size: 12px; }
+  .spin-article #tokens-figure, .spin-article #method-figure { padding: 12px; }
+}
+@media print {
+  .spin-article { background: #fff; font-size: 12pt; }
+  .spin-opening { padding-top: 0; }
+  .spin-article .opening-column, .spin-article .research-article { margin-inline: auto; }
+  .sidenote { position: static; width: auto; margin-top: 12px; padding-left: 12px; border-left: 1px solid #aaa; font-size: 10pt; }
+  .benchmark-tabs { display: none !important; }
+  .spin-article .benchmark-panel[hidden] { display: block !important; }
+  .benchmark-figure { print-color-adjust: exact; }
+}

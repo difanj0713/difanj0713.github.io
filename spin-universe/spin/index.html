@@ -27,258 +27,535 @@
 <link rel="icon" href="../assets/img/favicon.svg" type="image/svg+xml">
 <link rel="stylesheet" href="../assets/css/research-article.css?v=3">
 <link rel="stylesheet" href="../assets/css/readout-nav.css">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&amp;display=swap">
+<link rel="stylesheet" href="article.css?v=4">
 </head>
-<body>
+<body class="spin-article">
 <a class="skip-link" href="#article">Skip to article</a>
-<nav class="readout-nav" aria-label="Site navigation">
-  <a class="readout-home" href="../"><span aria-hidden="true">←</span> Readout</a>
-  <a href="https://arxiv.org/abs/2311.15983">arXiv ↗</a>
+<nav aria-label="Site navigation" class="readout-nav">
+<a class="readout-home" href="../"><span aria-hidden="true">←</span> Readout</a>
+<a href="https://arxiv.org/abs/2311.15983">arXiv ↗</a>
 </nav>
 
-<header>
-  <div class="research-title">
-    <div class="article-column">
-      <h1>SPIN: Text classification from internal neurons</h1>
-    </div>
-  </div>
-  <div class="article-column">
+<header class="spin-opening">
+  <div class="opening-column">
+    <p class="publication">Findings of ACL 2024 <span aria-hidden="true">·</span> <time datetime="2024-06-05">June 5, 2024</time></p>
+    <h1>SPIN: Text classification from internal neurons</h1>
+    <p class="opening-lede">We introduce SPIN, a framework that reads a frozen language model’s internal representations for text classification. It reduces classification errors by up to 71.4% compared with classifiers that use only the final layer. SPIN approaches fully fine-tuned state-of-the-art performance while training thousands of times fewer parameters; it can also skip 40% of the model’s layers at inference with little or no loss in accuracy.</p>
     <div class="research-byline">
-      <p><span class="author-name">Difan Jiao<sup title="Equal contribution" aria-label="Equal contribution">*</sup>,</span> <span class="author-name">Yilun Liu<sup title="Equal contribution" aria-label="Equal contribution">*</sup>,</span> <span class="author-name">Zhenwei Tang,</span> <span class="author-name">Daniel Matter,</span> <span class="author-name">Jürgen Pfeffer,</span> <span class="author-name">Ashton Anderson</span></p>
-      <time datetime="2024-06-05">June 5, 2024</time>
-    </div>
+<p><span class="author-name">Difan Jiao<sup aria-label="Equal contribution" title="Equal contribution">*</sup>,</span> <span class="author-name">Yilun Liu<sup aria-label="Equal contribution" title="Equal contribution">*</sup>,</span> <span class="author-name">Zhenwei Tang,</span> <span class="author-name">Daniel Matter,</span> <span class="author-name">Jürgen Pfeffer,</span> <span class="author-name">Ashton Anderson</span></p>
+
+</div>
     <div class="research-links" aria-label="Paper resources">
-      <span class="venue">Findings of ACL 2024</span>
-      <a href="https://arxiv.org/pdf/2311.15983">Paper</a>
-      <a href="https://github.com/difanj0713/SPIN">Code</a>
-      <a href="https://liuyilun2000.github.io/spin-visualization/">Interactive demo</a>
-    </div>
-  </div>
-  <div class="research-summary">
-    <div class="article-column">
-      <span class="summary-label">tl;dr</span>
-      <p>SPIN classifies text using a small set of internal neurons drawn from multiple layers of a frozen language model. We select task-relevant neurons with linear probes, then train a classifier on their combined representations. Across eight pretrained backbones and three classification benchmarks, SPIN improves on classifiers using the final layer alone. It can also stop before the final layer and work on top of models that have already been fine-tuned.</p>
+      <a href="https://arxiv.org/pdf/2311.15983">Read the paper <span aria-hidden="true">↗</span></a>
+      <a href="https://github.com/difanj0713/SPIN">Code <span aria-hidden="true">↗</span></a>
+      <a href="https://liuyilun2000.github.io/spin-visualization/">Interactive demo <span aria-hidden="true">↗</span></a>
     </div>
   </div>
 </header>
 
 <main id="article" class="research-article">
-  <section aria-labelledby="introduction">
-    <h2 id="introduction">Introduction</h2>
-    <p>Large language models now give the best results on many text classification tasks, from judging the sentiment of a movie review to detecting sexism in online posts. Prompting a model to answer directly is one way to use them for this, but training a classification head on the model remains the dominant approach, because it performs better on specific tasks. The usual recipe runs the text through the model, takes the hidden state of its final layer, and trains a small head to map that representation to a label. The backbone may be a general pretrained model or one that has been fine-tuned for the task.</p>
-    <p>This recipe reads only the final layer. Everything the model computed on the way there, layer by layer, is left behind, and whatever those intermediate layers know about the text goes unused. Getting competitive accuracy out of the recipe often means fine-tuning the whole model for the task, which for a large model is expensive. And it treats the model as a black box: the head reports a label but says nothing about where in the network the evidence for that label came from.</p>
-    <p>There is good reason to think the intermediate layers are worth reading. Interpretability research has repeatedly found that the internal representations of neural networks capture the features that matter for a task. Radford et al. (2017) found individual neurons in an LSTM language model whose activations classify sentiment, and Gurnee and Tegmark (2023) showed that LLaMA2's internal representations support classification about space and time. Wang et al. (2022) went a step further and used the top-ranked task-specific neurons of RoBERTa as a classifier, reaching accuracy competitive with fine-tuning. These results had not yet been turned into a general classification method that works across model families.</p>
-    <p>We introduce SPIN, a model-agnostic framework that <em>sparsifies</em> and <em>integrates</em> internal neurons for text classification. SPIN leaves the model's weights untouched and reads its internal representations at every layer, either the hidden states or the activations inside the feed-forward networks, as features for the classification head. Neurons do not contribute equally to a given task, and the irrelevant ones add noise that dilutes the features that matter, so the raw representations are filtered before use. SPIN first sparsifies: for each layer, it trains a linear probe on the task and keeps the neurons the probe relies on. Then it integrates: the selected neurons from all layers are concatenated into one feature vector, so the classifier sees the model's lower-level, simpler features alongside its higher-level, more abstract ones.</p>
-    <p>Because SPIN needs only access to a model's internal representations, it can be attached to any transformer whose weights are available, pretrained or already fine-tuned, as a plug-in component. In our experiments it outperforms the final-layer classifier on every backbone and dataset we tested, and on pretrained models it comes within reach of fully fine-tuned state of the art while training nothing but the probes and the head. Training needs only forward passes with frozen weights, followed by fitting small linear models. At inference, SPIN can stop partway through the network; using 60% of the layers preserves up to 99% of the accuracy of using all of them. And because the probes are linear, SPIN shows which neurons, in which layers, carry the decision.</p>
+  <div class="opening-method" id="method">
+    <p>A conventional text classifier reads the model’s final layer. SPIN <em>sparsifies</em> and <em>integrates</em> internal neurons across layers: we train a small linear probe at each layer to select task-relevant neurons, then combine their representations in a classification head. The model’s weights stay untouched; only the probes and the head are trained.</p>
+  </div>
+
+  <ul class="headline-findings" aria-label="Main findings">
+    <li><p><strong>Performance.</strong> SPIN outperforms final-layer classifiers across all eight pretrained backbones and three benchmarks. On SST-2, it reduces classification errors by up to 71.4%. On IMDb, it reaches 96.12% accuracy, close to 96.21% for fully fine-tuned XLNet.</p></li>
+    <li class="annotated-block">
+      <p><strong>Speedup.</strong> SPIN uses less than half the estimated training compute of full fine-tuning. At inference, it can skip 40% of the model’s layers while retaining over 99% of its full-depth accuracy.<sup class="note-ref"><a href="#note-speedup" id="ref-speedup" aria-label="Note 1: efficiency comparison">1</a></sup></p>
+      <aside class="sidenote" id="note-speedup" role="note" aria-label="Note 1: efficiency comparison" tabindex="-1">
+        <p><a class="note-number" href="#ref-speedup" aria-label="Back to reference 1">1</a> Training compute is estimated in floating-point operations (FLOPs), against one epoch of full fine-tuning. The early-exit example is GPT2-XL on IMDb. See <a href="https://arxiv.org/html/2311.15983v2#A2.SS2">Appendix B.2</a> and <a href="https://arxiv.org/html/2311.15983v2#S3.T3">Table 3</a>.</p>
+      </aside>
+    </li>
+    <li><p><strong>Interpretability.</strong> The linear probes identify which neurons, in which layers, carry information about the task. A classifier trained on whole sentences can also be applied token by token to examine how its prediction changes through a text.</p></li>
+  </ul>
+
+  <section aria-labelledby="classification">
+    <h2 id="classification">Performance across model families</h2>
+    <p>We evaluate SPIN on IMDb movie reviews, SST-2 sentiment classification and EDOS sexism detection. The eight pretrained backbones cover encoder, decoder and encoder-decoder architectures. In each comparison, the baseline and SPIN use the same frozen backbone and train a classifier with the dataset’s labels. The difference is which internal representations they read.</p>
+    <figure class="figure-wide benchmark-figure" id="classification-results">
+      <div class="benchmark-toolbar">
+        <div class="benchmark-tabs" role="tablist" aria-label="Classification benchmark" hidden>
+          <button type="button" id="tab-imdb" role="tab" aria-controls="benchmark-imdb" aria-selected="true">IMDb</button>
+          <button type="button" id="tab-sst2" role="tab" aria-controls="benchmark-sst2" aria-selected="false" tabindex="-1">SST-2</button>
+          <button type="button" id="tab-edos" role="tab" aria-controls="benchmark-edos" aria-selected="false" tabindex="-1">EDOS</button>
+        </div>
+        <div class="chart-legend"><span><i class="legend-base" aria-hidden="true"></i>Final layer</span><span><i class="legend-spin" aria-hidden="true"></i>SPIN</span></div>
+      </div>
+      <div class="benchmark-panel" id="benchmark-imdb" data-min="80" data-max="100">
+        <div class="benchmark-highlight">
+          <h3 class="benchmark-takeaway"><span class="chart-sr-only">IMDb: </span>Up to <strong>59.2%</strong> fewer errors</h3>
+        </div>
+        <div class="comparison-head" aria-hidden="true"><span>Backbone</span><span>IMDb · Accuracy (%)</span><span>Fewer errors</span></div>
+        <div class="score-list" role="list" aria-label="IMDb results, score axis from 80 to 100" style="--grid-step:25.000000%">
+          <div class="score-row" role="listitem" aria-label="DistilBERT: final layer 86.95, SPIN 89.78, a gain of 2.83 points; 21.7% fewer errors." data-base="86.95" data-spin="89.78">
+            <span class="score-model" aria-hidden="true">DistilBERT</span>
+            <div class="score-track" style="--base-pos:34.750000%;--spin-pos:48.900000%" aria-hidden="true">
+              <span class="score-connector"></span>
+              <span class="score-point base"><span class="point-value">86.95</span></span>
+              <span class="score-point spin"><span class="point-value">89.78</span></span>
+            </div>
+            <span class="score-gain" aria-hidden="true"><strong>21.7%</strong><small>+2.83 pts</small></span>
+          </div>
+          <div class="score-row" role="listitem" aria-label="RoBERTa: final layer 89.67, SPIN 93.61, a gain of 3.94 points; 38.1% fewer errors." data-base="89.67" data-spin="93.61">
+            <span class="score-model" aria-hidden="true">RoBERTa</span>
+            <div class="score-track" style="--base-pos:48.350000%;--spin-pos:68.050000%" aria-hidden="true">
+              <span class="score-connector"></span>
+              <span class="score-point base"><span class="point-value">89.67</span></span>
+              <span class="score-point spin"><span class="point-value">93.61</span></span>
+            </div>
+            <span class="score-gain" aria-hidden="true"><strong>38.1%</strong><small>+3.94 pts</small></span>
+          </div>
+          <div class="score-row" role="listitem" aria-label="GPT2: final layer 87.72, SPIN 91.94, a gain of 4.22 points; 34.4% fewer errors." data-base="87.72" data-spin="91.94">
+            <span class="score-model" aria-hidden="true">GPT2</span>
+            <div class="score-track" style="--base-pos:38.600000%;--spin-pos:59.700000%" aria-hidden="true">
+              <span class="score-connector"></span>
+              <span class="score-point base"><span class="point-value">87.72</span></span>
+              <span class="score-point spin"><span class="point-value">91.94</span></span>
+            </div>
+            <span class="score-gain" aria-hidden="true"><strong>34.4%</strong><small>+4.22 pts</small></span>
+          </div>
+          <div class="score-row" role="listitem" aria-label="GPT2-M: final layer 88.59, SPIN 93.92, a gain of 5.33 points; 46.7% fewer errors." data-base="88.59" data-spin="93.92">
+            <span class="score-model" aria-hidden="true">GPT2-M</span>
+            <div class="score-track" style="--base-pos:42.950000%;--spin-pos:69.600000%" aria-hidden="true">
+              <span class="score-connector"></span>
+              <span class="score-point base"><span class="point-value">88.59</span></span>
+              <span class="score-point spin"><span class="point-value">93.92</span></span>
+            </div>
+            <span class="score-gain" aria-hidden="true"><strong>46.7%</strong><small>+5.33 pts</small></span>
+          </div>
+          <div class="score-row" role="listitem" aria-label="GPT2-XL: final layer 91.86, SPIN 94.92, a gain of 3.06 points; 37.6% fewer errors." data-base="91.86" data-spin="94.92">
+            <span class="score-model" aria-hidden="true">GPT2-XL</span>
+            <div class="score-track" style="--base-pos:59.300000%;--spin-pos:74.600000%" aria-hidden="true">
+              <span class="score-connector"></span>
+              <span class="score-point base"><span class="point-value">91.86</span></span>
+              <span class="score-point spin"><span class="point-value">94.92</span></span>
+            </div>
+            <span class="score-gain" aria-hidden="true"><strong>37.6%</strong><small>+3.06 pts</small></span>
+          </div>
+          <div class="score-row" role="listitem" aria-label="Flan-T5-S: final layer 84.08, SPIN 91.15, a gain of 7.07 points; 44.4% fewer errors." data-base="84.08" data-spin="91.15">
+            <span class="score-model" aria-hidden="true">Flan-T5-S</span>
+            <div class="score-track" style="--base-pos:20.400000%;--spin-pos:55.750000%" aria-hidden="true">
+              <span class="score-connector"></span>
+              <span class="score-point base"><span class="point-value">84.08</span></span>
+              <span class="score-point spin"><span class="point-value">91.15</span></span>
+            </div>
+            <span class="score-gain" aria-hidden="true"><strong>44.4%</strong><small>+7.07 pts</small></span>
+          </div>
+          <div class="score-row" role="listitem" aria-label="Flan-T5: final layer 90.01, SPIN 94.14, a gain of 4.13 points; 41.3% fewer errors." data-base="90.01" data-spin="94.14">
+            <span class="score-model" aria-hidden="true">Flan-T5</span>
+            <div class="score-track" style="--base-pos:50.050000%;--spin-pos:70.700000%" aria-hidden="true">
+              <span class="score-connector"></span>
+              <span class="score-point base"><span class="point-value">90.01</span></span>
+              <span class="score-point spin"><span class="point-value">94.14</span></span>
+            </div>
+            <span class="score-gain" aria-hidden="true"><strong>41.3%</strong><small>+4.13 pts</small></span>
+          </div>
+          <div class="score-row is-highlight" role="listitem" aria-label="Flan-T5-XL: final layer 90.50, SPIN 96.12, a gain of 5.62 points; 59.2% fewer errors." data-base="90.50" data-spin="96.12">
+            <span class="score-model" aria-hidden="true">Flan-T5-XL</span>
+            <div class="score-track" style="--base-pos:52.500000%;--spin-pos:80.600000%" aria-hidden="true">
+              <span class="score-connector"></span>
+              <span class="score-point base"><span class="point-value">90.50</span></span>
+              <span class="score-point spin"><span class="point-value">96.12</span></span>
+            </div>
+            <span class="score-gain" aria-hidden="true"><strong>59.2%</strong><small>+5.62 pts</small></span>
+          </div>
+        </div>
+        <div class="score-axis" aria-hidden="true"><span style="left:0.000000%">80</span><span style="left:25.000000%">85</span><span style="left:50.000000%">90</span><span style="left:75.000000%">95</span><span style="left:100.000000%">100</span></div>
+      </div>
+      <div class="benchmark-panel" id="benchmark-sst2" data-min="75" data-max="100">
+        <div class="benchmark-highlight">
+          <h3 class="benchmark-takeaway"><span class="chart-sr-only">SST-2: </span>Up to <strong>71.4%</strong> fewer errors</h3>
+        </div>
+        <div class="comparison-head" aria-hidden="true"><span>Backbone</span><span>SST-2 · Accuracy (%)</span><span>Fewer errors</span></div>
+        <div class="score-list" role="list" aria-label="SST-2 results, score axis from 75 to 100" style="--grid-step:20.000000%">
+          <div class="score-row" role="listitem" aria-label="DistilBERT: final layer 81.88, SPIN 83.94, a gain of 2.06 points; 11.4% fewer errors." data-base="81.88" data-spin="83.94">
+            <span class="score-model" aria-hidden="true">DistilBERT</span>
+            <div class="score-track" style="--base-pos:27.520000%;--spin-pos:35.760000%" aria-hidden="true">
+              <span class="score-connector"></span>
+              <span class="score-point base"><span class="point-value">81.88</span></span>
+              <span class="score-point spin"><span class="point-value">83.94</span></span>
+            </div>
+            <span class="score-gain" aria-hidden="true"><strong>11.4%</strong><small>+2.06 pts</small></span>
+          </div>
+          <div class="score-row" role="listitem" aria-label="RoBERTa: final layer 84.06, SPIN 90.59, a gain of 6.53 points; 41.0% fewer errors." data-base="84.06" data-spin="90.59">
+            <span class="score-model" aria-hidden="true">RoBERTa</span>
+            <div class="score-track" style="--base-pos:36.240000%;--spin-pos:62.360000%" aria-hidden="true">
+              <span class="score-connector"></span>
+              <span class="score-point base"><span class="point-value">84.06</span></span>
+              <span class="score-point spin"><span class="point-value">90.59</span></span>
+            </div>
+            <span class="score-gain" aria-hidden="true"><strong>41.0%</strong><small>+6.53 pts</small></span>
+          </div>
+          <div class="score-row" role="listitem" aria-label="GPT2: final layer 85.89, SPIN 87.73, a gain of 1.84 points; 13.0% fewer errors." data-base="85.89" data-spin="87.73">
+            <span class="score-model" aria-hidden="true">GPT2</span>
+            <div class="score-track" style="--base-pos:43.560000%;--spin-pos:50.920000%" aria-hidden="true">
+              <span class="score-connector"></span>
+              <span class="score-point base"><span class="point-value">85.89</span></span>
+              <span class="score-point spin"><span class="point-value">87.73</span></span>
+            </div>
+            <span class="score-gain" aria-hidden="true"><strong>13.0%</strong><small>+1.84 pts</small></span>
+          </div>
+          <div class="score-row" role="listitem" aria-label="GPT2-M: final layer 86.12, SPIN 90.25, a gain of 4.13 points; 29.8% fewer errors." data-base="86.12" data-spin="90.25">
+            <span class="score-model" aria-hidden="true">GPT2-M</span>
+            <div class="score-track" style="--base-pos:44.480000%;--spin-pos:61.000000%" aria-hidden="true">
+              <span class="score-connector"></span>
+              <span class="score-point base"><span class="point-value">86.12</span></span>
+              <span class="score-point spin"><span class="point-value">90.25</span></span>
+            </div>
+            <span class="score-gain" aria-hidden="true"><strong>29.8%</strong><small>+4.13 pts</small></span>
+          </div>
+          <div class="score-row" role="listitem" aria-label="GPT2-XL: final layer 90.02, SPIN 93.23, a gain of 3.21 points; 32.2% fewer errors." data-base="90.02" data-spin="93.23">
+            <span class="score-model" aria-hidden="true">GPT2-XL</span>
+            <div class="score-track" style="--base-pos:60.080000%;--spin-pos:72.920000%" aria-hidden="true">
+              <span class="score-connector"></span>
+              <span class="score-point base"><span class="point-value">90.02</span></span>
+              <span class="score-point spin"><span class="point-value">93.23</span></span>
+            </div>
+            <span class="score-gain" aria-hidden="true"><strong>32.2%</strong><small>+3.21 pts</small></span>
+          </div>
+          <div class="score-row" role="listitem" aria-label="Flan-T5-S: final layer 77.17, SPIN 88.99, a gain of 11.82 points; 51.8% fewer errors." data-base="77.17" data-spin="88.99">
+            <span class="score-model" aria-hidden="true">Flan-T5-S</span>
+            <div class="score-track" style="--base-pos:8.680000%;--spin-pos:55.960000%" aria-hidden="true">
+              <span class="score-connector"></span>
+              <span class="score-point base"><span class="point-value">77.17</span></span>
+              <span class="score-point spin"><span class="point-value">88.99</span></span>
+            </div>
+            <span class="score-gain" aria-hidden="true"><strong>51.8%</strong><small>+11.82 pts</small></span>
+          </div>
+          <div class="score-row" role="listitem" aria-label="Flan-T5: final layer 78.26, SPIN 92.32, a gain of 14.06 points; 64.7% fewer errors." data-base="78.26" data-spin="92.32">
+            <span class="score-model" aria-hidden="true">Flan-T5</span>
+            <div class="score-track" style="--base-pos:13.040000%;--spin-pos:69.280000%" aria-hidden="true">
+              <span class="score-connector"></span>
+              <span class="score-point base"><span class="point-value">78.26</span></span>
+              <span class="score-point spin"><span class="point-value">92.32</span></span>
+            </div>
+            <span class="score-gain" aria-hidden="true"><strong>64.7%</strong><small>+14.06 pts</small></span>
+          </div>
+          <div class="score-row is-highlight" role="listitem" aria-label="Flan-T5-XL: final layer 84.75, SPIN 95.64, a gain of 10.89 points; 71.4% fewer errors." data-base="84.75" data-spin="95.64">
+            <span class="score-model" aria-hidden="true">Flan-T5-XL</span>
+            <div class="score-track" style="--base-pos:39.000000%;--spin-pos:82.560000%" aria-hidden="true">
+              <span class="score-connector"></span>
+              <span class="score-point base"><span class="point-value">84.75</span></span>
+              <span class="score-point spin"><span class="point-value">95.64</span></span>
+            </div>
+            <span class="score-gain" aria-hidden="true"><strong>71.4%</strong><small>+10.89 pts</small></span>
+          </div>
+        </div>
+        <div class="score-axis" aria-hidden="true"><span style="left:0.000000%">75</span><span style="left:20.000000%">80</span><span style="left:40.000000%">85</span><span style="left:60.000000%">90</span><span style="left:80.000000%">95</span><span style="left:100.000000%">100</span></div>
+      </div>
+      <div class="benchmark-panel" id="benchmark-edos" data-min="55" data-max="85">
+        <div class="benchmark-highlight">
+          <h3 class="benchmark-takeaway"><span class="chart-sr-only">EDOS: </span>Up to <strong>25.0%</strong> higher macro-F1</h3>
+        </div>
+        <div class="comparison-head" aria-hidden="true"><span>Backbone</span><span>EDOS · Macro-F1 (%)</span><span>F1 gain (pts)</span></div>
+        <div class="score-list" role="list" aria-label="EDOS results, score axis from 55 to 85" style="--grid-step:16.666667%">
+          <div class="score-row" role="listitem" aria-label="DistilBERT: final layer 65.09, SPIN 75.79, a gain of 10.70 points; 16.4% relative macro-F1 improvement." data-base="65.09" data-spin="75.79">
+            <span class="score-model" aria-hidden="true">DistilBERT</span>
+            <div class="score-track" style="--base-pos:33.633333%;--spin-pos:69.300000%" aria-hidden="true">
+              <span class="score-connector"></span>
+              <span class="score-point base"><span class="point-value">65.09</span></span>
+              <span class="score-point spin"><span class="point-value">75.79</span></span>
+            </div>
+            <span class="score-gain" aria-hidden="true"><strong>+10.70</strong><small>+16.4% relative</small></span>
+          </div>
+          <div class="score-row" role="listitem" aria-label="RoBERTa: final layer 68.81, SPIN 73.50, a gain of 4.69 points; 6.8% relative macro-F1 improvement." data-base="68.81" data-spin="73.50">
+            <span class="score-model" aria-hidden="true">RoBERTa</span>
+            <div class="score-track" style="--base-pos:46.033333%;--spin-pos:61.666667%" aria-hidden="true">
+              <span class="score-connector"></span>
+              <span class="score-point base"><span class="point-value">68.81</span></span>
+              <span class="score-point spin"><span class="point-value">73.50</span></span>
+            </div>
+            <span class="score-gain" aria-hidden="true"><strong>+4.69</strong><small>+6.8% relative</small></span>
+          </div>
+          <div class="score-row" role="listitem" aria-label="GPT2: final layer 68.57, SPIN 76.08, a gain of 7.51 points; 11.0% relative macro-F1 improvement." data-base="68.57" data-spin="76.08">
+            <span class="score-model" aria-hidden="true">GPT2</span>
+            <div class="score-track" style="--base-pos:45.233333%;--spin-pos:70.266667%" aria-hidden="true">
+              <span class="score-connector"></span>
+              <span class="score-point base"><span class="point-value">68.57</span></span>
+              <span class="score-point spin"><span class="point-value">76.08</span></span>
+            </div>
+            <span class="score-gain" aria-hidden="true"><strong>+7.51</strong><small>+11.0% relative</small></span>
+          </div>
+          <div class="score-row" role="listitem" aria-label="GPT2-M: final layer 71.17, SPIN 75.74, a gain of 4.57 points; 6.4% relative macro-F1 improvement." data-base="71.17" data-spin="75.74">
+            <span class="score-model" aria-hidden="true">GPT2-M</span>
+            <div class="score-track" style="--base-pos:53.900000%;--spin-pos:69.133333%" aria-hidden="true">
+              <span class="score-connector"></span>
+              <span class="score-point base"><span class="point-value">71.17</span></span>
+              <span class="score-point spin"><span class="point-value">75.74</span></span>
+            </div>
+            <span class="score-gain" aria-hidden="true"><strong>+4.57</strong><small>+6.4% relative</small></span>
+          </div>
+          <div class="score-row" role="listitem" aria-label="GPT2-XL: final layer 72.56, SPIN 76.79, a gain of 4.23 points; 5.8% relative macro-F1 improvement." data-base="72.56" data-spin="76.79">
+            <span class="score-model" aria-hidden="true">GPT2-XL</span>
+            <div class="score-track" style="--base-pos:58.533333%;--spin-pos:72.633333%" aria-hidden="true">
+              <span class="score-connector"></span>
+              <span class="score-point base"><span class="point-value">72.56</span></span>
+              <span class="score-point spin"><span class="point-value">76.79</span></span>
+            </div>
+            <span class="score-gain" aria-hidden="true"><strong>+4.23</strong><small>+5.8% relative</small></span>
+          </div>
+          <div class="score-row is-highlight" role="listitem" aria-label="Flan-T5-S: final layer 59.62, SPIN 74.51, a gain of 14.89 points; 25.0% relative macro-F1 improvement." data-base="59.62" data-spin="74.51">
+            <span class="score-model" aria-hidden="true">Flan-T5-S</span>
+            <div class="score-track" style="--base-pos:15.400000%;--spin-pos:65.033333%" aria-hidden="true">
+              <span class="score-connector"></span>
+              <span class="score-point base"><span class="point-value">59.62</span></span>
+              <span class="score-point spin"><span class="point-value">74.51</span></span>
+            </div>
+            <span class="score-gain" aria-hidden="true"><strong>+14.89</strong><small>+25.0% relative</small></span>
+          </div>
+          <div class="score-row" role="listitem" aria-label="Flan-T5: final layer 66.64, SPIN 78.04, a gain of 11.40 points; 17.1% relative macro-F1 improvement." data-base="66.64" data-spin="78.04">
+            <span class="score-model" aria-hidden="true">Flan-T5</span>
+            <div class="score-track" style="--base-pos:38.800000%;--spin-pos:76.800000%" aria-hidden="true">
+              <span class="score-connector"></span>
+              <span class="score-point base"><span class="point-value">66.64</span></span>
+              <span class="score-point spin"><span class="point-value">78.04</span></span>
+            </div>
+            <span class="score-gain" aria-hidden="true"><strong>+11.40</strong><small>+17.1% relative</small></span>
+          </div>
+          <div class="score-row" role="listitem" aria-label="Flan-T5-XL: final layer 70.08, SPIN 81.48, a gain of 11.40 points; 16.3% relative macro-F1 improvement." data-base="70.08" data-spin="81.48">
+            <span class="score-model" aria-hidden="true">Flan-T5-XL</span>
+            <div class="score-track" style="--base-pos:50.266667%;--spin-pos:88.266667%" aria-hidden="true">
+              <span class="score-connector"></span>
+              <span class="score-point base"><span class="point-value">70.08</span></span>
+              <span class="score-point spin"><span class="point-value">81.48</span></span>
+            </div>
+            <span class="score-gain" aria-hidden="true"><strong>+11.40</strong><small>+16.3% relative</small></span>
+          </div>
+        </div>
+        <div class="score-axis" aria-hidden="true"><span style="left:0.000000%">55</span><span style="left:16.666667%">60</span><span style="left:33.333333%">65</span><span style="left:50.000000%">70</span><span style="left:66.666667%">75</span><span style="left:83.333333%">80</span><span style="left:100.000000%">85</span></div>
+      </div>
+    </figure>
+    <div class="annotated-block">
+      <p>Each version of SPIN outperforms its corresponding baseline on all three benchmarks. For Flan-T5-S on EDOS, macro-F1 rises from 59.62 to 74.51, a relative improvement of about 25%.<sup class="note-ref"><a href="#note-benchmarks" id="ref-benchmarks" aria-label="Note 2: reading the benchmark numbers">2</a></sup> SPIN also improves models whose baseline performance is already high: GPT2-XL’s IMDb accuracy increases from 91.86% to 94.92%.</p>
+      <aside class="sidenote" id="note-benchmarks" role="note" aria-label="Note 2: reading the benchmark numbers" tabindex="-1">
+        <p><a class="note-number" href="#ref-benchmarks" aria-label="Back to reference 2">2</a> Error rate is 100% minus accuracy. For example, 90% → 95% accuracy halves the error rate, from 10% to 5%. EDOS uses macro-F1, so we report its point and relative gains instead. <a href="https://arxiv.org/html/2311.15983v2#S2.T1">Table 1.</a></p>
+      </aside>
+    </div>
+    <p>With Flan-T5-XL, SPIN reaches 96.12% accuracy on IMDb, compared with 96.21% for fully fine-tuned XLNet, the published state-of-the-art reference used in the paper. Compared with Flan-T5-XL’s own final-layer classifier, SPIN reduces the error rate from 9.50% to 3.88%, a 59.2% reduction.</p>
+    <details class="result-details">
+      <summary>Full benchmark results</summary>
+      <figure class="figure-wide" id="classification-table">
+<div aria-label="Classification results, scroll horizontally on narrow screens" class="table-scroll" role="region" tabindex="0">
+<table>
+<thead>
+<tr><th rowspan="2" scope="col">Backbone</th><th colspan="2" scope="colgroup">IMDb</th><th class="table-group" colspan="2" scope="colgroup">SST-2</th><th class="table-group" colspan="2" scope="colgroup">EDOS</th></tr>
+<tr><th scope="col">Base</th><th scope="col">SPIN</th><th class="table-group" scope="col">Base</th><th scope="col">SPIN</th><th class="table-group" scope="col">Base</th><th scope="col">SPIN</th></tr>
+</thead>
+<tbody>
+<tr><th scope="row">DistilBERT</th><td>86.95</td><td class="spin-score">89.78</td><td class="table-group">81.88</td><td class="spin-score">83.94</td><td class="table-group">65.09</td><td class="spin-score">75.79</td></tr>
+<tr><th scope="row">RoBERTa</th><td>89.67</td><td class="spin-score">93.61</td><td class="table-group">84.06</td><td class="spin-score">90.59</td><td class="table-group">68.81</td><td class="spin-score">73.50</td></tr>
+<tr><th scope="row">GPT2</th><td>87.72</td><td class="spin-score">91.94</td><td class="table-group">85.89</td><td class="spin-score">87.73</td><td class="table-group">68.57</td><td class="spin-score">76.08</td></tr>
+<tr><th scope="row">GPT2-M</th><td>88.59</td><td class="spin-score">93.92</td><td class="table-group">86.12</td><td class="spin-score">90.25</td><td class="table-group">71.17</td><td class="spin-score">75.74</td></tr>
+<tr><th scope="row">GPT2-XL</th><td>91.86</td><td class="spin-score">94.92</td><td class="table-group">90.02</td><td class="spin-score">93.23</td><td class="table-group">72.56</td><td class="spin-score">76.79</td></tr>
+<tr><th scope="row">Flan-T5-S</th><td>84.08</td><td class="spin-score">91.15</td><td class="table-group">77.17</td><td class="spin-score">88.99</td><td class="table-group">59.62</td><td class="spin-score">74.51</td></tr>
+<tr><th scope="row">Flan-T5</th><td>90.01</td><td class="spin-score">94.14</td><td class="table-group">78.26</td><td class="spin-score">92.32</td><td class="table-group">66.64</td><td class="spin-score">78.04</td></tr>
+<tr><th scope="row">Flan-T5-XL</th><td>90.50</td><td class="spin-score">96.12</td><td class="table-group">84.75</td><td class="spin-score">95.64</td><td class="table-group">70.08</td><td class="spin-score">81.48</td></tr>
+</tbody>
+<tfoot>
+<tr><th scope="row">Fine-tuned reference (2024)</th><td colspan="2">96.21</td><td class="table-group" colspan="2">97.50</td><td class="table-group" colspan="2">82.35</td></tr>
+</tfoot>
+</table>
+</div>
+<figcaption>All eight pretrained backbones on the three main benchmarks. IMDb and SST-2 report accuracy; EDOS reports macro-F1. All scores are percentages. Base uses final-layer representations. The final row gives the published fine-tuned reference results reported in the 2024 paper. <a href="https://arxiv.org/html/2311.15983v2#S2.T1">Source: Table 1.</a></figcaption>
+</figure>
+    </details>
+    <p>Further experiments extend the comparison to larger models and more classes. On LLaMA2-13B, IMDb accuracy rises from 94.55% to 96.06%. On AG News, SPIN improves all three tested backbones using multinomial logistic regression as the probe and classification head.</p>
+    <details class="result-details">
+      <summary>Larger models and multiclass results</summary>
+      <figure class="figure-compact" id="scale-table">
+<div aria-label="Results on larger models and multiclass classification, scroll horizontally on narrow screens" class="table-scroll" role="region" tabindex="0">
+<table class="table-narrow">
+<thead>
+<tr><th scope="col">Backbone</th><th scope="col">Dataset</th><th scope="col">Base</th><th scope="col">SPIN</th></tr>
+</thead>
+<tbody>
+<tr><th scope="row">LLaMA2-7B</th><td class="table-label">IMDb</td><td>94.04</td><td class="spin-score">95.76</td></tr>
+<tr><th scope="row">LLaMA2-13B</th><td class="table-label">IMDb</td><td>94.55</td><td class="spin-score">96.06</td></tr>
+<tr><th scope="row">DistilBERT</th><td class="table-label">AG News</td><td>91.18</td><td class="spin-score">92.21</td></tr>
+<tr><th scope="row">GPT2</th><td class="table-label">AG News</td><td>90.64</td><td class="spin-score">92.19</td></tr>
+<tr><th scope="row">Flan-T5-S</th><td class="table-label">AG News</td><td>85.68</td><td class="spin-score">91.89</td></tr>
+</tbody>
+</table>
+</div>
+<figcaption>Accuracy on pretrained LLaMA2 models for IMDb and on three backbones for AG News topic classification.</figcaption>
+</figure>
+    </details>
   </section>
 
-  <section aria-labelledby="method">
-    <h2 id="method">Sparsifying and integrating internal neurons</h2>
-    <p>The internal representations from all layers of a language model can be obtained in a single forward pass. SPIN uses one of two kinds: hidden states, the output of each transformer layer, or activations, the intermediate values inside each layer's feed-forward network. Both are standard objects of study in interpretability research, and we treat the choice between them as a hyperparameter. Sentences have different lengths, so we pool each layer's representation over tokens, taking the first token, the last token, the maximum, or the average, to obtain one fixed-size vector per layer.</p>
-    <figure class="figure-wide" id="method-figure">
-      <a href="../assets/papers/spin/43c7f1a428-arch.svg" aria-label="Open the SPIN method figure at full size">
-        <img src="../assets/papers/spin/43c7f1a428-arch.svg" width="476" height="194" alt="The baseline sends final-layer hidden states to a classifier. SPIN selects neurons within each layer and combines their representations in a classification head.">
-      </a>
-      <figcaption><span class="figure-number">Figure 1.</span> The baseline uses the final hidden states. SPIN selects internal neurons from intermediate layers and combines them as features for the classification head. The backbone stays frozen.</figcaption>
-    </figure>
-
-    <h3 id="selecting-neurons">Selecting neurons within each layer</h3>
-    <p>The first step asks, for each layer separately, which neurons carry information about the task.</p>
-    <p>A linear probe answers this. We train a logistic regression on a layer's frozen, pooled representations to predict the task label from the training set. Linear models suit this job for two reasons. The linear representation hypothesis holds that features in neural networks are represented linearly, so a linear model is expressive enough to find them. And a linear model is too simple to learn new task-specific structure on top of the representations, so it measures what is already there.</p>
-    <p>We use L1-regularized logistic regression, also called Lasso. The L1 penalty pushes many weights to zero, and the magnitude of the remaining weights indicates how much each neuron contributes to the probe's prediction. Within each layer, we normalize these magnitudes so they sum to one, sort them in descending order, and keep the smallest set whose cumulative weight reaches a sparsification threshold. A threshold of 0.4, for example, keeps the neurons that together account for 40% of the probe's total weight. We record the positions of these neurons for each layer.</p>
-    <figure id="threshold-figure">
-      <a href="../assets/papers/spin/96bb1fb98d-hyperparam_sensitivity.svg" aria-label="Open the sparsification threshold figure at full size">
-        <img src="../assets/papers/spin/96bb1fb98d-hyperparam_sensitivity.svg" width="792" height="576" alt="Top: IMDb accuracy against the sparsification threshold for eight backbones; the curves rise until a threshold of about 0.2 and then flatten. Bottom: stacked bars showing the share of neurons selected at each threshold, which stays small." loading="lazy" decoding="async">
-      </a>
-      <figcaption><span class="figure-number">Figure 2.</span> Top: IMDb accuracy as a function of the sparsification threshold for eight backbones. Bottom: the share of neurons selected at each threshold.</figcaption>
-    </figure>
-    <p>Raising the threshold admits more neurons, each less salient than the last. In Figure 2, accuracy rises quickly up to a threshold of about 0.2 and changes little beyond it, which means a small set of neurons already carries most of the usable signal. The lower panel shows how small that set is. At a threshold of 0.4, SPIN keeps about 3% of the neurons in each layer, and even at 0.8 it keeps less than a quarter, because the Lasso penalty has already pushed most probe weights to zero.</p>
-
-    <h3 id="integrating-neurons">Combining signals across layers</h3>
-    <p>Language models build up their representation of a text layer by layer, from simpler features in the lower layers to more abstract ones higher up. The final layer condenses this into a single output. In doing so it may overlook or underuse specialized knowledge that sits in the intermediate layers.</p>
-    <p>The integration step concatenates the selected neurons' representations from every layer, or from every layer up to a chosen exit point, into one feature vector. We then train a linear classification head with a sigmoid output on it, the same kind of head the baseline trains on the final layer. Concatenation preserves each neuron's representation as it is, so the classifier can weigh signals from several depths, and we can later inspect what individual neurons contribute.</p>
-
-    <h3 id="ablations">Why both steps matter</h3>
-    <p>We checked each step on GPT2-XL and IMDb by removing it. Table 1 compares probe-based selection with random selection at a fixed budget of neurons per layer. With one neuron per layer, the neurons the probes pick give 93.71% accuracy, and randomly picked neurons give 69.90%. The gap narrows as the budget grows but is still open at 100 neurons per layer.</p>
-    <p>Table 2 compares the integrated classifier with the best single layer at each exit depth. Integration wins at every depth. The best single layer peaks at 94.12% with 32 layers and drops to 92.41% at the full 48, while the integrated classifier keeps improving to 94.92%.</p>
-    <figure class="figure-wide" id="ablation-tables">
-      <div class="table-pair">
-        <div class="table-scroll" tabindex="0" role="region" aria-label="Neuron selection ablation, scroll horizontally on narrow screens">
-          <table>
-            <thead>
-              <tr><th scope="col">Neurons per layer</th><th scope="col">Random</th><th scope="col">Probe (SPIN)</th></tr>
-            </thead>
-            <tbody>
-              <tr><th scope="row">1</th><td>69.90</td><td class="spin-score">93.71</td></tr>
-              <tr><th scope="row">5</th><td>74.78</td><td class="spin-score">94.24</td></tr>
-              <tr><th scope="row">10</th><td>82.75</td><td class="spin-score">94.42</td></tr>
-              <tr><th scope="row">50</th><td>87.01</td><td class="spin-score">94.47</td></tr>
-              <tr><th scope="row">100</th><td>90.98</td><td class="spin-score">94.63</td></tr>
-            </tbody>
-          </table>
-          <p class="table-note"><span class="figure-number">Table 1.</span> IMDb accuracy of GPT2-XL with neurons selected by the probes or at random.</p>
+  <section aria-labelledby="efficiency">
+    <h2 id="efficiency">Lower training cost, earlier predictions</h2>
+    <p>SPIN never backpropagates through the language model. Training consists of forward passes with frozen weights to record the representations, then fitting the linear probes and classification head on those recordings. For GPT2-XL, that means training about one million parameters instead of 1.6 billion.</p>
+    <figure class="figure-wide" id="training-figure">
+      <div class="figure-pair training-pair">
+        <div class="subfigure">
+          <p class="chart-title">Trainable parameters</p>
+          <a href="../assets/papers/spin/210d2ba243-param_comparison.svg" aria-label="Open the trainable parameter comparison at full size"><img src="../assets/papers/spin/210d2ba243-param_comparison.svg" alt="Parameters trained by SPIN compared with all parameters in the backbone, labeled Base, across six models on a log scale." loading="lazy" decoding="async"></a>
         </div>
-        <div class="table-scroll" tabindex="0" role="region" aria-label="Cross-layer integration ablation, scroll horizontally on narrow screens">
-          <table>
-            <thead>
-              <tr><th scope="col">Layers used</th><th scope="col">Best single layer</th><th scope="col">Integrated (SPIN)</th></tr>
-            </thead>
-            <tbody>
-              <tr><th scope="row">8</th><td>87.17</td><td class="spin-score">88.34</td></tr>
-              <tr><th scope="row">16</th><td>89.84</td><td class="spin-score">92.09</td></tr>
-              <tr><th scope="row">24</th><td>92.72</td><td class="spin-score">94.70</td></tr>
-              <tr><th scope="row">32</th><td>94.12</td><td class="spin-score">94.91</td></tr>
-              <tr><th scope="row">48</th><td>92.41</td><td class="spin-score">94.92</td></tr>
-            </tbody>
-          </table>
-          <p class="table-note"><span class="figure-number">Table 2.</span> IMDb accuracy of GPT2-XL using the best individual layer or the integrated neurons up to each depth.</p>
+        <div class="subfigure">
+          <p class="chart-title">Estimated training compute</p>
+          <a href="../assets/papers/spin/e1689ce3ad-FLOs_comparison.svg" aria-label="Open the training compute comparison at full size"><img src="../assets/papers/spin/e1689ce3ad-FLOs_comparison.svg" width="215" height="150" alt="Estimated training FLOPs for the final-layer baseline, SPIN and full fine-tuning across six backbones, on a log scale." loading="lazy" decoding="async"></a>
         </div>
       </div>
+      <figcaption>Left: parameters trained by SPIN compared with updating the full backbone (Base). Right: estimated training operations for a final-layer classifier (Base), SPIN and one epoch of full fine-tuning on IMDb. Both plots use a log scale; SPIN uses feed-forward activations with a sparsification threshold of 0.5.</figcaption>
     </figure>
+    <p>The forward passes dominate SPIN’s training cost. It uses only slightly more compute than training a final-layer classifier, and less than half the estimated operations of a single epoch of full fine-tuning. The probes can be fitted independently on the recorded representations.</p>
+    <p>At inference, SPIN can classify text using only the layers up to a chosen exit point. With 60% of its layers, GPT2-XL reaches 94.73% IMDb accuracy, compared with 94.92% at full depth. Flan-T5 and Flan-T5-XL reach their full-depth accuracy at 60%. The useful exit point depends on the backbone: DistilBERT loses more than two points at the same depth.</p>
+    <details class="result-details">
+      <summary>Accuracy at each exit depth</summary>
+      <figure id="early-exit-table">
+<div aria-label="Early exit results, scroll horizontally on narrow screens" class="table-scroll" role="region" tabindex="0">
+<table>
+<thead>
+<tr><th scope="col">Backbone</th><th scope="col">20%</th><th scope="col">40%</th><th scope="col">60%</th><th scope="col">80%</th><th scope="col">100%</th></tr>
+</thead>
+<tbody>
+<tr><th scope="row">DistilBERT</th><td>85.20</td><td>84.73</td><td>87.45</td><td>88.67</td><td>89.78</td></tr>
+<tr><th scope="row">RoBERTa</th><td>87.06</td><td>89.72</td><td>93.13</td><td>93.50</td><td>93.61</td></tr>
+<tr><th scope="row">GPT2</th><td>87.51</td><td>89.00</td><td>91.10</td><td>91.88</td><td>91.94</td></tr>
+<tr><th scope="row">GPT2-M</th><td>88.52</td><td>91.36</td><td>93.36</td><td>93.92</td><td>93.92</td></tr>
+<tr><th scope="row">GPT2-XL</th><td>89.66</td><td>93.15</td><td>94.73</td><td>94.92</td><td>94.92</td></tr>
+<tr><th scope="row">Flan-T5-S</th><td>82.88</td><td>87.74</td><td>90.93</td><td>91.32</td><td>91.32</td></tr>
+<tr><th scope="row">Flan-T5</th><td>84.58</td><td>92.55</td><td>94.14</td><td>94.14</td><td>94.14</td></tr>
+<tr><th scope="row">Flan-T5-XL</th><td>89.21</td><td>95.28</td><td>96.12</td><td>96.12</td><td>96.12</td></tr>
+</tbody>
+</table>
+</div>
+<figcaption>IMDb accuracy when SPIN exits after the given percentage of each backbone’s layers.</figcaption>
+</figure>
+    </details>
   </section>
 
-  <section aria-labelledby="results">
-    <h2 id="results">What we find</h2>
-    <h3 id="classification">Classification across model families</h3>
-    <p>We evaluate on three benchmarks. IMDb is a dataset of movie reviews labeled positive or negative. SST-2, part of the GLUE benchmark, labels sentences from the Stanford Sentiment Treebank the same way. EDOS, from SemEval-2023 Task 10, asks whether an online post is sexist; we use its Task A labels. Following each benchmark's official metric, IMDb and SST-2 report accuracy and EDOS reports macro-F1.</p>
-    <p>The backbones cover the three mainstream transformer architectures: encoder models (DistilBERT and RoBERTa), decoder models (GPT2, GPT2-M and GPT2-XL), and encoder-decoder models (Flan-T5-S, Flan-T5 and Flan-T5-XL). The baseline trains a classification head on the frozen final-layer representation that each architecture conventionally uses: the [CLS] token for encoders, the last token for decoders, and the pooled output of the final encoder layer for encoder-decoder models. The baseline head, like SPIN's, is trained with the datasets' labels, so the comparison is between two supervised classifiers and leaves prompting methods aside. SPIN's hyperparameters, the regularization coefficient, the sparsification threshold, the pooling strategy and the choice between hidden states and activations, are chosen by grid search; the search space and the settings used are listed in the paper's appendix.</p>
-    <p>Each version of SPIN outperforms its corresponding baseline across all three benchmarks (Table 3). For Flan-T5-S on EDOS, macro-F1 rises from 59.62 to 74.51, a relative improvement of about 25%. SPIN also improves models whose baseline performance is already high: GPT2-XL's IMDb accuracy increases from 91.86% to 94.92%.</p>
-
-    <figure class="figure-wide" id="classification-table">
-      <div class="table-scroll" tabindex="0" role="region" aria-label="Classification results, scroll horizontally on narrow screens">
-        <table>
-          <thead>
-            <tr><th rowspan="2" scope="col">Backbone</th><th colspan="2" scope="colgroup">IMDb</th><th colspan="2" scope="colgroup" class="table-group">SST-2</th><th colspan="2" scope="colgroup" class="table-group">EDOS</th></tr>
-            <tr><th scope="col">Base</th><th scope="col">SPIN</th><th scope="col" class="table-group">Base</th><th scope="col">SPIN</th><th scope="col" class="table-group">Base</th><th scope="col">SPIN</th></tr>
-          </thead>
-          <tbody>
-            <tr><th scope="row">DistilBERT</th><td>86.95</td><td class="spin-score">89.78</td><td class="table-group">81.88</td><td class="spin-score">83.94</td><td class="table-group">65.09</td><td class="spin-score">75.79</td></tr>
-            <tr><th scope="row">RoBERTa</th><td>89.67</td><td class="spin-score">93.61</td><td class="table-group">84.06</td><td class="spin-score">90.59</td><td class="table-group">68.81</td><td class="spin-score">73.50</td></tr>
-            <tr><th scope="row">GPT2</th><td>87.72</td><td class="spin-score">91.94</td><td class="table-group">85.89</td><td class="spin-score">87.73</td><td class="table-group">68.57</td><td class="spin-score">76.08</td></tr>
-            <tr><th scope="row">GPT2-M</th><td>88.59</td><td class="spin-score">93.92</td><td class="table-group">86.12</td><td class="spin-score">90.25</td><td class="table-group">71.17</td><td class="spin-score">75.74</td></tr>
-            <tr><th scope="row">GPT2-XL</th><td>91.86</td><td class="spin-score">94.92</td><td class="table-group">90.02</td><td class="spin-score">93.23</td><td class="table-group">72.56</td><td class="spin-score">76.79</td></tr>
-            <tr><th scope="row">Flan-T5-S</th><td>84.08</td><td class="spin-score">91.15</td><td class="table-group">77.17</td><td class="spin-score">88.99</td><td class="table-group">59.62</td><td class="spin-score">74.51</td></tr>
-            <tr><th scope="row">Flan-T5</th><td>90.01</td><td class="spin-score">94.14</td><td class="table-group">78.26</td><td class="spin-score">92.32</td><td class="table-group">66.64</td><td class="spin-score">78.04</td></tr>
-            <tr><th scope="row">Flan-T5-XL</th><td>90.50</td><td class="spin-score">96.12</td><td class="table-group">84.75</td><td class="spin-score">95.64</td><td class="table-group">70.08</td><td class="spin-score">81.48</td></tr>
-          </tbody>
-          <tfoot>
-            <tr><th scope="row">Fine-tuned state of the art</th><td colspan="2">96.21</td><td colspan="2" class="table-group">97.50</td><td colspan="2" class="table-group">82.35</td></tr>
-          </tfoot>
-        </table>
-      </div>
-      <figcaption><span class="figure-number">Table 3.</span> Classification with frozen pretrained backbones. IMDb and SST-2 report accuracy; EDOS reports macro-F1. All scores are percentages. Base uses final-layer representations; SPIN uses selected neurons across layers. The last row gives the published fine-tuned state of the art for each dataset: XLNet for IMDb, T5-11B for SST-2 and DeBERTa-v3-base for EDOS. Values are from <a href="https://arxiv.org/html/2311.15983v2#S2.T1">Table 1 of the paper</a>.</figcaption>
-    </figure>
-
-    <p>The last row of Table 3 puts these numbers next to fully fine-tuned models. SPIN on Flan-T5-XL reaches 96.12% on IMDb, 99.9% of fine-tuned XLNet's 96.21%, with the backbone frozen. On SST-2 the gap to fine-tuned T5-11B is under two points, and on EDOS SPIN reaches 81.48 macro-F1 against 82.35 for fine-tuned DeBERTa-v3-base.</p>
-
-    <h3 id="scale">Larger models and more classes</h3>
-    <p>Two further experiments check that the approach is not tied to the main setting. On LLaMA2-7B and LLaMA2-13B, SPIN again improves IMDb accuracy over the final-layer classifier (Table 4). At this scale, fine-tuning for a sentence classification task with limited training data is expensive, and SPIN adapts the model with forward passes alone.</p>
-    <p>The main experiments are binary. A multiclass task can be split into one binary classifier per class, or the classification head can be replaced with one that handles several classes directly. We took the second route on AG News, a news topic classification dataset, using multinomial logistic regression as both the probe and the head. SPIN improves all three backbones we tested.</p>
-    <figure class="figure-compact" id="scale-table">
-      <div class="table-scroll" tabindex="0" role="region" aria-label="Results on larger models and multiclass classification, scroll horizontally on narrow screens">
-        <table class="table-narrow">
-          <thead>
-            <tr><th scope="col">Backbone</th><th scope="col">Dataset</th><th scope="col">Base</th><th scope="col">SPIN</th></tr>
-          </thead>
-          <tbody>
-            <tr><th scope="row">LLaMA2-7B</th><td class="table-label">IMDb</td><td>94.04</td><td class="spin-score">95.76</td></tr>
-            <tr><th scope="row">LLaMA2-13B</th><td class="table-label">IMDb</td><td>94.55</td><td class="spin-score">96.06</td></tr>
-            <tr><th scope="row">DistilBERT</th><td class="table-label">AG News</td><td>91.18</td><td class="spin-score">92.21</td></tr>
-            <tr><th scope="row">GPT2</th><td class="table-label">AG News</td><td>90.64</td><td class="spin-score">92.19</td></tr>
-            <tr><th scope="row">Flan-T5-S</th><td class="table-label">AG News</td><td>85.68</td><td class="spin-score">91.89</td></tr>
-          </tbody>
-        </table>
-      </div>
-      <figcaption><span class="figure-number">Table 4.</span> Accuracy on pretrained LLaMA2 models for IMDb and on three backbones for AG News topic classification.</figcaption>
-    </figure>
-
-    <h3 id="fine-tuned">SPIN on fine-tuned models</h3>
-    <p>SPIN needs only the model's internal representations, so it can also be applied to a model that has already been fine-tuned for the task. The checkpoints behind the state-of-the-art results above are not public, so we used publicly available fine-tuned DistilBERT, RoBERTa and GPT2 checkpoints. SPIN improves on the fine-tuned model's own classifier in every available comparison (Table 5); no GPT2 fine-tuned on EDOS was available.</p>
+  <section aria-labelledby="fine-tuned">
+    <h2 id="fine-tuned">Further gains after fine-tuning</h2>
+    <p>SPIN needs only access to a model’s internal representations, so it can also be applied after the model has been fine-tuned for a task. On publicly available fine-tuned DistilBERT, RoBERTa and GPT2 checkpoints, SPIN improves on the model’s own classifier in every available comparison.</p>
     <figure class="figure-wide" id="finetuned-table">
-      <div class="table-scroll" tabindex="0" role="region" aria-label="Results on fine-tuned models, scroll horizontally on narrow screens">
-        <table>
-          <thead>
-            <tr><th rowspan="2" scope="col">Backbone</th><th colspan="2" scope="colgroup">IMDb</th><th colspan="2" scope="colgroup" class="table-group">SST-2</th><th colspan="2" scope="colgroup" class="table-group">EDOS</th></tr>
-            <tr><th scope="col">Base</th><th scope="col">SPIN</th><th scope="col" class="table-group">Base</th><th scope="col">SPIN</th><th scope="col" class="table-group">Base</th><th scope="col">SPIN</th></tr>
-          </thead>
-          <tbody>
-            <tr><th scope="row">DistilBERT</th><td>92.80</td><td class="spin-score">92.88</td><td class="table-group">91.05</td><td class="spin-score">91.19</td><td class="table-group">78.74</td><td class="spin-score">81.12</td></tr>
-            <tr><th scope="row">RoBERTa</th><td>94.67</td><td class="spin-score">95.68</td><td class="table-group">94.03</td><td class="spin-score">94.38</td><td class="table-group">80.48</td><td class="spin-score">80.88</td></tr>
-            <tr><th scope="row">GPT2</th><td>94.06</td><td class="spin-score">94.50</td><td class="table-group">91.51</td><td class="spin-score">92.32</td><td class="table-group">n/a</td><td>n/a</td></tr>
-          </tbody>
-        </table>
-      </div>
-      <figcaption><span class="figure-number">Table 5.</span> Published fine-tuned checkpoints with their own classifier (Base) and with SPIN on top. GPT2 fine-tuned on EDOS is not publicly available.</figcaption>
-    </figure>
-    <p>The gains here are small, often under one point, because the fine-tuned model has already adapted its final layer to the task. To check that they are real, we ran five-fold cross-validation on IMDb and a one-sample t-test against the baseline's score. All three improvements are significant at p &lt; 0.05.</p>
-    <p>Parameter-efficient fine-tuning methods such as LoRA and adapters add small trainable modules inside the network but do not block access to its hidden states and activations, so SPIN works on top of them without changes. On a LoRA-fine-tuned DistilBERT for IMDb, SPIN raises accuracy from 87.71% to 90.58%, about the same relative gain as on the pretrained model.</p>
+<div aria-label="Results on fine-tuned models, scroll horizontally on narrow screens" class="table-scroll" role="region" tabindex="0">
+<table>
+<thead>
+<tr><th rowspan="2" scope="col">Backbone</th><th colspan="2" scope="colgroup">IMDb</th><th class="table-group" colspan="2" scope="colgroup">SST-2</th><th class="table-group" colspan="2" scope="colgroup">EDOS</th></tr>
+<tr><th scope="col">Base</th><th scope="col">SPIN</th><th class="table-group" scope="col">Base</th><th scope="col">SPIN</th><th class="table-group" scope="col">Base</th><th scope="col">SPIN</th></tr>
+</thead>
+<tbody>
+<tr><th scope="row">DistilBERT</th><td>92.80</td><td class="spin-score">92.88</td><td class="table-group">91.05</td><td class="spin-score">91.19</td><td class="table-group">78.74</td><td class="spin-score">81.12</td></tr>
+<tr><th scope="row">RoBERTa</th><td>94.67</td><td class="spin-score">95.68</td><td class="table-group">94.03</td><td class="spin-score">94.38</td><td class="table-group">80.48</td><td class="spin-score">80.88</td></tr>
+<tr><th scope="row">GPT2</th><td>94.06</td><td class="spin-score">94.50</td><td class="table-group">91.51</td><td class="spin-score">92.32</td><td class="table-group">n/a</td><td>n/a</td></tr>
+</tbody>
+</table>
+</div>
+<figcaption>Public fine-tuned checkpoints with their own classifier (Base) and with SPIN on top. IMDb and SST-2 report accuracy; EDOS reports macro-F1. GPT2 fine-tuned on EDOS was not publicly available.</figcaption>
+</figure>
+    <p>The gains here are smaller, often under one point, because the fine-tuned model has already adapted to the task. Five-fold cross-validation on IMDb confirms that all three improvements are significant at p &lt; 0.05. On a LoRA-fine-tuned DistilBERT, SPIN raises IMDb accuracy from 87.71% to 90.58%.</p>
+  </section>
 
-    <h3 id="efficiency">Training and inference costs</h3>
-    <p>SPIN never backpropagates through the language model. Training consists of forward passes with frozen weights to record the representations, then fitting the linear probes and the classification head on those recordings. The trainable parameters are the probes and the head, at least three orders of magnitude fewer than the backbone: for GPT2-XL, about one million against 1.6 billion.</p>
-    <figure class="figure-compact" id="training-figure">
-      <a href="../assets/papers/spin/e1689ce3ad-FLOs_comparison.svg" aria-label="Open the training compute figure at full size">
-        <img src="../assets/papers/spin/e1689ce3ad-FLOs_comparison.svg" width="215" height="150" alt="Estimated training FLOPs for the baseline, SPIN and full fine-tuning across six backbones on a log scale. SPIN costs slightly more than the baseline and less than half of full fine-tuning." loading="lazy" decoding="async">
-      </a>
-      <figcaption><span class="figure-number">Figure 3.</span> Estimated floating-point operations for training on IMDb, on a log scale. SPIN uses feed-forward activations with a sparsification threshold of 0.5; full fine-tuning is estimated for one epoch, the lowest reasonable assumption.</figcaption>
-    </figure>
-    <p>Figure 3 compares estimated training compute. SPIN costs only slightly more than training a final-layer classifier, since both are dominated by the forward passes, and less than half of a single epoch of full fine-tuning. Parameter-efficient fine-tuning also trains few parameters, but its gradients still flow through the entire network, so its wall-clock cost is higher than the operation count suggests. SPIN trains its probes independently from the model on recorded representations, which can run on modest hardware and in parallel.</p>
-    <p>At inference time, SPIN can make a prediction before the forward pass finishes. We select and integrate neurons only from the layers up to an exit point and train the classification head on those. Table 6 reports IMDb accuracy when SPIN uses the first 20% to 100% of each model's layers.</p>
-    <figure id="early-exit-table">
-      <div class="table-scroll" tabindex="0" role="region" aria-label="Early exit results, scroll horizontally on narrow screens">
-        <table>
-          <thead>
-            <tr><th scope="col">Backbone</th><th scope="col">20%</th><th scope="col">40%</th><th scope="col">60%</th><th scope="col">80%</th><th scope="col">100%</th></tr>
-          </thead>
-          <tbody>
-            <tr><th scope="row">DistilBERT</th><td>85.20</td><td>84.73</td><td>87.45</td><td>88.67</td><td>89.78</td></tr>
-            <tr><th scope="row">RoBERTa</th><td>87.06</td><td>89.72</td><td>93.13</td><td>93.50</td><td>93.61</td></tr>
-            <tr><th scope="row">GPT2</th><td>87.51</td><td>89.00</td><td>91.10</td><td>91.88</td><td>91.94</td></tr>
-            <tr><th scope="row">GPT2-M</th><td>88.52</td><td>91.36</td><td>93.36</td><td>93.92</td><td>93.92</td></tr>
-            <tr><th scope="row">GPT2-XL</th><td>89.66</td><td>93.15</td><td>94.73</td><td>94.92</td><td>94.92</td></tr>
-            <tr><th scope="row">Flan-T5-S</th><td>82.88</td><td>87.74</td><td>90.93</td><td>91.32</td><td>91.32</td></tr>
-            <tr><th scope="row">Flan-T5</th><td>84.58</td><td>92.55</td><td>94.14</td><td>94.14</td><td>94.14</td></tr>
-            <tr><th scope="row">Flan-T5-XL</th><td>89.21</td><td>95.28</td><td>96.12</td><td>96.12</td><td>96.12</td></tr>
-          </tbody>
-        </table>
-      </div>
-      <figcaption><span class="figure-number">Table 6.</span> IMDb accuracy of SPIN when it exits after the given percentage of the backbone's layers.</figcaption>
-    </figure>
-    <p>Reading across a row shows how much accuracy a model gives up by stopping early. GPT2-XL reaches 94.73% with 60% of its layers, against 94.92% with all of them. Flan-T5 and Flan-T5-XL reach their full-depth accuracy at 60% of layers, and GPT2-M and Flan-T5-S at 80%. In these cases SPIN keeps 99% or more of its full-depth accuracy and skips the remaining part of the forward pass. The small encoder DistilBERT benefits least: it loses more than two points at 60%, so the useful exit depth depends on the backbone.</p>
-
-    <h3 id="interpretability">What the selected neurons reveal</h3>
-    <p>Because the probes are linear and the integration step is a concatenation, SPIN can be inspected at two levels: the individual neurons the probes select, and the classifier built from them.</p>
-    <figure class="figure-narrow" id="neurons-figure">
-      <a href="../assets/papers/spin/909043de03-gpt2xl_interp.png" aria-label="Open the neuron distributions figure at full size">
-        <img src="../assets/papers/spin/909043de03-gpt2xl_interp.png" width="4096" height="3624" alt="Sentiment prediction distributions at increasing GPT2-XL layer depths. The upper row shows integrated SPIN classifiers and their accuracy; the lower rows show the most salient individual neurons. Red denotes negative reviews and green positive reviews." loading="lazy" decoding="async">
-      </a>
-      <figcaption><span class="figure-number">Figure 4.</span> Output distributions of integrated SPIN classifiers (top row, with accuracy) and of the most salient individual neurons (rows below, from higher to lower importance) at different depths of GPT2-XL on IMDb. Red corresponds to negative reviews, green to positive reviews.</figcaption>
-    </figure>
-    <p>Figure 4 shows both levels for GPT2-XL on IMDb sentiment. Each small panel is the distribution of one output over negative reviews (red) and positive reviews (green); the further apart the two colors, the better that output separates the classes. The top row is the integrated SPIN classifier built from neurons up to the labeled layer, with its accuracy. At layer 0 the two distributions sit on top of each other and accuracy is 50.07%, no better than chance. By layer 20 they have begun to separate (81.37%), and by layer 47 they are well apart (94.29%). The rows below show the most salient individual neurons at each of those layers, ordered from highest importance at the top. Individual neurons in the early layers barely distinguish the classes. Neurons in later layers do, though none alone separates them as cleanly as the integrated classifier above it. The curved lines mark that each layer's selected neurons feed every integrated classifier at that depth and above.</p>
-    <p>A classifier trained on pooled sentence representations can also be applied token by token, by skipping the pooling step and reading each token's representation directly. Figure 5 shows this for one IMDb review with GPT2-XL and max pooling, for the baseline and for SPIN. Each token is shaded by the predicted sentiment at that position, red for negative and green for positive. GPT2-XL is a decoder, so each position's representation covers the text read so far, and the shading tracks the review's sentiment as it unfolds.</p>
+  <section aria-labelledby="interpretability">
+    <h2 id="interpretability">Reading the prediction through a text</h2>
+    <div class="annotated-block">
+      <p>A classifier trained on pooled sentence representations can also be applied token by token. In the IMDb review below, both classifiers track shifts in sentiment as the text unfolds.<sup class="note-ref"><a href="#note-tokens" id="ref-tokens" aria-label="Note 3: reading the token colors">3</a></sup> SPIN shows clearer changes at turns such as “yet somehow”, “despite” and “nonetheless”.</p>
+      <aside class="sidenote" id="note-tokens" role="note" aria-label="Note 3: reading the token colors" tabindex="-1">
+        <p><a class="note-number" href="#ref-tokens" aria-label="Back to reference 3">3</a> GPT2-XL reads left to right. Each color reflects the sentiment of the text up to that token, including its earlier context. A word such as “despite” can change the running prediction. <a href="https://arxiv.org/html/2311.15983v2#A3.SS4">Appendix C.4.</a></p>
+      </aside>
+    </div>
     <figure class="figure-wide" id="tokens-figure">
-      <div class="subfigure">
-        <a href="../assets/papers/spin/8f28dfb11a-post_hoc_interp_Base.png" aria-label="Open the baseline token-wise figure at full size">
-          <img src="../assets/papers/spin/8f28dfb11a-post_hoc_interp_Base.png" width="955" height="187" alt="A movie review with each token shaded red or green by the baseline classifier's token-wise sentiment prediction. The overall baseline score is 0.76." loading="lazy" decoding="async">
-        </a>
-        <span class="subfigure-label">(a) Baseline</span>
-      </div>
-      <div class="subfigure">
-        <a href="../assets/papers/spin/fa7364ace6-post_hoc_interp_SPIN.png" aria-label="Open the SPIN token-wise figure at full size">
-          <img src="../assets/papers/spin/fa7364ace6-post_hoc_interp_SPIN.png" width="955" height="187" alt="The same movie review shaded by SPIN's token-wise sentiment prediction, with clearer shifts at contrastive words. The overall SPIN score is 0.99." loading="lazy" decoding="async">
-        </a>
-        <span class="subfigure-label">(b) SPIN</span>
-      </div>
-      <figcaption><span class="figure-number">Figure 5.</span> Token-wise breakdown of a sentence-level classifier on one IMDb review, for (a) the baseline and (b) SPIN, both trained on GPT2-XL with max pooling. Red marks tokens predicted negative, green tokens predicted positive. The overall score for the review follows the text.</figcaption>
-    </figure>
-    <p>Both classifiers flip several times across "couldn't find myself agreeing more with", as the running sentiment should. At turns such as "yet somehow", "despite" and "nonetheless", SPIN's pattern is clearer than the baseline's, and its overall score for the review is 0.99 against 0.76 for the baseline. For encoder models the same transfer has an extra benefit. Baseline classifiers on encoders read the [CLS] token, which has no counterpart at other positions, so token-wise predictions need repeated passes over sliding windows. SPIN trains on representations from all tokens, so it transfers directly. Token-wise predictions can be explored in our <a href="https://liuyilun2000.github.io/spin-visualization/">interactive demo</a>.</p>
+<div class="subfigure">
+<a aria-label="Open the baseline token-wise figure at full size" href="../assets/papers/spin/8f28dfb11a-post_hoc_interp_Base.png">
+<img alt="A movie review with each token shaded red or green by the baseline classifier's token-wise sentiment prediction. The overall baseline score is 0.76." decoding="async" height="187" loading="lazy" src="../assets/papers/spin/8f28dfb11a-post_hoc_interp_Base.png" width="955"/>
+</a>
+<span class="subfigure-label">(a) Baseline</span>
+</div>
+<div class="subfigure">
+<a aria-label="Open the SPIN token-wise figure at full size" href="../assets/papers/spin/fa7364ace6-post_hoc_interp_SPIN.png">
+<img alt="The same movie review shaded by SPIN's token-wise sentiment prediction, with clearer shifts at contrastive words. The overall SPIN score is 0.99." decoding="async" height="187" loading="lazy" src="../assets/papers/spin/fa7364ace6-post_hoc_interp_SPIN.png" width="955"/>
+</a>
+<span class="subfigure-label">(b) SPIN</span>
+</div>
+<figcaption>The same IMDb review, read token by token by the baseline (top) and SPIN (bottom). Red marks negative sentiment and green marks positive sentiment. Both classifiers use GPT2-XL with max pooling; the score after the text is the sentence-level prediction.</figcaption>
+</figure>
+    <p>For encoder models, SPIN’s use of representations from all tokens also allows direct transfer to token-wise predictions; a conventional [CLS]-based classifier needs repeated passes over sliding windows.</p>
+    <details class="result-details">
+      <summary>What the selected neurons reveal</summary>
+      <p>SPIN can be inspected at two levels: the individual neurons selected by the probes, and the classifier built from them. In this GPT2-XL example, later-layer neurons distinguish positive and negative reviews more clearly, while combining neurons across layers separates the classes more cleanly than any individual neuron shown.</p>
+      <figure class="figure-narrow" id="neurons-figure">
+<a aria-label="Open the neuron distributions figure at full size" href="../assets/papers/spin/909043de03-gpt2xl_interp.png">
+<img alt="Sentiment prediction distributions at increasing GPT2-XL layer depths. The upper row shows integrated SPIN classifiers and their accuracy; the lower rows show the most salient individual neurons. Red denotes negative reviews and green positive reviews." decoding="async" height="3624" loading="lazy" src="../assets/papers/spin/909043de03-gpt2xl_interp.png" width="4096"/>
+</a>
+<figcaption>Integrated classifiers (top row) and selected individual neurons (rows below) at different depths of GPT2-XL. Red denotes negative reviews and green denotes positive reviews. More separated distributions distinguish the classes more clearly.</figcaption>
+</figure>
+    </details>
   </section>
 
   <section aria-labelledby="discussion">
-    <h2 id="discussion">Discussion</h2>
-    <p>SPIN shows that intermediate representations are useful features for text classification with a frozen language model. Selecting neurons within each layer and integrating them across layers improves on final-layer classifiers for every backbone and dataset we tested. The same features approach fine-tuned models at a fraction of the training cost and allow early exit at inference.</p>
-    <p>The idea connects two lines of work. Interpretability research has located task-relevant neurons in language models, from the linear semantic directions of word2vec to expert neurons in transformers, and has used individual neurons to classify text. Dynamic neural networks, including mixture-of-experts models and early-exit methods, exploit sparsity and skip computation at inference. SPIN draws on both while staying outside the model. It selects individual feed-forward neurons without adding routing inside the network, and it works as a module on top of any transformer whose weights are available.</p>
-    <p>The approach requires access to the model's internal representations, so it cannot be used with a text-only API or built on proprietary checkpoints whose weights are not released. We also use a linear classification head with a sigmoid output. A more sophisticated head could improve accuracy; we kept the simple one to match prior work and to keep the classifier interpretable. Our <a href="https://arxiv.org/abs/2311.15983">full paper</a> includes the mathematical formulation, the hyperparameter settings, the parameter and compute estimates, and the remaining experiments.</p>
+    <h2 id="discussion">Why look beyond the final layer?</h2>
+    <div class="annotated-block">
+      <p>Interpretability research has repeatedly found task-relevant information inside language models. Radford et al. (2017) identified a single neuron that classifies sentiment;<sup class="note-ref"><a href="#note-sentiment" id="ref-sentiment" aria-label="Note 4: the sentiment neuron">4</a></sup> later work used selected transformer neurons as classifiers. SPIN builds on these observations to make a general classification method that works across model families.</p>
+      <aside class="sidenote" id="note-sentiment" role="note" aria-label="Note 4: the sentiment neuron" tabindex="-1">
+        <p><a class="note-number" href="#ref-sentiment" aria-label="Back to reference 4">4</a> The neuron emerged through unsupervised language-model training. Fixing its value to be positive or negative also changed the sentiment of the text the model generated. <a href="https://arxiv.org/abs/1704.01444">Radford et al. (2017).</a></p>
+      </aside>
+    </div>
+    <p>A final-layer classifier uses a single representation of the text. SPIN gives the classifier access to selected features from several depths, combining simpler features in lower layers with more abstract ones higher up. Filtering matters: irrelevant neurons add noise that dilutes the features useful for the task.</p>
+    <figure class="figure-wide" id="method-figure">
+<a aria-label="Open the SPIN method figure at full size" href="../assets/papers/spin/43c7f1a428-arch.svg">
+<img alt="The baseline sends final-layer hidden states to a classifier. SPIN selects neurons within each layer and combines their representations in a classification head." height="194" src="../assets/papers/spin/43c7f1a428-arch.svg" width="476"/>
+</a>
+<figcaption>The baseline reads the final hidden states. SPIN selects internal neurons within each layer and combines their representations in a classification head. The backbone stays frozen.</figcaption>
+</figure>
+    <div class="annotated-block">
+      <p>Both parts of SPIN contribute. On GPT2-XL and IMDb, selecting one neuron per layer with the probes gives 93.71% accuracy, compared with 69.90% for random selection.<sup class="note-ref"><a href="#note-sparsity" id="ref-sparsity" aria-label="Note 5: what sparsification selects">5</a></sup> Combining layers also outperforms the best individual layer at every exit depth we tested.</p>
+      <aside class="sidenote" id="note-sparsity" role="note" aria-label="Note 5: what sparsification selects" tabindex="-1">
+        <p><a class="note-number" href="#ref-sparsity" aria-label="Back to reference 5">5</a> Sparsification selects which features the classifier reads. The backbone still computes the intervening layers; early exit saves work by stopping before the final layer. <a href="https://arxiv.org/html/2311.15983v2#S2.SS2">Section 2.2.</a></p>
+      </aside>
+    </div>
+    <details class="result-details">
+      <summary>Neuron selection and integration in more detail</summary>
+      <p>We pool each layer’s hidden states or feed-forward activations over tokens to obtain a fixed-size vector. An L1-regularized logistic regression then predicts the task label from that layer’s representations. The penalty pushes many weights to zero; we normalize the remaining weight magnitudes and keep the smallest set whose cumulative weight reaches a chosen threshold.</p>
+      <p>At a threshold of 0.4, SPIN keeps about 3% of the neurons in each layer in this analysis. The selected representations are concatenated into one feature vector, and a linear classification head is trained on it.</p>
+      <figure id="threshold-figure">
+<a aria-label="Open the sparsification threshold figure at full size" href="../assets/papers/spin/96bb1fb98d-hyperparam_sensitivity.svg">
+<img alt="Top: IMDb accuracy against the sparsification threshold for eight backbones; the curves rise until a threshold of about 0.2 and then flatten. Bottom: stacked bars showing the share of neurons selected at each threshold, which stays small." decoding="async" height="576" loading="lazy" src="../assets/papers/spin/96bb1fb98d-hyperparam_sensitivity.svg" width="792"/>
+</a>
+<figcaption>IMDb accuracy (top) and the fraction of neurons selected (bottom) as the sparsification threshold increases. A small set of neurons carries most of the usable classification signal.</figcaption>
+</figure>
+      <figure class="figure-wide" id="ablation-tables">
+<div class="table-pair">
+<div aria-label="Neuron selection ablation, scroll horizontally on narrow screens" class="table-scroll" role="region" tabindex="0">
+<table>
+<thead>
+<tr><th scope="col">Neurons per layer</th><th scope="col">Random</th><th scope="col">Probe (SPIN)</th></tr>
+</thead>
+<tbody>
+<tr><th scope="row">1</th><td>69.90</td><td class="spin-score">93.71</td></tr>
+<tr><th scope="row">5</th><td>74.78</td><td class="spin-score">94.24</td></tr>
+<tr><th scope="row">10</th><td>82.75</td><td class="spin-score">94.42</td></tr>
+<tr><th scope="row">50</th><td>87.01</td><td class="spin-score">94.47</td></tr>
+<tr><th scope="row">100</th><td>90.98</td><td class="spin-score">94.63</td></tr>
+</tbody>
+</table>
+<p class="table-note"> IMDb accuracy of GPT2-XL with neurons selected by the probes or at random.</p>
+</div>
+<div aria-label="Cross-layer integration ablation, scroll horizontally on narrow screens" class="table-scroll" role="region" tabindex="0">
+<table>
+<thead>
+<tr><th scope="col">Layers used</th><th scope="col">Best single layer</th><th scope="col">Integrated (SPIN)</th></tr>
+</thead>
+<tbody>
+<tr><th scope="row">8</th><td>87.17</td><td class="spin-score">88.34</td></tr>
+<tr><th scope="row">16</th><td>89.84</td><td class="spin-score">92.09</td></tr>
+<tr><th scope="row">24</th><td>92.72</td><td class="spin-score">94.70</td></tr>
+<tr><th scope="row">32</th><td>94.12</td><td class="spin-score">94.91</td></tr>
+<tr><th scope="row">48</th><td>92.41</td><td class="spin-score">94.92</td></tr>
+</tbody>
+</table>
+<p class="table-note"> IMDb accuracy of GPT2-XL using the best individual layer or the integrated neurons up to each depth.</p>
+</div>
+</div>
+</figure>
+    </details>
+    <p>The approach requires access to internal representations, so it cannot be used through a text-only API. We kept the classification head linear to match prior work and make its inputs inspectable; a more sophisticated head could improve accuracy. The paper includes the mathematical formulation, hyperparameter settings and remaining experiments.</p>
+    <p>For the tasks we studied, intermediate representations provide useful features even when the backbone’s weights stay fixed. SPIN shows how selecting and combining those features can improve classification, reduce adaptation cost and make predictions before the final layer.</p>
   </section>
 </main>
-
+<script src="article.js?v=1" defer></script>
 </body>
 </html>
