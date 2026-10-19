@@ -1,231 +1,374 @@
-<!doctype html>
+<!DOCTYPE html>
+
 <!-- Edited research article. The arXiv importer deliberately preserves this file. -->
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>SIREN: Detecting harmful content from internal representations | Readout</title>
-<meta name="description" content="SIREN finds safety neurons in every layer of a frozen language model and combines them into a harmfulness detector that outperforms open guard models with 250 times fewer trainable parameters.">
-<link rel="canonical" href="https://difanj0713.github.io/spin-universe/siren/">
-<meta property="og:type" content="article">
-<meta property="og:title" content="SIREN: Detecting harmful content from internal representations">
-<meta property="og:description" content="Reading the safety signal from inside a language model instead of decoding a label from its final layer.">
-<meta property="og:url" content="https://difanj0713.github.io/spin-universe/siren/">
-<meta property="og:image" content="https://difanj0713.github.io/spin-universe/assets/img/social/siren.png">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="citation_title" content="LLM Safety From Within: Detecting Harmful Content with Internal Representations">
-<meta name="citation_author" content="Difan Jiao">
-<meta name="citation_author" content="Yilun Liu">
-<meta name="citation_author" content="Ye Yuan">
-<meta name="citation_author" content="Zhenwei Tang">
-<meta name="citation_author" content="Linfeng Du">
-<meta name="citation_author" content="Haolun Wu">
-<meta name="citation_author" content="Ashton Anderson">
-<meta name="citation_publication_date" content="2026/04">
-<meta name="citation_arxiv_id" content="2604.18519">
-<meta name="citation_pdf_url" content="https://arxiv.org/pdf/2604.18519v1">
-<link rel="icon" href="../assets/img/favicon.svg" type="image/svg+xml">
-<link rel="stylesheet" href="../assets/css/research-article.css?v=3">
-<link rel="stylesheet" href="../assets/css/readout-nav.css">
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>LLM Safety From Within: Detecting Harmful Content with Internal Representations | Readout</title>
+<meta content="SIREN finds safety neurons in every layer of a frozen language model and combines them into a harmfulness detector that outperforms open guard models with 250 times fewer trainable parameters." name="description"/>
+<link href="https://csslab.github.io/spin-universe/siren/" rel="canonical"/>
+<meta content="article" property="og:type"/>
+<meta content="LLM Safety From Within: Detecting Harmful Content with Internal Representations" property="og:title"/>
+<meta content="Reading the safety signal from inside a language model instead of decoding a label from its final layer." property="og:description"/>
+<meta content="https://csslab.github.io/spin-universe/siren/" property="og:url"/>
+<meta content="https://csslab.github.io/spin-universe/assets/img/social/siren.png" property="og:image"/>
+<meta content="summary_large_image" name="twitter:card"/>
+<meta content="LLM Safety From Within: Detecting Harmful Content with Internal Representations" name="citation_title"/>
+<meta content="Difan Jiao" name="citation_author"/>
+<meta content="Yilun Liu" name="citation_author"/>
+<meta content="Ye Yuan" name="citation_author"/>
+<meta content="Zhenwei Tang" name="citation_author"/>
+<meta content="Linfeng Du" name="citation_author"/>
+<meta content="Haolun Wu" name="citation_author"/>
+<meta content="Ashton Anderson" name="citation_author"/>
+<meta content="2026/04" name="citation_publication_date"/>
+<meta content="2604.18519" name="citation_arxiv_id"/>
+<meta content="https://arxiv.org/pdf/2604.18519v1" name="citation_pdf_url"/>
+<link href="../assets/img/favicon.svg" rel="icon" type="image/svg+xml"/>
+<link href="../assets/css/research-article.css?v=3" rel="stylesheet"/>
+<link href="../assets/css/readout-nav.css" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com" rel="preconnect"/>
+<link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"/>
+<link href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&amp;display=swap" rel="stylesheet"/>
+<link href="article.css?v=4" rel="stylesheet"/>
 </head>
-<body>
+<body class="siren-article">
 <a class="skip-link" href="#article">Skip to article</a>
-<nav class="readout-nav" aria-label="Site navigation">
-  <a class="readout-home" href="../"><span aria-hidden="true">←</span> Readout</a>
-  <a href="https://arxiv.org/abs/2604.18519">arXiv ↗</a>
-</nav>
+<nav aria-label="Site navigation" class="readout-nav"><a class="readout-home" href="../"><span aria-hidden="true">←</span> Readout</a><a href="https://arxiv.org/abs/2604.18519">arXiv ↗</a></nav>
+<header class="siren-opening"><div class="opening-column">
+<p class="publication">ACL 2026 <span aria-hidden="true">·</span> <time datetime="2026-04-20">April 20, 2026</time></p>
+<h1>LLM Safety From Within: Detecting Harmful Content with Internal Representations</h1>
+<p class="opening-lede">We introduce SIREN, a safeguard that detects harmful content by reading a frozen language model’s internal representations. It improves average macro-F1 by up to 15 points over dedicated guard models across seven safety benchmarks. On Qwen3-4B, SIREN trains about 250× fewer parameters and uses roughly one-quarter of a generative guard’s estimated inference compute.</p>
+<div class="research-byline">
+<p><span class="author-name">Difan Jiao,</span> <span class="author-name">Yilun Liu,</span> <span class="author-name">Ye Yuan,</span> <span class="author-name">Zhenwei Tang,</span> <span class="author-name">Linfeng Du,</span> <span class="author-name">Haolun Wu,</span> <span class="author-name">Ashton Anderson</span></p>
+</div>
+<div aria-label="Paper resources" class="research-links"><a href="https://arxiv.org/pdf/2604.18519">Read the paper <span aria-hidden="true">↗</span></a><a href="https://github.com/CSSLab/SIREN">Code <span aria-hidden="true">↗</span></a></div>
+</div></header>
+<main class="research-article" id="article">
+<figure class="figure-wide safeguard-comparison" id="readout-overview">
+<div class="safeguard-route guard-route-panel" role="group" aria-labelledby="guard-route-label">
+<div class="route-heading"><strong id="guard-route-label">Generative guard</strong></div>
+<div class="route-flow"><div class="diagram-prompt"><span class="diagram-label"><svg class="prompt-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 22v-2a8 8 0 0 1 16 0v2"/></svg>User prompt</span><p>“Can I snort my prescription benzos?”</p></div><div class="diagram-model"><svg viewBox="0 0 300 140" role="img" aria-labelledby="guard-diagram-title">
+<title id="guard-diagram-title">A fine-tuned guard generates a safety verdict from its final layer, one token at a time.</title>
+<defs><marker id="guard-arrow" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M1 1L7 4L1 7"/></marker></defs>
+<text class="diagram-svg-label" x="117" y="16" text-anchor="middle">Fine-tuned backbone</text>
+<g class="layer-links"><path d="M40 66h10"/><path d="M76 66h10"/><path d="M112 66h10"/><path d="M148 66h10"/><path d="M184 66h10"/></g><rect class="guard-layer" x="14" y="32" width="26" height="68" rx="3"/><rect class="guard-layer" x="50" y="32" width="26" height="68" rx="3"/><rect class="guard-layer" x="86" y="32" width="26" height="68" rx="3"/><rect class="guard-layer" x="122" y="32" width="26" height="68" rx="3"/><rect class="guard-layer" x="158" y="32" width="26" height="68" rx="3"/><rect class="guard-layer final-layer" x="194" y="32" width="26" height="68" rx="3"/><g class="guard-final-signals"><circle cx="207" cy="48" r="4"/><circle cx="207" cy="66" r="4"/><circle cx="207" cy="84" r="4"/></g>
+<path class="guard-route" d="M220 66H291" marker-end="url(#guard-arrow)"/>
+<path class="guard-loop" d="M268 80V128H8V108" marker-end="url(#guard-arrow)"/>
+</svg></div>
+<div class="diagram-output guard-output" role="img" aria-label="Illustrative reasoning-based guard output: Let me think step by step. Ellipsis. This request is harmful.">
+<div class="generation-sequence" aria-hidden="true">Let me think step by step.</div>
+<div class="generation-more" aria-hidden="true">…</div>
+<div class="generation-verdict" aria-hidden="true"><strong>This request is harmful.</strong></div>
+</div>
+</div></div>
+<div class="safeguard-route siren-route-panel" role="group" aria-labelledby="siren-route-label">
+<div class="route-heading"><strong id="siren-route-label">SIREN</strong></div>
+<div class="route-flow"><div class="diagram-prompt"><span class="diagram-label"><svg class="prompt-icon" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="8" r="4"/><path d="M4 22v-2a8 8 0 0 1 16 0v2"/></svg>User prompt</span><p>“Can I snort my prescription benzos?”</p></div><div class="diagram-model"><svg viewBox="0 0 350 120" role="img" aria-labelledby="siren-diagram-title">
+<title id="siren-diagram-title">SIREN selects safety neurons from each layer of the frozen backbone, weights and aggregates their activations, and applies a small classifier to predict harmfulness.</title>
+<defs><marker id="siren-arrow" viewBox="0 0 8 8" refX="7" refY="4" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M1 1L7 4L1 7"/></marker></defs>
+<text class="diagram-svg-label" x="84" y="17" text-anchor="middle">Frozen backbone</text>
+<rect class="frozen-layer" x="8" y="34" width="17" height="74" rx="2.5"/><rect class="frozen-layer" x="35" y="34" width="17" height="74" rx="2.5"/><rect class="frozen-layer" x="62" y="34" width="17" height="74" rx="2.5"/><rect class="frozen-layer" x="89" y="34" width="17" height="74" rx="2.5"/><rect class="frozen-layer" x="116" y="34" width="17" height="74" rx="2.5"/><rect class="frozen-layer" x="143" y="34" width="17" height="74" rx="2.5"/><g class="inactive-neurons"><circle cx="16.5" cy="51" r="3.2"/><circle cx="16.5" cy="71" r="3.2"/><circle cx="16.5" cy="91" r="3.2"/><circle cx="43.5" cy="51" r="3.2"/><circle cx="43.5" cy="71" r="3.2"/><circle cx="43.5" cy="91" r="3.2"/><circle cx="70.5" cy="51" r="3.2"/><circle cx="70.5" cy="71" r="3.2"/><circle cx="70.5" cy="91" r="3.2"/><circle cx="97.5" cy="51" r="3.2"/><circle cx="97.5" cy="71" r="3.2"/><circle cx="97.5" cy="91" r="3.2"/><circle cx="124.5" cy="51" r="3.2"/><circle cx="124.5" cy="71" r="3.2"/><circle cx="124.5" cy="91" r="3.2"/><circle cx="151.5" cy="51" r="3.2"/><circle cx="151.5" cy="71" r="3.2"/><circle cx="151.5" cy="91" r="3.2"/></g><g class="readout-routes"><path d="M16.5 71C43.5 71,185 71,209 71"/><path d="M43.5 91C70.5 91,185 71,209 71"/><path d="M70.5 51C97.5 51,185 71,209 71"/><path d="M97.5 71C124.5 71,185 71,209 71"/><path d="M124.5 51C151.5 51,185 71,209 71"/><path d="M151.5 91C178.5 91,185 71,209 71"/></g><g class="selected-neurons"><circle cx="16.5" cy="71" r="4"/><circle cx="43.5" cy="91" r="4"/><circle cx="70.5" cy="51" r="4"/><circle cx="97.5" cy="71" r="4"/><circle cx="124.5" cy="51" r="4"/><circle cx="151.5" cy="91" r="4"/></g>
+<circle class="aggregation-node" cx="214" cy="71" r="10"/>
+<path class="readout-arrow" d="M226 71H248" marker-end="url(#siren-arrow)"/>
+<g class="classifier-edges"><path d="M260 51L284 58"/><path d="M260 51L284 84"/><path d="M260 71L284 58"/><path d="M260 71L284 84"/><path d="M260 91L284 58"/><path d="M260 91L284 84"/><path d="M284 58L307 71"/><path d="M284 84L307 71"/></g><g class="classifier-nodes"><circle cx="260" cy="51" r="4"/><circle cx="260" cy="71" r="4"/><circle cx="260" cy="91" r="4"/><circle cx="284" cy="58" r="4"/><circle cx="284" cy="84" r="4"/><circle cx="307" cy="71" r="4"/></g>
+<path class="readout-arrow" d="M315 71H342" marker-end="url(#siren-arrow)"/>
 
-<header>
-  <div class="research-title">
-    <div class="article-column">
-      <h1>SIREN: Detecting harmful content from internal representations</h1>
-    </div>
-  </div>
-  <div class="article-column">
-    <div class="research-byline">
-      <p><span class="author-name">Difan Jiao,</span> <span class="author-name">Yilun Liu,</span> <span class="author-name">Ye Yuan,</span> <span class="author-name">Zhenwei Tang,</span> <span class="author-name">Linfeng Du,</span> <span class="author-name">Haolun Wu,</span> <span class="author-name">Ashton Anderson</span></p>
-      <time datetime="2026-04-20">April 20, 2026</time>
-    </div>
-    <div class="research-links" aria-label="Paper resources">
-      <span class="venue">ACL 2026</span>
-      <a href="https://arxiv.org/pdf/2604.18519">Paper</a>
-      <a href="https://github.com/CSSLab/SIREN">Code</a>
-    </div>
-  </div>
-  <div class="research-summary">
-    <div class="article-column">
-      <span class="summary-label">tl;dr</span>
-      <p>Guard models detect harmful content by generating a label from a language model's final layer. SIREN reads the safety signal from inside the model instead: linear probes find safety neurons in every layer, an adaptive weighting combines them, and a small classifier predicts harmfulness. Trained on the same backbones that open guard models were fine-tuned from, SIREN outperforms those guards on seven benchmarks with 250 times fewer trainable parameters. It also carries over to reasoning traces and streaming detection without being trained for them, and it needs one forward pass where a guard needs autoregressive decoding.</p>
-    </div>
-  </div>
-</header>
 
-<main id="article" class="research-article">
-  <p class="article-note">This article discusses content safety and refers to datasets that contain harmful language.</p>
 
-  <section aria-labelledby="introduction">
-    <h2 id="introduction">Introduction</h2>
-    <p>Every deployed language model faces the same content safety problem: users can submit harmful prompts, and the model can generate harmful responses. The mainstream defense is a guard model, a separate model that reads a prompt or a response and labels it safe or unsafe. Guard models such as Llama Guard, WildGuard and Qwen3Guard are fine-tuned from open-source LLM backbones on safety data, and they make their decision as a generative task: the model decodes the label from its final layer, token by token.</p>
-    <p>That design reads the model only at its final layer. Interpretability research has shown that the internal representations of language models encode specialized features, and that using them improves classification. Several studies have also found that these representations encode fine-grained concepts for content safety, from harmfulness directions in the latent space to signals for detecting adversarial prompts. These findings had not been turned into a practical safeguard, so we asked whether internal representations can be used to build a better harmfulness detector.</p>
-    <p>SIREN, short for Safeguard with Internal REpresentatioN, answers this in two stages. First, it uses linear probing to locate the features in each layer that carry the most information about content safety. We call these the layer's safety neurons. Second, it aggregates the safety neurons of all layers, weighting each layer by how well its probe performed on validation data, and trains a lightweight classifier on the result. The language model itself is never modified, so SIREN attaches to any transformer-based LLM as a plug-in component.</p>
-    <figure class="figure-wide" id="overview-figure">
-      <a href="../assets/papers/siren/aca6e5c1a4-SIREN.svg" aria-label="Open the SIREN overview figure at full size">
-        <img src="../assets/papers/siren/aca6e5c1a4-SIREN.svg" width="1140" height="541" alt="Top: a guard model passes a user prompt through its layers and generates the tokens Safety, colon, Unsafe. Bottom: SIREN picks safety neurons from every layer, aggregates them adaptively, and a classifier outputs Harmful: True.">
-      </a>
-      <figcaption><span class="figure-number">Figure 1.</span> Two ways to build a safeguard. (a) A guard model relies on the final layer and generates its verdict as text. (b) SIREN identifies safety neurons in every layer, aggregates them adaptively, and trains a lightweight classifier. On a 4B backbone, SIREN adds 14M trainable parameters; a guard model of the same scale fine-tunes all 4B.</figcaption>
-    </figure>
-    <p>We evaluate SIREN against the strongest open-source guard models on accuracy, generalization and efficiency. On detection accuracy, SIREN trained on a general-purpose LLM outperforms the guard model fine-tuned from that same backbone, with 250 times fewer trainable parameters. On generalization, it transfers to a benchmark of reasoning traces and to streaming detection, where content must be judged as it is generated, although it saw neither during training. On efficiency, it needs a single forward pass where a generative guard needs several.</p>
-  </section>
+</svg></div>
+<div class="diagram-output siren-output"><span class="diagram-label">Harmful</span><strong>True</strong></div>
+</div></div>
 
-  <section aria-labelledby="method">
-    <h2 id="method">Finding safety neurons and combining them across layers</h2>
-    <p>A single forward pass through a transformer yields an internal representation at every layer. SIREN works with two kinds: the residual stream, which is the output of each layer, and the activations inside each layer's feed-forward network. Inputs have different lengths, so we average each layer's representation over tokens to obtain one vector per layer for the whole prompt or response.</p>
+</figure><div class="opening-method"><p>Guard models such as LlamaGuard and Qwen3Guard generate a safety verdict token by token. SIREN finds safety-relevant neurons in each layer with linear probes, weights the layers by how well their probes perform, and trains a small classifier on the combined signals. The language model’s weights stay frozen.</p></div>
+<ul aria-label="Main findings" class="headline-findings">
+<li><p><strong>Performance.</strong> SIREN has the higher average macro-F1 in all four backbone comparisons. Even the 0.6B version scores 85.6, above 83.4 for the much larger Qwen3Guard-4B. The largest gain is on Llama3.2-1B: 85.7 against 70.7 for LlamaGuard3-1B.</p>
+</li>
+<li class="annotated-block"><p><strong>Speedup.</strong> A single forward pass replaces autoregressive verdict generation, reducing estimated inference compute by about 4×. Training SIREN on Qwen3-4B takes 6 A100 GPU hours, with just 14M trainable parameters.<sup class="note-ref"><a aria-label="Note 1" href="#note-compute" id="ref-compute">1</a></sup></p>
+<aside aria-label="Note 1" class="sidenote" id="note-compute" role="note" tabindex="-1"><p><a aria-label="Back to reference 1" class="note-number" href="#ref-compute">1</a> FLOPs estimate for a 128-token input, four generated verdict tokens and perfect KV caching for the guard. <a href="https://arxiv.org/html/2604.18519v1#S4.SS4">Section 4.4</a> and <a href="https://arxiv.org/html/2604.18519v1#A4">calculation details</a>.</p></aside></li>
+<li><p><strong>Streaming detection.</strong> SIREN flags harmful content as text is generated, without token-level supervision or additional training. On Think, it detects more harmful traces than Qwen3Guard-Stream at every evaluated detection window.</p></li>
+</ul>
+<section aria-labelledby="discussion"><h2 id="discussion">Strengthening the guardrail layer</h2>
+<p>Keeping LLMs safe involves several layers of work. Developers curate pretraining data and use alignment and post-training to shape model behavior. At deployment, guard models sit alongside the LLM and inspect incoming prompts and outgoing responses. Their judgments let the surrounding system flag or block harmful content, with human review available for sensitive cases.</p>
+<p>SIREN works at this guardrail layer. Safeguards such as LlamaGuard3 and Qwen3Guard fine-tune a separate language model to generate safety labels from its final layer. That model also computes safety-relevant features throughout its internal layers. SIREN turns these features into a harmfulness detector, and our evaluations show that it can improve detection while training far fewer parameters.</p>
+<p>For a system that checks every prompt and response, the cost of each check matters. SIREN reduces the estimated inference compute and can check a response as it is being generated, using the same detector trained on complete examples. It also improves guards that have already been fine-tuned for safety. Developers can therefore build on existing safety training while improving the guard separately from the LLM it protects.</p>
+</section>
+<section aria-labelledby="performance"><h2 id="performance">Better detection across model sizes</h2>
+<div class="annotated-block"><p>We compare SIREN with the LlamaGuard3 and Qwen3Guard models built from the same four backbones, ranging from 0.6B to 8B parameters. The seven benchmarks cover harmful user prompts and model responses. Each comparison asks whether reading the frozen model’s internal representations can outperform a guard fine-tuned from that model.<sup class="note-ref"><a aria-label="Note 2" href="#note-comparison" id="ref-comparison">2</a></sup></p><aside aria-label="Note 2" class="sidenote" id="note-comparison" role="note" tabindex="-1"><p><a aria-label="Back to reference 2" class="note-number" href="#ref-comparison">2</a> Macro-F1 averages the F1 scores of the safe and harmful classes. Gains are F1 points. The average gives each of the seven benchmarks equal weight. <a href="https://arxiv.org/html/2604.18519v1#S4.T1">Table 1.</a></p></aside></div>
+<figure class="figure-wide benchmark-figure" id="classification-results"><div class="benchmark-toolbar"><div class="benchmark-picker" hidden=""><label for="benchmark-select">Benchmark</label><select aria-controls="benchmark-panels" id="benchmark-select"><option value="average">Seven-benchmark average</option><option value="toxicchat">ToxicChat</option><option value="openai">OpenAI Moderation</option><option value="aegis">Aegis</option><option value="aegis2">Aegis 2.0</option><option value="wildguard">WildGuard</option><option value="saferlhf">SafeRLHF</option><option value="beavertails">BeaverTails</option></select></div><div class="chart-legend"><span><i aria-hidden="true" class="legend-base"></i>Guard</span><span><i aria-hidden="true" class="legend-siren"></i>SIREN</span></div></div><div id="benchmark-panels"><div aria-labelledby="title-average" class="benchmark-panel" data-max="90" data-min="65" id="benchmark-average"><div class="benchmark-highlight"><h3 class="benchmark-takeaway" id="title-average">Up to <strong>15.0</strong> points higher average F1</h3></div><div aria-hidden="true" class="comparison-head"><span>Backbone</span><span>Seven-benchmark average · Macro-F1</span><span>Gain (pts)</span></div><div aria-label="Seven-benchmark average results" class="score-list" role="list" style="--grid-step:20.000000%"><div aria-label="Qwen3-0.6B: Qwen3Guard-0.6B 81.7, SIREN 85.6, +3.9 macro-F1 points." class="score-row" data-base="81.7" data-siren="85.6" role="listitem">
+<span aria-hidden="true" class="score-model">Qwen3-0.6B</span>
+<div aria-hidden="true" class="score-track" style="--base-pos:66.800000%;--siren-pos:82.400000%;--line-start:66.800000%;--line-width:15.600000%">
+<span class="score-connector"></span><span class="score-point base"><span class="point-value">81.7</span></span><span class="score-point siren"><span class="point-value">85.6</span></span></div>
+<span aria-hidden="true" class="score-gain"><strong>+3.9</strong></span></div><div aria-label="Llama3.2-1B: LlamaGuard3-1B 70.7, SIREN 85.7, +15.0 macro-F1 points." class="score-row is-highlight" data-base="70.7" data-siren="85.7" role="listitem">
+<span aria-hidden="true" class="score-model">Llama3.2-1B</span>
+<div aria-hidden="true" class="score-track" style="--base-pos:22.800000%;--siren-pos:82.800000%;--line-start:22.800000%;--line-width:60.000000%">
+<span class="score-connector"></span><span class="score-point base"><span class="point-value">70.7</span></span><span class="score-point siren"><span class="point-value">85.7</span></span></div>
+<span aria-hidden="true" class="score-gain"><strong>+15.0</strong></span></div><div aria-label="Qwen3-4B: Qwen3Guard-4B 83.4, SIREN 86.7, +3.3 macro-F1 points." class="score-row" data-base="83.4" data-siren="86.7" role="listitem">
+<span aria-hidden="true" class="score-model">Qwen3-4B</span>
+<div aria-hidden="true" class="score-track" style="--base-pos:73.600000%;--siren-pos:86.800000%;--line-start:73.600000%;--line-width:13.200000%">
+<span class="score-connector"></span><span class="score-point base"><span class="point-value">83.4</span></span><span class="score-point siren"><span class="point-value">86.7</span></span></div>
+<span aria-hidden="true" class="score-gain"><strong>+3.3</strong></span></div><div aria-label="Llama3.1-8B: LlamaGuard3-8B 77.0, SIREN 86.3, +9.3 macro-F1 points." class="score-row" data-base="77.0" data-siren="86.3" role="listitem">
+<span aria-hidden="true" class="score-model">Llama3.1-8B</span>
+<div aria-hidden="true" class="score-track" style="--base-pos:48.000000%;--siren-pos:85.200000%;--line-start:48.000000%;--line-width:37.200000%">
+<span class="score-connector"></span><span class="score-point base"><span class="point-value">77.0</span></span><span class="score-point siren"><span class="point-value">86.3</span></span></div>
+<span aria-hidden="true" class="score-gain"><strong>+9.3</strong></span></div></div><div aria-hidden="true" class="score-axis"><span style="left:0.000000%">65</span><span style="left:20.000000%">70</span><span style="left:40.000000%">75</span><span style="left:60.000000%">80</span><span style="left:80.000000%">85</span><span style="left:100.000000%">90</span></div></div><div aria-labelledby="title-toxicchat" class="benchmark-panel" data-max="90" data-min="60" hidden="" id="benchmark-toxicchat"><div class="benchmark-highlight"><h3 class="benchmark-takeaway" id="title-toxicchat">Up to <strong>16.7</strong> points higher F1</h3></div><div aria-hidden="true" class="comparison-head"><span>Backbone</span><span>ToxicChat · Macro-F1</span><span>Gain (pts)</span></div><div aria-label="ToxicChat results" class="score-list" role="list" style="--grid-step:16.666667%"><div aria-label="Qwen3-0.6B: Qwen3Guard-0.6B 82.0, SIREN 81.6, -0.4 macro-F1 points." class="score-row is-negative" data-base="82.0" data-siren="81.6" role="listitem">
+<span aria-hidden="true" class="score-model">Qwen3-0.6B</span>
+<div aria-hidden="true" class="score-track" style="--base-pos:73.333333%;--siren-pos:72.000000%;--line-start:72.000000%;--line-width:1.333333%">
+<span class="score-connector"></span><span class="score-point base"><span class="point-value">82.0</span></span><span class="score-point siren"><span class="point-value">81.6</span></span></div>
+<span aria-hidden="true" class="score-gain"><strong>-0.4</strong></span></div><div aria-label="Llama3.2-1B: LlamaGuard3-1B 63.3, SIREN 80.0, +16.7 macro-F1 points." class="score-row is-highlight" data-base="63.3" data-siren="80.0" role="listitem">
+<span aria-hidden="true" class="score-model">Llama3.2-1B</span>
+<div aria-hidden="true" class="score-track" style="--base-pos:11.000000%;--siren-pos:66.666667%;--line-start:11.000000%;--line-width:55.666667%">
+<span class="score-connector"></span><span class="score-point base"><span class="point-value">63.3</span></span><span class="score-point siren"><span class="point-value">80.0</span></span></div>
+<span aria-hidden="true" class="score-gain"><strong>+16.7</strong></span></div><div aria-label="Qwen3-4B: Qwen3Guard-4B 84.9, SIREN 83.5, -1.4 macro-F1 points." class="score-row is-negative" data-base="84.9" data-siren="83.5" role="listitem">
+<span aria-hidden="true" class="score-model">Qwen3-4B</span>
+<div aria-hidden="true" class="score-track" style="--base-pos:83.000000%;--siren-pos:78.333333%;--line-start:78.333333%;--line-width:4.666667%">
+<span class="score-connector"></span><span class="score-point base"><span class="point-value">84.9</span></span><span class="score-point siren"><span class="point-value">83.5</span></span></div>
+<span aria-hidden="true" class="score-gain"><strong>-1.4</strong></span></div><div aria-label="Llama3.1-8B: LlamaGuard3-8B 72.2, SIREN 83.1, +10.9 macro-F1 points." class="score-row" data-base="72.2" data-siren="83.1" role="listitem">
+<span aria-hidden="true" class="score-model">Llama3.1-8B</span>
+<div aria-hidden="true" class="score-track" style="--base-pos:40.666667%;--siren-pos:77.000000%;--line-start:40.666667%;--line-width:36.333333%">
+<span class="score-connector"></span><span class="score-point base"><span class="point-value">72.2</span></span><span class="score-point siren"><span class="point-value">83.1</span></span></div>
+<span aria-hidden="true" class="score-gain"><strong>+10.9</strong></span></div></div><div aria-hidden="true" class="score-axis"><span style="left:0.000000%">60</span><span style="left:16.666667%">65</span><span style="left:33.333333%">70</span><span style="left:50.000000%">75</span><span style="left:66.666667%">80</span><span style="left:83.333333%">85</span><span style="left:100.000000%">90</span></div></div><div aria-labelledby="title-openai" class="benchmark-panel" data-max="95" data-min="65" hidden="" id="benchmark-openai"><div class="benchmark-highlight"><h3 class="benchmark-takeaway" id="title-openai">Up to <strong>25.4</strong> points higher F1</h3></div><div aria-hidden="true" class="comparison-head"><span>Backbone</span><span>OpenAI Moderation · Macro-F1</span><span>Gain (pts)</span></div><div aria-label="OpenAI Moderation results" class="score-list" role="list" style="--grid-step:16.666667%"><div aria-label="Qwen3-0.6B: Qwen3Guard-0.6B 75.9, SIREN 91.3, +15.4 macro-F1 points." class="score-row" data-base="75.9" data-siren="91.3" role="listitem">
+<span aria-hidden="true" class="score-model">Qwen3-0.6B</span>
+<div aria-hidden="true" class="score-track" style="--base-pos:36.333333%;--siren-pos:87.666667%;--line-start:36.333333%;--line-width:51.333333%">
+<span class="score-connector"></span><span class="score-point base"><span class="point-value">75.9</span></span><span class="score-point siren"><span class="point-value">91.3</span></span></div>
+<span aria-hidden="true" class="score-gain"><strong>+15.4</strong></span></div><div aria-label="Llama3.2-1B: LlamaGuard3-1B 67.5, SIREN 92.9, +25.4 macro-F1 points." class="score-row is-highlight" data-base="67.5" data-siren="92.9" role="listitem">
+<span aria-hidden="true" class="score-model">Llama3.2-1B</span>
+<div aria-hidden="true" class="score-track" style="--base-pos:8.333333%;--siren-pos:93.000000%;--line-start:8.333333%;--line-width:84.666667%">
+<span class="score-connector"></span><span class="score-point base"><span class="point-value">67.5</span></span><span class="score-point siren"><span class="point-value">92.9</span></span></div>
+<span aria-hidden="true" class="score-gain"><strong>+25.4</strong></span></div><div aria-label="Qwen3-4B: Qwen3Guard-4B 78.3, SIREN 91.2, +12.9 macro-F1 points." class="score-row" data-base="78.3" data-siren="91.2" role="listitem">
+<span aria-hidden="true" class="score-model">Qwen3-4B</span>
+<div aria-hidden="true" class="score-track" style="--base-pos:44.333333%;--siren-pos:87.333333%;--line-start:44.333333%;--line-width:43.000000%">
+<span class="score-connector"></span><span class="score-point base"><span class="point-value">78.3</span></span><span class="score-point siren"><span class="point-value">91.2</span></span></div>
+<span aria-hidden="true" class="score-gain"><strong>+12.9</strong></span></div><div aria-label="Llama3.1-8B: LlamaGuard3-8B 85.3, SIREN 92.0, +6.7 macro-F1 points." class="score-row" data-base="85.3" data-siren="92.0" role="listitem">
+<span aria-hidden="true" class="score-model">Llama3.1-8B</span>
+<div aria-hidden="true" class="score-track" style="--base-pos:67.666667%;--siren-pos:90.000000%;--line-start:67.666667%;--line-width:22.333333%">
+<span class="score-connector"></span><span class="score-point base"><span class="point-value">85.3</span></span><span class="score-point siren"><span class="point-value">92.0</span></span></div>
+<span aria-hidden="true" class="score-gain"><strong>+6.7</strong></span></div></div><div aria-hidden="true" class="score-axis"><span style="left:0.000000%">65</span><span style="left:16.666667%">70</span><span style="left:33.333333%">75</span><span style="left:50.000000%">80</span><span style="left:66.666667%">85</span><span style="left:83.333333%">90</span><span style="left:100.000000%">95</span></div></div><div aria-labelledby="title-aegis" class="benchmark-panel" data-max="85" data-min="55" hidden="" id="benchmark-aegis"><div class="benchmark-highlight"><h3 class="benchmark-takeaway" id="title-aegis">Up to <strong>22.6</strong> points higher F1</h3></div><div aria-hidden="true" class="comparison-head"><span>Backbone</span><span>Aegis · Macro-F1</span><span>Gain (pts)</span></div><div aria-label="Aegis results" class="score-list" role="list" style="--grid-step:16.666667%"><div aria-label="Qwen3-0.6B: Qwen3Guard-0.6B 78.8, SIREN 82.4, +3.6 macro-F1 points." class="score-row" data-base="78.8" data-siren="82.4" role="listitem">
+<span aria-hidden="true" class="score-model">Qwen3-0.6B</span>
+<div aria-hidden="true" class="score-track" style="--base-pos:79.333333%;--siren-pos:91.333333%;--line-start:79.333333%;--line-width:12.000000%">
+<span class="score-connector"></span><span class="score-point base"><span class="point-value">78.8</span></span><span class="score-point siren"><span class="point-value">82.4</span></span></div>
+<span aria-hidden="true" class="score-gain"><strong>+3.6</strong></span></div><div aria-label="Llama3.2-1B: LlamaGuard3-1B 59.5, SIREN 82.1, +22.6 macro-F1 points." class="score-row is-highlight" data-base="59.5" data-siren="82.1" role="listitem">
+<span aria-hidden="true" class="score-model">Llama3.2-1B</span>
+<div aria-hidden="true" class="score-track" style="--base-pos:15.000000%;--siren-pos:90.333333%;--line-start:15.000000%;--line-width:75.333333%">
+<span class="score-connector"></span><span class="score-point base"><span class="point-value">59.5</span></span><span class="score-point siren"><span class="point-value">82.1</span></span></div>
+<span aria-hidden="true" class="score-gain"><strong>+22.6</strong></span></div><div aria-label="Qwen3-4B: Qwen3Guard-4B 78.2, SIREN 82.9, +4.7 macro-F1 points." class="score-row" data-base="78.2" data-siren="82.9" role="listitem">
+<span aria-hidden="true" class="score-model">Qwen3-4B</span>
+<div aria-hidden="true" class="score-track" style="--base-pos:77.333333%;--siren-pos:93.000000%;--line-start:77.333333%;--line-width:15.666667%">
+<span class="score-connector"></span><span class="score-point base"><span class="point-value">78.2</span></span><span class="score-point siren"><span class="point-value">82.9</span></span></div>
+<span aria-hidden="true" class="score-gain"><strong>+4.7</strong></span></div><div aria-label="Llama3.1-8B: LlamaGuard3-8B 67.1, SIREN 82.9, +15.8 macro-F1 points." class="score-row" data-base="67.1" data-siren="82.9" role="listitem">
+<span aria-hidden="true" class="score-model">Llama3.1-8B</span>
+<div aria-hidden="true" class="score-track" style="--base-pos:40.333333%;--siren-pos:93.000000%;--line-start:40.333333%;--line-width:52.666667%">
+<span class="score-connector"></span><span class="score-point base"><span class="point-value">67.1</span></span><span class="score-point siren"><span class="point-value">82.9</span></span></div>
+<span aria-hidden="true" class="score-gain"><strong>+15.8</strong></span></div></div><div aria-hidden="true" class="score-axis"><span style="left:0.000000%">55</span><span style="left:16.666667%">60</span><span style="left:33.333333%">65</span><span style="left:50.000000%">70</span><span style="left:66.666667%">75</span><span style="left:83.333333%">80</span><span style="left:100.000000%">85</span></div></div><div aria-labelledby="title-aegis2" class="benchmark-panel" data-max="90" data-min="70" hidden="" id="benchmark-aegis2"><div class="benchmark-highlight"><h3 class="benchmark-takeaway" id="title-aegis2">Up to <strong>10.1</strong> points higher F1</h3></div><div aria-hidden="true" class="comparison-head"><span>Backbone</span><span>Aegis 2.0 · Macro-F1</span><span>Gain (pts)</span></div><div aria-label="Aegis 2.0 results" class="score-list" role="list" style="--grid-step:25.000000%"><div aria-label="Qwen3-0.6B: Qwen3Guard-0.6B 82.0, SIREN 82.1, +0.1 macro-F1 points." class="score-row" data-base="82.0" data-siren="82.1" role="listitem">
+<span aria-hidden="true" class="score-model">Qwen3-0.6B</span>
+<div aria-hidden="true" class="score-track" style="--base-pos:60.000000%;--siren-pos:60.500000%;--line-start:60.000000%;--line-width:0.500000%">
+<span class="score-connector"></span><span class="score-point base"><span class="point-value">82.0</span></span><span class="score-point siren"><span class="point-value">82.1</span></span></div>
+<span aria-hidden="true" class="score-gain"><strong>+0.1</strong></span></div><div aria-label="Llama3.2-1B: LlamaGuard3-1B 72.6, SIREN 82.7, +10.1 macro-F1 points." class="score-row is-highlight" data-base="72.6" data-siren="82.7" role="listitem">
+<span aria-hidden="true" class="score-model">Llama3.2-1B</span>
+<div aria-hidden="true" class="score-track" style="--base-pos:13.000000%;--siren-pos:63.500000%;--line-start:13.000000%;--line-width:50.500000%">
+<span class="score-connector"></span><span class="score-point base"><span class="point-value">72.6</span></span><span class="score-point siren"><span class="point-value">82.7</span></span></div>
+<span aria-hidden="true" class="score-gain"><strong>+10.1</strong></span></div><div aria-label="Qwen3-4B: Qwen3Guard-4B 82.5, SIREN 83.4, +0.9 macro-F1 points." class="score-row" data-base="82.5" data-siren="83.4" role="listitem">
+<span aria-hidden="true" class="score-model">Qwen3-4B</span>
+<div aria-hidden="true" class="score-track" style="--base-pos:62.500000%;--siren-pos:67.000000%;--line-start:62.500000%;--line-width:4.500000%">
+<span class="score-connector"></span><span class="score-point base"><span class="point-value">82.5</span></span><span class="score-point siren"><span class="point-value">83.4</span></span></div>
+<span aria-hidden="true" class="score-gain"><strong>+0.9</strong></span></div><div aria-label="Llama3.1-8B: LlamaGuard3-8B 78.0, SIREN 82.9, +4.9 macro-F1 points." class="score-row" data-base="78.0" data-siren="82.9" role="listitem">
+<span aria-hidden="true" class="score-model">Llama3.1-8B</span>
+<div aria-hidden="true" class="score-track" style="--base-pos:40.000000%;--siren-pos:64.500000%;--line-start:40.000000%;--line-width:24.500000%">
+<span class="score-connector"></span><span class="score-point base"><span class="point-value">78.0</span></span><span class="score-point siren"><span class="point-value">82.9</span></span></div>
+<span aria-hidden="true" class="score-gain"><strong>+4.9</strong></span></div></div><div aria-hidden="true" class="score-axis"><span style="left:0.000000%">70</span><span style="left:25.000000%">75</span><span style="left:50.000000%">80</span><span style="left:75.000000%">85</span><span style="left:100.000000%">90</span></div></div><div aria-labelledby="title-wildguard" class="benchmark-panel" data-max="95" data-min="75" hidden="" id="benchmark-wildguard"><div class="benchmark-highlight"><h3 class="benchmark-takeaway" id="title-wildguard">Up to <strong>7.9</strong> points higher F1</h3></div><div aria-hidden="true" class="comparison-head"><span>Backbone</span><span>WildGuard · Macro-F1</span><span>Gain (pts)</span></div><div aria-label="WildGuard results" class="score-list" role="list" style="--grid-step:25.000000%"><div aria-label="Qwen3-0.6B: Qwen3Guard-0.6B 89.1, SIREN 86.5, -2.6 macro-F1 points." class="score-row is-negative" data-base="89.1" data-siren="86.5" role="listitem">
+<span aria-hidden="true" class="score-model">Qwen3-0.6B</span>
+<div aria-hidden="true" class="score-track" style="--base-pos:70.500000%;--siren-pos:57.500000%;--line-start:57.500000%;--line-width:13.000000%">
+<span class="score-connector"></span><span class="score-point base"><span class="point-value">89.1</span></span><span class="score-point siren"><span class="point-value">86.5</span></span></div>
+<span aria-hidden="true" class="score-gain"><strong>-2.6</strong></span></div><div aria-label="Llama3.2-1B: LlamaGuard3-1B 78.6, SIREN 86.5, +7.9 macro-F1 points." class="score-row is-highlight" data-base="78.6" data-siren="86.5" role="listitem">
+<span aria-hidden="true" class="score-model">Llama3.2-1B</span>
+<div aria-hidden="true" class="score-track" style="--base-pos:18.000000%;--siren-pos:57.500000%;--line-start:18.000000%;--line-width:39.500000%">
+<span class="score-connector"></span><span class="score-point base"><span class="point-value">78.6</span></span><span class="score-point siren"><span class="point-value">86.5</span></span></div>
+<span aria-hidden="true" class="score-gain"><strong>+7.9</strong></span></div><div aria-label="Qwen3-4B: Qwen3Guard-4B 90.6, SIREN 88.3, -2.3 macro-F1 points." class="score-row is-negative" data-base="90.6" data-siren="88.3" role="listitem">
+<span aria-hidden="true" class="score-model">Qwen3-4B</span>
+<div aria-hidden="true" class="score-track" style="--base-pos:78.000000%;--siren-pos:66.500000%;--line-start:66.500000%;--line-width:11.500000%">
+<span class="score-connector"></span><span class="score-point base"><span class="point-value">90.6</span></span><span class="score-point siren"><span class="point-value">88.3</span></span></div>
+<span aria-hidden="true" class="score-gain"><strong>-2.3</strong></span></div><div aria-label="Llama3.1-8B: LlamaGuard3-8B 81.3, SIREN 86.7, +5.4 macro-F1 points." class="score-row" data-base="81.3" data-siren="86.7" role="listitem">
+<span aria-hidden="true" class="score-model">Llama3.1-8B</span>
+<div aria-hidden="true" class="score-track" style="--base-pos:31.500000%;--siren-pos:58.500000%;--line-start:31.500000%;--line-width:27.000000%">
+<span class="score-connector"></span><span class="score-point base"><span class="point-value">81.3</span></span><span class="score-point siren"><span class="point-value">86.7</span></span></div>
+<span aria-hidden="true" class="score-gain"><strong>+5.4</strong></span></div></div><div aria-hidden="true" class="score-axis"><span style="left:0.000000%">75</span><span style="left:25.000000%">80</span><span style="left:50.000000%">85</span><span style="left:75.000000%">90</span><span style="left:100.000000%">95</span></div></div><div aria-labelledby="title-saferlhf" class="benchmark-panel" data-max="100" data-min="80" hidden="" id="benchmark-saferlhf"><div class="benchmark-highlight"><h3 class="benchmark-takeaway" id="title-saferlhf">Up to <strong>8.7</strong> points higher F1</h3></div><div aria-hidden="true" class="comparison-head"><span>Backbone</span><span>SafeRLHF · Macro-F1</span><span>Gain (pts)</span></div><div aria-label="SafeRLHF results" class="score-list" role="list" style="--grid-step:25.000000%"><div aria-label="Qwen3-0.6B: Qwen3Guard-0.6B 86.9, SIREN 91.6, +4.7 macro-F1 points." class="score-row" data-base="86.9" data-siren="91.6" role="listitem">
+<span aria-hidden="true" class="score-model">Qwen3-0.6B</span>
+<div aria-hidden="true" class="score-track" style="--base-pos:34.500000%;--siren-pos:58.000000%;--line-start:34.500000%;--line-width:23.500000%">
+<span class="score-connector"></span><span class="score-point base"><span class="point-value">86.9</span></span><span class="score-point siren"><span class="point-value">91.6</span></span></div>
+<span aria-hidden="true" class="score-gain"><strong>+4.7</strong></span></div><div aria-label="Llama3.2-1B: LlamaGuard3-1B 83.3, SIREN 92.0, +8.7 macro-F1 points." class="score-row is-highlight" data-base="83.3" data-siren="92.0" role="listitem">
+<span aria-hidden="true" class="score-model">Llama3.2-1B</span>
+<div aria-hidden="true" class="score-track" style="--base-pos:16.500000%;--siren-pos:60.000000%;--line-start:16.500000%;--line-width:43.500000%">
+<span class="score-connector"></span><span class="score-point base"><span class="point-value">83.3</span></span><span class="score-point siren"><span class="point-value">92.0</span></span></div>
+<span aria-hidden="true" class="score-gain"><strong>+8.7</strong></span></div><div aria-label="Qwen3-4B: Qwen3Guard-4B 89.2, SIREN 93.2, +4.0 macro-F1 points." class="score-row" data-base="89.2" data-siren="93.2" role="listitem">
+<span aria-hidden="true" class="score-model">Qwen3-4B</span>
+<div aria-hidden="true" class="score-track" style="--base-pos:46.000000%;--siren-pos:66.000000%;--line-start:46.000000%;--line-width:20.000000%">
+<span class="score-connector"></span><span class="score-point base"><span class="point-value">89.2</span></span><span class="score-point siren"><span class="point-value">93.2</span></span></div>
+<span aria-hidden="true" class="score-gain"><strong>+4.0</strong></span></div><div aria-label="Llama3.1-8B: LlamaGuard3-8B 86.2, SIREN 92.5, +6.3 macro-F1 points." class="score-row" data-base="86.2" data-siren="92.5" role="listitem">
+<span aria-hidden="true" class="score-model">Llama3.1-8B</span>
+<div aria-hidden="true" class="score-track" style="--base-pos:31.000000%;--siren-pos:62.500000%;--line-start:31.000000%;--line-width:31.500000%">
+<span class="score-connector"></span><span class="score-point base"><span class="point-value">86.2</span></span><span class="score-point siren"><span class="point-value">92.5</span></span></div>
+<span aria-hidden="true" class="score-gain"><strong>+6.3</strong></span></div></div><div aria-hidden="true" class="score-axis"><span style="left:0.000000%">80</span><span style="left:25.000000%">85</span><span style="left:50.000000%">90</span><span style="left:75.000000%">95</span><span style="left:100.000000%">100</span></div></div><div aria-labelledby="title-beavertails" class="benchmark-panel" data-max="90" data-min="65" hidden="" id="benchmark-beavertails"><div class="benchmark-highlight"><h3 class="benchmark-takeaway" id="title-beavertails">Up to <strong>15.0</strong> points higher F1</h3></div><div aria-hidden="true" class="comparison-head"><span>Backbone</span><span>BeaverTails · Macro-F1</span><span>Gain (pts)</span></div><div aria-label="BeaverTails results" class="score-list" role="list" style="--grid-step:20.000000%"><div aria-label="Qwen3-0.6B: Qwen3Guard-0.6B 77.1, SIREN 83.5, +6.4 macro-F1 points." class="score-row" data-base="77.1" data-siren="83.5" role="listitem">
+<span aria-hidden="true" class="score-model">Qwen3-0.6B</span>
+<div aria-hidden="true" class="score-track" style="--base-pos:48.400000%;--siren-pos:74.000000%;--line-start:48.400000%;--line-width:25.600000%">
+<span class="score-connector"></span><span class="score-point base"><span class="point-value">77.1</span></span><span class="score-point siren"><span class="point-value">83.5</span></span></div>
+<span aria-hidden="true" class="score-gain"><strong>+6.4</strong></span></div><div aria-label="Llama3.2-1B: LlamaGuard3-1B 70.0, SIREN 83.7, +13.7 macro-F1 points." class="score-row" data-base="70.0" data-siren="83.7" role="listitem">
+<span aria-hidden="true" class="score-model">Llama3.2-1B</span>
+<div aria-hidden="true" class="score-track" style="--base-pos:20.000000%;--siren-pos:74.800000%;--line-start:20.000000%;--line-width:54.800000%">
+<span class="score-connector"></span><span class="score-point base"><span class="point-value">70.0</span></span><span class="score-point siren"><span class="point-value">83.7</span></span></div>
+<span aria-hidden="true" class="score-gain"><strong>+13.7</strong></span></div><div aria-label="Qwen3-4B: Qwen3Guard-4B 80.1, SIREN 84.3, +4.2 macro-F1 points." class="score-row" data-base="80.1" data-siren="84.3" role="listitem">
+<span aria-hidden="true" class="score-model">Qwen3-4B</span>
+<div aria-hidden="true" class="score-track" style="--base-pos:60.400000%;--siren-pos:77.200000%;--line-start:60.400000%;--line-width:16.800000%">
+<span class="score-connector"></span><span class="score-point base"><span class="point-value">80.1</span></span><span class="score-point siren"><span class="point-value">84.3</span></span></div>
+<span aria-hidden="true" class="score-gain"><strong>+4.2</strong></span></div><div aria-label="Llama3.1-8B: LlamaGuard3-8B 68.8, SIREN 83.8, +15.0 macro-F1 points." class="score-row is-highlight" data-base="68.8" data-siren="83.8" role="listitem">
+<span aria-hidden="true" class="score-model">Llama3.1-8B</span>
+<div aria-hidden="true" class="score-track" style="--base-pos:15.200000%;--siren-pos:75.200000%;--line-start:15.200000%;--line-width:60.000000%">
+<span class="score-connector"></span><span class="score-point base"><span class="point-value">68.8</span></span><span class="score-point siren"><span class="point-value">83.8</span></span></div>
+<span aria-hidden="true" class="score-gain"><strong>+15.0</strong></span></div></div><div aria-hidden="true" class="score-axis"><span style="left:0.000000%">65</span><span style="left:20.000000%">70</span><span style="left:40.000000%">75</span><span style="left:60.000000%">80</span><span style="left:80.000000%">85</span><span style="left:100.000000%">90</span></div></div></div><p aria-atomic="true" aria-live="polite" class="chart-sr-only" id="benchmark-status" role="status"></p></figure>
+<p>The strongest SIREN, on Qwen3-4B, reaches 86.7 average macro-F1 against 83.4 for Qwen3Guard-4B. The gains are larger on the Llama backbones, reaching 15 points at 1B. Qwen3Guard retains a lead on ToxicChat and WildGuard; SIREN leads on the other five benchmarks.</p>
+<details class="result-details"><summary>Full benchmark results and evaluation setup</summary>
+<p>SIREN is trained on approximately 237,000 examples from the training splits of ToxicChat, OpenAI Moderation, Aegis, Aegis 2.0, WildGuard, SafeRLHF and BeaverTails, using an 80/20 train/validation split. We collapse each dataset’s safety categories to harmful versus safe and report macro-F1 to account for class imbalance. Guard models use their official evaluation pipelines.</p>
+<figure class="figure-wide" id="main-table">
+<div aria-label="Main results, scroll horizontally on narrow screens" class="table-scroll" role="region" tabindex="0">
+<table class="table-dense">
+<thead>
+<tr><th scope="col">Backbone</th><th scope="col">Method</th><th scope="col">ToxicChat</th><th scope="col">OpenAI Mod.</th><th scope="col">Aegis</th><th scope="col">Aegis 2.0</th><th scope="col">WildGuard</th><th scope="col">SafeRLHF</th><th scope="col">BeaverTails</th><th scope="col">Avg.</th></tr>
+</thead>
+<tbody>
+<tr><th rowspan="2" scope="row">Qwen3-0.6B</th><td class="table-label">SIREN</td><td class="ours">81.6</td><td class="ours">91.3</td><td class="ours">82.4</td><td class="ours">82.1</td><td class="ours">86.5</td><td class="ours">91.6</td><td class="ours">83.5</td><td class="ours">85.6</td></tr>
+<tr><td class="table-label">Qwen3Guard-0.6B</td><td>82.0</td><td>75.9</td><td>78.8</td><td>82.0</td><td>89.1</td><td>86.9</td><td>77.1</td><td>81.7</td></tr>
+<tr><th rowspan="2" scope="row">Llama3.2-1B</th><td class="table-label">SIREN</td><td class="ours">80.0</td><td class="ours">92.9</td><td class="ours">82.1</td><td class="ours">82.7</td><td class="ours">86.5</td><td class="ours">92.0</td><td class="ours">83.7</td><td class="ours">85.7</td></tr>
+<tr><td class="table-label">LlamaGuard3-1B</td><td>63.3</td><td>67.5</td><td>59.5</td><td>72.6</td><td>78.6</td><td>83.3</td><td>70.0</td><td>70.7</td></tr>
+<tr><th rowspan="2" scope="row">Qwen3-4B</th><td class="table-label">SIREN</td><td class="ours">83.5</td><td class="ours">91.2</td><td class="ours">82.9</td><td class="ours">83.4</td><td class="ours">88.3</td><td class="ours">93.2</td><td class="ours">84.3</td><td class="ours">86.7</td></tr>
+<tr><td class="table-label">Qwen3Guard-4B</td><td>84.9</td><td>78.3</td><td>78.2</td><td>82.5</td><td>90.6</td><td>89.2</td><td>80.1</td><td>83.4</td></tr>
+<tr><th rowspan="2" scope="row">Llama3.1-8B</th><td class="table-label">SIREN</td><td class="ours">83.1</td><td class="ours">92.0</td><td class="ours">82.9</td><td class="ours">82.9</td><td class="ours">86.7</td><td class="ours">92.5</td><td class="ours">83.8</td><td class="ours">86.3</td></tr>
+<tr><td class="table-label">LlamaGuard3-8B</td><td>72.2</td><td>85.3</td><td>67.1</td><td>78.0</td><td>81.3</td><td>86.2</td><td>68.8</td><td>77.0</td></tr>
+</tbody>
+</table>
+</div>
+<figcaption>Macro-F1 on all seven benchmarks, followed by their average. SIREN and each guard use the same underlying backbone. <a href="https://arxiv.org/html/2604.18519v1#S4.T1">Source: Table 1.</a></figcaption>
+</figure>
+</details>
+<details class="result-details"><summary>How precision and recall compare</summary>
+<p>SIREN maintains a more even balance between precision and recall across the benchmarks. Its points cluster near the diagonal, while the guard models vary more. For example, Qwen3Guard-0.6B reaches 95% recall on SafeRLHF but only 63% on Aegis; LlamaGuard3-1B has 90% precision and 54% recall on BeaverTails.</p>
+<figure class="figure-wide" id="pr-figure">
+<a aria-label="Open the precision and recall figure at full size" href="../assets/papers/siren/f4aa5df66c-combined_pr_curves.png">
+<img alt="Four precision-recall scatter plots for OpenAI Moderation, Aegis, SafeRLHF and BeaverTails. SIREN stars cluster near the diagonal; guard model circles spread far from it." decoding="async" height="597" loading="lazy" src="../assets/papers/siren/f4aa5df66c-combined_pr_curves.png" width="2037"/>
+</a>
+<figcaption>Precision and recall on four benchmarks. Stars are SIREN; circles are guard models. The dashed diagonal marks equal precision and recall.</figcaption>
+</figure>
+</details>
+</section>
+<section aria-labelledby="streaming"><h2 id="streaming">Detecting harm while text is generated</h2>
+<p>A streaming detector has to judge an unfinished response. Qwen3Guard-Stream uses architectural changes and token-level supervision for this task. SIREN applies its existing classifier to each growing prefix: average the selected neuron activations over the tokens seen so far, then score the result. The backbone, probes and classifier all stay unchanged.</p>
+<div class="annotated-block"><p>On Think, both SIREN models detect more harmful traces than both streaming guards at every evaluated window, from the end of the unsafe span to 256 tokens later.<sup class="note-ref"><a aria-label="Note 3" href="#note-latency" id="ref-latency">3</a></sup></p>
+<aside aria-label="Note 3" class="sidenote" id="note-latency" role="note" tabindex="-1"><p><a aria-label="Back to reference 3" class="note-number" href="#ref-latency">3</a> “Timely” means detection by the end of the annotated unsafe span. The other positions allow 32, 64, 128 or 256 more tokens. This axis measures detection delay in tokens, not model execution time. <a href="https://arxiv.org/html/2604.18519v1#A2.SS1">Evaluation protocol.</a></p></aside></div>
+<figure class="figure-compact" id="streaming-figure">
+<a aria-label="Open the streaming detection figure at full size" href="../assets/papers/siren/751ee9ef1e-streaming_detection_comparison.svg">
+<img alt="Detection rate against detection latency for SIREN on Qwen3-0.6B and Qwen3-4B and for Qwen3Guard-Stream 0.6B and 4B. Both SIREN lines lie above both guard lines at every latency position." decoding="async" height="784" loading="lazy" src="../assets/papers/siren/751ee9ef1e-streaming_detection_comparison.svg" width="1141"/>
+</a>
+<figcaption>Detection rate on Think as more tokens are allowed beyond the annotated unsafe span. SIREN uses the same classifier trained on complete sequences.</figcaption>
+</figure>
+<p>The 0.6B models outperform the 4B models in this streaming evaluation, for both SIREN and Qwen3Guard-Stream. We do not yet have a definitive explanation for this size effect.</p>
+<details class="result-details"><summary>See how the score changes through one reasoning trace</summary>
+<p>In this example, SIREN assigns low harmfulness scores during the initial deliberation. The score rises as the reasoning settles on complying with the harmful request, and stays high through the response. The classifier received no streaming supervision.</p>
+<figure class="figure-narrow" id="token-figure">
+<a aria-label="Open the token-level streaming example at full size" href="../assets/papers/siren/755e69639b-streaming_per_token_visualization.png">
+<img alt="A conversation in which the user asks the model to say something harmful. Tokens of the model's early deliberation are green, turn yellow as it decides to comply, and are red through the harmful statement and the closing offer." decoding="async" height="959" loading="lazy" src="../assets/papers/siren/755e69639b-streaming_per_token_visualization.png" width="635"/>
+</a>
+<figcaption>One example scored by SIREN on Qwen3-4B. Green indicates a lower harmfulness score; red indicates a higher score. <a href="https://arxiv.org/html/2604.18519v1#A2.F8">Full example in the paper.</a></figcaption>
+</figure>
+</details>
+<h3 id="generalization">Transfer to unseen reasoning traces</h3>
+<p>Think also tests whether SIREN can judge complete reasoning traces it never saw during training. The traces come from three reasoning models: DeepSeek-distilled Llama3, Qwen3 and GLM-4, with human annotations of safety violations.</p>
+<figure class="figure-wide" id="think-figure">
+<a aria-label="Open the Think benchmark figure at full size" href="../assets/papers/siren/0ae3d3e26f-combined_gen_comparison.png">
+<img alt="Bar charts of F1 on the Think benchmark for reasoning traces from DeepSeek, Qwen3 and GLM, plus their average. SIREN bars are higher than guard bars for every backbone, and LlamaGuard3-1B is near 50." decoding="async" height="535" loading="lazy" src="../assets/papers/siren/0ae3d3e26f-combined_gen_comparison.png" width="2037"/>
+</a>
+<figcaption>F1 on Think, grouped by the model that generated the reasoning. Each comparison uses the same backbone for SIREN and the guard; the rightmost panel gives their average.</figcaption>
+</figure>
+<p>SIREN outperforms the paired guards on traces from all three reasoning models. At 8B, the average improvement is 11.2 F1 points. LlamaGuard3-1B falls to around chance level, while SIREN on the same base model remains close to its larger counterparts.</p>
+</section>
+<section aria-labelledby="efficiency"><h2 id="efficiency">A smaller training job, a single inference pass</h2>
+<p>Training SIREN updates the probes and classifier while keeping the backbone frozen. On Qwen3-4B, this means 14M trainable parameters and 6 A100 GPU hours. The corresponding guard fine-tunes the full language model.</p>
+<figure class="figure-wide" id="cost-figures">
+<div class="figure-pair">
+<div class="subfigure">
+<a aria-label="Open the trainable parameters figure at full size" href="../assets/papers/siren/1370e010aa-params_comparison.svg">
+<img alt="Bar chart of trainable parameters on a log scale for four backbones. SIREN bars sit between 5M and 30M; guard bars sit between 600M and 10B." decoding="async" height="784" loading="lazy" src="../assets/papers/siren/1370e010aa-params_comparison.svg" width="1144"/>
+</a>
+<span class="subfigure-label">(a) Trainable parameters</span>
+</div>
+<div class="subfigure">
+<a aria-label="Open the inference FLOPs figure at full size" href="../assets/papers/siren/32d8d13ed3-flops_comparison.svg">
+<img alt="Bar chart of floating-point operations per sample on a log scale for four backbones. Guard bars are roughly four times higher than SIREN bars." decoding="async" height="784" loading="lazy" src="../assets/papers/siren/32d8d13ed3-flops_comparison.svg" width="1144"/>
+</a>
+<span class="subfigure-label">(b) Inference FLOPs per sample</span>
+</div>
+</div>
+<figcaption>Trainable parameters (left) and estimated inference FLOPs per sample (right), compared with a guard built from the same backbone. Both plots use logarithmic scales. The inference estimate assumes a 128-token input and four generated verdict tokens. <a href="https://arxiv.org/html/2604.18519v1#A4">Calculation details.</a></figcaption>
+</figure>
+<p>At inference, SIREN reads representations from one forward pass and returns a score from its small classifier. A generative guard decodes its verdict autoregressively. Under the paper’s FLOPs calculation, the guard uses roughly four times as much compute, even with a four-token verdict and perfect KV caching.</p>
+</section>
+<section aria-labelledby="layers"><h2 id="layers">The final layer leaves useful signals behind</h2>
+<p>The probes let us inspect where harmfulness is most readable. On Qwen3-4B, a single layer’s probe improves through the early layers, peaks near 79 macro-F1 in the middle, and drops at the final layer. The best single layer is within about four points of Qwen3Guard-4B.</p>
+<figure class="figure-compact" id="layerwise-figure">
+<a aria-label="Open the layer-wise probe figure at full size" href="../assets/papers/siren/22c9ee5c9c-qwen3_4b_layerwise_probes.svg">
+<img alt="Average F1 of a linear probe at each of the 36 layers of Qwen3-4B. Scores rise from about 0.58 at layer 0 to a plateau near 0.78 in the middle layers and fall at the last layer. Horizontal lines mark SIREN at about 0.87 and the guard at about 0.83." decoding="async" height="783" loading="lazy" src="../assets/papers/siren/22c9ee5c9c-qwen3_4b_layerwise_probes.svg" width="1144"/>
+</a>
+<figcaption>Average macro-F1 across the seven benchmarks for a linear probe at each Qwen3-4B layer. Combining signals across layers raises SIREN to 86.7, about eight points above the best individual layer.</figcaption>
+</figure>
+<div class="annotated-block"><p>The layers carry complementary information. SIREN gives more weight to layers whose probes perform well, then lets the small classifier combine their selected neurons. These layer weights come directly from the probes’ validation scores.<sup class="note-ref"><a aria-label="Note 4" href="#note-weighting" id="ref-weighting">4</a></sup></p>
+<aside aria-label="Note 4" class="sidenote" id="note-weighting" role="note" tabindex="-1"><p><a aria-label="Back to reference 4" class="note-number" href="#ref-weighting">4</a> The best layer gets weight 1, the worst gets 0, and the others are scaled between them. The final classifier can still learn how features from different layers interact. <a href="https://arxiv.org/html/2604.18519v1#S3.SS3">Section 3.3.</a></p></aside></div>
+<details class="result-details"><summary>How SIREN selects neurons and combines layers</summary>
+<p>We average residual-stream or feed-forward activations over the tokens in each input. Within each layer, an L1-regularized linear probe learns to predict harmfulness. The penalty pushes many weights to zero; we rank the remaining neurons by the magnitude of their weights and keep the smallest set that reaches a chosen cumulative threshold.</p>
 
-    <h3 id="safety-neurons">Identifying safety neurons within each layer</h3>
-    <p>Not every feature in these representations contributes to harmfulness detection. Some neurons encode the task, while others add noise or capture unrelated meaning. So for each layer separately, we train a linear probe on the pooled representations with the harmfulness labels of the training data. The probe is a logistic regression with an L1 penalty, which pushes most of its weights to zero. A linear probe is a reasonable instrument here because of the linear representation hypothesis, which holds that semantic concepts are often represented linearly in LLMs.</p>
-    <p>The magnitude of a trained weight tells us how much its neuron contributes to the probe's prediction. Within each layer we normalize the magnitudes so they sum to one, rank them, and keep the smallest top-ranked set whose cumulative weight exceeds a threshold. These are the layer's safety neurons. The selection is sparse: on Llama3.2-1B, which has 32,706 features across all its layers, a threshold of 0.6 keeps 571 neurons, under 2%, and a threshold of 0.9 keeps 4,214, about 13%.</p>
-    <figure class="figure-compact" id="threshold-table">
-      <div class="table-scroll" tabindex="0" role="region" aria-label="Selection threshold ablation, scroll horizontally on narrow screens">
-        <table class="table-narrow">
-          <thead>
-            <tr><th scope="col">Backbone</th><th scope="col">0.2</th><th scope="col">0.4</th><th scope="col">0.6</th><th scope="col">0.8</th><th scope="col">0.9</th><th scope="col">1.0</th></tr>
-          </thead>
-          <tbody>
-            <tr><th scope="row">Qwen3-0.6B</th><td>82.6</td><td>83.7</td><td class="ours">85.5</td><td class="ours">85.6</td><td class="ours">84.9</td><td>84.9</td></tr>
-            <tr><th scope="row">Llama3.2-1B</th><td>81.1</td><td>83.4</td><td class="ours">84.0</td><td class="ours">85.3</td><td class="ours">85.8</td><td>85.7</td></tr>
-          </tbody>
-        </table>
-      </div>
-      <figcaption><span class="figure-number">Table 1.</span> Average F1 over the seven benchmarks as the selection threshold varies. A threshold of 1.0 keeps every neuron. The range we use in practice, 0.6 to 0.9, is marked.</figcaption>
-    </figure>
-    <p>Table 1 shows how the threshold affects accuracy. Performance rises as more neurons are admitted and then levels off between 0.6 and 0.9, the range we adopt. Keeping every neuron does no better. Safety-relevant information is concentrated in a small subset of neurons, and training on that subset gives both the accuracy and the parameter savings reported below.</p>
+<p>Each selected neuron keeps its activation value. We multiply those values by the layer’s weight and concatenate them into one feature vector. A small multi-layer perceptron predicts harmfulness from that vector. At deployment, forward hooks collect the representations, and the saved neuron indices and layer weights are reused.</p>
+<p>Selection improves up to a threshold between 0.6 and 0.9, then levels off. Keeping every neuron does no better. Adaptive weighting adds 1.3 average F1 points over weighting all layers equally on both tested backbones.</p>
+<figure class="figure-compact" id="threshold-table">
+<div aria-label="Selection threshold ablation, scroll horizontally on narrow screens" class="table-scroll" role="region" tabindex="0">
+<table class="table-narrow">
+<thead>
+<tr><th scope="col">Backbone</th><th scope="col">0.2</th><th scope="col">0.4</th><th scope="col">0.6</th><th scope="col">0.8</th><th scope="col">0.9</th><th scope="col">1.0</th></tr>
+</thead>
+<tbody>
+<tr><th scope="row">Qwen3-0.6B</th><td>82.6</td><td>83.7</td><td class="ours">85.5</td><td class="ours">85.6</td><td class="ours">84.9</td><td>84.9</td></tr>
+<tr><th scope="row">Llama3.2-1B</th><td>81.1</td><td>83.4</td><td class="ours">84.0</td><td class="ours">85.3</td><td class="ours">85.8</td><td>85.7</td></tr>
+</tbody>
+</table>
+</div>
+<figcaption>Average F1 as the neuron-selection threshold changes. A threshold of 1.0 keeps every neuron; the highlighted range is used in practice.</figcaption>
+</figure>
+<figure class="figure-wide" id="aggregation-table">
+<div aria-label="Aggregation strategy ablation, scroll horizontally on narrow screens" class="table-scroll" role="region" tabindex="0">
+<table>
+<thead>
+<tr><th scope="col">Backbone</th><th scope="col">Aggregation</th><th scope="col">ToxicChat</th><th scope="col">OpenAI Mod.</th><th scope="col">Aegis</th><th scope="col">Aegis 2.0</th><th scope="col">WildGuard</th><th scope="col">SafeRLHF</th><th scope="col">BeaverTails</th><th scope="col">Avg.</th></tr>
+</thead>
+<tbody>
+<tr><th rowspan="2" scope="row">Qwen3-0.6B</th><td class="table-label">Uniform</td><td>81.3</td><td>87.5</td><td>81.8</td><td>81.1</td><td>85.4</td><td>90.7</td><td>82.3</td><td>84.3</td></tr>
+<tr><td class="table-label">Adaptive</td><td class="ours">81.6</td><td class="ours">91.3</td><td class="ours">82.4</td><td class="ours">82.1</td><td class="ours">86.5</td><td class="ours">91.6</td><td class="ours">83.5</td><td class="ours">85.6</td></tr>
+<tr><th rowspan="2" scope="row">Llama3.2-1B</th><td class="table-label">Uniform</td><td>79.9</td><td>88.4</td><td>81.4</td><td>81.6</td><td>86.0</td><td>91.3</td><td>82.6</td><td>84.4</td></tr>
+<tr><td class="table-label">Adaptive</td><td class="ours">80.0</td><td class="ours">92.9</td><td class="ours">82.1</td><td class="ours">82.7</td><td class="ours">86.5</td><td class="ours">92.0</td><td class="ours">83.7</td><td class="ours">85.7</td></tr>
+</tbody>
+</table>
+</div>
+<figcaption>Macro-F1 with uniform and adaptive layer weights. Adaptive weighting improves every benchmark on both tested backbones.</figcaption>
+</figure>
+</details>
+<h3 id="guard-backbones">Reading a guard’s own representations</h3>
+<p>The same method also improves a model that has already been fine-tuned for safety. Applied to the guard models’ own internal representations, SIREN improves every guard on every benchmark. Qwen3Guard-4B rises from 83.4 to 87.6 average F1, and LlamaGuard3-8B from 77.0 to 87.1.</p>
+<details class="result-details"><summary>Results on guard backbones and ensembles</summary>
+<figure class="figure-wide" id="guards-figure">
+<a aria-label="Open the SIREN-on-guard-models figure at full size" href="../assets/papers/siren/43800a7435-radar_full.png">
+<img alt="Radar charts of F1 per benchmark for four guard models with and without SIREN trained on their internal representations. The SIREN polygon encloses the guard polygon in each chart." decoding="async" height="492" loading="lazy" src="../assets/papers/siren/43800a7435-radar_full.png" width="1644"/>
+</a>
+<figcaption>F1 for the fine-tuned guards using their generated verdicts and using SIREN trained on their internal representations.</figcaption>
+</figure>
+<p>Outputs from SIREN instances can also be combined with a small meta-classifier. The best three-model ensemble, combining Qwen3-0.6B, Qwen3-4B and Llama3.2-1B, reaches 87.7 average F1, one point above the best single SIREN. Mixed Qwen3 and Llama ensembles tend to outperform same-family pairs. <a href="https://arxiv.org/html/2604.18519v1#S5.T4">Ensemble results.</a></p>
+</details>
+</section>
 
-    <h3 id="aggregation">Weighting and aggregating layers</h3>
-    <p>Transformer language models build up their representations layer by layer, from low-level patterns to high-level semantics, and different layers contribute unequally to any particular task. SIREN therefore does two things when it combines layers. It gives each layer a weight between zero and one, computed from the validation F1 score of that layer's probe relative to the best and worst layers, so that informative layers count more. It then concatenates the weighted activations of every layer's safety neurons into one feature vector.</p>
-    <p>The classifier on top of this vector is a small multi-layer perceptron. The linear representation hypothesis justifies a linear probe within a single layer, but features concatenated across layers need not combine linearly, so a slightly more expressive head is appropriate. The layer weights act as a prior on layer importance; redundancy among the concatenated neurons is handled by the perceptron, which learns to combine complementary signals. In deployment, SIREN captures per-layer hidden states through forward hooks during one inference pass, applies the stored neuron indices and layer weights, and returns a harmfulness score from the trained classifier.</p>
-    <figure class="figure-wide" id="aggregation-table">
-      <div class="table-scroll" tabindex="0" role="region" aria-label="Aggregation strategy ablation, scroll horizontally on narrow screens">
-        <table>
-          <thead>
-            <tr><th scope="col">Backbone</th><th scope="col">Aggregation</th><th scope="col">ToxicChat</th><th scope="col">OpenAI Mod.</th><th scope="col">Aegis</th><th scope="col">Aegis 2.0</th><th scope="col">WildGuard</th><th scope="col">SafeRLHF</th><th scope="col">BeaverTails</th><th scope="col">Avg.</th></tr>
-          </thead>
-          <tbody>
-            <tr><th scope="row" rowspan="2">Qwen3-0.6B</th><td class="table-label">Uniform</td><td>81.3</td><td>87.5</td><td>81.8</td><td>81.1</td><td>85.4</td><td>90.7</td><td>82.3</td><td>84.3</td></tr>
-            <tr><td class="table-label">Adaptive</td><td class="ours">81.6</td><td class="ours">91.3</td><td class="ours">82.4</td><td class="ours">82.1</td><td class="ours">86.5</td><td class="ours">91.6</td><td class="ours">83.5</td><td class="ours">85.6</td></tr>
-            <tr><th scope="row" rowspan="2">Llama3.2-1B</th><td class="table-label">Uniform</td><td>79.9</td><td>88.4</td><td>81.4</td><td>81.6</td><td>86.0</td><td>91.3</td><td>82.6</td><td>84.4</td></tr>
-            <tr><td class="table-label">Adaptive</td><td class="ours">80.0</td><td class="ours">92.9</td><td class="ours">82.1</td><td class="ours">82.7</td><td class="ours">86.5</td><td class="ours">92.0</td><td class="ours">83.7</td><td class="ours">85.7</td></tr>
-          </tbody>
-        </table>
-      </div>
-      <figcaption><span class="figure-number">Table 2.</span> Macro-F1 with uniform aggregation, where every layer counts equally, and with SIREN's adaptive layer weighting. The adaptive rows are the SIREN results reported in Table 3.</figcaption>
-    </figure>
-    <p>Table 2 isolates the effect of the layer weights. Adaptive weighting beats uniform aggregation on every benchmark for both backbones, by 1.3 points on average, with the largest gains on OpenAI Moderation. The weights cost nothing extra to compute, because they come from the validation scores of probes that have already been trained.</p>
-  </section>
-
-  <section aria-labelledby="results">
-    <h2 id="results">What we find</h2>
-    <h3 id="efficacy">Detection accuracy against guard models</h3>
-    <p>We compare SIREN with LlamaGuard3 (1B and 8B) and Qwen3Guard (0.6B and 4B), the latter being the strongest open guard at the time of writing. Both guard families are fine-tuned from open general-purpose backbones, so we train SIREN on exactly those backbones: Llama-3.2-1B and Llama-3.1-8B for LlamaGuard3, and Qwen3-0.6B and Qwen3-4B for Qwen3Guard. Each comparison therefore pits a readout of a general-purpose model against a guard fine-tuned from the same model, which isolates the effect of our approach from the effect of safety fine-tuning.</p>
-    <p>SIREN is trained on the training splits of seven safety benchmarks that cover both prompt-level and response-level harm: ToxicChat, OpenAI Moderation, Aegis, Aegis 2.0, WildGuard, SafeRLHF and BeaverTails, about 237,000 examples in total with an 80/20 train/validation split. Following standard practice, harmfulness detection is a binary task, with multi-category taxonomies collapsed to harmful versus safe, and we report macro-F1 to account for class imbalance. Guard models are run with their official evaluation pipelines.</p>
-    <figure class="figure-wide" id="main-table">
-      <div class="table-scroll" tabindex="0" role="region" aria-label="Main results, scroll horizontally on narrow screens">
-        <table class="table-dense">
-          <thead>
-            <tr><th scope="col">Backbone</th><th scope="col">Method</th><th scope="col">ToxicChat</th><th scope="col">OpenAI Mod.</th><th scope="col">Aegis</th><th scope="col">Aegis 2.0</th><th scope="col">WildGuard</th><th scope="col">SafeRLHF</th><th scope="col">BeaverTails</th><th scope="col">Avg.</th></tr>
-          </thead>
-          <tbody>
-            <tr><th scope="row" rowspan="2">Qwen3-0.6B</th><td class="table-label">SIREN</td><td class="ours">81.6</td><td class="ours">91.3</td><td class="ours">82.4</td><td class="ours">82.1</td><td class="ours">86.5</td><td class="ours">91.6</td><td class="ours">83.5</td><td class="ours">85.6</td></tr>
-            <tr><td class="table-label">Qwen3Guard-0.6B</td><td>82.0</td><td>75.9</td><td>78.8</td><td>82.0</td><td>89.1</td><td>86.9</td><td>77.1</td><td>81.7</td></tr>
-            <tr><th scope="row" rowspan="2">Llama3.2-1B</th><td class="table-label">SIREN</td><td class="ours">80.0</td><td class="ours">92.9</td><td class="ours">82.1</td><td class="ours">82.7</td><td class="ours">86.5</td><td class="ours">92.0</td><td class="ours">83.7</td><td class="ours">85.7</td></tr>
-            <tr><td class="table-label">LlamaGuard3-1B</td><td>63.3</td><td>67.5</td><td>59.5</td><td>72.6</td><td>78.6</td><td>83.3</td><td>70.0</td><td>70.7</td></tr>
-            <tr><th scope="row" rowspan="2">Qwen3-4B</th><td class="table-label">SIREN</td><td class="ours">83.5</td><td class="ours">91.2</td><td class="ours">82.9</td><td class="ours">83.4</td><td class="ours">88.3</td><td class="ours">93.2</td><td class="ours">84.3</td><td class="ours">86.7</td></tr>
-            <tr><td class="table-label">Qwen3Guard-4B</td><td>84.9</td><td>78.3</td><td>78.2</td><td>82.5</td><td>90.6</td><td>89.2</td><td>80.1</td><td>83.4</td></tr>
-            <tr><th scope="row" rowspan="2">Llama3.1-8B</th><td class="table-label">SIREN</td><td class="ours">83.1</td><td class="ours">92.0</td><td class="ours">82.9</td><td class="ours">82.9</td><td class="ours">86.7</td><td class="ours">92.5</td><td class="ours">83.8</td><td class="ours">86.3</td></tr>
-            <tr><td class="table-label">LlamaGuard3-8B</td><td>72.2</td><td>85.3</td><td>67.1</td><td>78.0</td><td>81.3</td><td>86.2</td><td>68.8</td><td>77.0</td></tr>
-          </tbody>
-        </table>
-      </div>
-      <figcaption><span class="figure-number">Table 3.</span> Macro-F1 of SIREN and the guard model fine-tuned from the same backbone on seven harmfulness detection benchmarks. Values are from <a href="https://arxiv.org/html/2604.18519v1#S4.T1">Table 1 of the paper</a>.</figcaption>
-    </figure>
-    <p>SIREN has the higher average on all four backbone pairs, from 0.6B to 8B parameters. The best SIREN, on Qwen3-4B, reaches 86.7 against 83.4 for Qwen3Guard-4B. The gains are largest where the guard is weakest: on Llama3.2-1B, SIREN scores 85.7 against 70.7 for LlamaGuard3-1B. Reading across the benchmarks, the Qwen3Guard models keep a small lead on ToxicChat and WildGuard, while SIREN leads everywhere else, by wide margins on OpenAI Moderation, Aegis and BeaverTails.</p>
-    <figure class="figure-wide" id="pr-figure">
-      <a href="../assets/papers/siren/f4aa5df66c-combined_pr_curves.png" aria-label="Open the precision and recall figure at full size">
-        <img src="../assets/papers/siren/f4aa5df66c-combined_pr_curves.png" width="2037" height="597" alt="Four precision-recall scatter plots for OpenAI Moderation, Aegis, SafeRLHF and BeaverTails. SIREN stars cluster near the diagonal; guard model circles spread far from it." loading="lazy" decoding="async">
-      </a>
-      <figcaption><span class="figure-number">Figure 2.</span> Precision and recall on four benchmarks. SIREN (stars) sits near the diagonal where precision equals recall. Guard models (circles) vary from benchmark to benchmark.</figcaption>
-    </figure>
-    <p>Figure 2 looks past the F1 scores at the balance between precision and recall. Each point is one model on one benchmark, and the dashed diagonal marks equal precision and recall. SIREN's points cluster along that line on every benchmark. The guard models scatter: Qwen3Guard-0.6B reaches 95% recall on SafeRLHF but only 63% on Aegis, and LlamaGuard3-1B shows 90% precision but 54% recall on BeaverTails, an overly conservative rule for that dataset. Earlier safety evaluations have reported the same instability in fine-tuned guards. We speculate that a general-purpose model, having seen a wide range of safety-related text during pretraining, already encodes a fairly consistent notion of harmfulness, and that reading it out directly avoids the policy biases that safety fine-tuning on particular datasets can introduce.</p>
-
-    <h3 id="generalization">Generalization to reasoning traces and streaming detection</h3>
-    <p>A classifier trained on the final layer can latch onto surface features that hold within its training distribution and fail under distribution shift. To test whether SIREN, which reads many layers, holds up on data it never saw, we evaluate on Think, a test-only benchmark from the Qwen3Guard release. Think was built by prompting three reasoning models, a DeepSeek-distilled Llama3, Qwen3 and GLM-4, with harmful prompts and manually annotating their reasoning traces and responses for safety violations.</p>
-    <figure class="figure-wide" id="think-figure">
-      <a href="../assets/papers/siren/0ae3d3e26f-combined_gen_comparison.png" aria-label="Open the Think benchmark figure at full size">
-        <img src="../assets/papers/siren/0ae3d3e26f-combined_gen_comparison.png" width="2037" height="535" alt="Bar charts of F1 on the Think benchmark for reasoning traces from DeepSeek, Qwen3 and GLM, plus their average. SIREN bars are higher than guard bars for every backbone, and LlamaGuard3-1B is near 50." loading="lazy" decoding="async">
-      </a>
-      <figcaption><span class="figure-number">Figure 3.</span> F1 on the Think benchmark, by the reasoning model that produced the traces and on average. Qw stands for Qwen3 and Lm for Llama3 backbones.</figcaption>
-    </figure>
-    <p>SIREN outperforms the guard models on traces from all three reasoning models (Figure 3), with an average improvement of 11.2 F1 points for the 8B-size pair. The contrast is sharpest at the small end: LlamaGuard3-1B falls to around chance level, while SIREN on Llama3.2-1B stays close to its larger counterparts. This suggests that what SIREN reads from the representations generalizes beyond the surface patterns of its training sets.</p>
-    <p>Streaming detection is a harder test, in which harmful content has to be flagged while the text is still being generated, token by token. Open guard models judge whole sequences, and the Qwen3Guard release built a dedicated streaming variant with architectural changes and token-level supervision to handle this case. SIREN needs no changes. To score a prefix, we average the safety neuron activations over the tokens generated so far and apply the same classifier, with no retraining of the LLM, the probes or the classifier.</p>
-    <figure class="figure-compact" id="streaming-figure">
-      <a href="../assets/papers/siren/751ee9ef1e-streaming_detection_comparison.svg" aria-label="Open the streaming detection figure at full size">
-        <img src="../assets/papers/siren/751ee9ef1e-streaming_detection_comparison.svg" width="1141" height="784" alt="Detection rate against detection latency for SIREN on Qwen3-0.6B and Qwen3-4B and for Qwen3Guard-Stream 0.6B and 4B. Both SIREN lines lie above both guard lines at every latency position." loading="lazy" decoding="async">
-      </a>
-      <figcaption><span class="figure-number">Figure 4.</span> Streaming detection on Think. The horizontal axis is how far past the annotated unsafe span the detector is allowed to fire; "Timely" means at the end of the span. SIREN on Qwen3 backbones against Qwen3Guard-Stream.</figcaption>
-    </figure>
-    <p>We follow the Qwen3Guard-Stream protocol. Think marks the span where each trace becomes unsafe, and we measure whether a detector has fired by the end of that span, and then within grace windows extending up to 256 tokens beyond it. In Figure 4, both SIREN models detect more harmful traces than both streaming guards at every position, from the timely cut-off through the longest grace period. The smaller backbone does better than the larger one in streaming mode, for SIREN and for Qwen3Guard-Stream alike. The Qwen3Guard report does not discuss this, and we do not claim an explanation; one plausible factor is that sentence-level safety features transfer more cleanly to prefixes in smaller models.</p>
-    <figure class="figure-narrow" id="token-figure">
-      <a href="../assets/papers/siren/755e69639b-streaming_per_token_visualization.png" aria-label="Open the token-level streaming example at full size">
-        <img src="../assets/papers/siren/755e69639b-streaming_per_token_visualization.png" width="635" height="959" alt="A conversation in which the user asks the model to say something harmful. Tokens of the model's early deliberation are green, turn yellow as it decides to comply, and are red through the harmful statement and the closing offer." loading="lazy" decoding="async">
-      </a>
-      <figcaption><span class="figure-number">Figure 5.</span> Token-level streaming scores from SIREN on Qwen3-4B for one Qwen3GuardTest example with a user prompt, a reasoning trace and a response. Green is safe and red is harmful.</figcaption>
-    </figure>
-    <p>Figure 5 shows what this looks like on one trace. The user asks the model to say something harmful. While the model deliberates about what the user might want, SIREN keeps the harmfulness score low. The score turns upward as the reasoning settles on complying, and it stays high through the insulting statement in the response and the offer of another one. The transition happens at the point where the content changes, with no streaming supervision behind it.</p>
-
-    <h3 id="efficiency">Training and inference cost</h3>
-    <p>Training SIREN updates only the probes and the classifier. On Qwen3-4B that is 14M trainable parameters, against the roughly 4B that Qwen3Guard-4B fine-tunes, a factor of about 250. Training SIREN on Qwen3-4B takes 6 GPU hours on an A100.</p>
-    <figure class="figure-wide" id="cost-figures">
-      <div class="figure-pair">
-        <div class="subfigure">
-          <a href="../assets/papers/siren/1370e010aa-params_comparison.svg" aria-label="Open the trainable parameters figure at full size">
-            <img src="../assets/papers/siren/1370e010aa-params_comparison.svg" width="1144" height="784" alt="Bar chart of trainable parameters on a log scale for four backbones. SIREN bars sit between 5M and 30M; guard bars sit between 600M and 10B." loading="lazy" decoding="async">
-          </a>
-          <span class="subfigure-label">(a) Trainable parameters</span>
-        </div>
-        <div class="subfigure">
-          <a href="../assets/papers/siren/32d8d13ed3-flops_comparison.svg" aria-label="Open the inference FLOPs figure at full size">
-            <img src="../assets/papers/siren/32d8d13ed3-flops_comparison.svg" width="1144" height="784" alt="Bar chart of floating-point operations per sample on a log scale for four backbones. Guard bars are roughly four times higher than SIREN bars." loading="lazy" decoding="async">
-          </a>
-          <span class="subfigure-label">(b) Inference FLOPs per sample</span>
-        </div>
-      </div>
-      <figcaption><span class="figure-number">Figure 6.</span> Cost of SIREN against the guard model on the same backbone. (a) Parameters updated during training. (b) Floating-point operations to classify one 128-token input, assuming the guard generates only four tokens with a perfect KV cache.</figcaption>
-    </figure>
-    <p>At inference, SIREN is a small classifier on representations that one forward pass through the base model already produces. A generative guard runs the same forward pass and then decodes its verdict, and every decoded token is another pass through the model. Figure 6b counts the operations under assumptions that favor the guard: a 128-token input, perfect reuse of the KV cache, and a verdict of only four tokens, which is what "Label: Unsafe" takes. Even then the guard costs about four times as much as SIREN. In practice guards are often run with longer outputs for stable behavior, and the gap widens.</p>
-
-    <h3 id="layers">Where safety is encoded</h3>
-    <figure class="figure-compact" id="layerwise-figure">
-      <a href="../assets/papers/siren/22c9ee5c9c-qwen3_4b_layerwise_probes.svg" aria-label="Open the layer-wise probe figure at full size">
-        <img src="../assets/papers/siren/22c9ee5c9c-qwen3_4b_layerwise_probes.svg" width="1144" height="783" alt="Average F1 of a linear probe at each of the 36 layers of Qwen3-4B. Scores rise from about 0.58 at layer 0 to a plateau near 0.78 in the middle layers and fall at the last layer. Horizontal lines mark SIREN at about 0.87 and the guard at about 0.83." loading="lazy" decoding="async">
-      </a>
-      <figcaption><span class="figure-number">Figure 7.</span> Average F1 over the seven benchmarks of a linear probe trained on each layer of Qwen3-4B, with SIREN and Qwen3Guard-4B as horizontal references.</figcaption>
-    </figure>
-    <p>The per-layer probes also tell us where in the model the safety signal lives. In Figure 7, probe accuracy climbs through the early layers of Qwen3-4B, plateaus in the middle layers with a peak near 79%, and drops at the final layer. A single middle layer, read with nothing more than a linear probe, comes within 4 points of the fine-tuned guard, and it beats the final layer that guards decode from. This matches the hierarchical picture of transformers in which early layers capture lexical and syntactic features, middle layers build abstract semantic representations, including concepts like harmfulness and malicious intent, and the final layers convert those representations back into token space for next-token prediction. SIREN's cross-layer aggregation adds about 8 points on top of the best single layer, so the layers carry complementary information, and the adaptive layer weights are computed from exactly this spread in probe accuracy.</p>
-    <p>Because SIREN is a light classifier on frozen representations, SIREN instances trained on different backbones can also be combined. Stacking a small meta-classifier on the outputs of several instances, the best three-model ensemble (Qwen3-0.6B, Qwen3-4B and Llama3.2-1B) reaches 87.7 average F1, one point above the best single SIREN, and ensembles that mix the Qwen3 and Llama3 families tend to beat same-family pairs. An ensemble doubles inference cost relative to one SIREN, which still leaves it well below a single generative guard.</p>
-    <figure class="figure-wide" id="guards-figure">
-      <a href="../assets/papers/siren/43800a7435-radar_full.png" aria-label="Open the SIREN-on-guard-models figure at full size">
-        <img src="../assets/papers/siren/43800a7435-radar_full.png" width="1644" height="492" alt="Radar charts of F1 per benchmark for four guard models with and without SIREN trained on their internal representations. The SIREN polygon encloses the guard polygon in each chart." loading="lazy" decoding="async">
-      </a>
-      <figcaption><span class="figure-number">Figure 8.</span> F1 per benchmark for guard models read through their own generated verdict and through SIREN trained on their internal representations.</figcaption>
-    </figure>
-    <p>The same recipe applies to a guard model's own internals. Training SIREN on the representations of the fine-tuned guards improves every one of them on every benchmark (Figure 8): Qwen3Guard-4B rises from 83.4 to 87.6 average F1, and LlamaGuard3-8B from 77.0 to 87.1, so a guard's own middle layers hold accuracy that its final-layer verdict does not use.</p>
-  </section>
-
-  <section aria-labelledby="discussion">
-    <h2 id="discussion">Discussion</h2>
-    <p>Safety-relevant information is encoded throughout a language model's layers, and a sparse set of neurons from those layers, weighted by layer and read by a small classifier, makes a better harmfulness detector than decoding a verdict from the final layer. SIREN outperforms the guard fine-tuned from the same backbone and carries over to reasoning traces and streaming detection it was never trained on, at a fraction of the training and inference cost.</p>
-    <p>Two limitations bound the current work. The neuron selection relies on the linear representation hypothesis, so architectures that depart from the standard transformer, or concepts that are not linearly separable within a layer, may need a different probe. And we study binary harmfulness, following standard benchmark practice; the framework supports multi-label classification, and extending it to fine-grained safety taxonomies is a direction for future work. The datasets we use contain toxic and hateful language by design, and a detector built on an LLM's representations can inherit biases from that model's pretraining data, which remains an open problem for LLM-based safety classifiers generally. The <a href="https://arxiv.org/abs/2604.18519">full paper</a> gives the mathematical formulation, the hyperparameter search, the ensemble results and the FLOPs calculation.</p>
-  </section>
 </main>
-
-</body>
-</html>
+<script defer="" src="article.js?v=1"></script>
+</body></html>

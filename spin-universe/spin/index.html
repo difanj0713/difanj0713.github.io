@@ -4,14 +4,14 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>SPIN: Text classification from internal neurons | Readout</title>
+<title>SPIN: Sparsifying and Integrating Internal Neurons in Large Language Models for Text Classification | Readout</title>
 <meta name="description" content="SPIN selects task-relevant neurons across the layers of a frozen language model and combines them for text classification.">
-<link rel="canonical" href="https://difanj0713.github.io/spin-universe/spin/">
+<link rel="canonical" href="https://csslab.github.io/spin-universe/spin/">
 <meta property="og:type" content="article">
-<meta property="og:title" content="SPIN: Text classification from internal neurons">
+<meta property="og:title" content="SPIN: Sparsifying and Integrating Internal Neurons in Large Language Models for Text Classification">
 <meta property="og:description" content="Reading task-relevant signals across a frozen model's layers for more accurate and efficient text classification.">
-<meta property="og:url" content="https://difanj0713.github.io/spin-universe/spin/">
-<meta property="og:image" content="https://difanj0713.github.io/spin-universe/assets/img/social/spin.png">
+<meta property="og:url" content="https://csslab.github.io/spin-universe/spin/">
+<meta property="og:image" content="https://csslab.github.io/spin-universe/assets/img/social/spin.png">
 <meta name="twitter:card" content="summary_large_image">
 <meta name="citation_title" content="SPIN: Sparsifying and Integrating Internal Neurons in Large Language Models for Text Classification">
 <meta name="citation_author" content="Difan Jiao">
@@ -30,7 +30,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&amp;display=swap">
-<link rel="stylesheet" href="article.css?v=4">
+<link rel="stylesheet" href="article.css?v=5">
 </head>
 <body class="spin-article">
 <a class="skip-link" href="#article">Skip to article</a>
@@ -42,7 +42,7 @@
 <header class="spin-opening">
   <div class="opening-column">
     <p class="publication">Findings of ACL 2024 <span aria-hidden="true">·</span> <time datetime="2024-06-05">June 5, 2024</time></p>
-    <h1>SPIN: Text classification from internal neurons</h1>
+    <h1>SPIN: Sparsifying and Integrating Internal Neurons in Large Language Models for Text Classification</h1>
     <p class="opening-lede">We introduce SPIN, a framework that reads a frozen language model’s internal representations for text classification. It reduces classification errors by up to 71.4% compared with classifiers that use only the final layer. SPIN approaches fully fine-tuned state-of-the-art performance while training thousands of times fewer parameters; it can also skip 40% of the model’s layers at inference with little or no loss in accuracy.</p>
     <div class="research-byline">
 <p><span class="author-name">Difan Jiao<sup aria-label="Equal contribution" title="Equal contribution">*</sup>,</span> <span class="author-name">Yilun Liu<sup aria-label="Equal contribution" title="Equal contribution">*</sup>,</span> <span class="author-name">Zhenwei Tang,</span> <span class="author-name">Daniel Matter,</span> <span class="author-name">Jürgen Pfeffer,</span> <span class="author-name">Ashton Anderson</span></p>
