@@ -2,228 +2,221 @@
 <!-- Edited research article. The arXiv importer deliberately preserves this file. -->
 <html lang="en">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>MINER: Mining internal representations for efficient retrieval | Readout</title>
-<meta name="description" content="MINER probes the internal layers of a dense visual document retriever, keeps their most useful dimensions and fuses them into one embedding of the same size, improving retrieval quality at the storage and latency of single-vector search.">
-<link rel="canonical" href="https://difanj0713.github.io/spin-universe/miner/">
-<meta property="og:type" content="article">
-<meta property="og:title" content="MINER: Mining internal representations for efficient retrieval">
-<meta property="og:description" content="Recovering the retrieval signal that a single final-layer embedding leaves behind, without giving up single-vector efficiency.">
-<meta property="og:url" content="https://difanj0713.github.io/spin-universe/miner/">
-<meta property="og:image" content="https://difanj0713.github.io/spin-universe/assets/img/social/miner.png">
-<meta name="twitter:card" content="summary_large_image">
-<meta name="citation_title" content="MINER: Mining Multimodal Internal Representation for Efficient Retrieval">
-<meta name="citation_author" content="Weien Li">
-<meta name="citation_author" content="Rui Song">
-<meta name="citation_author" content="Zeyu Li">
-<meta name="citation_author" content="Haochen Liu">
-<meta name="citation_author" content="Gonghao Zhang">
-<meta name="citation_author" content="Difan Jiao">
-<meta name="citation_author" content="Zhenwei Tang">
-<meta name="citation_author" content="Bowei He">
-<meta name="citation_author" content="Haolun Wu">
-<meta name="citation_author" content="Xue Liu">
-<meta name="citation_author" content="Ye Yuan">
-<meta name="citation_publication_date" content="2026/05">
-<meta name="citation_arxiv_id" content="2605.06460">
-<meta name="citation_pdf_url" content="https://arxiv.org/pdf/2605.06460v1">
-<link rel="icon" href="../assets/img/favicon.svg" type="image/svg+xml">
-<link rel="stylesheet" href="../assets/css/research-article.css?v=3">
-<link rel="stylesheet" href="../assets/css/readout-nav.css">
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1" name="viewport"/>
+<title>MINER: Mining Multimodal Internal Representation for Efficient Retrieval | Readout</title>
+<meta content="MINER probes the internal layers of a dense visual document retriever, keeps their most useful dimensions and fuses them into one embedding of the same size, improving retrieval quality with the same index size and a small query-time overhead." name="description"/>
+<link href="https://difanj0713.github.io/spin-universe/miner/" rel="canonical"/>
+<meta content="article" property="og:type"/>
+<meta content="MINER: Mining Multimodal Internal Representation for Efficient Retrieval" property="og:title"/>
+<meta content="Recovering the retrieval signal that a single final-layer embedding leaves behind, without giving up single-vector efficiency." property="og:description"/>
+<meta content="https://difanj0713.github.io/spin-universe/miner/" property="og:url"/>
+<meta content="https://difanj0713.github.io/spin-universe/assets/img/social/miner.png" property="og:image"/>
+<meta content="summary_large_image" name="twitter:card"/>
+<meta content="MINER: Mining Multimodal Internal Representation for Efficient Retrieval" name="citation_title"/>
+<meta content="Weien Li" name="citation_author"/>
+<meta content="Rui Song" name="citation_author"/>
+<meta content="Zeyu Li" name="citation_author"/>
+<meta content="Haochen Liu" name="citation_author"/>
+<meta content="Gonghao Zhang" name="citation_author"/>
+<meta content="Difan Jiao" name="citation_author"/>
+<meta content="Zhenwei Tang" name="citation_author"/>
+<meta content="Bowei He" name="citation_author"/>
+<meta content="Haolun Wu" name="citation_author"/>
+<meta content="Xue Liu" name="citation_author"/>
+<meta content="Ye Yuan" name="citation_author"/>
+<meta content="2026/05" name="citation_publication_date"/>
+<meta content="2605.06460" name="citation_arxiv_id"/>
+<meta content="https://arxiv.org/pdf/2605.06460v1" name="citation_pdf_url"/>
+<link href="../assets/img/favicon.svg" rel="icon" type="image/svg+xml"/>
+<link href="../assets/css/research-article.css?v=3" rel="stylesheet"/>
+<link href="../assets/css/readout-nav.css" rel="stylesheet"/>
+<link rel="preconnect" href="https://fonts.googleapis.com"/>
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin=""/>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Source+Serif+4:opsz,wght@8..60,400;8..60,500;8..60,600&amp;display=swap"/>
+<link rel="stylesheet" href="article.css?v=2"/>
 </head>
-<body>
+<body class="miner-article">
 <a class="skip-link" href="#article">Skip to article</a>
-<nav class="readout-nav" aria-label="Site navigation">
-  <a class="readout-home" href="../"><span aria-hidden="true">←</span> Readout</a>
-  <a href="https://arxiv.org/abs/2605.06460">arXiv ↗</a>
+<nav aria-label="Site navigation" class="readout-nav">
+<a class="readout-home" href="../"><span aria-hidden="true">←</span> Readout</a>
+<a href="https://arxiv.org/abs/2605.06460">arXiv ↗</a>
 </nav>
-
-<header>
-  <div class="research-title">
-    <div class="article-column">
-      <h1>MINER: Mining internal representations for efficient retrieval</h1>
-    </div>
-  </div>
-  <div class="article-column">
-    <div class="research-byline">
-      <p><span class="author-name">Weien Li<sup title="Equal contribution" aria-label="Equal contribution">*</sup>,</span> <span class="author-name">Rui Song<sup title="Equal contribution" aria-label="Equal contribution">*</sup>,</span> <span class="author-name">Zeyu Li,</span> <span class="author-name">Haochen Liu,</span> <span class="author-name">Gonghao Zhang,</span> <span class="author-name">Difan Jiao,</span> <span class="author-name">Zhenwei Tang,</span> <span class="author-name">Bowei He,</span> <span class="author-name">Haolun Wu,</span> <span class="author-name">Xue Liu,</span> <span class="author-name">Ye Yuan</span></p>
-      <time datetime="2026-05-07">May 7, 2026</time>
-    </div>
-    <div class="research-links" aria-label="Paper resources">
-      <span class="venue">Preprint</span>
-      <a href="https://arxiv.org/pdf/2605.06460">Paper</a>
-    </div>
-  </div>
-  <div class="research-summary">
-    <div class="article-column">
-      <span class="summary-label">tl;dr</span>
-      <p>Visual document retrieval has two camps. Late-interaction retrievers match hundreds of token vectors per page and score well, at a large cost in storage and serving. Dense single-vector retrievers are cheap but lose quality by compressing everything into one final-layer embedding. We show that the missing signal is still present in the internal layers of single-vector retrievers, and we introduce MINER, a plug-in module that probes those layers, keeps their most useful dimensions and fuses them into one dense vector of the original size. Across ViDoRe V1, V2 and V3, MINER improves three dense backbones by up to 4.5% nDCG@5 with the same index size and 1.07 times the query latency.</p>
-    </div>
-  </div>
-</header>
-
+<header class="miner-opening"><div class="opening-column">
+<p class="publication">Preprint <span aria-hidden="true">·</span> <time datetime="2026-05-07">May 7, 2026</time></p>
+<h1>MINER: Mining Multimodal Internal Representation for Efficient Retrieval</h1>
+<p class="opening-lede">We introduce MINER, a lightweight module that improves visual document retrieval by reading a frozen model’s internal representations. It improves nDCG@5 by up to 4.5% on ViDoRe V2, with no increase in embedding size. On Jina, it closes nearly half the quality gap to late interaction while using 42.4× less index storage and answering queries 5.3× faster.</p>
+<div class="research-byline"><p><span class="author-name">Weien Li<sup aria-label="Equal contribution" title="Equal contribution">*</sup>,</span> <span class="author-name">Rui Song<sup aria-label="Equal contribution" title="Equal contribution">*</sup>,</span> <span class="author-name">Zeyu Li,</span> <span class="author-name">Haochen Liu,</span> <span class="author-name">Gonghao Zhang,</span> <span class="author-name">Difan Jiao,</span> <span class="author-name">Zhenwei Tang,</span> <span class="author-name">Bowei He,</span> <span class="author-name">Haolun Wu,</span> <span class="author-name">Xue Liu,</span> <span class="author-name">Ye Yuan</span></p></div>
+<div class="research-links" aria-label="Paper resources"><a href="https://arxiv.org/pdf/2605.06460">Read the paper <span aria-hidden="true">↗</span></a></div>
+</div></header>
 <main id="article" class="research-article">
-  <section aria-labelledby="introduction">
-    <h2 id="introduction">Introduction</h2>
-    <p>Presentation slides, scanned reports and scientific posters carry their information through text, layout and figures together. Finding the right page in a collection of such documents calls for retrieval that reads visual and textual cues at once, and a growing line of work does this directly from rendered page images, skipping the OCR and chunking pipelines that text retrieval depends on and that break on visually rich pages.</p>
-    <p>Two families of visual document retriever have emerged. Late-interaction retrievers, which trace back to ColBERT and were brought to the multimodal setting by ColPali, represent a query and a document each as a set of token-level embeddings and compute relevance by fine-grained matching between the two sets. This preserves local detail and retrieves well, but a single page can require more than a thousand patch vectors, so the index is large and scoring is expensive. Dense single-vector retrievers take the opposite route and compress each input into one embedding, scored by a dot product. The index is compact and search is fast, but everything the model knows about a page has to pass through one final-layer vector. Retrieval-relevant signal that exists in the intermediate layers can be discarded before it reaches the output, and dense retrievers trail late interaction in quality.</p>
-    <p>Recent work has found that the internal representations of deep networks hold more task-relevant information than their final outputs. In language, SPIN and SIREN showed that intermediate layers carry information that improves text classification. In vision, Perception Encoder found that the strongest visual embeddings often appear before the last layer. The question for multimodal retrieval is whether the internal representations of a single-vector retriever can recover what the final-layer bottleneck loses, without giving up the efficiency of single-vector search.</p>
-    <p>We answer in two steps. First, a layerwise diagnostic of three single-vector retrievers, built on a normalized form of Centered Kernel Alignment and a new alignment ratio, shows that retrieval signal does reside in the internal layers but is spread unevenly: earlier layers hold useful structure in a geometry that does not line up with the final embedding space, while later layers are progressively more aligned with it. Second, guided by this diagnostic, we build MINER (Mining Multimodal Internal RepreseNtation for Efficient Retrieval), a lightweight plug-in that attaches a probe to each selected layer, masks each layer down to its most useful dimensions, and fuses what remains into a single dense embedding. The backbone is not modified, the module works with both end-of-sequence-token and pooling readouts, and the output has the same dimensionality as the backbone's own embedding, so storage and serving cost stay those of dense retrieval.</p>
-    <figure class="figure-wide" id="overview-figure">
-      <a href="../assets/papers/miner/a0ea4a3f7b-MINER_arch_v4.png" aria-label="Open the MINER overview figure at full size">
-        <img src="../assets/papers/miner/a0ea4a3f7b-MINER_arch_v4.png" width="1600" height="900" alt="Left: a vision-language backbone whose token embeddings feed either a multi-vector projector or a dense readout; MINER plugs into the internal layer representations. Middle: stage 1 trains NormProbe and BaseProbe layers against cross-modal anchors with an InfoNCE loss and L1 regularization. Right: stage 2 applies performance-adaptive neuron masking and cross-layer fusion trained with InfoNCE.">
-      </a>
-      <figcaption><span class="figure-number">Figure 1.</span> MINER plugs into the internal representations of a dense retriever's language model decoder. Stage 1 probes each selected layer toward the final cross-modal embedding space; stage 2 masks each layer to its most useful dimensions and fuses the layers into one dense embedding.</figcaption>
-    </figure>
-    <p>Across the ViDoRe V1, V2 and V3 benchmark suites, MINER improves three dense backbones, by up to 4.5% in nDCG@5, with the same index footprint and 1.07 times the query latency. On the backbone that supports both retrieval modes, it closes almost half of the gap to late interaction at 42.4 times lower index storage.</p>
-  </section>
-
-  <section aria-labelledby="analysis">
-    <h2 id="analysis">Where retrieval signal sits inside a single-vector retriever</h2>
-    <p>We study three dense multimodal retrievers: Jina-Embeddings-v4 (Jina), Eager-Embed-v1 (Eager) and MoCa-3B (MoCa). Each has a transformer backbone and a readout operator that turns a layer's hidden states into one vector, either the end-of-sequence token or a pooling over tokens. Applying that readout at every layer gives a layerwise readout for each input. For a paired text and image, the natural reference point for either side is the other side's final-layer embedding, which we call its cross-modal anchor: the text's anchor is the image's final embedding, and vice versa, because retrieval scores a query against a document in that final space. We compare each layer's readouts to these anchors to find out which layers hold retrieval signal that a lightweight module can extract, and whether all such layers should be treated the same way.</p>
-    <p>For the first, we use linear Centered Kernel Alignment (CKA), which compares two representation spaces at the dataset level and is therefore insensitive to the coordinate mismatches that are common between layers of a deep network. A high CKA between a layer's readouts and the anchors means the layer's representation space is structurally similar to the final retrieval space; a low value means the layer either has not yet formed that structure or expresses it in a geometry too distant to recover cheaply. Raw CKA values differ in scale from one backbone to another, so we min-max normalize them across the layers of each backbone and keep the layers whose normalized score is at least 0.6. For Jina and MoCa this candidate set is layers 15 through 36; for Eager it is layers 19 through 36.</p>
-    <figure id="alignment-figure">
-      <a href="../assets/papers/miner/d49e7d73c7-jina_ar_n_shared_layer15_35.svg" aria-label="Open the alignment ratio figure at full size">
-        <img src="../assets/papers/miner/d49e7d73c7-jina_ar_n_shared_layer15_35.svg" width="732" height="266" alt="Normalized alignment ratio of Jina from layer 15 to 35, rising slowly from about 0.13 to 0.47 at layer 32 and then jumping to 0.52, 0.65 and 0.70 over the last three layers. Bars show the change between adjacent layers, largest between layers 33 and 34." loading="lazy" decoding="async">
-      </a>
-      <figcaption><span class="figure-number">Figure 2.</span> Normalized alignment ratio of each candidate layer of Jina (line) and its change from the previous layer (bars). The largest step is between layers 33 and 34.</figcaption>
-    </figure>
-    <p>For the second, structural similarity is not enough. CKA is invariant to rotations of the representation space, so a layer can share dataset-level geometry with the anchor space while its individual readouts point in quite different directions from their anchors. We therefore also measure the average per-sample cosine similarity between a layer's readouts and their anchors, and define the alignment ratio as that cosine divided by the layer's CKA. The ratio asks how much of a layer's structural similarity is already realized as direct, coordinate-level alignment. A high ratio means the layer's signal can be extracted with a simple operation that preserves its geometry. A low ratio means the useful structure is there but sits in a less aligned subspace and needs a more expressive transformation to bring it into line.</p>
-    <p>Figure 2 plots the normalized alignment ratio for Jina's candidate layers, and the picture is the same for Eager and MoCa. Through most of the candidate set the ratio is low and changes slowly. Over the last three layers it jumps, with the largest single step between layers 33 and 34. The candidate layers therefore fall into two regimes, and MINER gives each regime its own kind of probe. Normalized CKA decides which layers to extract from, and the alignment ratio decides how each one is treated.</p>
-  </section>
-
-  <section aria-labelledby="method">
-    <h2 id="method">Probing and fusing the selected layers</h2>
-    <p>A single-vector retriever encodes a query and a document into embeddings and ranks documents by their inner product with the query. Ordinarily both embeddings are the backbone's final-layer readout. MINER builds them instead from several internal layers, in two stages that are trained one after the other.</p>
-
-    <h3 id="probing">Retrieval-aligned layer probing</h3>
-    <p>Following the alignment-ratio analysis, we split the candidate layers into the last three, which are already aligned with the final space, and the earlier ones, which are structurally similar but less aligned. Each group gets its own probe, shared across the text and image sides because both pass through the same backbone into a common space. For the aligned layers, a Base Probe learns one importance weight per dimension and rescales the readout element by element; the coordinate system is left intact because only a reweighting of neurons is needed. For the less aligned layers, a Normalized Projection Probe applies the same element-wise reweighting and then a linear projection whose rows are normalized to unit length. The normalization lets the projection realign the subspace without rescaling it, and the importance vector keeps an explicit record of which neurons matter, which the next stage will use.</p>
-    <p>Every probe is trained toward the cross-modal anchors in a siamese fashion: the probed text readout at a layer should match the image's final embedding, and the probed image readout should match the text's. The loss is InfoNCE with cosine similarity over in-batch and hard negatives, plus an L1 penalty on the importance vector that pushes it toward sparsity.</p>
-
-    <h3 id="fusion">Adaptive sparse multi-layer fusion</h3>
-    <p>Layers differ in how much they contribute to retrieval, and a stronger layer should be allowed to keep more of its dimensions. We measure each candidate layer's standalone validation nDCG@5, normalize it across the candidate set to a utility score between zero and one, and turn that into a retention ratio with a floor so that every layer keeps at least a minimum fraction; the floor is 0.2 by default. Within each layer we rank dimensions by the magnitude of the learned importance weights and keep only the top fraction, zeroing the rest with a hard binary mask.</p>
-    <figure id="selection-figure">
-      <a href="../assets/papers/miner/b676973942-jina_neuron_selection_percent.svg" aria-label="Open the neuron selection figure at full size">
-        <img src="../assets/papers/miner/b676973942-jina_neuron_selection_percent.svg" width="756" height="280" alt="Percentage of neurons kept at each layer of Jina from 15 to 36. Around 12 to 22 percent through layer 26, rising to about 93 percent at layer 33, dropping to about 45 percent at layers 34 and 35, and reaching 100 percent at layer 36." loading="lazy" decoding="async">
-      </a>
-      <figcaption><span class="figure-number">Figure 3.</span> Share of dimensions that the adaptive mask keeps at each candidate layer of Jina, with the default floor of 0.2 and CKA cutoff of 0.6.</figcaption>
-    </figure>
-    <p>Figure 3 shows the resulting profile for Jina, and Eager and MoCa follow the same shape despite their different training and readouts. The mask keeps a small fraction of dimensions in the earlier and middle candidate layers, climbs steeply in the late layers, dips around layer 34, and reaches every dimension at the final layer. Earlier layers hold useful but sparse features that need selective extraction, the final layers are close to the dense embedding interface and keep most of their dimensions, and the dip shows that a high layer index alone is no guarantee: some late layers carry more redundant information than their neighbors.</p>
-    <p>The fusion head then combines the masked layers. Aligned layers contribute their masked readout directly; less aligned layers are first passed through the projection learned by their probe. The head learns a weight for every dimension of every layer and a global bias, and sums the weighted layers into one embedding of the backbone's original dimensionality. It is trained with the same InfoNCE objective between the fused text and image embeddings. At retrieval time, queries and documents are encoded this way and ranked by inner product exactly as before.</p>
-  </section>
-
-  <section aria-labelledby="results">
-    <h2 id="results">What we find</h2>
-    <h3 id="quality">Retrieval quality on ViDoRe</h3>
-    <p>Jina supports both dense retrieval and late interaction, so it allows a direct comparison of the two modes and MINER on one backbone; Eager is a dense retriever with an end-of-sequence readout; MoCa is a stronger bidirectional embedding model with a pooling readout. For each backbone we train MINER only on that backbone's own training data, so any gain comes from using its internal representations better, with no new supervision; the adaptive masks use the matching validation set. The probes take 11 to 17 hours on two RTX 4090 GPUs and the fusion head 5 to 8 hours on one, depending on the backbone.</p>
-    <p>We evaluate on the three ViDoRe suites with their default metrics, nDCG@5 for V1 and V2 and nDCG@10 for V3, and treat V2 as the primary benchmark because V1 has become saturated and V3 is new, with few established baselines. Single-vector baselines are the models under 5B parameters on the official ViDoRe leaderboard, and the late-interaction baselines are the strongest model from each ViDoRe backbone family. Significance is a paired t-test over per-query scores between MINER and its backbone at the 0.05 level.</p>
-    <figure class="figure-wide" id="v2-table">
-      <div class="table-scroll" tabindex="0" role="region" aria-label="ViDoRe V2 results, scroll horizontally on narrow screens">
-        <table>
-          <thead>
-            <tr><th scope="col">Model</th><th scope="col">Size</th><th scope="col">Bio</th><th scope="col">Econ</th><th scope="col">ESG-Human</th><th scope="col">ESG-Syn</th><th scope="col">Avg.</th></tr>
-          </thead>
-          <tbody>
-            <tr class="table-section"><th colspan="7">Late interaction (multi-vector)</th></tr>
-            <tr><th scope="row">ColPali</th><td class="table-label">3B</td><td>54.6</td><td>48.6</td><td>58.5</td><td>54.9</td><td>54.2</td></tr>
-            <tr><th scope="row">ColQwen2</th><td class="table-label">2B</td><td>56.3</td><td>50.6</td><td>60.4</td><td>52.5</td><td>55.0</td></tr>
-            <tr><th scope="row">ColQwen2.5</th><td class="table-label">3B</td><td>59.2</td><td>53.3</td><td>66.4</td><td>58.3</td><td>59.3</td></tr>
-            <tr><th scope="row">Jina (late interaction)</th><td class="table-label">4B</td><td>60.9</td><td>51.9</td><td>65.1</td><td>52.5</td><td>57.6</td></tr>
-            <tr class="table-section"><th colspan="7">Dense single-vector</th></tr>
-            <tr><th scope="row">SigLIP</th><td class="table-label">877M</td><td>27.7</td><td>18.6</td><td>44.5</td><td>35.0</td><td>31.4</td></tr>
-            <tr><th scope="row">VLM2Vec</th><td class="table-label">4B</td><td>33.2</td><td>23.3</td><td>36.3</td><td>27.8</td><td>30.1</td></tr>
-            <tr><th scope="row">Jina</th><td class="table-label">4B</td><td>58.5</td><td>55.1</td><td>54.8</td><td>44.8</td><td>53.3</td></tr>
-            <tr><th scope="row">Eager</th><td class="table-label">4B</td><td>63.4</td><td>56.6</td><td>51.7</td><td>52.2</td><td>56.0</td></tr>
-            <tr><th scope="row">MoCa</th><td class="table-label">3B</td><td>59.7</td><td>57.0</td><td>63.5</td><td>53.1</td><td>58.3</td></tr>
-            <tr class="table-section"><th colspan="7">Dense single-vector with MINER</th></tr>
-            <tr><th scope="row">MINER-Jina</th><td class="table-label">4B</td><td class="ours">58.6<span class="delta">+0.2%</span></td><td class="ours">56.8<span class="delta">+3.1%*</span></td><td class="ours">56.8<span class="delta">+3.7%</span></td><td class="ours">48.7<span class="delta">+8.7%*</span></td><td class="ours">55.2<span class="delta">+3.6%*</span></td></tr>
-            <tr><th scope="row">MINER-Eager</th><td class="table-label">4B</td><td class="ours">64.1<span class="delta">+1.1%*</span></td><td class="ours">57.8<span class="delta">+2.1%</span></td><td class="ours">59.1<span class="delta">+14.3%*</span></td><td class="ours">52.9<span class="delta">+1.4%</span></td><td class="ours">58.5<span class="delta">+4.5%*</span></td></tr>
-            <tr><th scope="row">MINER-MoCa</th><td class="table-label">3B</td><td class="ours">59.2<span class="delta">−0.8%</span></td><td class="ours">59.6<span class="delta">+4.6%*</span></td><td class="ours">64.8<span class="delta">+2.1%</span></td><td class="ours">52.9<span class="delta">−0.4%</span></td><td class="ours">59.1<span class="delta">+1.4%</span></td></tr>
-          </tbody>
-        </table>
-      </div>
-      <figcaption><span class="figure-number">Table 1.</span> nDCG@5 on ViDoRe V2. The small percentages are the relative change of each MINER model over its own backbone, and an asterisk marks a statistically significant change. Values are from <a href="https://arxiv.org/html/2605.06460v1#S5.T1">Table 1 of the paper</a>.</figcaption>
-    </figure>
-    <p>MINER improves all three backbones on average. It lifts Jina from 53.3 to 55.2, a relative gain of 3.6%, and Eager from 56.0 to 58.5, a gain of 4.5%, both significant. MoCa moves from 58.3 to 59.1, a gain that is not significant at the default hyperparameters; the paper's sensitivity analysis finds sparsity floors at which it is, which suggests that the best hyperparameter regime differs between backbones. The gains are not uniform across subsets: Econ and ESG-Human improve for every backbone, while Bio and ESG-Syn move slightly down for MoCa. Against the late-interaction models, MINER-MoCa's 59.1 sits 0.2 below the best of them, ColQwen2.5 at 59.3, and MINER-Jina closes almost half of the gap between dense Jina and Jina's own late-interaction mode.</p>
-    <figure class="figure-compact" id="v1v3-table">
-      <div class="table-scroll" tabindex="0" role="region" aria-label="ViDoRe V1 and V3 averages, scroll horizontally on narrow screens">
-        <table class="table-narrow">
-          <thead>
-            <tr><th rowspan="2" scope="col">Backbone</th><th colspan="2" scope="colgroup">ViDoRe V1 (nDCG@5)</th><th colspan="2" scope="colgroup" class="table-group">ViDoRe V3 (nDCG@10)</th></tr>
-            <tr><th scope="col">Dense</th><th scope="col">MINER</th><th scope="col" class="table-group">Dense</th><th scope="col">MINER</th></tr>
-          </thead>
-          <tbody>
-            <tr><th scope="row">Jina</th><td>84.3</td><td class="ours">84.4</td><td class="table-group">49.0</td><td class="ours">49.7*</td></tr>
-            <tr><th scope="row">Eager</th><td>82.5</td><td class="ours">84.8*</td><td class="table-group">47.6</td><td class="ours">48.8*</td></tr>
-            <tr><th scope="row">MoCa</th><td>85.7</td><td class="ours">85.6</td><td class="table-group">49.1</td><td class="ours">49.5*</td></tr>
-          </tbody>
-        </table>
-      </div>
-      <figcaption><span class="figure-number">Table 2.</span> Average scores on ViDoRe V1 and V3 for each dense backbone and its MINER version. An asterisk marks a significant improvement. Per-subset results are in the paper's appendix.</figcaption>
-    </figure>
-    <p>The other two suites point the same way (Table 2). On V3, MINER improves all three backbones significantly, and MINER-Jina has the best average of any single-vector retriever in the comparison. On V1, where many subsets are saturated, MINER-Eager rises from 82.5 to 84.8 while MINER-Jina and MINER-MoCa stay within a tenth of a point of their already strong backbones.</p>
-
-    <h3 id="efficiency">Storage and latency</h3>
-    <p>The point of staying single-vector is efficiency, so we measure it. Using Qdrant as the vector database, we index the full corpus of each ViDoRe V2 subset and record the average query response time and the index size. Figure 4 compares dense Jina, Jina's late-interaction mode and MINER-Jina on the same backbone.</p>
-    <figure class="figure-wide" id="efficiency-figure">
-      <a href="../assets/papers/miner/561468db73-jina_ndcg5_response_time_storage_combined_v2.svg" aria-label="Open the efficiency figure at full size">
-        <img src="../assets/papers/miner/561468db73-jina_ndcg5_response_time_storage_combined_v2.svg" width="1159" height="450" alt="Two scatter plots of average nDCG@5 against query response time and against index storage on a log scale. Dense Jina and MINER sit at the same low cost, with MINER 1.9 points higher; Jina late interaction is 2.4 points above MINER at about five times the latency and 42 times the storage." loading="lazy" decoding="async">
-      </a>
-      <figcaption><span class="figure-number">Figure 4.</span> Retrieval quality against (a) query response time and (b) index storage on ViDoRe V2 with the Jina backbone, for dense retrieval, late interaction and MINER.</figcaption>
-    </figure>
-    <p>MINER produces one embedding per query and per document with the same dimensionality as the dense backbone, so its index is byte for byte the same size and its search complexity is unchanged. The only added work is computing the fused query embedding, which raises response time by 7%, while nDCG@5 rises by 1.9 points. Against late interaction, MINER answers queries 5.3 times faster and needs over 40 times less index storage, at a cost of 2.4 points. Per subset, the quality gain over dense Jina holds on every V2 dataset, from 0.1 points on Bio to 3.9 on ESG-Syn, so the aggregate improvement is not carried by a single dataset.</p>
-    <figure class="figure-compact" id="efficiency-table">
-      <div class="table-scroll" tabindex="0" role="region" aria-label="Efficiency averages, scroll horizontally on narrow screens">
-        <table class="table-narrow">
-          <thead>
-            <tr><th scope="col">Jina mode</th><th scope="col">Queries / s</th><th scope="col">Index (MB)</th><th scope="col">nDCG@5</th></tr>
-          </thead>
-          <tbody>
-            <tr><th scope="row">Dense</th><td>15.41</td><td>22.24</td><td>53.3</td></tr>
-            <tr><th scope="row">Late interaction</th><td>2.75</td><td>943.38</td><td>57.6</td></tr>
-            <tr><th scope="row">MINER</th><td class="ours">14.36</td><td class="ours">22.24</td><td class="ours">55.2</td></tr>
-          </tbody>
-        </table>
-      </div>
-      <figcaption><span class="figure-number">Table 3.</span> Averages over the four ViDoRe V2 subsets for the Jina backbone, measured with Qdrant.</figcaption>
-    </figure>
-
-    <h3 id="ablation">Which parts matter</h3>
-    <p>We remove MINER's components one at a time on ViDoRe V2 (Table 4). All Neurons trains the fusion head over every dimension of the selected layers, with no probing or masking. All Base drops the alignment-ratio split and treats every layer as aligned, using Base Probes and their masks throughout. All Norm drops the split in the other direction and applies the Normalized Projection Probe to every layer. All variants share the frozen backbone, the selected layers and the training data of the full model.</p>
-    <figure class="figure-compact" id="ablation-table">
-      <div class="table-scroll" tabindex="0" role="region" aria-label="Ablation results, scroll horizontally on narrow screens">
-        <table class="table-narrow">
-          <thead>
-            <tr><th scope="col">Backbone</th><th scope="col">Dense</th><th scope="col">All Neurons</th><th scope="col">All Base</th><th scope="col">All Norm</th><th scope="col">MINER</th></tr>
-          </thead>
-          <tbody>
-            <tr><th scope="row">Jina</th><td>53.3</td><td>54.6</td><td>54.9</td><td>50.0</td><td class="ours">55.2</td></tr>
-            <tr><th scope="row">Eager</th><td>56.0</td><td>57.1</td><td>57.4</td><td>53.1</td><td class="ours">58.5</td></tr>
-            <tr><th scope="row">MoCa</th><td>58.3</td><td>58.4</td><td>58.4</td><td>56.0</td><td class="ours">59.1</td></tr>
-          </tbody>
-        </table>
-      </div>
-      <figcaption><span class="figure-number">Table 4.</span> Average nDCG@5 on ViDoRe V2 for the dense backbone, three ablated variants and the full MINER.</figcaption>
-    </figure>
-    <p>Fusing all dimensions of the selected layers already beats the dense baseline for every backbone, which confirms that the internal layers carry retrieval signal. It also falls short of the full model every time, so the gains do not come from fusion alone. The two probing variants show why the split matters: treating every layer as aligned loses a little, and treating every layer as misaligned loses a lot. The normalized projection helps the layers that need realignment and distorts the ones that were already aligned.</p>
-
-    <h3 id="sensitivity">Sensitivity to the two main hyperparameters</h3>
-    <figure class="figure-wide" id="sensitivity-figure">
-      <a href="../assets/papers/miner/3b7f865011-sensitivity_check_jina_percent_change_panel_narrow.svg" aria-label="Open the sensitivity figure at full size">
-        <img src="../assets/papers/miner/3b7f865011-sensitivity_check_jina_percent_change_panel_narrow.svg" width="799" height="192" alt="Two line plots of MINER-Jina nDCG@5 as a percentage of the default. Left: CKA cutoffs from 0.5 to 0.7 stay between 99 and 100 percent. Right: sparsity floors from 0.1 to 0.3 stay within 0.2 percent of 100." loading="lazy" decoding="async">
-      </a>
-      <figcaption><span class="figure-number">Figure 5.</span> MINER-Jina on ViDoRe V2 as the CKA cutoff (a) and the sparsity floor (b) vary, as a percentage of the default configuration (cutoff 0.6, floor 0.2, nDCG@5 of 55.2).</figcaption>
-    </figure>
-    <p>Two choices could in principle be fragile: the CKA cutoff that selects the candidate layers and the floor on how many dimensions each layer keeps. Figure 5 varies both for MINER-Jina. Raising the cutoff from 0.5 to 0.7 shrinks Jina's candidate set from layers 12 through 36 to layers 28 through 36, yet nDCG@5 stays within 1% of the default. Floors from 0.1 to 0.3 change it by less than 0.2%. Eager and MoCa show the same flat profiles.</p>
-  </section>
-
-  <section aria-labelledby="discussion">
-    <h2 id="discussion">Discussion</h2>
-    <p>A dense retriever's final embedding is not the whole of what the model knows about a page. Reading the intermediate layers through small probes, keeping their most useful dimensions and fusing them into a vector of the original size improves dense visual document retrieval across three backbones and three benchmark suites, and it does so without changing the index or the search procedure. The layerwise diagnostic that guides MINER uses normalized CKA to choose layers and the alignment ratio to decide how to treat each one.</p>
-    <p>The evaluation has a deliberate limit. MINER needs access to a model's hidden states, and our protocol trains it only on the backbone's own training data so that the gains can be attributed to internal representations. We therefore do not evaluate closed-source models, or open-weight models whose training data is not fully disclosed, such as Qwen3-VL-Embedding-8B. Where hidden states and suitable training data are available, the module applies without modifying the backbone. Future work includes stronger multimodal backbones, broader retrieval domains, settings with limited training data, and more automatic ways to choose layers, probes and sparsity levels. The <a href="https://arxiv.org/abs/2605.06460">full paper</a> contains the formal definitions, per-subset results for all three suites, training details and the additional analyses.</p>
-  </section>
-</main>
-
-</body>
-</html>
+<figure class="figure-wide retrieval-comparison" id="retrieval-overview" aria-label="An illustrative document search and three ways to encode and compare queries with pages">
+  <div class="retrieval-example">
+    <div class="example-query"><span class="example-label">Query</span><p>How fast is solar power growing?</p><svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="10" cy="10" r="6.5"/><path d="m15 15 6 6"/></svg></div>
+    <div class="example-corpus"><span class="example-label">Document pages</span><div class="example-pages"><svg viewBox="0 0 84 110" role="img" aria-label="Illustrative energy report page">
+      <rect x="1" y="1" width="82" height="108" rx="3" class="page-sheet"/>
+      <text x="11" y="20" class="page-title">Energy</text>
+      <path d="M11 29h52M11 88h60M11 94h46M11 100h56" class="page-rule"/>
+      <path d="M13 75h57" class="page-rule"/><rect x="16" y="59" width="7" height="14" rx="1" class="page-chart"/><rect x="28" y="51" width="7" height="22" rx="1" class="page-chart"/><rect x="40" y="43" width="7" height="30" rx="1" class="page-chart"/><rect x="52" y="33" width="7" height="40" rx="1" class="page-chart"/></svg><svg viewBox="0 0 84 110" role="img" aria-label="Illustrative mobility report page">
+      <rect x="1" y="1" width="82" height="108" rx="3" class="page-sheet"/>
+      <text x="11" y="20" class="page-title">Mobility</text>
+      <path d="M11 29h52M11 88h60M11 94h46M11 100h56" class="page-rule"/>
+      <path d="M13 45h57M13 60h57M13 75h57" class="page-rule"/><path d="M14 68L28 50L41 59L55 43L69 47" class="page-plot"/></svg><svg viewBox="0 0 84 110" role="img" aria-label="Illustrative water report page">
+      <rect x="1" y="1" width="82" height="108" rx="3" class="page-sheet"/>
+      <text x="11" y="20" class="page-title">Water</text>
+      <path d="M11 29h52M11 88h60M11 94h46M11 100h56" class="page-rule"/>
+      <circle cx="41" cy="57" r="18" class="page-donut"/><path d="M41 39A18 18 0 0 1 59 57" class="page-donut-accent"/></svg></div></div>
+  </div>
+  <div class="retrieval-column-head" aria-hidden="true"><span>Encode each input separately</span><span>Match and rank pages</span></div>
+  <div class="retrieval-route dense-route" role="group" aria-labelledby="route-dense" aria-describedby="route-dense-description">
+      <div class="retrieval-route-heading"><h3 id="route-dense">Dense retrieval</h3><span class="retrieval-budget">1 vector / page</span></div>
+      <div class="retrieval-mechanism"><div class="retrieval-model"><svg viewBox="0 0 240 96" aria-hidden="true"><path d="M9 44H151" class="model-flow"/><rect x="12" y="18" width="18" height="52" rx="3" class="model-layer"/><circle cx="21" cy="29" r="3.3" class="muted-neuron"/><circle cx="21" cy="44" r="3.3" class="muted-neuron"/><circle cx="21" cy="59" r="3.3" class="muted-neuron"/><rect x="40" y="18" width="18" height="52" rx="3" class="model-layer"/><circle cx="49" cy="29" r="3.3" class="muted-neuron"/><circle cx="49" cy="44" r="3.3" class="muted-neuron"/><circle cx="49" cy="59" r="3.3" class="muted-neuron"/><rect x="68" y="18" width="18" height="52" rx="3" class="model-layer"/><circle cx="77" cy="29" r="3.3" class="muted-neuron"/><circle cx="77" cy="44" r="3.3" class="muted-neuron"/><circle cx="77" cy="59" r="3.3" class="muted-neuron"/><rect x="96" y="18" width="18" height="52" rx="3" class="model-layer"/><circle cx="105" cy="29" r="3.3" class="muted-neuron"/><circle cx="105" cy="44" r="3.3" class="muted-neuron"/><circle cx="105" cy="59" r="3.3" class="muted-neuron"/><rect x="124" y="18" width="18" height="52" rx="3" class="model-layer"/><circle cx="133" cy="29" r="3.3" class="selected-neuron"/><circle cx="133" cy="44" r="3.3" class="selected-neuron"/><circle cx="133" cy="59" r="3.3" class="selected-neuron"/><path d="M139 44H228m-5-4 5 4-5 4" class="output-arrow"/><text x="120" y="91" class="diagram-label" text-anchor="middle">Read the final layer</text></svg></div><div class="retrieval-matching"><svg viewBox="0 0 260 96" aria-hidden="true"><text x="44" y="15" class="diagram-label" text-anchor="middle">Query</text><text x="216" y="15" class="diagram-label" text-anchor="middle">Page</text><path d="M85 48H175" class="single-match"/><circle cx="130" cy="48" r="3" class="selected-neuron"/><rect x="5" y="40" width="8" height="16" rx="1" class="vector-cell" opacity="0.3"/><rect x="15" y="40" width="8" height="16" rx="1" class="vector-cell" opacity="0.65"/><rect x="25" y="40" width="8" height="16" rx="1" class="vector-cell" opacity="0.4"/><rect x="35" y="40" width="8" height="16" rx="1" class="vector-cell" opacity="0.9"/><rect x="45" y="40" width="8" height="16" rx="1" class="vector-cell" opacity="0.5"/><rect x="55" y="40" width="8" height="16" rx="1" class="vector-cell" opacity="0.75"/><rect x="65" y="40" width="8" height="16" rx="1" class="vector-cell" opacity="0.35"/><rect x="75" y="40" width="8" height="16" rx="1" class="vector-cell" opacity="0.85"/><rect x="177" y="40" width="8" height="16" rx="1" class="vector-cell" opacity="0.4"/><rect x="187" y="40" width="8" height="16" rx="1" class="vector-cell" opacity="0.9"/><rect x="197" y="40" width="8" height="16" rx="1" class="vector-cell" opacity="0.5"/><rect x="207" y="40" width="8" height="16" rx="1" class="vector-cell" opacity="0.75"/><rect x="217" y="40" width="8" height="16" rx="1" class="vector-cell" opacity="0.35"/><rect x="227" y="40" width="8" height="16" rx="1" class="vector-cell" opacity="0.85"/><rect x="237" y="40" width="8" height="16" rx="1" class="vector-cell" opacity="0.3"/><rect x="247" y="40" width="8" height="16" rx="1" class="vector-cell" opacity="0.65"/><text x="130" y="91" class="diagram-label" text-anchor="middle">Compare two vectors</text></svg></div></div>
+      <span class="diagram-sr-only" id="route-dense-description">Each query and page is encoded separately into one final-layer embedding. Their similarity determines the page’s retrieval score.</span>
+    </div><div class="retrieval-route late-route" role="group" aria-labelledby="route-late" aria-describedby="route-late-description">
+      <div class="retrieval-route-heading"><h3 id="route-late">Late interaction</h3><span class="retrieval-budget">Many vectors / page</span></div>
+      <div class="retrieval-mechanism"><div class="retrieval-model"><svg viewBox="0 0 240 96" aria-hidden="true"><path d="M9 44H151" class="model-flow"/><rect x="12" y="18" width="18" height="52" rx="3" class="model-layer"/><circle cx="21" cy="29" r="3.3" class="muted-neuron"/><circle cx="21" cy="44" r="3.3" class="muted-neuron"/><circle cx="21" cy="59" r="3.3" class="muted-neuron"/><rect x="40" y="18" width="18" height="52" rx="3" class="model-layer"/><circle cx="49" cy="29" r="3.3" class="muted-neuron"/><circle cx="49" cy="44" r="3.3" class="muted-neuron"/><circle cx="49" cy="59" r="3.3" class="muted-neuron"/><rect x="68" y="18" width="18" height="52" rx="3" class="model-layer"/><circle cx="77" cy="29" r="3.3" class="muted-neuron"/><circle cx="77" cy="44" r="3.3" class="muted-neuron"/><circle cx="77" cy="59" r="3.3" class="muted-neuron"/><rect x="96" y="18" width="18" height="52" rx="3" class="model-layer"/><circle cx="105" cy="29" r="3.3" class="muted-neuron"/><circle cx="105" cy="44" r="3.3" class="muted-neuron"/><circle cx="105" cy="59" r="3.3" class="muted-neuron"/><rect x="124" y="18" width="18" height="52" rx="3" class="model-layer"/><circle cx="133" cy="29" r="3.3" class="selected-neuron"/><circle cx="133" cy="44" r="3.3" class="selected-neuron"/><circle cx="133" cy="59" r="3.3" class="selected-neuron"/><path d="M139 29H228m-5-4 5 4-5 4" class="output-arrow"/><path d="M139 44H228m-5-4 5 4-5 4" class="output-arrow"/><path d="M139 59H228m-5-4 5 4-5 4" class="output-arrow"/><text x="120" y="91" class="diagram-label" text-anchor="middle">Read the final layer</text></svg></div><div class="retrieval-matching"><svg viewBox="0 0 260 96" aria-hidden="true"><text x="44" y="15" class="diagram-label" text-anchor="middle">Query</text><text x="216" y="15" class="diagram-label" text-anchor="middle">Page</text><path d="M85 31.5L175 31.5" class="token-match "/><path d="M85 31.5L175 43.5" class="token-match strong-match"/><path d="M85 31.5L175 55.5" class="token-match "/><path d="M85 31.5L175 67.5" class="token-match "/><path d="M85 43.5L175 31.5" class="token-match strong-match"/><path d="M85 43.5L175 43.5" class="token-match "/><path d="M85 43.5L175 55.5" class="token-match "/><path d="M85 43.5L175 67.5" class="token-match "/><path d="M85 55.5L175 31.5" class="token-match "/><path d="M85 55.5L175 43.5" class="token-match "/><path d="M85 55.5L175 55.5" class="token-match "/><path d="M85 55.5L175 67.5" class="token-match strong-match"/><path d="M85 67.5L175 31.5" class="token-match "/><path d="M85 67.5L175 43.5" class="token-match "/><path d="M85 67.5L175 55.5" class="token-match strong-match"/><path d="M85 67.5L175 67.5" class="token-match "/><rect x="5" y="28" width="8" height="7" rx="1" class="vector-cell" opacity="0.3"/><rect x="15" y="28" width="8" height="7" rx="1" class="vector-cell" opacity="0.65"/><rect x="25" y="28" width="8" height="7" rx="1" class="vector-cell" opacity="0.4"/><rect x="35" y="28" width="8" height="7" rx="1" class="vector-cell" opacity="0.9"/><rect x="45" y="28" width="8" height="7" rx="1" class="vector-cell" opacity="0.5"/><rect x="55" y="28" width="8" height="7" rx="1" class="vector-cell" opacity="0.75"/><rect x="65" y="28" width="8" height="7" rx="1" class="vector-cell" opacity="0.35"/><rect x="75" y="28" width="8" height="7" rx="1" class="vector-cell" opacity="0.85"/><rect x="5" y="40" width="8" height="7" rx="1" class="vector-cell" opacity="0.65"/><rect x="15" y="40" width="8" height="7" rx="1" class="vector-cell" opacity="0.4"/><rect x="25" y="40" width="8" height="7" rx="1" class="vector-cell" opacity="0.9"/><rect x="35" y="40" width="8" height="7" rx="1" class="vector-cell" opacity="0.5"/><rect x="45" y="40" width="8" height="7" rx="1" class="vector-cell" opacity="0.75"/><rect x="55" y="40" width="8" height="7" rx="1" class="vector-cell" opacity="0.35"/><rect x="65" y="40" width="8" height="7" rx="1" class="vector-cell" opacity="0.85"/><rect x="75" y="40" width="8" height="7" rx="1" class="vector-cell" opacity="0.3"/><rect x="5" y="52" width="8" height="7" rx="1" class="vector-cell" opacity="0.4"/><rect x="15" y="52" width="8" height="7" rx="1" class="vector-cell" opacity="0.9"/><rect x="25" y="52" width="8" height="7" rx="1" class="vector-cell" opacity="0.5"/><rect x="35" y="52" width="8" height="7" rx="1" class="vector-cell" opacity="0.75"/><rect x="45" y="52" width="8" height="7" rx="1" class="vector-cell" opacity="0.35"/><rect x="55" y="52" width="8" height="7" rx="1" class="vector-cell" opacity="0.85"/><rect x="65" y="52" width="8" height="7" rx="1" class="vector-cell" opacity="0.3"/><rect x="75" y="52" width="8" height="7" rx="1" class="vector-cell" opacity="0.65"/><rect x="5" y="64" width="8" height="7" rx="1" class="vector-cell" opacity="0.9"/><rect x="15" y="64" width="8" height="7" rx="1" class="vector-cell" opacity="0.5"/><rect x="25" y="64" width="8" height="7" rx="1" class="vector-cell" opacity="0.75"/><rect x="35" y="64" width="8" height="7" rx="1" class="vector-cell" opacity="0.35"/><rect x="45" y="64" width="8" height="7" rx="1" class="vector-cell" opacity="0.85"/><rect x="55" y="64" width="8" height="7" rx="1" class="vector-cell" opacity="0.3"/><rect x="65" y="64" width="8" height="7" rx="1" class="vector-cell" opacity="0.65"/><rect x="75" y="64" width="8" height="7" rx="1" class="vector-cell" opacity="0.4"/><rect x="177" y="28" width="8" height="7" rx="1" class="vector-cell" opacity="0.4"/><rect x="187" y="28" width="8" height="7" rx="1" class="vector-cell" opacity="0.9"/><rect x="197" y="28" width="8" height="7" rx="1" class="vector-cell" opacity="0.5"/><rect x="207" y="28" width="8" height="7" rx="1" class="vector-cell" opacity="0.75"/><rect x="217" y="28" width="8" height="7" rx="1" class="vector-cell" opacity="0.35"/><rect x="227" y="28" width="8" height="7" rx="1" class="vector-cell" opacity="0.85"/><rect x="237" y="28" width="8" height="7" rx="1" class="vector-cell" opacity="0.3"/><rect x="247" y="28" width="8" height="7" rx="1" class="vector-cell" opacity="0.65"/><rect x="177" y="40" width="8" height="7" rx="1" class="vector-cell" opacity="0.9"/><rect x="187" y="40" width="8" height="7" rx="1" class="vector-cell" opacity="0.5"/><rect x="197" y="40" width="8" height="7" rx="1" class="vector-cell" opacity="0.75"/><rect x="207" y="40" width="8" height="7" rx="1" class="vector-cell" opacity="0.35"/><rect x="217" y="40" width="8" height="7" rx="1" class="vector-cell" opacity="0.85"/><rect x="227" y="40" width="8" height="7" rx="1" class="vector-cell" opacity="0.3"/><rect x="237" y="40" width="8" height="7" rx="1" class="vector-cell" opacity="0.65"/><rect x="247" y="40" width="8" height="7" rx="1" class="vector-cell" opacity="0.4"/><rect x="177" y="52" width="8" height="7" rx="1" class="vector-cell" opacity="0.5"/><rect x="187" y="52" width="8" height="7" rx="1" class="vector-cell" opacity="0.75"/><rect x="197" y="52" width="8" height="7" rx="1" class="vector-cell" opacity="0.35"/><rect x="207" y="52" width="8" height="7" rx="1" class="vector-cell" opacity="0.85"/><rect x="217" y="52" width="8" height="7" rx="1" class="vector-cell" opacity="0.3"/><rect x="227" y="52" width="8" height="7" rx="1" class="vector-cell" opacity="0.65"/><rect x="237" y="52" width="8" height="7" rx="1" class="vector-cell" opacity="0.4"/><rect x="247" y="52" width="8" height="7" rx="1" class="vector-cell" opacity="0.9"/><rect x="177" y="64" width="8" height="7" rx="1" class="vector-cell" opacity="0.75"/><rect x="187" y="64" width="8" height="7" rx="1" class="vector-cell" opacity="0.35"/><rect x="197" y="64" width="8" height="7" rx="1" class="vector-cell" opacity="0.85"/><rect x="207" y="64" width="8" height="7" rx="1" class="vector-cell" opacity="0.3"/><rect x="217" y="64" width="8" height="7" rx="1" class="vector-cell" opacity="0.65"/><rect x="227" y="64" width="8" height="7" rx="1" class="vector-cell" opacity="0.4"/><rect x="237" y="64" width="8" height="7" rx="1" class="vector-cell" opacity="0.9"/><rect x="247" y="64" width="8" height="7" rx="1" class="vector-cell" opacity="0.5"/><text x="130" y="91" class="diagram-label" text-anchor="middle">Match many token vectors</text></svg></div></div>
+      <span class="diagram-sr-only" id="route-late-description">Each query and page is represented by many token vectors. Fine-grained token matches determine the page’s retrieval score.</span>
+    </div><div class="retrieval-route miner-route" role="group" aria-labelledby="route-miner" aria-describedby="route-miner-description">
+      <div class="retrieval-route-heading"><h3 id="route-miner">MINER</h3><span class="retrieval-budget">1 vector / page</span></div>
+      <div class="retrieval-mechanism"><div class="retrieval-model"><svg viewBox="0 0 240 96" aria-hidden="true"><path d="M9 44H151" class="model-flow"/><rect x="12" y="18" width="18" height="52" rx="3" class="model-layer"/><circle cx="21" cy="29" r="3.3" class="muted-neuron"/><circle cx="21" cy="44" r="3.3" class="selected-neuron"/><circle cx="21" cy="59" r="3.3" class="muted-neuron"/><path d="M24 44C36 44,174 44,184 44" class="readout-link"/><rect x="40" y="18" width="18" height="52" rx="3" class="model-layer"/><circle cx="49" cy="29" r="3.3" class="muted-neuron"/><circle cx="49" cy="44" r="3.3" class="muted-neuron"/><circle cx="49" cy="59" r="3.3" class="selected-neuron"/><path d="M52 59C64 59,174 44,184 44" class="readout-link"/><rect x="68" y="18" width="18" height="52" rx="3" class="model-layer"/><circle cx="77" cy="29" r="3.3" class="selected-neuron"/><circle cx="77" cy="44" r="3.3" class="muted-neuron"/><circle cx="77" cy="59" r="3.3" class="muted-neuron"/><path d="M80 29C92 29,174 44,184 44" class="readout-link"/><rect x="96" y="18" width="18" height="52" rx="3" class="model-layer"/><circle cx="105" cy="29" r="3.3" class="muted-neuron"/><circle cx="105" cy="44" r="3.3" class="selected-neuron"/><circle cx="105" cy="59" r="3.3" class="muted-neuron"/><path d="M108 44C120 44,174 44,184 44" class="readout-link"/><rect x="124" y="18" width="18" height="52" rx="3" class="model-layer"/><circle cx="133" cy="29" r="3.3" class="selected-neuron"/><circle cx="133" cy="44" r="3.3" class="muted-neuron"/><circle cx="133" cy="59" r="3.3" class="muted-neuron"/><path d="M136 29C148 29,174 44,184 44" class="readout-link"/><circle cx="191" cy="44" r="8" class="fusion-node"/><path d="M199 44H228m-5-4 5 4-5 4" class="output-arrow"/><text x="120" y="91" class="diagram-label" text-anchor="middle">Select + fuse across layers</text></svg></div><div class="retrieval-matching"><svg viewBox="0 0 260 96" aria-hidden="true"><text x="44" y="15" class="diagram-label" text-anchor="middle">Query</text><text x="216" y="15" class="diagram-label" text-anchor="middle">Page</text><path d="M85 48H175" class="single-match"/><circle cx="130" cy="48" r="3" class="selected-neuron"/><rect x="5" y="40" width="8" height="16" rx="1" class="vector-cell" opacity="0.3"/><rect x="15" y="40" width="8" height="16" rx="1" class="vector-cell" opacity="0.65"/><rect x="25" y="40" width="8" height="16" rx="1" class="vector-cell" opacity="0.4"/><rect x="35" y="40" width="8" height="16" rx="1" class="vector-cell" opacity="0.9"/><rect x="45" y="40" width="8" height="16" rx="1" class="vector-cell" opacity="0.5"/><rect x="55" y="40" width="8" height="16" rx="1" class="vector-cell" opacity="0.75"/><rect x="65" y="40" width="8" height="16" rx="1" class="vector-cell" opacity="0.35"/><rect x="75" y="40" width="8" height="16" rx="1" class="vector-cell" opacity="0.85"/><rect x="177" y="40" width="8" height="16" rx="1" class="vector-cell" opacity="0.4"/><rect x="187" y="40" width="8" height="16" rx="1" class="vector-cell" opacity="0.9"/><rect x="197" y="40" width="8" height="16" rx="1" class="vector-cell" opacity="0.5"/><rect x="207" y="40" width="8" height="16" rx="1" class="vector-cell" opacity="0.75"/><rect x="217" y="40" width="8" height="16" rx="1" class="vector-cell" opacity="0.35"/><rect x="227" y="40" width="8" height="16" rx="1" class="vector-cell" opacity="0.85"/><rect x="237" y="40" width="8" height="16" rx="1" class="vector-cell" opacity="0.3"/><rect x="247" y="40" width="8" height="16" rx="1" class="vector-cell" opacity="0.65"/><text x="130" y="91" class="diagram-label" text-anchor="middle">Compare two vectors</text></svg></div></div>
+      <span class="diagram-sr-only" id="route-miner-description">Each query and page is encoded separately. MINER selects and combines internal representations across layers into one embedding, then uses the same single-vector comparison as dense retrieval.</span>
+    </div>
+</figure>
+<div class="opening-method"><p>MINER probes selected layers of a frozen retriever, keeps their most useful dimensions and combines them into one dense embedding. Queries and document pages both use this readout. The resulting vectors have the same size as the backbone’s original embeddings and are ranked by the same dot-product search.</p></div>
+<ul class="headline-findings" aria-label="Main findings">
+<li><p><strong>Better ranking.</strong> MINER improves all three dense backbones on ViDoRe V2 and V3. On V2, MINER-MoCa reaches 59.1, within 0.2 points of ColQwen2.5, the strongest late-interaction model in the comparison.</p></li>
+<li><p><strong>Faster search.</strong> MINER-Jina answers queries 5.3× faster than Jina’s late-interaction mode. Compared with dense Jina, the added work of combining internal signals increases query latency by about 7%.</p></li>
+<li><p><strong>Smaller index.</strong> MINER-Jina needs 42.4× less index storage than late interaction. Its index occupies exactly the same space as dense Jina, with one vector per page.</p></li>
+</ul>
+<section aria-labelledby="retrieval-budget"><h2 id="retrieval-budget">Better retrieval within a single-vector budget</h2>
+<p>Presentation slides, scanned reports and scientific posters carry information through text, layout and figures together. Visual document retrievers search these pages directly as images. Late-interaction systems preserve local detail by representing each page with many token vectors, sometimes more than a thousand. A dense retriever stores just one, making the index smaller and search faster, but can lose useful information when it compresses everything into the final-layer embedding.</p>
+<p>MINER improves the vector by drawing on information computed inside the retriever. The model’s intermediate layers still contain retrieval-relevant signals that its final embedding does not fully preserve. Reading those signals lets us recover some of the quality gap while retaining single-vector search. Documents and queries are encoded with MINER; the vector dimensions and search procedure stay the same.</p>
+</section>
+<section aria-labelledby="results"><h2 id="results">Better retrieval across three backbones</h2>
+<div class="annotated-block"><p>We evaluate Jina-Embeddings-v4, Eager-Embed-v1 and MoCa-3B on three ViDoRe benchmark suites. For each backbone, MINER uses only that model’s own training data. The gains therefore come from using its internal representations better, without new supervision.<sup class="note-ref"><a id="ref-metric" href="#note-metric" aria-label="Note 1">1</a></sup></p><aside class="sidenote" id="note-metric" role="note" tabindex="-1" aria-label="Note 1"><p><a class="note-number" href="#ref-metric" aria-label="Back to reference 1">1</a> nDCG@5 measures the ranking of relevant pages among the first five results. Gains are relative to each dense backbone. <a href="https://arxiv.org/html/2605.06460v1#S5.T1">Table 1.</a></p></aside></div>
+<figure class="figure-wide benchmark-figure" id="classification-results"><div class="benchmark-toolbar"><div class="benchmark-tabs" role="tablist" aria-label="Retrieval benchmark" hidden><button id="tab-v2" type="button" role="tab" aria-controls="benchmark-v2" aria-selected="false" tabindex="-1">ViDoRe V2</button><button id="tab-v3" type="button" role="tab" aria-controls="benchmark-v3" aria-selected="false" tabindex="-1">ViDoRe V3</button><button id="tab-v1" type="button" role="tab" aria-controls="benchmark-v1" aria-selected="false" tabindex="-1">ViDoRe V1</button></div><div class="chart-legend"><span><i class="legend-base" aria-hidden="true"></i>Dense</span><span><i class="legend-miner" aria-hidden="true"></i>MINER</span></div></div><div class="benchmark-panel" id="benchmark-v2" data-min="50" data-max="60"><div class="benchmark-highlight"><h3 class="benchmark-takeaway">Up to <strong>4.5%</strong> higher nDCG@5</h3></div><div class="comparison-head" aria-hidden="true"><span>Backbone</span><span>ViDoRe V2 · nDCG@5</span><span>Gain (%)</span></div><div class="score-list" role="list" aria-label="ViDoRe V2 results" style="--grid-step:20.000000%"><div class="score-row" role="listitem" data-base="53.3" data-miner="55.2" aria-label="Jina: dense 53.3, MINER 55.2, +3.6% relative change in nDCG@5."><span class="score-model" aria-hidden="true">Jina</span><div class="score-track" aria-hidden="true" style="--base-pos:33.000000%;--miner-pos:52.000000%;--line-start:33.000000%;--line-width:19.000000%"><span class="score-connector"></span><span class="score-point base"><span class="point-value">53.3</span></span><span class="score-point miner"><span class="point-value">55.2</span></span></div><span class="score-gain" aria-hidden="true"><strong>+3.6%</strong></span></div><div class="score-row is-highlight" role="listitem" data-base="56.0" data-miner="58.5" aria-label="Eager: dense 56.0, MINER 58.5, +4.5% relative change in nDCG@5."><span class="score-model" aria-hidden="true">Eager</span><div class="score-track" aria-hidden="true" style="--base-pos:60.000000%;--miner-pos:85.000000%;--line-start:60.000000%;--line-width:25.000000%"><span class="score-connector"></span><span class="score-point base"><span class="point-value">56.0</span></span><span class="score-point miner"><span class="point-value">58.5</span></span></div><span class="score-gain" aria-hidden="true"><strong>+4.5%</strong></span></div><div class="score-row" role="listitem" data-base="58.3" data-miner="59.1" aria-label="MoCa: dense 58.3, MINER 59.1, +1.4% relative change in nDCG@5."><span class="score-model" aria-hidden="true">MoCa</span><div class="score-track" aria-hidden="true" style="--base-pos:83.000000%;--miner-pos:91.000000%;--line-start:83.000000%;--line-width:8.000000%"><span class="score-connector"></span><span class="score-point base"><span class="point-value">58.3</span></span><span class="score-point miner"><span class="point-value">59.1</span></span></div><span class="score-gain" aria-hidden="true"><strong>+1.4%</strong></span></div></div><div class="score-axis" aria-hidden="true"><span style="left:0.000000%">50</span><span style="left:20.000000%">52</span><span style="left:40.000000%">54</span><span style="left:60.000000%">56</span><span style="left:80.000000%">58</span><span style="left:100.000000%">60</span></div></div><div class="benchmark-panel" id="benchmark-v3" data-min="46" data-max="51"><div class="benchmark-highlight"><h3 class="benchmark-takeaway">Up to <strong>2.5%</strong> higher nDCG@10</h3></div><div class="comparison-head" aria-hidden="true"><span>Backbone</span><span>ViDoRe V3 · nDCG@10</span><span>Gain (%)</span></div><div class="score-list" role="list" aria-label="ViDoRe V3 results" style="--grid-step:20.000000%"><div class="score-row" role="listitem" data-base="49.0" data-miner="49.7" aria-label="Jina: dense 49.0, MINER 49.7, +1.4% relative change in nDCG@10."><span class="score-model" aria-hidden="true">Jina</span><div class="score-track" aria-hidden="true" style="--base-pos:60.000000%;--miner-pos:74.000000%;--line-start:60.000000%;--line-width:14.000000%"><span class="score-connector"></span><span class="score-point base"><span class="point-value">49.0</span></span><span class="score-point miner"><span class="point-value">49.7</span></span></div><span class="score-gain" aria-hidden="true"><strong>+1.4%</strong></span></div><div class="score-row is-highlight" role="listitem" data-base="47.6" data-miner="48.8" aria-label="Eager: dense 47.6, MINER 48.8, +2.5% relative change in nDCG@10."><span class="score-model" aria-hidden="true">Eager</span><div class="score-track" aria-hidden="true" style="--base-pos:32.000000%;--miner-pos:56.000000%;--line-start:32.000000%;--line-width:24.000000%"><span class="score-connector"></span><span class="score-point base"><span class="point-value">47.6</span></span><span class="score-point miner"><span class="point-value">48.8</span></span></div><span class="score-gain" aria-hidden="true"><strong>+2.5%</strong></span></div><div class="score-row" role="listitem" data-base="49.1" data-miner="49.5" aria-label="MoCa: dense 49.1, MINER 49.5, +0.8% relative change in nDCG@10."><span class="score-model" aria-hidden="true">MoCa</span><div class="score-track" aria-hidden="true" style="--base-pos:62.000000%;--miner-pos:70.000000%;--line-start:62.000000%;--line-width:8.000000%"><span class="score-connector"></span><span class="score-point base"><span class="point-value">49.1</span></span><span class="score-point miner"><span class="point-value">49.5</span></span></div><span class="score-gain" aria-hidden="true"><strong>+0.8%</strong></span></div></div><div class="score-axis" aria-hidden="true"><span style="left:0.000000%">46</span><span style="left:20.000000%">47</span><span style="left:40.000000%">48</span><span style="left:60.000000%">49</span><span style="left:80.000000%">50</span><span style="left:100.000000%">51</span></div></div><div class="benchmark-panel" id="benchmark-v1" data-min="81" data-max="87"><div class="benchmark-highlight"><h3 class="benchmark-takeaway">Up to <strong>2.8%</strong> higher nDCG@5</h3></div><div class="comparison-head" aria-hidden="true"><span>Backbone</span><span>ViDoRe V1 · nDCG@5</span><span>Gain (%)</span></div><div class="score-list" role="list" aria-label="ViDoRe V1 results" style="--grid-step:16.666667%"><div class="score-row" role="listitem" data-base="84.3" data-miner="84.4" aria-label="Jina: dense 84.3, MINER 84.4, +0.1% relative change in nDCG@5."><span class="score-model" aria-hidden="true">Jina</span><div class="score-track" aria-hidden="true" style="--base-pos:55.000000%;--miner-pos:56.666667%;--line-start:55.000000%;--line-width:1.666667%"><span class="score-connector"></span><span class="score-point base"><span class="point-value">84.3</span></span><span class="score-point miner"><span class="point-value">84.4</span></span></div><span class="score-gain" aria-hidden="true"><strong>+0.1%</strong></span></div><div class="score-row is-highlight" role="listitem" data-base="82.5" data-miner="84.8" aria-label="Eager: dense 82.5, MINER 84.8, +2.8% relative change in nDCG@5."><span class="score-model" aria-hidden="true">Eager</span><div class="score-track" aria-hidden="true" style="--base-pos:25.000000%;--miner-pos:63.333333%;--line-start:25.000000%;--line-width:38.333333%"><span class="score-connector"></span><span class="score-point base"><span class="point-value">82.5</span></span><span class="score-point miner"><span class="point-value">84.8</span></span></div><span class="score-gain" aria-hidden="true"><strong>+2.8%</strong></span></div><div class="score-row is-negative" role="listitem" data-base="85.7" data-miner="85.6" aria-label="MoCa: dense 85.7, MINER 85.6, -0.1% relative change in nDCG@5."><span class="score-model" aria-hidden="true">MoCa</span><div class="score-track" aria-hidden="true" style="--base-pos:78.333333%;--miner-pos:76.666667%;--line-start:76.666667%;--line-width:1.666667%"><span class="score-connector"></span><span class="score-point base"><span class="point-value">85.7</span></span><span class="score-point miner"><span class="point-value">85.6</span></span></div><span class="score-gain" aria-hidden="true"><strong>-0.1%</strong></span></div></div><div class="score-axis" aria-hidden="true"><span style="left:0.000000%">81</span><span style="left:16.666667%">82</span><span style="left:33.333333%">83</span><span style="left:50.000000%">84</span><span style="left:66.666667%">85</span><span style="left:83.333333%">86</span><span style="left:100.000000%">87</span></div></div></figure>
+<p>On ViDoRe V2, Eager gains 4.5% and Jina gains 3.6% relative to their dense baselines. MINER-MoCa reaches 59.1, close to ColQwen2.5’s 59.3 while retaining a single vector. Jina’s two retrieval modes also allow a comparison on the same backbone: MINER raises its dense score from 53.3 to 55.2, recovering 44% of the gap to late interaction at 57.6.</p>
+<details class="result-details"><summary>Full benchmark results and evaluation details</summary>
+<p>ViDoRe V2 is the primary benchmark. V1 and V2 report nDCG@5; V3 reports nDCG@10. Scores are shown on a 0–100 scale. The relative gains in the chart compare MINER with its own backbone. An asterisk in the tables marks a significant change under a paired test over per-query scores (p &lt; 0.05).</p>
+<figure class="figure-wide" id="v2-table">
+<div aria-label="ViDoRe V2 results, scroll horizontally on narrow screens" class="table-scroll" role="region" tabindex="0">
+<table>
+<thead>
+<tr><th scope="col">Model</th><th scope="col">Size</th><th scope="col">Bio</th><th scope="col">Econ</th><th scope="col">ESG-Human</th><th scope="col">ESG-Syn</th><th scope="col">Avg.</th></tr>
+</thead>
+<tbody>
+<tr class="table-section"><th colspan="7">Late interaction (multi-vector)</th></tr>
+<tr><th scope="row">ColPali</th><td class="table-label">3B</td><td>54.6</td><td>48.6</td><td>58.5</td><td>54.9</td><td>54.2</td></tr>
+<tr><th scope="row">ColQwen2</th><td class="table-label">2B</td><td>56.3</td><td>50.6</td><td>60.4</td><td>52.5</td><td>55.0</td></tr>
+<tr><th scope="row">ColQwen2.5</th><td class="table-label">3B</td><td>59.2</td><td>53.3</td><td>66.4</td><td>58.3</td><td>59.3</td></tr>
+<tr><th scope="row">Jina (late interaction)</th><td class="table-label">4B</td><td>60.9</td><td>51.9</td><td>65.1</td><td>52.5</td><td>57.6</td></tr>
+<tr class="table-section"><th colspan="7">Dense single-vector</th></tr>
+<tr><th scope="row">SigLIP</th><td class="table-label">877M</td><td>27.7</td><td>18.6</td><td>44.5</td><td>35.0</td><td>31.4</td></tr>
+<tr><th scope="row">VLM2Vec</th><td class="table-label">4B</td><td>33.2</td><td>23.3</td><td>36.3</td><td>27.8</td><td>30.1</td></tr>
+<tr><th scope="row">Jina</th><td class="table-label">4B</td><td>58.5</td><td>55.1</td><td>54.8</td><td>44.8</td><td>53.3</td></tr>
+<tr><th scope="row">Eager</th><td class="table-label">4B</td><td>63.4</td><td>56.6</td><td>51.7</td><td>52.2</td><td>56.0</td></tr>
+<tr><th scope="row">MoCa</th><td class="table-label">3B</td><td>59.7</td><td>57.0</td><td>63.5</td><td>53.1</td><td>58.3</td></tr>
+<tr class="table-section"><th colspan="7">Dense single-vector with MINER</th></tr>
+<tr><th scope="row">MINER-Jina</th><td class="table-label">4B</td><td class="ours">58.6<span class="delta">+0.2%</span></td><td class="ours">56.8<span class="delta">+3.1%*</span></td><td class="ours">56.8<span class="delta">+3.7%</span></td><td class="ours">48.7<span class="delta">+8.7%*</span></td><td class="ours">55.2<span class="delta">+3.6%*</span></td></tr>
+<tr><th scope="row">MINER-Eager</th><td class="table-label">4B</td><td class="ours">64.1<span class="delta">+1.1%*</span></td><td class="ours">57.8<span class="delta">+2.1%</span></td><td class="ours">59.1<span class="delta">+14.3%*</span></td><td class="ours">52.9<span class="delta">+1.4%</span></td><td class="ours">58.5<span class="delta">+4.5%*</span></td></tr>
+<tr><th scope="row">MINER-MoCa</th><td class="table-label">3B</td><td class="ours">59.2<span class="delta">−0.8%</span></td><td class="ours">59.6<span class="delta">+4.6%*</span></td><td class="ours">64.8<span class="delta">+2.1%</span></td><td class="ours">52.9<span class="delta">−0.4%</span></td><td class="ours">59.1<span class="delta">+1.4%</span></td></tr>
+</tbody>
+</table>
+</div>
+<figcaption>ViDoRe V2 results. Percentages give relative changes from each dense backbone. <a href="https://arxiv.org/html/2605.06460v1#S5.T1">Full table in the paper.</a></figcaption>
+</figure>
+<p>The V2 average gains are significant for Jina and Eager. MoCa’s average gain is not significant at the default hyperparameters, and it falls slightly on Bio and ESG-Syn. On V3, all three backbones improve significantly. On V1, where many subsets are saturated, Eager improves from 82.5 to 84.8 while Jina and MoCa remain within a tenth of a point of their baselines.</p>
+<figure class="figure-wide" id="v1v3-table">
+<div aria-label="ViDoRe V1 and V3 averages, scroll horizontally on narrow screens" class="table-scroll" role="region" tabindex="0">
+<table class="table-narrow">
+<thead>
+<tr><th rowspan="2" scope="col">Backbone</th><th colspan="2" scope="colgroup">ViDoRe V1 (nDCG@5)</th><th class="table-group" colspan="2" scope="colgroup">ViDoRe V3 (nDCG@10)</th></tr>
+<tr><th scope="col">Dense</th><th scope="col">MINER</th><th class="table-group" scope="col">Dense</th><th scope="col">MINER</th></tr>
+</thead>
+<tbody>
+<tr><th scope="row">Jina</th><td>84.3</td><td class="ours">84.4</td><td class="table-group">49.0</td><td class="ours">49.7*</td></tr>
+<tr><th scope="row">Eager</th><td>82.5</td><td class="ours">84.8*</td><td class="table-group">47.6</td><td class="ours">48.8*</td></tr>
+<tr><th scope="row">MoCa</th><td>85.7</td><td class="ours">85.6</td><td class="table-group">49.1</td><td class="ours">49.5*</td></tr>
+</tbody>
+</table>
+</div>
+<figcaption>Average scores on ViDoRe V1 and V3. An asterisk marks a significant improvement.</figcaption>
+</figure>
+<p>All results use a CKA cutoff of 0.6 and a sparsity floor of 0.2. Depending on the backbone, probe training takes 11–17 hours on two RTX 4090 GPUs and fusion-head training takes 5–8 hours on one.</p>
+</details>
+</section>
+<section aria-labelledby="efficiency"><h2 id="efficiency">Closing the gap at a fraction of the cost</h2>
+<div class="annotated-block"><p>The efficiency comparison uses Jina for all three approaches. With Qdrant, we index the full corpus of each ViDoRe V2 subset and measure query throughput and storage. MINER’s index averages 22.24 MB, the same as dense Jina, compared with 943.38 MB for late interaction.<sup class="note-ref"><a id="ref-cost" href="#note-cost" aria-label="Note 2">2</a></sup></p><aside class="sidenote" id="note-cost" role="note" tabindex="-1" aria-label="Note 2"><p><a class="note-number" href="#ref-cost" aria-label="Back to reference 2">2</a> The speed and storage comparisons use the same Jina backbone and Qdrant on ViDoRe V2. <a href="https://arxiv.org/html/2605.06460v1#S5.SS3">Efficiency measurements.</a></p></aside></div>
+<figure class="figure-wide efficiency-comparison" id="efficiency-comparison"><div class="efficiency-panel"><h3>Index storage (MB) ↓</h3><div class="efficiency-row dense-cost"><span>Dense Jina</span><strong>22.24</strong><div class="cost-track" aria-hidden="true"><i style="width:2.224000%"></i></div></div><div class="efficiency-row late-cost"><span>Late interaction</span><strong>943.38</strong><div class="cost-track" aria-hidden="true"><i style="width:94.338000%"></i></div></div><div class="efficiency-row miner-cost"><span>MINER-Jina</span><strong>22.24</strong><div class="cost-track" aria-hidden="true"><i style="width:2.224000%"></i></div></div><div class="cost-axis" aria-hidden="true"><span>0</span><span>500</span><span>1000</span></div></div><div class="efficiency-panel"><h3>Queries / second ↑</h3><div class="efficiency-row dense-cost"><span>Dense Jina</span><strong>15.41</strong><div class="cost-track" aria-hidden="true"><i style="width:96.312500%"></i></div></div><div class="efficiency-row late-cost"><span>Late interaction</span><strong>2.75</strong><div class="cost-track" aria-hidden="true"><i style="width:17.187500%"></i></div></div><div class="efficiency-row miner-cost"><span>MINER-Jina</span><strong>14.36</strong><div class="cost-track" aria-hidden="true"><i style="width:89.750000%"></i></div></div><div class="cost-axis" aria-hidden="true"><span>0</span><span>8</span><span>16</span></div></div></figure>
+<p>The added cost is computing the fused query embedding. Query latency is about 7% above dense Jina, while nDCG@5 rises by 1.9 points. Late interaction retains a 2.4-point quality advantage over MINER on this backbone, at over 40× the index storage and roughly five times the query latency.</p>
+<details class="result-details"><summary>Measured efficiency and retrieval scores</summary>
+<figure class="figure-wide" id="efficiency-table">
+<div aria-label="Efficiency averages, scroll horizontally on narrow screens" class="table-scroll" role="region" tabindex="0">
+<table class="table-narrow">
+<thead>
+<tr><th scope="col">Jina mode</th><th scope="col">Queries / s</th><th scope="col">Index (MB)</th><th scope="col">nDCG@5</th></tr>
+</thead>
+<tbody>
+<tr><th scope="row">Dense</th><td>15.41</td><td>22.24</td><td>53.3</td></tr>
+<tr><th scope="row">Late interaction</th><td>2.75</td><td>943.38</td><td>57.6</td></tr>
+<tr><th scope="row">MINER</th><td class="ours">14.36</td><td class="ours">22.24</td><td class="ours">55.2</td></tr>
+</tbody>
+</table>
+</div>
+<figcaption>Averages across the four ViDoRe V2 subsets, measured with Qdrant. <a href="https://arxiv.org/html/2605.06460v1#A6.T7">Per-subset measurements.</a></figcaption>
+</figure>
+</details>
+</section>
+<section aria-labelledby="analysis"><h2 id="analysis">Useful information survives before the final layer</h2>
+<p>The internal layers do not all need the same treatment. Some already produce representations aligned with the final retrieval space; others contain useful structure in a different geometry. MINER’s layerwise analysis separates these cases so each layer gets a suitable probe.</p>
+<figure class="figure-compact" id="alignment-figure">
+<a aria-label="Open the alignment ratio figure at full size" href="../assets/papers/miner/d49e7d73c7-jina_ar_n_shared_layer15_35.svg">
+<img alt="Normalized alignment ratio of Jina from layer 15 to 35, rising slowly from about 0.13 to 0.47 at layer 32 and then jumping to 0.52, 0.65 and 0.70 over the last three layers. Bars show the change between adjacent layers, largest between layers 33 and 34." decoding="async" height="266" loading="lazy" src="../assets/papers/miner/d49e7d73c7-jina_ar_n_shared_layer15_35.svg" width="732"/>
+</a>
+<figcaption>Jina’s alignment ratio rises sharply in the last three layers. Earlier candidate layers contain useful structure that needs realignment.</figcaption>
+</figure>
+<p>For the aligned layers, a Base Probe learns one importance weight per dimension. For the less aligned layers, a Normalized Projection Probe also learns a linear transformation to bring their readouts into the retrieval space. Both probes record which dimensions matter, so the next stage can select them.</p>
+<details class="result-details"><summary>How the probes choose and align internal signals</summary>
+<p>We first apply the backbone’s readout operator at each layer, using either its end-of-sequence token or pooling over tokens. Each text readout is compared with its paired image’s final embedding, and each image readout with its paired text’s final embedding. These paired embeddings are the cross-modal anchors.</p>
+<p>Normalized Centered Kernel Alignment (CKA) identifies candidate layers whose representations share useful structure with the anchors. The alignment ratio then compares per-sample cosine similarity with CKA: it distinguishes structure that is already aligned with the final space from structure that needs a transformation. The last three candidate layers use Base Probes, and earlier candidate layers use Normalized Projection Probes.</p>
+<p>The probes are shared across text and image inputs. They are trained with an InfoNCE objective against the cross-modal anchors, using in-batch and hard negatives, plus an L1 penalty that makes their importance weights sparse. The projection’s rows are normalized to unit length, while the importance weights track which dimensions matter. <a href="https://arxiv.org/html/2605.06460v1#S4.SS1">Probe definitions and training objective.</a></p>
+</details>
+<h3 id="fusion">Keeping the useful dimensions</h3>
+<p>MINER uses each layer’s validation performance to decide how many dimensions to retain, then keeps the dimensions with the largest learned importance weights. The fusion head weights and sums the selected signals into one embedding of the backbone’s original size.</p>
+<figure class="figure-compact" id="selection-figure">
+<a aria-label="Open the neuron selection figure at full size" href="../assets/papers/miner/b676973942-jina_neuron_selection_percent.svg">
+<img alt="Percentage of neurons kept at each layer of Jina from 15 to 36. Around 12 to 22 percent through layer 26, rising to about 93 percent at layer 33, dropping to about 45 percent at layers 34 and 35, and reaching 100 percent at layer 36." decoding="async" height="280" loading="lazy" src="../assets/papers/miner/b676973942-jina_neuron_selection_percent.svg" width="756"/>
+</a>
+<figcaption>The fraction of dimensions retained at each candidate layer of Jina. Earlier layers contribute a smaller selection; the final layer keeps all its dimensions.</figcaption>
+</figure>
+<p>Earlier layers contribute sparse features, while the final layers retain most of their dimensions. The dip near layer 34 shows why layer depth alone is not enough to decide how much to keep. Layers at similar depths can contribute different amounts of useful information.</p>
+</section>
+<section aria-labelledby="ablation"><h2 id="ablation">Selection and alignment both contribute</h2>
+<p>Combining every dimension from the selected layers already improves all three dense backbones. The full MINER improves further. Treating every layer as aligned loses some of the gain; applying the projection to every layer loses much more. The projection helps layers that need realignment and distorts those already aligned.</p>
+<figure class="figure-wide" id="ablation-table">
+<div aria-label="Ablation results, scroll horizontally on narrow screens" class="table-scroll" role="region" tabindex="0">
+<table class="table-narrow">
+<thead>
+<tr><th scope="col">Backbone</th><th scope="col">Dense</th><th scope="col">All Neurons</th><th scope="col">All Base</th><th scope="col">All Norm</th><th scope="col">MINER</th></tr>
+</thead>
+<tbody>
+<tr><th scope="row">Jina</th><td>53.3</td><td>54.6</td><td>54.9</td><td>50.0</td><td class="ours">55.2</td></tr>
+<tr><th scope="row">Eager</th><td>56.0</td><td>57.1</td><td>57.4</td><td>53.1</td><td class="ours">58.5</td></tr>
+<tr><th scope="row">MoCa</th><td>58.3</td><td>58.4</td><td>58.4</td><td>56.0</td><td class="ours">59.1</td></tr>
+</tbody>
+</table>
+</div>
+<figcaption>Average nDCG@5 on ViDoRe V2. All Neurons omits probing and masking; All Base uses only Base Probes; All Norm uses only Normalized Projection Probes.</figcaption>
+</figure>
+<details class="result-details"><summary>Sensitivity to layer selection and sparsity</summary>
+<p>For Jina, moving the CKA cutoff from 0.5 to 0.7 changes the candidate range from layers 12–36 to layers 28–36, yet retrieval quality stays within 1% of the default. Sparsity floors from 0.1 to 0.3 change it by less than 0.2%. Eager and MoCa show similarly flat profiles.</p>
+<figure class="figure-wide" id="sensitivity-figure">
+<a aria-label="Open the sensitivity figure at full size" href="../assets/papers/miner/3b7f865011-sensitivity_check_jina_percent_change_panel_narrow.svg">
+<img alt="Two line plots of MINER-Jina nDCG@5 as a percentage of the default. Left: CKA cutoffs from 0.5 to 0.7 stay between 99 and 100 percent. Right: sparsity floors from 0.1 to 0.3 stay within 0.2 percent of 100." decoding="async" height="192" loading="lazy" src="../assets/papers/miner/3b7f865011-sensitivity_check_jina_percent_change_panel_narrow.svg" width="799"/>
+</a>
+<figcaption>MINER-Jina quality relative to the default settings as the CKA cutoff and sparsity floor vary.</figcaption>
+</figure>
+</details>
+</section>
+</main><script src="article.js?v=1" defer></script>
+</body></html>
