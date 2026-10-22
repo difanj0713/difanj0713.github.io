@@ -1,0 +1,52 @@
+/* One continuous set of affiliations, with the institutions' own artwork. */
+.affiliations { margin-bottom: 0; }
+.affiliation-logos {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 30px 40px;
+  margin: 0;
+  padding: 8px 0 0;
+  list-style: none;
+}
+.affiliation-logos li { min-width: 0; }
+.affiliation-logos a {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 120px;
+  padding: 12px 8px;
+  border: 0;
+  text-decoration: none;
+}
+.affiliation-logos a:focus-visible {
+  outline: 2px solid #4e609e;
+  outline-offset: 5px;
+}
+.affiliation-logo {
+  display: block;
+  width: 100%;
+  height: auto;
+  max-width: 230px;
+  max-height: 90px;
+  object-fit: contain;
+}
+.logo-toronto { max-width: 240px; }
+.logo-mcgill { max-width: 210px; }
+.logo-lmu { max-width: 180px; }
+.logo-stanford { max-width: 66px; max-height: 100px; }
+.logo-vector { max-width: 220px; }
+.logo-mila { max-width: 155px; }
+
+@media (max-width: 680px) {
+  .affiliation-logos { grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 22px 24px; }
+  .affiliation-logos a { min-height: 82px; padding: 10px 2px; }
+  .affiliation-logo { max-height: 62px; }
+  .logo-lmu { max-width: 132px; }
+  .logo-stanford { max-width: 49px; max-height: 74px; }
+  .logo-mila { max-width: 125px; }
+}
+@media (max-width: 420px) {
+  .affiliation-logos { gap: 18px 20px; }
+  .affiliation-logos a { min-height: 72px; }
+  .logo-mila { max-width: 110px; }
+}
