@@ -4,12 +4,12 @@
 <head>
 <meta charset="utf-8"/>
 <meta content="width=device-width,initial-scale=1" name="viewport"/><title>Difan Jiao - Personal Academic Website</title>
-<link href="css/research.css?v=6" rel="stylesheet"/></head>
+<link href="css/research.css?v=7" rel="stylesheet"/></head>
 <body class="research-index has-page-index"><a class="skip-link" href="#main-content">Skip to content</a>
 <header class="page-index"><nav aria-label="On this page"><a href="#research">Research</a><a href="#news">News</a><a href="#publications">Publications</a></nav></header>
 <div class="shell">
-<aside class="identity"><a class="portrait-link" href="index.html"><img alt="Difan Jiao" class="portrait" fetchpriority="high" height="126" src="images/profile.jpg" width="105"/></a>
-<h1><span>Difan</span> <span>Jiao</span></h1>
+<aside class="identity"><a class="portrait-link" href="index.html"><img alt="Difan Jiao" class="portrait" fetchpriority="high" height="1678" src="images/profile.jpg" width="1243"/></a>
+<h1>Difan Jiao</h1>
 <div aria-label="Contact and profiles" class="profile-links">
 <a href="mailto:difanjiao@cs.toronto.edu" title="difanjiao@cs.toronto.edu"><svg aria-hidden="true" class="contact-icon" fill="none" focusable="false" height="18" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.55" viewbox="0 0 24 24" width="18"><rect height="13" rx="2" width="18" x="3" y="5.5"></rect><path d="m4 7 8 6 8-6"></path></svg><span>Email</span></a>
 <a href="https://github.com/difanj0713"><svg aria-hidden="true" class="contact-icon" fill="none" focusable="false" height="18" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.55" viewbox="0 0 24 24" width="18"><path d="M8.5 20.5v-3c-3.2-.3-5.4-1.8-5.4-5.1 0-1.6.6-2.8 1.7-3.8-.3-1.3-.3-2.7.3-4l4 2a15 15 0 0 1 5.8 0l4-2c.6 1.3.6 2.7.3 4 1.1 1 1.7 2.2 1.7 3.8 0 3.3-2.2 4.8-5.4 5.1v3"></path><path d="M8.5 19c-3 .7-4-.8-4.7-2.1-.5-.9-1.1-1.3-1.8-1.4"></path></svg><span>Github</span></a>
@@ -27,8 +27,8 @@
 <section aria-labelledby="research-heading" class="research-highlights" id="research">
 <h2 id="research-heading">Research</h2>
 <article class="research-track">
-<h3><a href="spin-universe/">Readout</a></h3>
-<p>We use internal model representations for classification, safety and retrieval. Small task heads read signals across a frozen model’s layers to make decisions directly, without generating a text response.</p>
+<h3><a class="project-link" href="spin-universe/"><span>Readout</span><svg aria-hidden="true" width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M3 8h10m-4-4 4 4-4 4"/></svg></a></h3>
+<p>Generating an answer token by token adds latency to decisions a model could make in a single pass. The features a task needs can also be easier to read from intermediate layers than from the final layer used for decoding. We read those features directly from frozen models for text classification, content safety, agent safety, and visual document retrieval. This makes decisions faster and more accurate, and lets us identify which layers and neurons contribute to a prediction.</p>
 <ul aria-label="Readout papers" class="track-papers">
 <li><a href="spin-universe/spin/">SPIN <span>Text classification</span></a></li>
 <li><a href="spin-universe/siren/">SIREN <span>Content safety</span></a></li>
@@ -38,7 +38,7 @@
 </article>
 <article class="research-track">
 <h3>RLVR for intelligible reasoning</h3>
-<p>I study how RLVR can make models stronger while keeping their reasoning intelligible to weaker partners. Tandem Training asks whether a weaker model can still follow and continue a stronger model’s reasoning. ThinkTwice explores a related question within a single model: how to learn from revisiting its own reasoning, correcting mistakes and consolidating sound reasoning.</p>
+<p>As models get better at solving problems, can people and weaker models still follow how they reach their answers? In Tandem RLVR, we introduce a rollout paradigm in which a stronger model learns from solutions it builds with a frozen, weaker partner. The weaker model can more readily predict its partner’s next steps and take over mid-solution. ThinkTwice draws on how people check their work: a model learns by revisiting its own solutions, correcting mistakes and consolidating sound reasoning.</p>
 <ul aria-label="Reasoning papers" class="track-papers">
 <li><a href="#paper-3">Tandem Training</a></li>
 <li><a href="#paper-2">ThinkTwice</a></li>
@@ -53,20 +53,18 @@
 <li><time datetime="2026-04">Apr 2026</time><p>Two papers accepted at ACL 2026: <a href="spin-universe/siren/">SIREN</a> and <a href="https://aclanthology.org/2026.findings-acl.278/">Deciphering Cultural Representations</a> (Findings).</p></li>
 <li><time datetime="2026-03">Mar 2026</time><p><a href="#paper-5">Maia4All</a> and our <a href="https://arxiv.org/abs/2605.02913">survey of rollout strategies for LLM reinforcement learning</a> accepted at TMLR.</p></li>
 </ol>
-<details class="news-archive">
-<summary><span class="archive-closed">Earlier updates</span><span class="archive-open">Hide earlier updates</span><span class="archive-years">2024–2025</span></summary>
-<ol class="news-list">
+<ol class="news-list" id="earlier-updates">
 <li><time datetime="2025-07">Jul 2025</time><p><a href="#paper-6">SEAM</a>, our benchmark for semantically equivalent inputs across modalities, accepted at COLM 2025.</p></li>
 <li><time datetime="2024-09">Sep 2024</time><p><a href="#paper-8">Maia-2</a> accepted at NeurIPS 2024.</p></li>
 <li><time datetime="2024-09">Sep 2024</time><p>Unfortunately, visa administrative processing delayed my start. I deferred my PhD admission to 2025.</p></li>
 <li><time datetime="2024-05">May 2024</time><p><a href="spin-universe/spin/">SPIN</a> accepted at ACL 2024 (Findings).</p></li>
 <li><time datetime="2024-04">Apr 2024</time><p>I received an offer to join the Computer Science PhD program at the University of Toronto!</p></li>
 </ol>
-</details>
+<button class="archive-toggle" type="button" aria-controls="earlier-updates" aria-expanded="true" hidden><span class="archive-symbol" aria-hidden="true"></span><span class="archive-label">Hide earlier updates</span><span class="archive-years">2024–2025</span></button>
 </section>
 <section id="publications">
 <div class="section-heading"><h2>Selected publications</h2><a href="https://scholar.google.com/citations?user=HTuHhzQAAAAJ&amp;hl=en">Google Scholar ↗</a></div>
-<article class="publication" id="paper-1"><figure class="paper-visual"><a aria-label="Enlarge Figure 1 from siren" class="figure-preview" data-figure-title="SIREN · Figure 1" href="images/figures/siren-figure1.svg"><img alt="Figure 1: Generative guard models decode a verdict from the final layer; SIREN combines safety neurons across internal layers into a lightweight classifier." decoding="async" height="541" loading="lazy" src="images/figures/siren-figure1.svg" width="1140"/></a></figure>
+<article class="publication" id="paper-1"><figure class="paper-visual"><a aria-label="Enlarge SIREN and generative guard comparison" class="figure-preview" data-figure-title="SIREN · Generative guard vs. SIREN" href="images/figures/siren-readout-comparison.png"><img alt="For the same prompt, a generative guard produces a verdict token by token; SIREN reads signals across a frozen model’s layers and classifies the prompt directly." decoding="async" height="1413" loading="lazy" src="images/figures/siren-readout-comparison.png" width="2208"/></a></figure>
 <div class="paper-copy"><header class="paper-heading"><div class="venue">ACL 2026</div><h3 class="paper-title"><a href="https://arxiv.org/abs/2604.18519">LLM Safety From Within: Detecting Harmful Content with Internal Representations</a></h3><p class="authors"><strong>Difan Jiao</strong>, Yilun Liu, Ye Yuan, Zhenwei Tang, Linfeng Du, Haolun Wu, Ashton Anderson</p><p class="paper-links">
 <a class="paper-link" href="https://github.com/CSSLab/SIREN" rel="noopener noreferrer" target="_blank"> Code</a>
 <a class="paper-link" href="https://huggingface.co/UofTCSSLab/SIREN-Qwen3-4B" rel="noopener noreferrer" target="_blank"> siren-qwen3-4b</a>
@@ -82,13 +80,13 @@
 <a class="paper-link" href="https://github.com/CSSLab/ThinkTwice" rel="noopener noreferrer" target="_blank"> Code</a>
 <a class="paper-link" href="https://huggingface.co/difanjiao/ThinkTwice-Qwen3-4B-Instruct" rel="noopener noreferrer" target="_blank"> ThinkTwice-Qwen3-4B</a>
 </p></header>
-<p class="paper-description">ThinkTwice jointly trains a model to solve reasoning problems and refine its own answers using the same correctness reward.</p></div>
+<p class="paper-description">ThinkTwice trains a model to take a second look at its own solutions, correcting mistakes and consolidating sound reasoning.</p></div>
 </article>
 <article class="publication" id="paper-3"><figure class="paper-visual"><a aria-label="Enlarge Figure 1 from tandem" class="figure-preview" data-figure-title="Tandem Training · Figure 1" href="images/figures/tandem-figure1.png"><img alt="Figure 1: An example of hard-to-follow GRPO reasoning, the Tandem RLVR training method, and results for reasoning capability and compatibility with a weaker partner." decoding="async" height="809" loading="lazy" src="images/figures/tandem-figure1.png" width="1615"/></a></figure>
 <div class="paper-copy"><header class="paper-heading"><div class="venue">Under Review</div><h3 class="paper-title"><a href="https://arxiv.org/pdf/2606.28166">Tandem Reinforcement Learning with Verifiable Rewards</a></h3><p class="authors"><strong>Difan Jiao</strong>, Raghav Singhal, Robert West, Ashton Anderson</p><p class="paper-links">
 <a class="paper-link" href="https://arxiv.org/abs/2606.28166" rel="noopener noreferrer" target="_blank"> Paper</a>
 </p></header>
-<p class="paper-description">Tandem training teaches a stronger model to reason with a frozen, weaker partner by training on trajectories they generate together.</p></div>
+<p class="paper-description">Tandem RLVR trains a stronger model on solutions it writes with a frozen, weaker partner, who can then more readily follow its reasoning and take over mid-solution.</p></div>
 </article><article class="publication" id="paper-9"><figure class="paper-visual"><a aria-label="Enlarge Figure 2 from Playing Dumb" class="figure-preview" data-figure-title="Playing Dumb · Figure 2" href="images/figures/playing-dumb-figure2.png"><img alt="Figure 2: Four panels show a chess puzzle, the consequences of a blunder and best move, stable probe-measured threat encoding, and changing move probabilities across skill levels." decoding="async" height="523" loading="lazy" src="images/figures/playing-dumb-figure2.png" width="855"/></a></figure>
 <div class="paper-copy"><header class="paper-heading"><div class="venue">Under Review</div><h3 class="paper-title"><a href="https://arxiv.org/pdf/2611.03439">Playing Dumb: How a Chess Transformer Simulates Users Across Skill Levels</a></h3><p class="authors"><strong>Difan Jiao</strong>, George Eilender, Zhenwei Tang, Ashton Anderson</p><p class="paper-links"><a class="paper-link" href="https://arxiv.org/abs/2611.03439">Paper</a>
 <a class="paper-link" href="https://github.com/CSSLab/maia2-skill-adaptation">Code</a>
@@ -127,7 +125,7 @@
 <footer>© 2025 Difan Jiao</footer>
 </main>
 </div>
-<script defer="" src="js/research.js?v=5"></script>
+<script defer="" src="js/research.js?v=6"></script>
 <dialog aria-labelledby="figure-dialog-title" class="figure-dialog" id="figure-dialog">
 <div class="figure-dialog-toolbar"><h2 id="figure-dialog-title">Figure 1</h2><button aria-label="Close enlarged figure" class="figure-dialog-close" type="button">×</button></div>
 <img alt="" class="figure-dialog-image"/>

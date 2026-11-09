@@ -1,3 +1,17 @@
+const archiveToggle = document.querySelector('.archive-toggle');
+if (archiveToggle) {
+  const updates = document.getElementById(archiveToggle.getAttribute('aria-controls'));
+  const label = archiveToggle.querySelector('.archive-label');
+  const showUpdates = (open) => {
+    updates.hidden = !open;
+    archiveToggle.setAttribute('aria-expanded', String(open));
+    label.textContent = open ? 'Hide earlier updates' : 'Earlier updates';
+  };
+  showUpdates(false);
+  archiveToggle.hidden = false;
+  archiveToggle.addEventListener('click', () => showUpdates(updates.hidden));
+}
+
 // Keep a normal image link as a fallback; enlarge figures in place when supported.
 const figureDialog = document.querySelector('#figure-dialog');
 if (figureDialog && typeof figureDialog.showModal === 'function') {
