@@ -1,294 +1,135 @@
 <!DOCTYPE html>
+
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Difan Jiao - Personal Academic Website</title>
-    <link rel="stylesheet" href="css/style.css?v=3">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
-</head>
-<body>
-    <header>
-        <div class="container">
-            <h1 class="name">Difan Jiao</h1>
-            <nav>
-                <ul>
-                    <li><a href="index.html" class="active">About</a></li>
-                    <li><a href="experience.html">Activities</a></li>
-                </ul>
-            </nav>
-        </div>
-    </header>
+<meta charset="utf-8"/>
+<meta content="width=device-width,initial-scale=1" name="viewport"/><title>Difan Jiao - Personal Academic Website</title>
+<link href="css/research.css?v=6" rel="stylesheet"/></head>
+<body class="research-index has-page-index"><a class="skip-link" href="#main-content">Skip to content</a>
+<header class="page-index"><nav aria-label="On this page"><a href="#research">Research</a><a href="#news">News</a><a href="#publications">Publications</a></nav></header>
+<div class="shell">
+<aside class="identity"><a class="portrait-link" href="index.html"><img alt="Difan Jiao" class="portrait" fetchpriority="high" height="126" src="images/profile.jpg" width="105"/></a>
+<h1><span>Difan</span> <span>Jiao</span></h1>
+<div aria-label="Contact and profiles" class="profile-links">
+<a href="mailto:difanjiao@cs.toronto.edu" title="difanjiao@cs.toronto.edu"><svg aria-hidden="true" class="contact-icon" fill="none" focusable="false" height="18" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.55" viewbox="0 0 24 24" width="18"><rect height="13" rx="2" width="18" x="3" y="5.5"></rect><path d="m4 7 8 6 8-6"></path></svg><span>Email</span></a>
+<a href="https://github.com/difanj0713"><svg aria-hidden="true" class="contact-icon" fill="none" focusable="false" height="18" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.55" viewbox="0 0 24 24" width="18"><path d="M8.5 20.5v-3c-3.2-.3-5.4-1.8-5.4-5.1 0-1.6.6-2.8 1.7-3.8-.3-1.3-.3-2.7.3-4l4 2a15 15 0 0 1 5.8 0l4-2c.6 1.3.6 2.7.3 4 1.1 1 1.7 2.2 1.7 3.8 0 3.3-2.2 4.8-5.4 5.1v3"></path><path d="M8.5 19c-3 .7-4-.8-4.7-2.1-.5-.9-1.1-1.3-1.8-1.4"></path></svg><span>Github</span></a>
+<a href="https://www.linkedin.com/in/difan-jiao/"><svg aria-hidden="true" class="contact-icon" fill="none" focusable="false" height="18" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.55" viewbox="0 0 24 24" width="18"><path d="M5 9v11M10 20V9m0 5c0-2.9 1.6-5 4.4-5 2.4 0 4.1 1.6 4.1 4.5V20"></path><circle cx="5" cy="4.5" fill="currentColor" r="1.15" stroke="none"></circle></svg><span>LinkedIn</span></a>
+<a href="https://scholar.google.com/citations?user=HTuHhzQAAAAJ&amp;hl=zh-CN"><svg aria-hidden="true" class="contact-icon" fill="none" focusable="false" height="18" stroke="currentColor" stroke-linecap="round" stroke-linejoin="round" stroke-width="1.55" viewbox="0 0 24 24" width="18"><path d="m2.5 9 9.5-5 9.5 5-9.5 5-9.5-5Z"></path><path d="M6 11v5c3.4 3.3 8.6 3.3 12 0v-5M21.5 9v7"></path></svg><span>Google Scholar</span></a>
+</div>
+</aside>
+<main id="main-content" tabindex="-1">
 
-    <main>
-        <div class="container main-content">
-            <div class="sidebar">
-                <div class="profile-image">
-                    <img src="images/profile.jpg" alt="Difan Jiao">
-                </div>
-                <div class="profile-links">
-                    <a href="mailto:difanjiao@cs.toronto.edu"><span class="icon">✉️</span> Email</a>
-                    <a href="https://github.com/difanj0713"><span class="icon">💻</span> Github</a>
-                    <a href="https://www.linkedin.com/in/difan-jiao/"><span class="icon">🔗</span> LinkedIn</a>
-                    <a href="https://scholar.google.com/citations?user=HTuHhzQAAAAJ&hl=zh-CN"><span class="icon">📚</span> Google Scholar</a>
-                </div>
-            </div>
-
-            <div class="content">
-                <section id="welcome">
-                    <h2>Welcome!</h2>
-                    <p>
+<section aria-labelledby="about-heading" class="biography" id="welcome">
+<h2 id="about-heading">About</h2>
+<p>
                         Hi everyone! I'm a second-year PhD student in the Department of Computer Science at the University of Toronto, where I work with Prof. <a href="https://www.cs.toronto.edu/~ashton/">Ashton Anderson</a>. My research runs on two tracks: reading LLMs' internal representations to understand what they encode, and reinforcement learning with verifiable rewards to improve how they behave. Outside research, I enjoy Go, basketball, and tennis. Looking forward to connecting with you!
-                    </p>
-                </section>
+                    </p></section>
+<section aria-labelledby="research-heading" class="research-highlights" id="research">
+<h2 id="research-heading">Research</h2>
+<article class="research-track">
+<h3><a href="spin-universe/">Readout</a></h3>
+<p>We use internal model representations for classification, safety and retrieval. Small task heads read signals across a frozen model’s layers to make decisions directly, without generating a text response.</p>
+<ul aria-label="Readout papers" class="track-papers">
+<li><a href="spin-universe/spin/">SPIN <span>Text classification</span></a></li>
+<li><a href="spin-universe/siren/">SIREN <span>Content safety</span></a></li>
+<li><a href="spin-universe/miner/">MINER <span>Document retrieval</span></a></li>
+<li><a href="spin-universe/tacit/">TACIT <span>Agent safety</span></a></li>
+</ul>
+</article>
+<article class="research-track">
+<h3>RLVR for intelligible reasoning</h3>
+<p>I study how RLVR can make models stronger while keeping their reasoning intelligible to weaker partners. Tandem Training asks whether a weaker model can still follow and continue a stronger model’s reasoning. ThinkTwice explores a related question within a single model: how to learn from revisiting its own reasoning, correcting mistakes and preserving what already works.</p>
+<ul aria-label="Reasoning papers" class="track-papers">
+<li><a href="#paper-3">Tandem Training</a></li>
+<li><a href="#paper-2">ThinkTwice</a></li>
+</ul>
+</article>
+</section>
+<section aria-labelledby="news-heading" class="news" id="news">
+<h2 id="news-heading">News</h2>
+<ol class="news-list">
+<li><time datetime="2026-10">Oct 2026</time><p>Two papers accepted at EMNLP 2026: <a href="#paper-safegeo">SafeGEO</a> (oral) and <a href="https://arxiv.org/abs/2608.03044">Emulate or Estimate?</a> (Findings). Our GEO project is now <a href="https://humanitylastchoice.org/">Humanity’s Last Choice</a>.</p></li>
+<li><time datetime="2026-09">Sep 2026</time><p>We launched <a href="spin-universe/">Readout</a>, our research program on reading signals inside AI models.</p></li>
+<li><time datetime="2026-04">Apr 2026</time><p>Two papers accepted at ACL 2026: <a href="spin-universe/siren/">SIREN</a> and <a href="https://aclanthology.org/2026.findings-acl.278/">Deciphering Cultural Representations</a> (Findings).</p></li>
+<li><time datetime="2026-03">Mar 2026</time><p><a href="#paper-5">Maia4All</a> and our <a href="https://arxiv.org/abs/2605.02913">survey of rollout strategies for LLM reinforcement learning</a> accepted at TMLR.</p></li>
+</ol>
+<details class="news-archive">
+<summary><span class="archive-closed">Earlier updates</span><span class="archive-open">Hide earlier updates</span><span class="archive-years">2024–2025</span></summary>
+<ol class="news-list">
+<li><time datetime="2025-07">Jul 2025</time><p><a href="#paper-6">SEAM</a>, our benchmark for semantically equivalent inputs across modalities, accepted at COLM 2025.</p></li>
+<li><time datetime="2024-09">Sep 2024</time><p><a href="#paper-8">Maia-2</a> accepted at NeurIPS 2024.</p></li>
+<li><time datetime="2024-09">Sep 2024</time><p>Unfortunately, visa administrative processing delayed my start. I deferred my PhD admission to 2025.</p></li>
+<li><time datetime="2024-05">May 2024</time><p><a href="spin-universe/spin/">SPIN</a> accepted at ACL 2024 (Findings).</p></li>
+<li><time datetime="2024-04">Apr 2024</time><p>I received an offer to join the Computer Science PhD program at the University of Toronto!</p></li>
+</ol>
+</details>
+</section>
+<section id="publications">
+<div class="section-heading"><h2>Selected publications</h2><a href="https://scholar.google.com/citations?user=HTuHhzQAAAAJ&amp;hl=en">Google Scholar ↗</a></div>
+<article class="publication" id="paper-1"><figure class="paper-visual"><a aria-label="Enlarge Figure 1 from siren" class="figure-preview" data-figure-title="SIREN · Figure 1" href="images/figures/siren-figure1.svg"><img alt="Figure 1: Generative guard models decode a verdict from the final layer; SIREN combines safety neurons across internal layers into a lightweight classifier." decoding="async" height="541" loading="lazy" src="images/figures/siren-figure1.svg" width="1140"/></a></figure>
+<div class="paper-copy"><header class="paper-heading"><div class="venue">ACL 2026</div><h3 class="paper-title"><a href="https://arxiv.org/abs/2604.18519">LLM Safety From Within: Detecting Harmful Content with Internal Representations</a></h3><p class="authors"><strong>Difan Jiao</strong>, Yilun Liu, Ye Yuan, Zhenwei Tang, Linfeng Du, Haolun Wu, Ashton Anderson</p><p class="paper-links">
+<a class="paper-link" href="https://github.com/CSSLab/SIREN" rel="noopener noreferrer" target="_blank"> Code</a>
+<a class="paper-link" href="https://huggingface.co/UofTCSSLab/SIREN-Qwen3-4B" rel="noopener noreferrer" target="_blank"> siren-qwen3-4b</a>
+</p></header>
+<p class="paper-description">SIREN detects harmful prompts and responses by combining safety-relevant signals from a frozen language model’s internal layers.</p></div>
+</article><article class="publication" id="paper-safegeo"><figure class="paper-visual"><a aria-label="Enlarge Figure 1 from safegeo" class="figure-preview" data-figure-title="SafeGEO · Figure 1" href="images/figures/safegeo-figure1.png"><img alt="Figure 1: An agentic recommender retrieves product evidence and generates recommendations; GEO attacks manipulate that evidence to promote a target product." decoding="async" height="523" loading="lazy" src="images/figures/safegeo-figure1.png" width="710"/></a></figure>
+<div class="paper-copy"><header class="paper-heading"><div class="venue">EMNLP 2026 · Oral</div><h3 class="paper-title"><a href="https://arxiv.org/abs/2606.28356">SafeGEO: Understanding Generative Engine Optimization Risks in Recommendation Agents</a></h3><p class="authors">Qianfeng Wen, Yifan Simon Liu, Xin Liu, <strong>Difan Jiao</strong>, Blair Yang, Junda Wu, Zhenwei Tang</p><p class="paper-links"><a class="paper-link" href="https://humanitylastchoice.org/">Project: Humanity’s Last Choice</a>
+<a class="paper-link" href="https://huggingface.co/datasets/humanitylastchoice/SafeGEO">Dataset</a></p></header>
+<p class="paper-description">SafeGEO evaluates how manipulated web content steers recommendation agents toward flawed products and tests defenses against these attacks.</p></div>
+</article>
+<article class="publication" id="paper-2"><figure class="paper-visual"><a aria-label="Enlarge Figure 1 from thinktwice" class="figure-preview" data-figure-title="ThinkTwice · Figure 1" href="images/figures/thinktwice-figure1.svg"><img alt="Figure 1: Prompt-only reflection can reduce accuracy; ThinkTwice trains a shared model to solve and then refine, improving both reasoning and refinement." decoding="async" height="632" loading="lazy" src="images/figures/thinktwice-figure1.svg" width="1796"/></a></figure>
+<div class="paper-copy"><header class="paper-heading"><div class="venue">Under Review</div><h3 class="paper-title"><a href="https://arxiv.org/pdf/2604.01591">ThinkTwice: Jointly Optimizing Large Language Models for Reasoning and Self-Refinement</a></h3><p class="authors"><strong>Difan Jiao</strong>, Qianfeng Wen*, Blair Yang, Zhenwei Tang, Ashton Anderson</p><p class="paper-links">
+<a class="paper-link" href="https://github.com/CSSLab/ThinkTwice" rel="noopener noreferrer" target="_blank"> Code</a>
+<a class="paper-link" href="https://huggingface.co/difanjiao/ThinkTwice-Qwen3-4B-Instruct" rel="noopener noreferrer" target="_blank"> ThinkTwice-Qwen3-4B</a>
+</p></header>
+<p class="paper-description">ThinkTwice jointly trains a model to solve reasoning problems and refine its own answers using the same correctness reward.</p></div>
+</article>
+<article class="publication" id="paper-3"><figure class="paper-visual"><a aria-label="Enlarge Figure 1 from tandem" class="figure-preview" data-figure-title="Tandem Training · Figure 1" href="images/figures/tandem-figure1.png"><img alt="Figure 1: An example of hard-to-follow GRPO reasoning, the Tandem RLVR training method, and results for reasoning capability and compatibility with a weaker partner." decoding="async" height="809" loading="lazy" src="images/figures/tandem-figure1.png" width="1615"/></a></figure>
+<div class="paper-copy"><header class="paper-heading"><div class="venue">Under Review</div><h3 class="paper-title"><a href="https://arxiv.org/pdf/2606.28166">Tandem Reinforcement Learning with Verifiable Rewards</a></h3><p class="authors"><strong>Difan Jiao</strong>, Raghav Singhal, Robert West, Ashton Anderson</p><p class="paper-links">
+<a class="paper-link" href="https://arxiv.org/abs/2606.28166" rel="noopener noreferrer" target="_blank"> Paper</a>
+</p></header>
+<p class="paper-description">Tandem training teaches a stronger model to reason with a frozen, weaker partner by training on trajectories they generate together.</p></div>
+</article><article class="publication" id="paper-9"><figure class="paper-visual"><a aria-label="Enlarge Figure 2 from Playing Dumb" class="figure-preview" data-figure-title="Playing Dumb · Figure 2" href="images/figures/playing-dumb-figure2.png"><img alt="Figure 2: Four panels show a chess puzzle, the consequences of a blunder and best move, stable probe-measured threat encoding, and changing move probabilities across skill levels." decoding="async" height="523" loading="lazy" src="images/figures/playing-dumb-figure2.png" width="855"/></a></figure>
+<div class="paper-copy"><header class="paper-heading"><div class="venue">Under Review</div><h3 class="paper-title"><a href="https://arxiv.org/pdf/2611.03439">Playing Dumb: How a Chess Transformer Simulates Users Across Skill Levels</a></h3><p class="authors"><strong>Difan Jiao</strong>, George Eilender, Zhenwei Tang, Ashton Anderson</p><p class="paper-links"><a class="paper-link" href="https://arxiv.org/abs/2611.03439">Paper</a>
+<a class="paper-link" href="https://github.com/CSSLab/maia2-skill-adaptation">Code</a>
+</p></header>
+<p class="paper-description">Maia-2’s chess-concept representations remain stable across skill levels, even as its move choices change.</p></div>
+</article>
+<article class="publication" id="paper-5"><figure class="paper-visual"><a aria-label="Enlarge Figure 1 from maia4all" class="figure-preview" data-figure-title="Maia4All · Figure 1" href="images/figures/maia4all-figure1.png"><img alt="Figure 1: Maia-2 population embeddings are extended to individuals, using prototype-informed initialization and a prototype matching network." decoding="async" height="510" loading="lazy" src="images/figures/maia4all-figure1.png" width="1096"/></a></figure>
+<div class="paper-copy"><header class="paper-heading"><div class="venue">TMLR 2026</div><h3 class="paper-title"><a href="https://openreview.net/pdf?id=iw4kjcw319">Learning to Imitate with Less: Efficient Individual Behavior Modeling in Chess</a></h3><p class="authors">Zhenwei Tang, <strong>Difan Jiao</strong>, Eric Xue, Reid McIlroy-Young, Jon Kleinberg, Siddhartha Sen, Ashton Anderson</p><p class="paper-links">
+<a class="paper-link" href="https://github.com/CSSLab/maia4all" rel="noopener noreferrer" target="_blank"> Code</a>
+</p></header>
+<p class="paper-description">Maia4All adapts a population chess model to individual players from as few as 20 games.</p></div>
+</article>
+<article class="publication" id="paper-6"><figure class="paper-visual"><a aria-label="Enlarge Figure 1 from seam" class="figure-preview" data-figure-title="SEAM · Figure 1" href="images/figures/seam-figure1.png"><img alt="Figure 1: Sixteen tasks across chess, chemistry, music and graph theory, pairing semantically equivalent visual and textual representations." decoding="async" height="1000" loading="lazy" src="images/figures/seam-figure1.png" width="1360"/></a></figure>
+<div class="paper-copy"><header class="paper-heading"><div class="venue">COLM 2025</div><h3 class="paper-title"><a href="https://sites.google.com/view/csslab-seam/home" rel="noopener noreferrer" target="_blank">SEAM: Semantically Equivalent Across Modalities Benchmark for Vision-Language Models</a></h3><p class="authors">Zhenwei Tang, <strong>Difan Jiao</strong>, Blair Yang, Ashton Anderson</p><p class="paper-links">
+<a class="paper-link" href="https://github.com/CSSLab/SEAM" rel="noopener noreferrer" target="_blank"> Code</a>
+<a class="paper-link" href="https://huggingface.co/datasets/lilvjosephtang/SEAM-Benchmark" rel="noopener noreferrer" target="_blank"> Dataset</a>
+<a class="paper-link" href="https://lilv98.github.io/SEAM-Website/" rel="noopener noreferrer" target="_blank"> Webpage</a>
+</p></header>
+<p class="paper-description">SEAM tests whether vision-language models reason consistently over semantically equivalent text and images in four domains.</p></div>
+</article>
+<article class="publication" id="paper-7"><figure class="paper-visual"><a aria-label="Enlarge Figure 1 from spin" class="figure-preview" data-figure-title="SPIN · Figure 1" href="images/figures/spin-figure1.svg"><img alt="Figure 1: A final-layer classifier compared with SPIN, which sparsifies and integrates neurons from intermediate layers." decoding="async" height="346" loading="lazy" src="images/figures/spin-figure1.svg" width="850"/></a></figure>
+<div class="paper-copy"><header class="paper-heading"><div class="venue">ACL 2024 Findings</div><h3 class="paper-title"><a href="https://arxiv.org/pdf/2311.15983">SPIN: Sparsifying and Integrating Internal Neurons in Large Language Models for Text Classification</a></h3><p class="authors"><strong>Difan Jiao</strong>, Yilun Liu*, Zhenwei Tang, Daniel Matter, Jürgen Pfeffer, Ashton Anderson</p><p class="paper-links">
+<a class="paper-link" href="https://github.com/difanj0713/SPIN" rel="noopener noreferrer" target="_blank"> Code</a>
+<a class="paper-link" href="https://liuyilun2000.github.io/spin-visualization/" rel="noopener noreferrer" target="_blank"> Webpage</a>
+</p></header>
+<p class="paper-description">SPIN classifies text by selecting and combining neurons across a frozen language model’s layers.</p></div>
+</article>
+<article class="publication" id="paper-8"><figure class="paper-visual"><a aria-label="Enlarge Figure 1 from maia2" class="figure-preview" data-figure-title="Maia-2 · Figure 1" href="images/figures/maia2-figure1.png"><img alt="Figure 1: The Maia-2 model architecture, with skill embeddings and skill-aware attention." decoding="async" height="299" loading="lazy" src="images/figures/maia2-figure1.png" width="926"/></a></figure>
+<div class="paper-copy"><header class="paper-heading"><div class="venue">NeurIPS 2024</div><h3 class="paper-title"><a href="https://arxiv.org/pdf/2409.20553">Maia-2: A Unified Model for Human-AI Alignment in Chess</a></h3><p class="authors">Zhenwei Tang, <strong>Difan Jiao</strong>, Reid McIlroy-Young, Jon Kleinberg, Siddhartha Sen, Ashton Anderson</p><p class="paper-links">
+<a class="paper-link" href="https://github.com/CSSLab/maia2" rel="noopener noreferrer" target="_blank"> Code</a>
+</p></header>
+<p class="paper-description">Maia-2 uses a single skill-conditioned model to predict human chess moves across player ratings.</p></div>
+</article>
 
-                <section id="news">
-                    <h2>News <span aria-hidden="true">🎉</span></h2>
-                    <ul class="news-list">
-                        <li>We are excited to share <a href="spin-universe/" class="spiniverse-news-link">Readout</a>, our research program on reading signals inside AI models across multiple tasks.</li>
-                    </ul>
-                </section>
-
-                <section id="publications">
-                    <h2>Publications</h2>
-
-                    <div class="publication">
-                        <div class="publication-wrapper">
-                            <div class="publication-poster">
-                                <a href="https://arxiv.org/abs/2604.18519" target="_blank" class="paper-thumbnail-link">
-                                    <img src="images/siren-thumbnail.png" alt="SIREN paper thumbnail" class="paper-thumbnail">
-                                </a>
-                            </div>
-                            <div class="publication-info">
-                                <h3>[ACL 2026] <a href="https://arxiv.org/abs/2604.18519">LLM Safety From Within: Detecting Harmful Content with Internal Representations</a></h3>
-                                <p class="authors"><strong>Difan Jiao</strong>, Yilun Liu, Ye Yuan, Zhenwei Tang, Linfeng Du, Haolun Wu, Ashton Anderson</p>
-                                <p class="paper-links">
-                                    <a href="https://github.com/CSSLab/SIREN" target="_blank" class="paper-link"><i class="fab fa-github"></i> Code</a>
-                                    <a href="https://huggingface.co/UofTCSSLab/SIREN-Qwen3-4B" target="_blank" class="paper-link"><span class="hf-icon">🤗</span> siren-qwen3-4b</a>
-                                </p>
-                                <p class="abstract-short">
-                                    Guard models are widely used to detect harmful content in user prompts and LLM responses. However, state-of-the-art guard models rely solely on terminal-layer representations and overlook the rich safety-relevant features distributed across internal layers...
-                                    <a href="#" class="read-more" data-publication-id="siren">Read more</a>
-                                </p>
-                                <div class="abstract-full" id="siren-abstract" style="display: none;">
-                                    Guard models are widely used to detect harmful content in user prompts and LLM responses. However, state-of-the-art guard models rely solely on terminal-layer representations and overlook the rich safety-relevant features distributed across internal layers. We present SIREN, a lightweight guard model that harnesses these internal features. By identifying safety neurons via linear probing and combining them through an adaptive layer-weighted strategy, SIREN builds a harmfulness detector from LLM internals without modifying the underlying model. Our comprehensive evaluation shows that SIREN substantially outperforms state-of-the-art open-source guard models across multiple benchmarks while using 250&times; fewer trainable parameters. Moreover, SIREN exhibits superior generalization to unseen benchmarks, naturally enables real-time streaming detection, and significantly improves inference efficiency compared to generative guard models. Overall, our results highlight LLM internal states as a promising foundation for practical, high-performance harmfulness detection.
-                                    <a href="#" class="read-less" data-publication-id="siren">Read less</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="publication">
-                        <div class="publication-wrapper">
-                            <div class="publication-poster">
-                                <a href="https://arxiv.org/pdf/2604.01591" target="_blank" class="paper-thumbnail-link">
-                                    <img src="images/thinktwice-thumbnail.png" alt="ThinkTwice paper thumbnail" class="paper-thumbnail">
-                                </a>
-                            </div>
-                            <div class="publication-info">
-                                <h3>[Under Review] <a href="https://arxiv.org/pdf/2604.01591">ThinkTwice: Jointly Optimizing Large Language Models for Reasoning and Self-Refinement</a></h3>
-                                <p class="authors"><strong>Difan Jiao</strong>, Qianfeng Wen*, Blair Yang, Zhenwei Tang, Ashton Anderson</p>
-                                <p class="paper-links">
-                                    <a href="https://github.com/CSSLab/ThinkTwice" target="_blank" class="paper-link"><i class="fab fa-github"></i> Code</a>
-                                    <a href="https://huggingface.co/difanjiao/ThinkTwice-Qwen3-4B-Instruct" target="_blank" class="paper-link"><span class="hf-icon">🤗</span> ThinkTwice-Qwen3-4B</a>
-                                </p>
-                                <p class="abstract-short">
-                                    We introduce ThinkTwice, a simple two-phase framework that jointly optimizes LLMs to solve reasoning problems and refine the answers, based on Group Relative Policy Optimization (GRPO)...
-                                    <a href="#" class="read-more" data-publication-id="thinktwice">Read more</a>
-                                </p>
-                                <div class="abstract-full" id="thinktwice-abstract" style="display: none;">
-                                    We introduce ThinkTwice, a simple two-phase framework that jointly optimizes LLMs to solve reasoning problems and refine the answers, based on Group Relative Policy Optimization (GRPO). In each pair of training steps, ThinkTwice first optimizes the model on solving reasoning problems, then optimizes it on refining its own solutions to the same problems, using the same binary correctness reward in both phases without correctness signals or critique annotations. Across five mathematical reasoning benchmarks and two model families including Qwen3-4B and Olmo3-7B, ThinkTwice substantially improves both reasoning and refinement performance over competitive online policy optimization baselines. Specifically, on Qwen3-4B, ThinkTwice outperforms GRPO on AIME by 5 percentage points before refinement and by 11.5 points after one self-refinement step, measured by pass@4. Analysis of the training dynamics of ThinkTwice reveals an implicit rectify-then-fortify curriculum: refinement predominantly corrects errors early in training and naturally shifts toward preserving already-correct solutions as the model improves, yielding a more rectified reward signal. Our work establishes joint training of reasoning and self-refinement as a principled and effective methodology for RLVR.
-                                    <a href="#" class="read-less" data-publication-id="thinktwice">Read less</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="publication">
-                        <div class="publication-wrapper">
-                            <div class="publication-poster">
-                                <a href="https://arxiv.org/pdf/2606.28166" target="_blank" class="paper-thumbnail-link">
-                                    <img src="images/tandem-thumbnail.png" alt="Tandem Reinforcement Learning paper thumbnail" class="paper-thumbnail">
-                                </a>
-                            </div>
-                            <div class="publication-info">
-                                <h3>[Under Review] <a href="https://arxiv.org/pdf/2606.28166">Tandem Reinforcement Learning with Verifiable Rewards</a></h3>
-                                <p class="authors"><strong>Difan Jiao</strong>, Raghav Singhal, Robert West, Ashton Anderson</p>
-                                <p class="paper-links">
-                                    <a href="https://arxiv.org/abs/2606.28166" target="_blank" class="paper-link"><i class="fas fa-file-pdf"></i> Paper</a>
-                                </p>
-                                <p class="abstract-short">
-                                    Tandem Reinforcement Learning (TRL) trains a stronger model to reason in ways a frozen, weaker model can follow. The two models alternate while generating RLVR rollouts and receive a shared reward...
-                                    <a href="#" class="read-more" data-publication-id="tandem">Read more</a>
-                                </p>
-                                <div class="abstract-full" id="tandem-abstract" style="display: none;">
-                                    Reinforcement learning with verifiable rewards can strengthen a model while shifting its reasoning away from patterns that weaker agents or humans can readily follow. Tandem Reinforcement Learning trains a stronger senior together with a frozen, weaker junior: the models alternate stochastically while producing each rollout, share the final reward, and update only the senior using the standard GRPO objective. On competition mathematics with Qwen3-4B-Instruct, TRL matches vanilla GRPO in the senior model's solo reasoning performance while improving handoff robustness with the junior, reducing distributional drift from the junior, and producing reasoning the junior can use more effectively. These results extend tandem training to modern long-chain RLVR and suggest practical benefits for communication between models of different capabilities and for human-compatible reasoning.
-                                    <a href="#" class="read-less" data-publication-id="tandem">Read less</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="publication">
-                        <div class="publication-wrapper">
-                            <div class="publication-poster">
-                                <a href="https://arxiv.org/abs/2603.04464" target="_blank" class="paper-thumbnail-link">
-                                    <img src="images/icl-thumbnail.png" alt="ICL Demo Conflict paper thumbnail" class="paper-thumbnail">
-                                </a>
-                            </div>
-                            <div class="publication-info">
-                                <h3>[Under Review] <a href="https://arxiv.org/abs/2603.04464">Understanding the Dynamics of Demonstration Conflict in In-Context Learning</a></h3>
-                                <p class="authors"><strong>Difan Jiao</strong>, Di Wang, Lijie Hu</p>
-                                <p class="paper-links">
-                                    <a href="https://github.com/difanj0713/Understanding-ICL-Demo-Conflict" target="_blank" class="paper-link"><i class="fab fa-github"></i> Code</a>
-                                </p>
-                                <p class="abstract-short">
-                                    In-context learning enables large language models to perform novel tasks through few-shot demonstrations. However, demonstrations per se can naturally contain noise and conflicting examples, making this capability vulnerable...
-                                    <a href="#" class="read-more" data-publication-id="icl">Read more</a>
-                                </p>
-                                <div class="abstract-full" id="icl-abstract" style="display: none;">
-                                    In-context learning enables large language models to perform novel tasks through few-shot demonstrations. However, demonstrations per se can naturally contain noise and conflicting examples, making this capability vulnerable. To understand how models process such conflicts, we study demonstration-dependent tasks requiring models to infer underlying patterns, a process we characterize as rule inference. We find that models suffer substantial performance degradation from a single demonstration with corrupted rule. This systematic misleading behavior motivates our investigation of how models process conflicting evidence internally. Using linear probes and logit lens analysis, we discover that under corruption models encode both correct and incorrect rules in intermediate layers but develop prediction confidence only in late layers, revealing a two-phase computational structure. We then identify attention heads for each phase underlying the reasoning failures: Vulnerability Heads in early-to-middle layers exhibit positional attention bias with high sensitivity to corruption, while Susceptible Heads in late layers significantly reduce support for correct predictions when exposed to the corrupted evidence. Targeted ablation validates our findings, with masking a small number of identified heads improving performance by over 10%.
-                                    <a href="#" class="read-less" data-publication-id="icl">Read less</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="publication">
-                        <div class="publication-wrapper">
-                            <div class="publication-poster">
-                                <a href="https://openreview.net/pdf?id=iw4kjcw319" target="_blank" class="paper-thumbnail-link">
-                                    <img src="images/maia4all-thumbnail.png" alt="Maia4All paper thumbnail" class="paper-thumbnail">
-                                </a>
-                            </div>
-                            <div class="publication-info">
-                                <h3>[TMLR 2026] <a href="https://openreview.net/pdf?id=iw4kjcw319">Learning to Imitate with Less: Efficient Individual Behavior Modeling in Chess</a></h3>
-                                <p class="authors">Zhenwei Tang, <strong>Difan Jiao</strong>, Eric Xue, Reid McIlroy-Young, Jon Kleinberg, Siddhartha Sen, Ashton Anderson</p>
-                                <p class="paper-links">
-                                    <a href="https://github.com/CSSLab/maia4all" target="_blank" class="paper-link"><i class="fab fa-github"></i> Code</a>
-                                </p>
-                                <p class="abstract-short">
-                                    As humans seek to collaborate with, learn from, and better understand artificial intelligence systems, developing AIs that can accurately emulate individual decision-making becomes increasingly important...
-                                    <a href="#" class="read-more" data-publication-id="imitate">Read more</a>
-                                </p>
-                                <div class="abstract-full" id="imitate-abstract" style="display: none;">
-                                    As humans seek to collaborate with, learn from, and better understand artificial intelligence systems, developing AIs that can accurately emulate individual decision-making becomes increasingly important. Chess, a long-standing AI benchmark with precise skill measurement, offers an ideal testbed for human-AI alignment. However, existing approaches to modeling human behavior require prohibitively large amounts of data from each individual, making them impractical for new or sparsely represented users. In this work, we introduce Maia4All, a framework designed to learn and adapt to individual decision-making styles efficiently, even with limited data. Maia4All achieves this through a two-stage optimization process: (1) an <em>enrichment</em> step, which bridges population and individual-level human behavior modeling with a prototype-enriched model, and (2) a <em>democratization</em> step, which leverages ability levels or user prototypes to initialize and refine individual embeddings with minimal data. Our experimental results show that Maia4All can accurately predict individual moves and profile behavioral patterns with high fidelity, establishing a new standard for personalized human-like AI behavior modeling in chess. Maia4All achieves individual human behavior modeling in chess with only 20 games, compared to the 5,000 games required previously, representing a significant improvement in data efficiency. Our work provides an example of how population AI systems can flexibly adapt to individual users using a prototype-enriched model as a bridge. This approach extends beyond chess, as shown in our case study on idiosyncratic LLMs, highlighting its potential for broader applications in personalized AI adaptation.
-                                    <a href="#" class="read-less" data-publication-id="imitate">Read less</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="publication">
-                        <div class="publication-wrapper">
-                            <div class="publication-poster">
-                                <a href="https://sites.google.com/view/csslab-seam/home" target="_blank" class="paper-thumbnail-link">
-                                    <img src="images/seam-thumbnail.png" alt="SEAM paper thumbnail" class="paper-thumbnail">
-                                </a>
-                            </div>
-                            <div class="publication-info">
-                                <h3>[COLM 2025] <a href="https://sites.google.com/view/csslab-seam/home" target="_blank">SEAM: Semantically Equivalent Across Modalities Benchmark for Vision-Language Models</a></h3>
-                                <p class="authors">Zhenwei Tang, <strong>Difan Jiao</strong>, Blair Yang, Ashton Anderson</p>
-                                <p class="paper-links">
-                                    <a href="https://github.com/CSSLab/SEAM" target="_blank" class="paper-link"><i class="fab fa-github"></i> Code</a>
-                                    <a href="https://huggingface.co/datasets/lilvjosephtang/SEAM-Benchmark" target="_blank" class="paper-link"><span class="hf-icon">🤗</span> Dataset</a>
-                                    <a href="https://lilv98.github.io/SEAM-Website/" target="_blank" class="paper-link"><i class="fas fa-globe"></i> Webpage</a>
-                                </p>
-                                <p class="abstract-short">
-                                    The rapid advancement of large vision-language models (VLMs) has introduced challenges in evaluating their reasoning across multiple modalities...
-                                    <a href="#" class="read-more" data-publication-id="seam">Read more</a>
-                                </p>
-                                <div class="abstract-full" id="seam-abstract" style="display: none;">
-                                    The rapid advancement of large vision-language models (VLMs) has introduced challenges in evaluating their reasoning across multiple modalities. Existing benchmarks provide limited insights into how models understand and reason over semantically equivalent information across modalities, which is crucial because a robust model should demonstrate consistent comprehension regardless of how information is represented. To address this gap, we introduce SEAM, a benchmark dataset for cross-modal reasoning that ensures semantically equivalent inputs are presented in distinct and standardized notations. By employing fundamentally distinct notation systems across modalities, in contrast to OCR-based image-text pairing, our benchmark provides a rigorous assessment of the textual-symbolic versus visual-spatial reasoning capabilities of VLMs.
-                                    <a href="#" class="read-less" data-publication-id="seam">Read less</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="publication">
-                        <div class="publication-wrapper">
-                            <div class="publication-poster">
-                                <a href="https://arxiv.org/abs/2311.15983" target="_blank" class="paper-thumbnail-link">
-                                    <img src="images/spin-thumbnail.png" alt="SPIN paper thumbnail" class="paper-thumbnail">
-                                </a>
-                            </div>
-                            <div class="publication-info">
-                                <h3>[ACL 2024 Findings] <a href="https://arxiv.org/pdf/2311.15983">SPIN: Sparsifying and Integrating Internal Neurons in Large Language Models for Text Classification</a></h3>
-                                <p class="authors"><strong>Difan Jiao</strong>, Yilun Liu*, Zhenwei Tang, Daniel Matter, Jürgen Pfeffer, Ashton Anderson</p>
-                                <p class="paper-links">
-                                    <a href="https://github.com/difanj0713/SPIN" target="_blank" class="paper-link"><i class="fab fa-github"></i> Code</a>
-                                    <a href="https://liuyilun2000.github.io/spin-visualization/" target="_blank" class="paper-link"><i class="fas fa-globe"></i> Webpage</a>
-                                </p>
-                                <p class="abstract-short">
-                                    Among the many tasks that Large Language Models (LLMs) have revolutionized is text classification. Current text classification paradigms, however, rely solely on the output of the final layer in the LLM...
-                                    <a href="#" class="read-more" data-publication-id="spin">Read more</a>
-                                </p>
-                                <div class="abstract-full" id="spin-abstract" style="display: none;">
-                                    Among the many tasks that Large Language Models (LLMs) have revolutionized is text classification. Current text classification paradigms, however, rely solely on the output of the final layer in the LLM, with the rich information contained in internal neurons largely untapped. In this study, we present SPIN: a model-agnostic framework that sparsifies and integrates internal neurons of intermediate layers of LLMs for text classification. Specifically, SPIN sparsifies internal neurons by linear probing-based salient neuron selection layer by layer, avoiding noise from unrelated neurons and ensuring efficiency. The cross-layer salient neurons are then integrated to serve as multi-layered features for the classification head. Extensive experimental results show our proposed SPIN significantly improves text classification accuracy, efficiency, and interpretability.
-                                    <a href="#" class="read-less" data-publication-id="spin">Read less</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    
-                    <div class="publication">
-                        <div class="publication-wrapper">
-                            <div class="publication-poster">
-                                <a href="https://arxiv.org/abs/2409.20553" target="_blank" class="paper-thumbnail-link">
-                                    <img src="images/maia2-thumbnail.png" alt="Maia-2 paper thumbnail" class="paper-thumbnail">
-                                </a>
-                            </div>
-                            <div class="publication-info">
-                                <h3>[NeurIPS 2024] <a href="https://arxiv.org/pdf/2409.20553">Maia-2: A Unified Model for Human-AI Alignment in Chess</a></h3>
-                                <p class="authors">Zhenwei Tang, <strong>Difan Jiao</strong>, Reid McIlroy-Young, Jon Kleinberg, Siddhartha Sen, Ashton Anderson</p>
-                                <p class="paper-links">
-                                    <a href="https://github.com/CSSLab/maia2" target="_blank" class="paper-link"><i class="fab fa-github"></i> Code</a>
-                                </p>
-                                <p class="abstract-short">
-                                    There are an increasing number of domains in which artificial intelligence (AI) systems both surpass human ability and accurately model human behavior...
-                                    <a href="#" class="read-more" data-publication-id="maia2">Read more</a>
-                                </p>
-                                <div class="abstract-full" id="maia2-abstract" style="display: none;">
-                                    There are an increasing number of domains in which artificial intelligence (AI) systems both surpass human ability and accurately model human behavior. This introduces the possibility of algorithmically-informed teaching in these domains through more relatable AI partners and deeper insights into human decision-making. Critical to achieving this goal, however, is coherently modeling human behavior at various skill levels. Chess is an ideal model system for conducting research into this kind of human-AI alignment, with its rich history as a pivotal testbed for AI research, mature superhuman AI systems like AlphaZero, and precise measurements of skill via chess rating systems.
-                                    <a href="#" class="read-less" data-publication-id="maia2">Read less</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
-                    <div class="publication">
-                        <h3>[Under Review] Understanding Mechanisms of Skill Adaptation in Transformers: Chess as a Model System</h3>
-                        <p class="authors"><strong>Difan Jiao</strong>, George Eilender, Zhenwei Tang, Ashton Anderson</p>
-                        <p class="abstract-short">
-                            Generative models can adapt their outputs to different skill levels, yet the mechanism underlying this adaptation remains unexplored. We address this gap using chess as a model system, leveraging its well-defined decision space, precise skill metrics, and formally measurable strategic concepts...
-                            <a href="#" class="read-more" data-publication-id="skill">Read more</a>
-                        </p>
-                        <div class="abstract-full" id="skill-abstract" style="display: none;">
-                            Generative models can adapt their outputs to different skill levels, yet the mechanism underlying this adaptation remains unexplored. We address this gap using chess as a model system, leveraging its well-defined decision space, precise skill metrics, and formally measurable strategic concepts. Taking Maia-2, a unified chess transformer that generates human-like moves calibrated to a wide skill spectrum, we formalize two competing hypotheses: the model dynamically adjusts its internal <em>knowledge acquisition</em> of chess concepts across skill levels, or it maintains consistent internal knowledge acquisition while varying its <em>knowledge externalization</em> for move predictions. Linear probes on 173 chess concepts reveal a nearly constant level of internal knowledge acquisition across all conditioning skill levels, in sharp contrast to the large gap in move prediction quality, directly refuting the first hypothesis. We then validate the second by modulating knowledge externalization on our curated Blundered Transitional Dataset: fine-tuning only the policy head, just 8.2% of model parameters, with the entire backbone frozen, almost perfectly bridges the skill gap from beginner to advanced play. Sparse Autoencoder feature steering provides complementary evidence, independently improving lower-skill move predictions while leaving knowledge acquisition level unchanged as verified by probes. Post-hoc transfer analyses further confirm that the externalization modulation is concept-specific rather than generic. Our findings indicate that skill-adaptive transformers maintain consistent knowledge acquisition across all skill levels and adapt by selectively gating what they externalize, carrying implications for both pedagogical applications and AI oversight.
-                            <a href="#" class="read-less" data-publication-id="skill">Read less</a>
-                        </div>
-                    </div>
-
-                </section>
-            </div>
-        </div>
-    </main>
-
-    <footer>
-        <div class="container">
-            <p>&copy; 2025 Difan Jiao</p>
-        </div>
-    </footer>
-
-    <!-- Modal for PDF display -->
-    <div id="pdfModal" class="modal">
-        <span class="close" onclick="closePDFModal()">&times;</span>
-        <div class="pdf-container">
-            <object id="modalPDFObject" class="modal-pdf-content" type="application/pdf"></object>
-        </div>
-    </div>
-
-    <script src="js/main.js"></script>
-</body>
+</section>
+<footer>© 2025 Difan Jiao</footer>
+</main>
+</div>
+<script defer="" src="js/research.js?v=5"></script>
+<dialog aria-labelledby="figure-dialog-title" class="figure-dialog" id="figure-dialog">
+<div class="figure-dialog-toolbar"><h2 id="figure-dialog-title">Figure 1</h2><button aria-label="Close enlarged figure" class="figure-dialog-close" type="button">×</button></div>
+<img alt="" class="figure-dialog-image"/>
+</dialog></body>
 </html>
